@@ -59,4 +59,4 @@ if __name__ == '__main__':
         for c in instance.customers:
             print(f"  Supply ratio to customer {c}: {value(instance.x[p, c])}")
             
-# aaasda
+# aaa
