@@ -1,4 +1,9 @@
 from pyomo.environ import *
+import pandas as pd
+import os
+import random
+
+NUM_ITERATIONS = 1000
 
 # Define the model
 model = AbstractModel()
@@ -10,7 +15,7 @@ model.customers = Set()  # Set of customers
 # Define parameters
 model.setup_cost = Param(model.plants)  # Cost of setting up a plant at each location
 model.capacity = Param(model.plants)  # Capacity of each plant
-model.demand = Param(model.customers)  # Demand of each customer
+model.demand = Param(model.customers,mutable=True)  # Demand of each customer
 model.transport_cost = Param(model.plants, model.customers)  # Transport cost from plant to customer
 
 # Define variables
@@ -36,25 +41,59 @@ def capacity_constraint_rule(model, p):
 
 model.capacity_constraint = Constraint(model.plants, rule=capacity_constraint_rule)
 
-# Post-processing: display variable values
+
+# Post-processing: display variable values and save to CSV
 def pyomo_postprocess(options=None, instance=None, results=None):
-  model.x.display()
-  
+    model.x.display()
+    
+    # Prepare data for CSV
+    first_stage_decisions = [int(value(instance.y[p])) for p in instance.plants]
+    scenarios = [value(instance.demand[c]) for c in instance.customers]
+    
+    # Expected second stage value: Sum of transport_cost[p, c] * demand[c] * x[p, c] for all p, c
+    expected_second_stage_value = sum(
+        value(instance.transport_cost[p, c] * instance.demand[c] * instance.x[p, c])
+        for p in instance.plants for c in instance.customers
+    )
+    
+    # Combine all data into a single row
+    data = [first_stage_decisions, scenarios, expected_second_stage_value]
+    
+    # Create DataFrame
+    df = pd.DataFrame([data], columns=['first stage decision', 'scenario', 'expected second stage value'])
+    
+    # Check if the file exists to avoid writing headers multiple times
+    file_exists = os.path.isfile('optimization_results.csv')
+    
+    # Save to CSV (append if file exists, write header only if file does not exist)
+    df.to_csv('optimization_results.csv', mode='a', header=not file_exists, index=False)
+
+
+
 if __name__ == '__main__':
-    # Instantiate the model and solve the problem
-    instance = model.create_instance('data.dat')
-    opt = SolverFactory("glpk")
-    results = opt.solve(instance, tee=True)  # tee=True prints the solver log
-
-    # Display results and process output
-    results.write()
-    print("\nDisplaying Solution\n" + '-'*60)
-
-    # Display optimal cost and optimal values of variables
-    print("Optimal Cost:", value(instance.obj))
-
-    print("Optimal Solution:")
-    for p in instance.plants:
-        print(f"Install plant at location {p}: {int(value(instance.y[p]))}")
+    for _ in range(NUM_ITERATIONS):
+        # Instantiate the model and solve the problem
+        instance = model.create_instance('data.dat')
+        
+        # Modify demand with random values
         for c in instance.customers:
-            print(f"  Supply ratio to customer {c}: {value(instance.x[p, c])}")
+            instance.demand[c] = random.randint(50, 100)  # Random demand between 50 and 100
+        
+        opt = SolverFactory("glpk")
+        results = opt.solve(instance, tee=True)  # tee=True prints the solver log
+
+        # Display results and process output
+        results.write()
+        print("\nDisplaying Solution\n" + '-'*60)
+
+        # Display optimal cost and optimal values of variables
+        print("Optimal Cost:", value(instance.obj))
+
+        print("Optimal Solution:")
+        for p in instance.plants:
+            print(f"Install plant at location {p}: {int(value(instance.y[p]))}")
+            for c in instance.customers:
+                print(f"  Supply ratio to customer {c}: {value(instance.x[p, c])}")
+
+        # Post-process results
+        pyomo_postprocess(options=None, instance=instance, results=results)
