@@ -58,5 +58,3 @@ if __name__ == '__main__':
         print(f"Install plant at location {p}: {int(value(instance.y[p]))}")
         for c in instance.customers:
             print(f"  Supply ratio to customer {c}: {value(instance.x[p, c])}")
-            
-# aaa
