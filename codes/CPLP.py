@@ -91,7 +91,7 @@ if __name__ == '__main__':
             instance = model.create_instance(data_file)
             
             # Solve the problem.
-            solver = SolverFactory("glpk")
+            solver = SolverFactory("gurobi")
             results = solver.solve(instance, tee=False)
             
             first_stage_decisions = [value(instance.y[p]) for p in instance.P]

@@ -30,17 +30,13 @@ def Q(model, y_fixed, capcity, trans_cost, size):
     def sub_capacity_constraint_rule(model, p):
         return sum(model.d[c] * model.x[c,p] for c in model.C) <= capcity_value[p] * y_fixed_value[p] 
     model.capacity_constraint = Constraint(model.P, rule=sub_capacity_constraint_rule)
-    
-    cnt = 0 
-    
-        
+
     # For each scenario
     for data_file in data_files_sorted:
             # Create a model instance and load data.
             instance = model.create_instance(data_file)          
-            solver = SolverFactory('glpk')                 
+            solver = SolverFactory('gurobi')                 
             solver.solve(instance, tee=False)
-            cnt+=1
             print("second stage value: ",value(instance.obj))
             second_stage_value_lst.append(value(instance.obj))
 
