@@ -9,7 +9,7 @@ from func_Q import Q
 import re
 
 
-M = 2000
+M = 10000
 
 # Define the model
 model = AbstractModel()
@@ -33,7 +33,7 @@ model.y = Var(model.P, within=Binary)  # Binary variable indicating whether a pl
 # Define objective function: minimize setup and transport costs
 def objective_rule(model):
     return sum(model.f[p]*model.y[p] for p in model.P) + \
-           sum(model.t[c,p]*model.d[c]*model.x[c,p] for c in model.C for p in model.P) + M*sum((1-model.y[p]) for p in model.P)
+           sum(model.t[c,p]*model.x[c,p] for c in model.C for p in model.P)
 model.obj = Objective(rule=objective_rule, sense=minimize)
 
 

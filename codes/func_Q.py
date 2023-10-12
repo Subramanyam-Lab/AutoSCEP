@@ -13,7 +13,6 @@ def Q(model, y_fixed, capcity, trans_cost, size):
     data_files_sorted = sorted(data_files, key=lambda x: int(re.search(r'(\d+)', os.path.basename(x)).group(1)))
     second_stage_value_lst = []
     
-    
     y_fixed_value = {f'P{i}': y_fixed [i] for i in range(len(y_fixed))}
     capcity_value = {f'P{i}': capcity [i] for i in range(len(capcity))}
     trans_dict = {f'C{i}': {f'P{j}': trans_cost[i * facilities + j] for j in range(facilities)} for i in range(clients)}
@@ -24,7 +23,7 @@ def Q(model, y_fixed, capcity, trans_cost, size):
     model.demand_constraint = Constraint(model.C, rule=sub_demand_constraint_rule)
     
     def sub_objective_rule(model):
-        return sum(trans_dict[c][p] * model.x[c, p] for c in model.C for p in model.P)
+        return sum(trans_dict[c][p] * model.x[c, p] for c in model.C for p in model.P) 
     model.obj = Objective(rule=sub_objective_rule, sense=minimize)
 
     def sub_capacity_constraint_rule(model, p):
