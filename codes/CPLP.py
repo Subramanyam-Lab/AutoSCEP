@@ -94,7 +94,7 @@ if __name__ == '__main__':
             solver = SolverFactory("gurobi")
             results = solver.solve(instance, tee=False)
             
-            first_stage_decisions = [value(instance.y[p]) for p in instance.P]
+            first_stage_decisions = [int(value(instance.y[p])) for p in instance.P]
             print(first_stage_decisions)
             capacity = [value(instance.c[p]) for p in instance.P]
             transportation_cost = [value(instance.t[c,p]) for c in instance.C for p in instance.P]
