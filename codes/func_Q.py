@@ -35,7 +35,6 @@ def Q(model, y_fixed, capcity, trans_cost, size):
             instance = model.create_instance(data_file)          
             solver = SolverFactory('gurobi')                 
             solver.solve(instance, tee=False)
-            print("second stage value: ",value(instance.obj))
             second_stage_value_lst.append(value(instance.obj))
 
     return np.mean(second_stage_value_lst)
