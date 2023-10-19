@@ -8,7 +8,6 @@ from model_definition import define_model
 from func_Q import Q
 import re
 
-
 # Define the model
 model = AbstractModel()
 
@@ -79,6 +78,7 @@ if __name__ == '__main__':
         # Extract all file paths
         data_files = glob.glob(os.path.join(data_dir, "*.dat"))
         
+        
         # Sort files by the number in their name
         data_files_sorted = sorted(data_files, key=lambda x: int(re.search(r'(\d+)', os.path.basename(x)).group(1)))
         
@@ -89,7 +89,7 @@ if __name__ == '__main__':
             instance = model.create_instance(data_file)
             
             # Solve the problem.
-            solver = SolverFactory("gurobi")
+            solver = SolverFactory("glpk")
             results = solver.solve(instance, tee=False)
             
             first_stage_decisions = [int(value(instance.y[p])) for p in instance.P]
@@ -110,3 +110,4 @@ if __name__ == '__main__':
             
             # Post-process results.
             pyomo_postprocess(options=None, instance=instance, filename=result_filename,expected_second_stage_value= expected_second_stage_value, first_stage_decisions = first_stage_decisions)
+            

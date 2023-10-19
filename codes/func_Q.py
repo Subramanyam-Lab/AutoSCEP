@@ -33,7 +33,7 @@ def Q(model, y_fixed, capcity, trans_cost, size):
     for data_file in data_files_sorted:
             # Create a model instance and load data.
             instance = model.create_instance(data_file)          
-            solver = SolverFactory('gurobi')                 
+            solver = SolverFactory('glpk')                 
             solver.solve(instance, tee=False)
             second_stage_value_lst.append(value(instance.obj))
 
