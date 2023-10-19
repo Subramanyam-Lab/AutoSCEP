@@ -9,7 +9,6 @@ from func_Q import Q
 import re
 
 
-
 # Define the model
 model = AbstractModel()
 
