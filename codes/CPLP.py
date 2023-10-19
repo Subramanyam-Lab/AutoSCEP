@@ -72,7 +72,7 @@ def pyomo_postprocess(options=None, instance=None, filename='optimization_result
 if __name__ == '__main__':
     # Retrieve data files from different directories based on problem size.
     # problem_sizes = [(10, 10), (25, 25), (50, 50)]
-    problem_sizes = [(10, 10)]
+    problem_sizes = [(25, 25)]
     
     for size in problem_sizes:
         clients, facilities = size

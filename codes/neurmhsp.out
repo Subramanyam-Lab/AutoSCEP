@@ -1,300 +1,300 @@
-data_file:  data/CPLP_10_10/scenario_0.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 23103.878619211904
-data_file:  data/CPLP_10_10/scenario_1.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 8165.753488228085
-data_file:  data/CPLP_10_10/scenario_2.dat
-[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 1118.1498495958906
-data_file:  data/CPLP_10_10/scenario_3.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 348.76660143085377
-data_file:  data/CPLP_10_10/scenario_4.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-expected_second_stage_value: 53.90502900065989
-data_file:  data/CPLP_10_10/scenario_5.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 5573.823289549281
-data_file:  data/CPLP_10_10/scenario_6.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 46.15688043399791
-data_file:  data/CPLP_10_10/scenario_7.dat
-[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 120.3438529054393
-data_file:  data/CPLP_10_10/scenario_8.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 36.051665865118345
-data_file:  data/CPLP_10_10/scenario_9.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 62.712404395878046
-data_file:  data/CPLP_10_10/scenario_10.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 1518.1247489182285
-data_file:  data/CPLP_10_10/scenario_11.dat
-[0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 2749.9198205850275
-data_file:  data/CPLP_10_10/scenario_12.dat
-[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
-expected_second_stage_value: 1236.289888065829
-data_file:  data/CPLP_10_10/scenario_13.dat
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-expected_second_stage_value: 903.7404334393385
-data_file:  data/CPLP_10_10/scenario_14.dat
-[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 64.59464323260133
-data_file:  data/CPLP_10_10/scenario_15.dat
-[0, 0, 1, 0, 0, 0, 0, 0, 0, 1]
-expected_second_stage_value: 838.4581835932935
-data_file:  data/CPLP_10_10/scenario_16.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-expected_second_stage_value: 14725.791218471453
-data_file:  data/CPLP_10_10/scenario_17.dat
-[0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 53.71818897052987
-data_file:  data/CPLP_10_10/scenario_18.dat
-[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 680.5483207755661
-data_file:  data/CPLP_10_10/scenario_19.dat
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-expected_second_stage_value: 38.96357555017171
-data_file:  data/CPLP_10_10/scenario_20.dat
-[1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 516.990014241732
-data_file:  data/CPLP_10_10/scenario_21.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 212.48066112678873
-data_file:  data/CPLP_10_10/scenario_22.dat
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 3207.864657576158
-data_file:  data/CPLP_10_10/scenario_23.dat
-[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 4792.808301673347
-data_file:  data/CPLP_10_10/scenario_24.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 242.2876102854843
-data_file:  data/CPLP_10_10/scenario_25.dat
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 2032.764220163807
-data_file:  data/CPLP_10_10/scenario_26.dat
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-expected_second_stage_value: 13253.433616738997
-data_file:  data/CPLP_10_10/scenario_27.dat
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-expected_second_stage_value: 44.12887698896921
-data_file:  data/CPLP_10_10/scenario_28.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 10144.29264248531
-data_file:  data/CPLP_10_10/scenario_29.dat
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 72.07624072610804
-data_file:  data/CPLP_10_10/scenario_30.dat
-[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 20216.323422897756
-data_file:  data/CPLP_10_10/scenario_31.dat
-[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
-expected_second_stage_value: 3695.151132319608
-data_file:  data/CPLP_10_10/scenario_32.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
-expected_second_stage_value: 52.14216662940759
-data_file:  data/CPLP_10_10/scenario_33.dat
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-expected_second_stage_value: 42.13377088072941
-data_file:  data/CPLP_10_10/scenario_34.dat
-[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 60.059276228966276
-data_file:  data/CPLP_10_10/scenario_35.dat
-[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
-expected_second_stage_value: 8283.288667017587
-data_file:  data/CPLP_10_10/scenario_36.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
-expected_second_stage_value: 260.21138020474285
-data_file:  data/CPLP_10_10/scenario_37.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 1098.7722967856746
-data_file:  data/CPLP_10_10/scenario_38.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 12291.819310099916
-data_file:  data/CPLP_10_10/scenario_39.dat
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-expected_second_stage_value: 35.23421613061117
-data_file:  data/CPLP_10_10/scenario_40.dat
-[0, 1, 1, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 4019.2718687814036
-data_file:  data/CPLP_10_10/scenario_41.dat
-[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 16808.311245552777
-data_file:  data/CPLP_10_10/scenario_42.dat
-[0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 475.5347874022655
-data_file:  data/CPLP_10_10/scenario_43.dat
-[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 54.39301379561889
-data_file:  data/CPLP_10_10/scenario_44.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 1207.2263892129868
-data_file:  data/CPLP_10_10/scenario_45.dat
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 1738.5470519676774
-data_file:  data/CPLP_10_10/scenario_46.dat
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-expected_second_stage_value: 16940.361827047203
-data_file:  data/CPLP_10_10/scenario_47.dat
-[0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 51.36028250097837
-data_file:  data/CPLP_10_10/scenario_48.dat
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-expected_second_stage_value: 50.273303454676835
-data_file:  data/CPLP_10_10/scenario_49.dat
-[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 41.6792652002182
-data_file:  data/CPLP_10_10/scenario_50.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
-expected_second_stage_value: 1323.1144250892748
-data_file:  data/CPLP_10_10/scenario_51.dat
-[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 1096.854809825078
-data_file:  data/CPLP_10_10/scenario_52.dat
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 7420.239269280516
-data_file:  data/CPLP_10_10/scenario_53.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 12764.901672489645
-data_file:  data/CPLP_10_10/scenario_54.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
-expected_second_stage_value: 46.73142331282709
-data_file:  data/CPLP_10_10/scenario_55.dat
-[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 2488.895566978287
-data_file:  data/CPLP_10_10/scenario_56.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-expected_second_stage_value: 7321.80306700314
-data_file:  data/CPLP_10_10/scenario_57.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 2985.9752900372446
-data_file:  data/CPLP_10_10/scenario_58.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-expected_second_stage_value: 1806.0005590878077
-data_file:  data/CPLP_10_10/scenario_59.dat
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-expected_second_stage_value: 67.73081824269187
-data_file:  data/CPLP_10_10/scenario_60.dat
-[0, 0, 0, 1, 0, 0, 0, 0, 1, 0]
-expected_second_stage_value: 633.937144941241
-data_file:  data/CPLP_10_10/scenario_61.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 7182.19023777387
-data_file:  data/CPLP_10_10/scenario_62.dat
-[0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 927.6843895474333
-data_file:  data/CPLP_10_10/scenario_63.dat
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 11769.31839585558
-data_file:  data/CPLP_10_10/scenario_64.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
-expected_second_stage_value: 42.704174499945395
-data_file:  data/CPLP_10_10/scenario_65.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 1376.7529959402489
-data_file:  data/CPLP_10_10/scenario_66.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
-expected_second_stage_value: 254.36443396468502
-data_file:  data/CPLP_10_10/scenario_67.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-expected_second_stage_value: 53.44598819875943
-data_file:  data/CPLP_10_10/scenario_68.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-expected_second_stage_value: 20412.756722118083
-data_file:  data/CPLP_10_10/scenario_69.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
-expected_second_stage_value: 62.80236843675187
-data_file:  data/CPLP_10_10/scenario_70.dat
-[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
-expected_second_stage_value: 6485.6974958215715
-data_file:  data/CPLP_10_10/scenario_71.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-expected_second_stage_value: 11579.115496868775
-data_file:  data/CPLP_10_10/scenario_72.dat
-[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 8326.137613806273
-data_file:  data/CPLP_10_10/scenario_73.dat
-[0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 2273.317540012866
-data_file:  data/CPLP_10_10/scenario_74.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 80.49638612549712
-data_file:  data/CPLP_10_10/scenario_75.dat
-[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 13374.742085477403
-data_file:  data/CPLP_10_10/scenario_76.dat
-[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 2592.04723566386
-data_file:  data/CPLP_10_10/scenario_77.dat
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-expected_second_stage_value: 2959.8903661189747
-data_file:  data/CPLP_10_10/scenario_78.dat
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 957.5488312302809
-data_file:  data/CPLP_10_10/scenario_79.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-expected_second_stage_value: 62.19753513350115
-data_file:  data/CPLP_10_10/scenario_80.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 1071.1951612352386
-data_file:  data/CPLP_10_10/scenario_81.dat
-[0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
-expected_second_stage_value: 54.192092069800644
-data_file:  data/CPLP_10_10/scenario_82.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 327.52100897047916
-data_file:  data/CPLP_10_10/scenario_83.dat
-[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 56.62962276359404
-data_file:  data/CPLP_10_10/scenario_84.dat
-[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 58.20992894078787
-data_file:  data/CPLP_10_10/scenario_85.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 11385.69416331606
-data_file:  data/CPLP_10_10/scenario_86.dat
-[0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 1219.9435530710762
-data_file:  data/CPLP_10_10/scenario_87.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 4879.439450326753
-data_file:  data/CPLP_10_10/scenario_88.dat
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 191.3821042445284
-data_file:  data/CPLP_10_10/scenario_89.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 49.479691060446264
-data_file:  data/CPLP_10_10/scenario_90.dat
-[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 21167.666729287175
-data_file:  data/CPLP_10_10/scenario_91.dat
-[1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 5201.922156671852
-data_file:  data/CPLP_10_10/scenario_92.dat
-[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-expected_second_stage_value: 50.46331360557172
-data_file:  data/CPLP_10_10/scenario_93.dat
-[0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
-expected_second_stage_value: 4025.3985043261137
-data_file:  data/CPLP_10_10/scenario_94.dat
-[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
-expected_second_stage_value: 59.766845198903546
-data_file:  data/CPLP_10_10/scenario_95.dat
-[0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 4537.368168608813
-data_file:  data/CPLP_10_10/scenario_96.dat
-[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 2236.2517120656125
-data_file:  data/CPLP_10_10/scenario_97.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-expected_second_stage_value: 2935.639810950478
-data_file:  data/CPLP_10_10/scenario_98.dat
-[0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
-expected_second_stage_value: 59.304016277715284
-data_file:  data/CPLP_10_10/scenario_99.dat
-[0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-expected_second_stage_value: 5483.492529497968
+data_file:  data/CPLP_25_25/scenario_0.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 167082.54339669677
+data_file:  data/CPLP_25_25/scenario_1.dat
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 79988.8390146238
+data_file:  data/CPLP_25_25/scenario_2.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 108996.81214024208
+data_file:  data/CPLP_25_25/scenario_3.dat
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 23690.14421793366
+data_file:  data/CPLP_25_25/scenario_4.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1116.986657869798
+data_file:  data/CPLP_25_25/scenario_5.dat
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]
+expected_second_stage_value: 84320.0767590777
+data_file:  data/CPLP_25_25/scenario_6.dat
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+expected_second_stage_value: 226.47926458097598
+data_file:  data/CPLP_25_25/scenario_7.dat
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 16091.5557003086
+data_file:  data/CPLP_25_25/scenario_8.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 935.2793634674827
+data_file:  data/CPLP_25_25/scenario_9.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 856.7627130449515
+data_file:  data/CPLP_25_25/scenario_10.dat
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 7766.890377084659
+data_file:  data/CPLP_25_25/scenario_11.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29405.137638141707
+data_file:  data/CPLP_25_25/scenario_12.dat
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 90270.79582674737
+data_file:  data/CPLP_25_25/scenario_13.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 96860.32182652179
+data_file:  data/CPLP_25_25/scenario_14.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 2922.039026384513
+data_file:  data/CPLP_25_25/scenario_15.dat
+[0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 66843.56167711523
+data_file:  data/CPLP_25_25/scenario_16.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 21813.157904554293
+data_file:  data/CPLP_25_25/scenario_17.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 60588.761902823346
+data_file:  data/CPLP_25_25/scenario_18.dat
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 110.36617452422422
+data_file:  data/CPLP_25_25/scenario_19.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 1937.295370127464
+data_file:  data/CPLP_25_25/scenario_20.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 9462.438994408214
+data_file:  data/CPLP_25_25/scenario_21.dat
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 6826.497863398737
+data_file:  data/CPLP_25_25/scenario_22.dat
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 3717.7958770105447
+data_file:  data/CPLP_25_25/scenario_23.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 18476.89239915346
+data_file:  data/CPLP_25_25/scenario_24.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 72078.5085511216
+data_file:  data/CPLP_25_25/scenario_25.dat
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1]
+expected_second_stage_value: 85829.40400720209
+data_file:  data/CPLP_25_25/scenario_26.dat
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 72759.52027143509
+data_file:  data/CPLP_25_25/scenario_27.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+expected_second_stage_value: 19375.066418192764
+data_file:  data/CPLP_25_25/scenario_28.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 60656.359104441675
+data_file:  data/CPLP_25_25/scenario_29.dat
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 3286.8445696682834
+data_file:  data/CPLP_25_25/scenario_30.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 102060.48042721259
+data_file:  data/CPLP_25_25/scenario_31.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29923.966822383973
+data_file:  data/CPLP_25_25/scenario_32.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0]
+expected_second_stage_value: 26379.50373064653
+data_file:  data/CPLP_25_25/scenario_33.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 116880.5301957257
+data_file:  data/CPLP_25_25/scenario_34.dat
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 4959.362435701396
+data_file:  data/CPLP_25_25/scenario_35.dat
+[0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 3556.258840110744
+data_file:  data/CPLP_25_25/scenario_36.dat
+[0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 79685.16839978738
+data_file:  data/CPLP_25_25/scenario_37.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 330521.3140868745
+data_file:  data/CPLP_25_25/scenario_38.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 125017.32585646221
+data_file:  data/CPLP_25_25/scenario_39.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+expected_second_stage_value: 157.42316443042824
+data_file:  data/CPLP_25_25/scenario_40.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 117673.92630500432
+data_file:  data/CPLP_25_25/scenario_41.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 9815.55689421151
+data_file:  data/CPLP_25_25/scenario_42.dat
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 5448.496210109966
+data_file:  data/CPLP_25_25/scenario_43.dat
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 122.95069115689347
+data_file:  data/CPLP_25_25/scenario_44.dat
+[0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 33115.059201789976
+data_file:  data/CPLP_25_25/scenario_45.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0]
+expected_second_stage_value: 378075.0378143979
+data_file:  data/CPLP_25_25/scenario_46.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 7625.786804662394
+data_file:  data/CPLP_25_25/scenario_47.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 26284.301056211512
+data_file:  data/CPLP_25_25/scenario_48.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 15323.283932295746
+data_file:  data/CPLP_25_25/scenario_49.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 210069.8687139534
+data_file:  data/CPLP_25_25/scenario_50.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 139269.39369855297
+data_file:  data/CPLP_25_25/scenario_51.dat
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 53557.17409350477
+data_file:  data/CPLP_25_25/scenario_52.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 181776.03706570942
+data_file:  data/CPLP_25_25/scenario_53.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 27649.050034995038
+data_file:  data/CPLP_25_25/scenario_54.dat
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 57300.3460540182
+data_file:  data/CPLP_25_25/scenario_55.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 192723.80169726035
+data_file:  data/CPLP_25_25/scenario_56.dat
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 3576.193872520729
+data_file:  data/CPLP_25_25/scenario_57.dat
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 83292.97973266811
+data_file:  data/CPLP_25_25/scenario_58.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 12590.421973568256
+data_file:  data/CPLP_25_25/scenario_59.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 97827.99545948612
+data_file:  data/CPLP_25_25/scenario_60.dat
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 180986.4878947434
+data_file:  data/CPLP_25_25/scenario_61.dat
+[0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 7681.676771106153
+data_file:  data/CPLP_25_25/scenario_62.dat
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 2880.6025874543125
+data_file:  data/CPLP_25_25/scenario_63.dat
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 111.40321893872674
+data_file:  data/CPLP_25_25/scenario_64.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+expected_second_stage_value: 5669.950620332386
+data_file:  data/CPLP_25_25/scenario_65.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+expected_second_stage_value: 201370.35301718404
+data_file:  data/CPLP_25_25/scenario_66.dat
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 24021.107699695043
+data_file:  data/CPLP_25_25/scenario_67.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 82106.217922004
+data_file:  data/CPLP_25_25/scenario_68.dat
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 159804.87718172336
+data_file:  data/CPLP_25_25/scenario_69.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 197691.24097290856
+data_file:  data/CPLP_25_25/scenario_70.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
+expected_second_stage_value: 189366.3293586267
+data_file:  data/CPLP_25_25/scenario_71.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0]
+expected_second_stage_value: 6721.92971118293
+data_file:  data/CPLP_25_25/scenario_72.dat
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 39449.997130171425
+data_file:  data/CPLP_25_25/scenario_73.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 58023.18495113914
+data_file:  data/CPLP_25_25/scenario_74.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+expected_second_stage_value: 132.5466105670725
+data_file:  data/CPLP_25_25/scenario_75.dat
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+expected_second_stage_value: 36514.89981289061
+data_file:  data/CPLP_25_25/scenario_76.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 63330.01973919451
+data_file:  data/CPLP_25_25/scenario_77.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 45687.60269537518
+data_file:  data/CPLP_25_25/scenario_78.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 31700.50835504085
+data_file:  data/CPLP_25_25/scenario_79.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 127.00076852072226
+data_file:  data/CPLP_25_25/scenario_80.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 6105.264976311769
+data_file:  data/CPLP_25_25/scenario_81.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0]
+expected_second_stage_value: 48647.53824931249
+data_file:  data/CPLP_25_25/scenario_82.dat
+[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 60190.36848086176
+data_file:  data/CPLP_25_25/scenario_83.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 167.41452720738837
+data_file:  data/CPLP_25_25/scenario_84.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 46203.730603637385
+data_file:  data/CPLP_25_25/scenario_85.dat
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0]
+expected_second_stage_value: 121947.0819931416
+data_file:  data/CPLP_25_25/scenario_86.dat
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 253675.77710617456
+data_file:  data/CPLP_25_25/scenario_87.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 63609.976298020156
+data_file:  data/CPLP_25_25/scenario_88.dat
+[0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 4904.249601008473
+data_file:  data/CPLP_25_25/scenario_89.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 18233.332990557956
+data_file:  data/CPLP_25_25/scenario_90.dat
+[0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+expected_second_stage_value: 20615.28124035638
+data_file:  data/CPLP_25_25/scenario_91.dat
+[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 6054.441845474463
+data_file:  data/CPLP_25_25/scenario_92.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1]
+expected_second_stage_value: 18447.323705102965
+data_file:  data/CPLP_25_25/scenario_93.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 6372.5568646552365
+data_file:  data/CPLP_25_25/scenario_94.dat
+[1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 134.96433111728177
+data_file:  data/CPLP_25_25/scenario_95.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0]
+expected_second_stage_value: 30840.03304060071
+data_file:  data/CPLP_25_25/scenario_96.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 56489.24660742476
+data_file:  data/CPLP_25_25/scenario_97.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 218044.63877232102
+data_file:  data/CPLP_25_25/scenario_98.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 39559.91018500794
+data_file:  data/CPLP_25_25/scenario_99.dat
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+expected_second_stage_value: 145.57777235990025
