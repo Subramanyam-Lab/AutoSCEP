@@ -9,8 +9,6 @@ from func_Q import Q
 import re
 
 
-### 1019 commit ###
-
 # Define the model
 model = AbstractModel()
 
