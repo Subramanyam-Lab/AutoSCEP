@@ -8,7 +8,7 @@ import glob
 def euclidean_distance(p1, p2):
     return 10 * math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
 
-def generate_problem_data(size):
+def generate_problem_data(size,num_demand):
     clients, facilities = size
     client_points = [(random.uniform(0, 1), random.uniform(0, 1)) for _ in range(clients)]
     facility_points = [(random.uniform(0, 1), random.uniform(0, 1)) for _ in range(facilities)]
@@ -82,14 +82,14 @@ def save_problem_to_dat(problem_data, size, scenario_index):
 
 
 
-def generate_and_save_problem_data(size, scenario_index, scaling_ratios):
+def generate_and_save_problem_data(size, num_demand, scenario_index, scaling_ratios):
     clients, facilities = size
     directory = f"data/CPLP_{clients}_{facilities}/"
 
     if scenario_index == 0:
         clear_directory(directory)
     for ratio_index, ratio in enumerate(scaling_ratios):
-        problem_data = generate_problem_data(size)  # Move this line inside the loop
+        problem_data = generate_problem_data(size,num_demand)  # Move this line inside the loop
         scaled_problem_data = scale_problem_data((problem_data, ratio, scenario_index, [size]))
         save_problem_to_dat(scaled_problem_data, size, scenario_index * len(scaling_ratios) + ratio_index)
 
@@ -99,7 +99,8 @@ if __name__ == '__main__':
     num_sets = 20
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
     scaling_ratios = [1.5, 2, 3, 5, 10]
+    num_demand_set = 10^5
 
     for size_index, size in enumerate(problem_sizes):
         for scenario_index in range(num_sets):
-            generate_and_save_problem_data(size, scenario_index, scaling_ratios)
+            generate_and_save_problem_data(size, num_demand_set, scenario_index, scaling_ratios)

@@ -48,32 +48,30 @@ model.capacity_constraint = Constraint(model.P, rule=capacity_constraint_rule)
 
 # Post-processing: display variable values and save to CSV
 def pyomo_postprocess(options=None, instance=None, filename='optimization_results.csv',expected_second_stage_value=None,first_stage_decisions=None):
-    # instance.x.display()
-    # instance.y.display()
+    
+    if len(first_stage_decisions) != len(expected_second_stage_value):
+        raise ValueError("first_stage_decisions and expected_second_stage_value should have the same length")
 
-    # Prepare data for CSV
-    first_stage = first_stage_decisions
-    expected_second_stage_values = expected_second_stage_value
-    
-    # Combine all data into a single row
-    data = [first_stage, expected_second_stage_values]
-    
-    # Create DataFrame
-    df = pd.DataFrame([data], columns=['first stage decision', 'expected second stage value'])
-    
-    # Check if the file exists to avoid writing headers multiple times
+    df = pd.DataFrame({
+        'first stage decision': [str(decision) for decision in first_stage_decisions],
+        'expected second stage value': expected_second_stage_value
+    })
+
     file_exists = os.path.isfile(filename)
-    
-    # Save to CSV (append if file exists, write header only if file does not exist)
+
     df.to_csv(filename, mode='a', header=not file_exists, index=False)
 
+    
 
 if __name__ == '__main__':
     # Retrieve data files from different directories based on problem size.
-    # problem_sizes = [(10, 10), (25, 25), (50, 50)]
-    problem_sizes = [(25, 25)]
+    problem_sizes = [(10, 10), (25, 25), (50, 50)]
     
     for size in problem_sizes:
+        # Make dataframe for each problem size 
+        first_stage_decisions_lst = []
+        second_stage_value_lst = []
+        
         clients, facilities = size
         data_dir = f"data/CPLP_{clients}_{facilities}"
         
@@ -103,13 +101,13 @@ if __name__ == '__main__':
             expected_second_stage_value = Q(m, first_stage_decisions,capacity, transportation_cost, size)
             print("expected_second_stage_value:",expected_second_stage_value)
             
-            # Display or save the results.
-            # results.write()
-            # print("\nDisplaying Solution\n" + '-'*60)
+            first_stage_decisions_lst.append(first_stage_decisions)
+            second_stage_value_lst.append(expected_second_stage_value)
+             
             
-            problem_size = f"{clients}_{facilities}"  # Extracting the problem size from the folder name
-            result_filename = f"results_{problem_size}.csv"
+        problem_size = f"{clients}_{facilities}"  # Extracting the problem size from the folder name
+        result_filename = f"results_{problem_size}.csv"
             
-            # Post-process results.
-            pyomo_postprocess(options=None, instance=instance, filename=result_filename,expected_second_stage_value= expected_second_stage_value, first_stage_decisions = first_stage_decisions)
+        # Post-process results.
+        pyomo_postprocess(options=None, instance=instance, filename=result_filename,expected_second_stage_value= second_stage_value_lst, first_stage_decisions = first_stage_decisions_lst)
             
