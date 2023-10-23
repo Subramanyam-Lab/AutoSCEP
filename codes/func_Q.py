@@ -80,7 +80,6 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file):
             client = 'C{}'.format(idx)  # Convert 0, 1, ... to 'C0', 'C1', ...
             instance.demands[client] = demand_value
         
-        
         solver = SolverFactory('glpk')
         solver.solve(instance, tee=False)
         second_stage_value_lst.append(value(instance.obj))

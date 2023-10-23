@@ -104,7 +104,7 @@ if __name__ == '__main__':
     num_sets = 6
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
     scaling_ratios = [1.5, 2, 3, 5, 10]
-    num_demand_set = 10
+    num_demand_set = 10000
 
     for size_index, size in enumerate(problem_sizes):
         for scenario_index in range(num_sets):

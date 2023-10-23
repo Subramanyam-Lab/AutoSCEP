@@ -68,18 +68,16 @@ def pyomo_postprocess(options=None, instance=None, filename='optimization_result
 if __name__ == '__main__':
     # Retrieve data files from different directories based on problem size.
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
+    # problem_sizes = [(10, 10)]
+    num_iteration = 1000
     
     for size in problem_sizes:
         # Make dataframe for each problem size 
-        first_stage_decisions_lst = []
-        second_stage_value_lst = []
-        
         clients, facilities = size
         data_dir = f"data/CPLP_{clients}_{facilities}"
         
         # Extract all file paths
         data_files = glob.glob(os.path.join(data_dir, "*.dat"))
-        
         
         # Sort files by the number in their name
         data_files_sorted = sorted(data_files, key=lambda x: int(re.search(r'(\d+)', os.path.basename(x)).group(1)))
@@ -87,30 +85,36 @@ if __name__ == '__main__':
         for data_file in data_files_sorted:
             print("data_file: ", data_file)
             instance = model.create_instance(data_file)
-            demand_values = {c: random.uniform(5, 35) for c in instance.C}
-            for c in instance.C:
-                instance.demands[c] = demand_values[c]
-          
-            # Solve the problem.
-            solver = SolverFactory("glpk")
-            results = solver.solve(instance, tee=False)
+            first_stage_decisions_lst = []
+            second_stage_value_lst = []
             
-            first_stage_decisions = [int(value(instance.y[p])) for p in instance.P]
-            print(first_stage_decisions)
-            capacity = [value(instance.c[p]) for p in instance.P]
-            transportation_cost = [value(instance.t[c,p]) for c in instance.C for p in instance.P]
+            cnt = 0
+            problem_size = f"{clients}_{facilities}_{cnt}"  # Extracting the problem size from the folder name
+            result_filename = f"results_{problem_size}.csv"
             
-            m = define_model()
-            expected_second_stage_value = Q(m, first_stage_decisions,capacity, transportation_cost, size,data_file)
-            print("expected_second_stage_value:",expected_second_stage_value)
+            for i in range(num_iteration):
+                print("{} trial".format(i))
+                demand_values = {c: random.uniform(5, 35) for c in instance.C}
+                for c in instance.C:
+                    instance.demands[c] = demand_values[c]
+
+                # Solve the problem.
+                solver = SolverFactory("glpk")
+                results = solver.solve(instance, tee=False)
+                
+                first_stage_decisions = [int(value(instance.y[p])) for p in instance.P]
+                print(first_stage_decisions)
+                capacity = [value(instance.c[p]) for p in instance.P]
+                transportation_cost = [value(instance.t[c,p]) for c in instance.C for p in instance.P]
+                
+                m = define_model()
+                expected_second_stage_value = Q(m, first_stage_decisions,capacity, transportation_cost, size,data_file)
+                print("expected_second_stage_value:",expected_second_stage_value)
             
-            first_stage_decisions_lst.append(first_stage_decisions)
-            second_stage_value_lst.append(expected_second_stage_value)
-             
+                first_stage_decisions_lst.append(first_stage_decisions)
+                second_stage_value_lst.append(expected_second_stage_value)
             
-        problem_size = f"{clients}_{facilities}"  # Extracting the problem size from the folder name
-        result_filename = f"results_{problem_size}.csv"
-            
-        # Post-process results.
-        pyomo_postprocess(options=None, instance=instance, filename=result_filename,expected_second_stage_value= second_stage_value_lst, first_stage_decisions = first_stage_decisions_lst)
+            cnt +=1
+            # Post-process results.
+            pyomo_postprocess(options=None, instance=instance, filename=result_filename,expected_second_stage_value= second_stage_value_lst, first_stage_decisions = first_stage_decisions_lst)
             
