@@ -45,6 +45,7 @@
 from pyomo.environ import *
 import numpy as np
 
+
 def load_demand_from_dat(filename):
     with open(filename, 'r') as f:
         lines = f.readlines()
@@ -63,12 +64,12 @@ def load_demand_from_dat(filename):
             continue
         elif line.startswith(";"):
             if mode == "d":
-                break  # 세미콜론을 발견하면 'd' 모드를 종료합니다.
+                break 
 
         if mode == "d" and "demand_" in line:
             headers = line.split()
             for header in headers:
-                if header != ":=":  # 이 부분을 추가하여 ":="를 제외합니다.
+                if header != ":=":  
                     demands[header] = []
             continue
 
@@ -89,9 +90,11 @@ def load_demand_from_dat(filename):
 def Q(model, y_fixed, capcity, trans_cost, size, data_file):
     M = np.sum(trans_cost)
     clients, facilities = size
+    second_stage_value_lst = []
+
 
     y_fixed_value = {f'P{i}': y_fixed[i] for i in range(len(y_fixed))}
-    capcity_value = {f'P{i}': capcity[i] for i in range(len(capcity))}
+    capacity_value = {f'P{i}': capcity[i] for i in range(len(capcity))}
     trans_dict = {f'C{i}': {f'P{j}': trans_cost[i * facilities + j] for j in range(facilities)} for i in range(clients)}
     
     
@@ -106,34 +109,34 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file):
     model.demand_constraint = Constraint(model.C, rule=sub_demand_constraint_rule)
 
     def sub_capacity_constraint_rule(model, p):
-        return sum(model.demands[c] * model.x[c, p] for c in model.C) <= capcity_value[p] * y_fixed_value[p] + model.s[p]
+        return sum(model.demands[c] * model.x[c, p] for c in model.C) <= capacity_value[p] * y_fixed_value[p] + model.s[p]
 
     model.capacity_constraint = Constraint(model.P, rule=sub_capacity_constraint_rule)
 
     
-    demands = load_demand_from_dat(data_file)
-    print(demands)
-    exit(3)
+    load_demands = load_demand_from_dat(data_file)
     
     # Create a model instance
     instance = model.create_instance(data_file)
     
-    # List to store results for each demand scenario
-    second_stage_value_lst = []
-
-    # Demand scenario headers
+     # Demand scenario headers
     demand_headers = [f'demand_{i}' for i in range(clients)]
+    
 
+    # # Solve for each demand scenario
+    # for header in demand_headers:
+    #     # Set the demand for each client from the demand matrix
+    #     for client in model.C:
+    #         client_idx = int(client[1:])  # Convert 'C0', 'C1', ... to 0, 1, ...
+    #         instance.demands[client] = load_demands[header][client_idx]
     # Solve for each demand scenario
     for header in demand_headers:
-        # Set the demand for each client from the demand matrix
-        for client in model.C:
-            instance.demands[client] = getattr(instance, 'demands')[client, header]
-
+        for idx, demand_value in enumerate(load_demands[header]):
+            client = 'C{}'.format(idx)  # Convert 0, 1, ... to 'C0', 'C1', ...
+            instance.demands[client] = demand_value
         # Solve the model
         solver = SolverFactory('glpk')
         solver.solve(instance, tee=False)
-
         second_stage_value_lst.append(value(instance.obj))
 
     return np.mean(second_stage_value_lst)

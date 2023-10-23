@@ -19,7 +19,6 @@ model.C = Set()  # Set of customers
 # Define parameters
 model.f = Param(model.P, within=NonNegativeReals)  # Cost of setting up a plant at each location
 model.c = Param(model.P, within=NonNegativeReals)  # Capacity of each plant
-# model.d_gen = Param(model.C, within=NonNegativeReals)  # Demand of each customer
 model.demands = Param(model.C, mutable=True, within=NonNegativeReals)  # Demand of each customer
 model.t = Param(model.C, model.P, within=NonNegativeReals)  # Transport cost from plant to customer
 
@@ -50,6 +49,10 @@ def pyomo_postprocess(options=None, instance=None, filename='optimization_result
     
     if len(first_stage_decisions) != len(expected_second_stage_value):
         raise ValueError("first_stage_decisions and expected_second_stage_value should have the same length")
+    
+    # If the file exists, remove it to start fresh
+    if os.path.exists(filename):
+        os.remove(filename)
 
     df = pd.DataFrame({
         'first stage decision': [str(decision) for decision in first_stage_decisions],
@@ -64,8 +67,8 @@ def pyomo_postprocess(options=None, instance=None, filename='optimization_result
 
 if __name__ == '__main__':
     # Retrieve data files from different directories based on problem size.
-    # problem_sizes = [(10, 10), (25, 25), (50, 50)]
-    problem_sizes = [(25, 25)]
+    problem_sizes = [(10, 10), (25, 25), (50, 50)]
+    # problem_sizes = [(10, 10)]
     
     for size in problem_sizes:
         # Make dataframe for each problem size 
@@ -88,22 +91,7 @@ if __name__ == '__main__':
             demand_values = {c: random.uniform(5, 35) for c in instance.C}
             for c in instance.C:
                 instance.demands[c] = demand_values[c]
-            # 1. Create a new demand instance
-            # clients, facilities = size
-            # demands = [random.uniform(5, 35) for _ in range(clients)]
-            # print(demands)
-            
-            # # 2. Assign the newly created demand to the model instance
-            # instance = model.create_instance(data_file)
-            # for c_index, c in enumerate(instance.C):
-            #     instance.d_gen[c] = demands[c_index]
-                
-        # # For each scenario
-        # for data_file in data_files_sorted:
-        #     print("data_file: ",data_file)
-        #     # Create a model instance and load data.
-        #     instance = model.create_instance(data_file)
-            
+          
             # Solve the problem.
             solver = SolverFactory("glpk")
             results = solver.solve(instance, tee=False)
