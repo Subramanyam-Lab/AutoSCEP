@@ -13,7 +13,8 @@ def generate_problem_data(size,num_demand):
     client_points = [(random.uniform(0, 1), random.uniform(0, 1)) for _ in range(clients)]
     facility_points = [(random.uniform(0, 1), random.uniform(0, 1)) for _ in range(facilities)]
     transportation_costs = [[euclidean_distance(c, f) for f in facility_points] for c in client_points]
-    demands = [random.uniform(5, 35) for _ in range(clients)]
+    # demands = [random.uniform(5, 35) for _ in range(clients)]
+    demands = [[random.uniform(5, 35) for _ in range(clients)] for _ in range(num_demand)]
     capacities = [random.uniform(10, 160) for _ in range(facilities)]
     fixed_costs = [random.uniform(0, 90) + random.uniform(100, 110) * math.sqrt(s) for s in capacities]
     problem_data = {
@@ -50,7 +51,7 @@ def clear_directory(directory):
         # If the directory does not exist, create it
         os.makedirs(directory)
 
-def save_problem_to_dat(problem_data, size, scenario_index):
+def save_problem_to_dat(problem_data, size, scenario_index,num_demand):
     clients, facilities = size
     directory = f"data/CPLP_{clients}_{facilities}/"
     
@@ -66,9 +67,13 @@ def save_problem_to_dat(problem_data, size, scenario_index):
             f.write(f"    P{i} {fixed_cost} {capacity}\n")
         f.write(";\n\n")
         
-        f.write("param d :=\n")
-        for i, demand in enumerate(problem_data['demands']):
-            f.write(f"    C{i} {demand}\n")
+        
+        f.write("param d :\n")
+        for j in range(num_demand):  # num_demand is the number of demand scenarios
+            f.write(f" demand_{j}")  # This writes the demand scenario names
+        f.write(" :=\n")
+        for i in range(problem_data['clients']):
+            f.write(f"    C{i} {' '.join(map(str, [problem_data['demands'][k][i] for k in range(num_demand)]))}\n")
         f.write(";\n\n")
         
         
@@ -91,15 +96,15 @@ def generate_and_save_problem_data(size, num_demand, scenario_index, scaling_rat
     for ratio_index, ratio in enumerate(scaling_ratios):
         problem_data = generate_problem_data(size,num_demand)  # Move this line inside the loop
         scaled_problem_data = scale_problem_data((problem_data, ratio, scenario_index, [size]))
-        save_problem_to_dat(scaled_problem_data, size, scenario_index * len(scaling_ratios) + ratio_index)
+        save_problem_to_dat(scaled_problem_data, size, scenario_index * len(scaling_ratios) + ratio_index, num_demand)
 
 if __name__ == '__main__':
     random.seed(42)
     
-    num_sets = 20
+    num_sets = 6
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
     scaling_ratios = [1.5, 2, 3, 5, 10]
-    num_demand_set = 10^5
+    num_demand_set = 10
 
     for size_index, size in enumerate(problem_sizes):
         for scenario_index in range(num_sets):

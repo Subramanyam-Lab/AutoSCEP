@@ -7,8 +7,7 @@ import numpy as np
 from model_definition import define_model
 from func_Q import Q
 import re
-
-#### recommit3 ####
+import random
 
 # Define the model
 model = AbstractModel()
@@ -20,7 +19,8 @@ model.C = Set()  # Set of customers
 # Define parameters
 model.f = Param(model.P, within=NonNegativeReals)  # Cost of setting up a plant at each location
 model.c = Param(model.P, within=NonNegativeReals)  # Capacity of each plant
-model.d = Param(model.C, within=NonNegativeReals)  # Demand of each customer
+# model.d_gen = Param(model.C, within=NonNegativeReals)  # Demand of each customer
+model.demands = Param(model.C, mutable=True, within=NonNegativeReals)  # Demand of each customer
 model.t = Param(model.C, model.P, within=NonNegativeReals)  # Transport cost from plant to customer
 
 
@@ -35,14 +35,13 @@ def objective_rule(model):
            sum(model.t[c,p]*model.x[c,p] for c in model.C for p in model.P)
 model.obj = Objective(rule=objective_rule, sense=minimize)
 
-
 # Define constraints
 def demand_constraint_rule(model, c):
     return sum(model.x[c,p] for p in model.P) == 1  
 model.demand_constraint = Constraint(model.C, rule=demand_constraint_rule)
 
 def capacity_constraint_rule(model, p):
-    return sum(model.d[c] * model.x[c,p] for c in model.C) <= model.c[p] * model.y[p]
+    return sum(model.demands[c] * model.x[c,p] for c in model.C) <= model.c[p] * model.y[p]
 model.capacity_constraint = Constraint(model.P, rule=capacity_constraint_rule)
 
 
@@ -65,7 +64,8 @@ def pyomo_postprocess(options=None, instance=None, filename='optimization_result
 
 if __name__ == '__main__':
     # Retrieve data files from different directories based on problem size.
-    problem_sizes = [(10, 10), (25, 25), (50, 50)]
+    # problem_sizes = [(10, 10), (25, 25), (50, 50)]
+    problem_sizes = [(25, 25)]
     
     for size in problem_sizes:
         # Make dataframe for each problem size 
@@ -82,11 +82,27 @@ if __name__ == '__main__':
         # Sort files by the number in their name
         data_files_sorted = sorted(data_files, key=lambda x: int(re.search(r'(\d+)', os.path.basename(x)).group(1)))
         
-        # For each scenario
         for data_file in data_files_sorted:
-            print("data_file: ",data_file)
-            # Create a model instance and load data.
+            print("data_file: ", data_file)
             instance = model.create_instance(data_file)
+            demand_values = {c: random.uniform(5, 35) for c in instance.C}
+            for c in instance.C:
+                instance.demands[c] = demand_values[c]
+            # 1. Create a new demand instance
+            # clients, facilities = size
+            # demands = [random.uniform(5, 35) for _ in range(clients)]
+            # print(demands)
+            
+            # # 2. Assign the newly created demand to the model instance
+            # instance = model.create_instance(data_file)
+            # for c_index, c in enumerate(instance.C):
+            #     instance.d_gen[c] = demands[c_index]
+                
+        # # For each scenario
+        # for data_file in data_files_sorted:
+        #     print("data_file: ",data_file)
+        #     # Create a model instance and load data.
+        #     instance = model.create_instance(data_file)
             
             # Solve the problem.
             solver = SolverFactory("glpk")
@@ -98,7 +114,7 @@ if __name__ == '__main__':
             transportation_cost = [value(instance.t[c,p]) for c in instance.C for p in instance.P]
             
             m = define_model()
-            expected_second_stage_value = Q(m, first_stage_decisions,capacity, transportation_cost, size)
+            expected_second_stage_value = Q(m, first_stage_decisions,capacity, transportation_cost, size,data_file)
             print("expected_second_stage_value:",expected_second_stage_value)
             
             first_stage_decisions_lst.append(first_stage_decisions)
