@@ -78,13 +78,10 @@ def load_demand_from_dat(filename):
             values = [float(value) for value in parts[1:]]
 
             for header, value in zip(headers, values):
-                if header in demands:  # 추가된 조건
+                if header in demands:
                     demands[header].append(value)
 
     return demands
-
-
-
 
 
 def Q(model, y_fixed, capcity, trans_cost, size, data_file):
@@ -120,7 +117,7 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file):
     instance = model.create_instance(data_file)
     
      # Demand scenario headers
-    demand_headers = [f'demand_{i}' for i in range(clients)]
+    demand_headers = [f'demand_{i}' for i in range(len(load_demands))]
     
 
     # # Solve for each demand scenario
