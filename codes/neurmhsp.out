@@ -1,3 +1,2037 @@
 data_file:  data/CPLP_10_10/scenario_0.dat
 0 trial
-[0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+1 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+2 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+3 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+4 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+5 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+6 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+7 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+8 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+9 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+10 trial
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 88.80599007415013
+11 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+12 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+13 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+14 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+15 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+16 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+17 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+18 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+19 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+20 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+21 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+22 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+23 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+24 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+25 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+26 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+27 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+28 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+29 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+30 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+31 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+32 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+33 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+34 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+35 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+36 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+37 trial
+[1, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 39.017965598643464
+38 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+39 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+40 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+41 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+42 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+43 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+44 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+45 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+46 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+47 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+48 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+49 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+50 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+51 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+52 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+53 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+54 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+55 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+56 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+57 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+58 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+59 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+60 trial
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 88.80599007415013
+61 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+62 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+63 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+64 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+65 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+66 trial
+[1, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 39.017965598643464
+67 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+68 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+69 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+70 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+71 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+72 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+73 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+74 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+75 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+76 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+77 trial
+[1, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 39.017965598643464
+78 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+79 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+80 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+81 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+82 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+83 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+84 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+85 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+86 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+87 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+88 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+89 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+90 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+91 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+92 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+93 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+94 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+95 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+96 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+97 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+98 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+99 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+100 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+101 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+102 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+103 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+104 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+105 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+106 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+107 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+108 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+109 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+110 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+111 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+112 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+113 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+114 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+115 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+116 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+117 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+118 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+119 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+120 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+121 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+122 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+123 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+124 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+125 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+126 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+127 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+128 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+129 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+130 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+131 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+132 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+133 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+134 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+135 trial
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 88.80599007415013
+136 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+137 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+138 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+139 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+140 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+141 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+142 trial
+[1, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 39.017965598643464
+143 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+144 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+145 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+146 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+147 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+148 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+149 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+150 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+151 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+152 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+153 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+154 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+155 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+156 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+157 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+158 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+159 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+160 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+161 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+162 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+163 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+164 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+165 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+166 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+167 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+168 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+169 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+170 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+171 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+172 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+173 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+174 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+175 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+176 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+177 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+178 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+179 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+180 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+181 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+182 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+183 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+184 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+185 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+186 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+187 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+188 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+189 trial
+[1, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 39.017965598643464
+190 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+191 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+192 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+193 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+194 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+195 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+196 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+197 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+198 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+199 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+200 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+201 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+202 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+203 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+204 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+205 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+206 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+207 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+208 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+209 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+210 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+211 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+212 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+213 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+214 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+215 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+216 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+217 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+218 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+219 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+220 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+221 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+222 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+223 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+224 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+225 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+226 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+227 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+228 trial
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 88.80599007415013
+229 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+230 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+231 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+232 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+233 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+234 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+235 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+236 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+237 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+238 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+239 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+240 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+241 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+242 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+243 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+244 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+245 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+246 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+247 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+248 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+249 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+250 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+251 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+252 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+253 trial
+[0, 0, 0, 1, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 36.32578740501922
+254 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+255 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+256 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+257 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+258 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+259 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+260 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+261 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+262 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+263 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+264 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+265 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+266 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+267 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+268 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+269 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+270 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+271 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+272 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+273 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+274 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+275 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+276 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+277 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+278 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+279 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+280 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+281 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+282 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+283 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+284 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+285 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+286 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+287 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+288 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+289 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+290 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+291 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+292 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+293 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+294 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+295 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+296 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+297 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+298 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+299 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+300 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+301 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+302 trial
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 88.80599007415013
+303 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+304 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+305 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+306 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+307 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+308 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+309 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+310 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+311 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+312 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+313 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+314 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+315 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+316 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+317 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+318 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+319 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+320 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+321 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+322 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+323 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+324 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+325 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+326 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+327 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+328 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+329 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+330 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+331 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+332 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+333 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+334 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+335 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+336 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+337 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+338 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+339 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+340 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+341 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+342 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+343 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+344 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+345 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+346 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+347 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+348 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+349 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+350 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+351 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+352 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+353 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+354 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+355 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+356 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+357 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+358 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+359 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+360 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+361 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+362 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+363 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+364 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+365 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+366 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+367 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+368 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+369 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+370 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+371 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+372 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+373 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+374 trial
+[1, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 39.017965598643464
+375 trial
+[1, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 39.017965598643464
+376 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+377 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+378 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+379 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+380 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+381 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+382 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+383 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+384 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+385 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+386 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+387 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+388 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+389 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+390 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+391 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+392 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+393 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+394 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+395 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+396 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+397 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+398 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+399 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+400 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+401 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+402 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+403 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+404 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+405 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+406 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+407 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+408 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+409 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+410 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+411 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+412 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+413 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+414 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+415 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+416 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+417 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+418 trial
+[1, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 39.017965598643464
+419 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+420 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+421 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+422 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+423 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+424 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+425 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+426 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+427 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+428 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+429 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+430 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+431 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+432 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+433 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+434 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+435 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+436 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+437 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+438 trial
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 88.80599007415013
+439 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+440 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+441 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+442 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+443 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+444 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+445 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+446 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+447 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+448 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+449 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+450 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+451 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+452 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+453 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+454 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+455 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+456 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+457 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+458 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+459 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+460 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+461 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+462 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+463 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+464 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+465 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+466 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+467 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+468 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+469 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+470 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+471 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+472 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+473 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+474 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+475 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+476 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+477 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+478 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+479 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+480 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+481 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+482 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+483 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+484 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+485 trial
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 88.80599007415013
+486 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+487 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+488 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+489 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+490 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+491 trial
+[1, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 39.017965598643464
+492 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+493 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+494 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+495 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+496 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+497 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+498 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+499 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+500 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+501 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+502 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+503 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+504 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+505 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+506 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+507 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+508 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+509 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+510 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+511 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+512 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+513 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+514 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+515 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+516 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+517 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+518 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+519 trial
+[1, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 39.017965598643464
+520 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+521 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+522 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+523 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+524 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+525 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+526 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+527 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+528 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+529 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+530 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+531 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+532 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+533 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+534 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+535 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+536 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+537 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+538 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+539 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+540 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+541 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+542 trial
+[0, 0, 0, 1, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 36.32578740501922
+543 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+544 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+545 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+546 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+547 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+548 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+549 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+550 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+551 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+552 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+553 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+554 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+555 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+556 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+557 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+558 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+559 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+560 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+561 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+562 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+563 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+564 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+565 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+566 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+567 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+568 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+569 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+570 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+571 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+572 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+573 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+574 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+575 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+576 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+577 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+578 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+579 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+580 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+581 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+582 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+583 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+584 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+585 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+586 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+587 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+588 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+589 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+590 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+591 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+592 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+593 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+594 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+595 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+596 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+597 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+598 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+599 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+600 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+601 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+602 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+603 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+604 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+605 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+606 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+607 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+608 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+609 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+610 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+611 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+612 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+613 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+614 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+615 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+616 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+617 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+618 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+619 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+620 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+621 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+622 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+623 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+624 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+625 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+626 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+627 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+628 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+629 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+630 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+631 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+632 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+633 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+634 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+635 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+636 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+637 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+638 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+639 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+640 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+641 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+642 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+643 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+644 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+645 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+646 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+647 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+648 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+649 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+650 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+651 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+652 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+653 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+654 trial
+[0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+expected_second_stage_value: 29453.585622849703
+655 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+656 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+657 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+658 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+659 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+660 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+661 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+662 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+663 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+664 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+665 trial
+[0, 0, 1, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 371.7816069688594
+666 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+667 trial
+[0, 0, 0, 1, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 88.80599007415013
+668 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+669 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+670 trial
+[1, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 190.11274276998586
+671 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+672 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+673 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+674 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+675 trial
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 8132.859310855452
+676 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+expected_second_stage_value: 2874.840351399802
+677 trial
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0]
+expected_second_stage_value: 1929.2308890716847
+678 trial
+[0, 0, 0, 0, 0, 0, 0, 1, 0, 0]

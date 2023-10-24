@@ -63,13 +63,11 @@ def pyomo_postprocess(options=None, instance=None, filename='optimization_result
 
     df.to_csv(filename, mode='a', header=not file_exists, index=False)
 
-    
-
 if __name__ == '__main__':
     # Retrieve data files from different directories based on problem size.
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
     # problem_sizes = [(10, 10)]
-    num_iteration = 1000
+    num_iteration = 100
     
     for size in problem_sizes:
         # Make dataframe for each problem size 
