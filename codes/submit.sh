@@ -2,7 +2,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=64GB
-#SBATCH --time=1:00:00
+#SBATCH --time=48:00:00
 #SBATCH --job-name=neurumhsp
 #SBATCH --output=neurmhsp.out
 #SBATCH --error=neurmhsp.err

@@ -34,8 +34,8 @@ def scale_problem_data(args):
     scaled_problem_data["capacities"] = [c * scaling_factor for c in problem_data["capacities"]]
     scaled_problem_data["fixed_costs"] = [random.uniform(0, 90) + random.uniform(100, 110) * math.sqrt(s) for s in scaled_problem_data["capacities"]]
     
-    if ratio in [1.5, 2]:
-        scaled_problem_data["fixed_costs"] = [f * 2 for f in scaled_problem_data["fixed_costs"]]
+    # if ratio in [1.5, 2]:
+    #     scaled_problem_data["fixed_costs"] = [f * 2 for f in scaled_problem_data["fixed_costs"]]
     
     return scaled_problem_data
 
@@ -101,10 +101,11 @@ def generate_and_save_problem_data(size, num_demand, scenario_index, scaling_rat
 if __name__ == '__main__':
     random.seed(42)
     
-    num_sets = 6
+    num_sets = 30
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
-    scaling_ratios = [1.5, 2, 3, 5, 10]
-    num_demand_set = 1000
+    # scaling_ratios = [1.5, 2, 3, 5, 10]
+    scaling_ratios = [2]
+    num_demand_set = 100
 
     for size_index, size in enumerate(problem_sizes):
         for scenario_index in range(num_sets):

@@ -45,29 +45,37 @@ model.capacity_constraint = Constraint(model.P, rule=capacity_constraint_rule)
 
 
 # Post-processing: display variable values and save to CSV
-def pyomo_postprocess(options=None, instance=None, filename='optimization_results.csv',expected_second_stage_value=None,first_stage_decisions=None):
+def pyomo_postprocess(options=None, instance=None, filename='optimization_results.csv',expected_second_stage_value=None,first_stage_decisions=None,size=None):
+    
+    clients, facilities = size
+    directory = f"results/CPLP_{clients}_{facilities}/"
+    
+    full_filename = os.path.join(directory, filename)
+    
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     
     if len(first_stage_decisions) != len(expected_second_stage_value):
         raise ValueError("first_stage_decisions and expected_second_stage_value should have the same length")
     
     # If the file exists, remove it to start fresh
-    if os.path.exists(filename):
-        os.remove(filename)
+    if os.path.exists(full_filename):
+        os.remove(full_filename)
 
     df = pd.DataFrame({
         'first stage decision': [str(decision) for decision in first_stage_decisions],
         'expected second stage value': expected_second_stage_value
     })
 
-    file_exists = os.path.isfile(filename)
+    file_exists = os.path.isfile(full_filename)
 
-    df.to_csv(filename, mode='a', header=not file_exists, index=False)
+    df.to_csv(full_filename, mode='a', header=not file_exists, index=False)
 
 if __name__ == '__main__':
     # Retrieve data files from different directories based on problem size.
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
     # problem_sizes = [(10, 10)]
-    num_iteration = 100
+    num_iteration = 10000
     
     for size in problem_sizes:
         # Make dataframe for each problem size 
@@ -79,6 +87,7 @@ if __name__ == '__main__':
         
         # Sort files by the number in their name
         data_files_sorted = sorted(data_files, key=lambda x: int(re.search(r'(\d+)', os.path.basename(x)).group(1)))
+        cnt = 0
         
         for data_file in data_files_sorted:
             print("data_file: ", data_file)
@@ -86,7 +95,7 @@ if __name__ == '__main__':
             first_stage_decisions_lst = []
             second_stage_value_lst = []
             
-            cnt = 0
+            
             problem_size = f"{clients}_{facilities}_{cnt}"  # Extracting the problem size from the folder name
             result_filename = f"results_{problem_size}.csv"
             
@@ -114,5 +123,5 @@ if __name__ == '__main__':
             
             cnt +=1
             # Post-process results.
-            pyomo_postprocess(options=None, instance=instance, filename=result_filename,expected_second_stage_value= second_stage_value_lst, first_stage_decisions = first_stage_decisions_lst)
+            pyomo_postprocess(options=None, instance=instance, filename=result_filename,expected_second_stage_value= second_stage_value_lst, first_stage_decisions = first_stage_decisions_lst, size=size)
             

@@ -85,3 +85,4 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file):
         second_stage_value_lst.append(value(instance.obj))
 
     return np.mean(second_stage_value_lst)
+
