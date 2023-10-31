@@ -112,7 +112,7 @@ def solve_for_file(data_file, size, model, num_iteration):
 
 if __name__ == '__main__':
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
-    num_iteration = 10
+    num_iteration = 10000
 
     for size in problem_sizes:
         clients, facilities = size
