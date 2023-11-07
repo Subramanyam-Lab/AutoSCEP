@@ -17,6 +17,8 @@ def generate_problem_data(size,num_demand):
     demands = [[random.uniform(5, 35) for _ in range(clients)] for _ in range(num_demand)]
     capacities = [random.uniform(10, 160) for _ in range(facilities)]
     fixed_costs = [random.uniform(0, 90) + random.uniform(100, 110) * math.sqrt(s) for s in capacities]
+    scaling_factors = [sum(capacities) / sum(d) for d in demands]
+    max_scaling_factor = math.ceil(max(scaling_factors))
     problem_data = {
         "clients": clients,
         "facilities": facilities,
@@ -24,19 +26,18 @@ def generate_problem_data(size,num_demand):
         "demands": demands,
         "capacities": capacities,
         "fixed_costs": fixed_costs,
+        "max_scaling_factor": max_scaling_factor,
     }
     return problem_data
 
 def scale_problem_data(args):
     problem_data, ratio, i, problem_sizes = args
     scaled_problem_data = problem_data.copy()
-    scaling_factor = ratio
+    # scaling_factor = problem_data["max_scaling_factor"]
+    scaling_factor = 1
     scaled_problem_data["capacities"] = [c * scaling_factor for c in problem_data["capacities"]]
-    scaled_problem_data["fixed_costs"] = [random.uniform(0, 90) + random.uniform(100, 110) * math.sqrt(s) for s in scaled_problem_data["capacities"]]
-    
-    # if ratio in [1.5, 2]:
-    #     scaled_problem_data["fixed_costs"] = [f * 2 for f in scaled_problem_data["fixed_costs"]]
-    
+    # scaled_problem_data["fixed_costs"] = [random.uniform(0, 90) + random.uniform(100, 110) * math.sqrt(s) for s in scaled_problem_data["capacities"]]
+
     return scaled_problem_data
 
 def clear_directory(directory):
@@ -103,9 +104,8 @@ if __name__ == '__main__':
     
     num_sets = 30
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
-    # scaling_ratios = [1.5, 2, 3, 5, 10]
-    scaling_ratios = [2]
-    num_demand_set = 1000
+    scaling_ratios = [1]
+    num_demand_set = 100
 
     for size_index, size in enumerate(problem_sizes):
         for scenario_index in range(num_sets):

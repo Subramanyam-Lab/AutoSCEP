@@ -4,8 +4,8 @@
 #SBATCH --mem=100GB
 #SBATCH --time=48:00:00
 #SBATCH --job-name=NNtrain
-#SBATCH --output=NNtrain.out
-#SBATCH --error=NNtrain.err
+#SBATCH --output=NNtrain1.out
+#SBATCH --error=NNtrain1.err
 #SBATCH --account=azs7266_p_gpu
 #SBATCH --partition=sla-prio
 
