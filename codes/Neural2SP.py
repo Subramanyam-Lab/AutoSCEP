@@ -251,15 +251,39 @@ for size in problem_sizes:
         # Save model to ONNX format
         dummy_input = torch.randn(1, X_train.shape[1]).to(device)
         
-        # Plotting
-        plt.figure(figsize=(10, 6))
-        plt.plot(range(len(train_losses)), train_losses, label='Training Loss')
-        plt.plot(range(len(val_losses)), val_losses, label='Validation Loss', linestyle='--')
-        plt.xlabel('Epoch')
-        plt.ylabel('Loss')
-        plt.title('Loss over Epochs')
-        plt.legend()
-        plt.grid(True)
+        # Plotting configuration
+        tick_font_size = 25
+        line_width = 4
+        axis_line_width = 2
+        dpi = 300
+
+        # Create a new figure with configured DPI
+        plt.figure(figsize=(10, 6), dpi=dpi)
+
+        # Plot training and validation losses
+        plt.plot(range(len(train_losses)), train_losses, label='Training Loss', linewidth=line_width)
+        plt.plot(range(len(val_losses)), val_losses, label='Validation Loss', linestyle='--', linewidth=line_width)
+
+        # Set label names and title
+        plt.xlabel('Epoch', fontsize=tick_font_size)
+        plt.ylabel('Loss', fontsize=tick_font_size)
+        plt.title('Loss over Epochs', fontsize=tick_font_size)
+
+        # Set the tick parameters for both axes
+        plt.xticks(fontsize=tick_font_size)
+        plt.yticks(fontsize=tick_font_size)
+
+        # Set legend with larger font size
+        plt.legend(fontsize=tick_font_size)
+
+        # Set axis line width for the plot spines
+        for axis in ['top','bottom','left','right']:
+            plt.gca().spines[axis].set_linewidth(axis_line_width)
+
+        # Enable and configure grid
+        plt.grid(True, linewidth=1)  # Set the grid line width to a value of your choice
+
+        # Adjust layout to ensure everything fits without overlapping
         plt.tight_layout()
         
         plot_save_path = os.path.join(model_directory, plot_filename)

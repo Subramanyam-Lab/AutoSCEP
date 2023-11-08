@@ -4,7 +4,7 @@ from pyomo.environ import *
 import pandas as pd
 import os
 import glob
-from func_Q2 import *
+from func_Q3 import *
 import numpy as np
 from model_definition import define_model
 import re
@@ -51,7 +51,7 @@ model.capacity_constraint = Constraint(model.P, rule=capacity_constraint_rule)
 def pyomo_postprocess(options=None, instance=None, filename='optimization_results.csv',expected_second_stage_value=None,first_stage_decisions=None,size=None):
     
     clients, facilities = size
-    directory = f"results4/CPLP_{clients}_{facilities}/"
+    directory = f"results_SAA/CPLP_{clients}_{facilities}/"
     full_filename = os.path.join(directory, filename)
     
     if not os.path.exists(directory):
@@ -74,7 +74,7 @@ def pyomo_postprocess(options=None, instance=None, filename='optimization_result
     df.to_csv(full_filename, mode='a', header=not file_exists, index=False)
     
 
-def solve_for_file(data_file, size, model, num_iteration):
+def solve_for_file(data_file, size, model, num_iteration, sample_size):
     clients, facilities = size
     first_stage_decisions_lst = []
     second_stage_value_lst = []
@@ -83,18 +83,14 @@ def solve_for_file(data_file, size, model, num_iteration):
     result_filename = f"results_{problem_size}.csv"
 
     seen_decisions = {}
-
+    print("num_iteration",num_iteration)
     for i in range(num_iteration):
         print(f"data_file: {data_file} | {i} trial")
-        # print("{} trial".format(i))
         instance = model.create_instance(data_file)
         demand_values = {c: random.uniform(5, 35) for c in instance.C}
         for c in instance.C:
             instance.demands[c] = demand_values[c]
-
-        # Solve the problem.
-        # solver = SolverFactory("cplex", excutable= "/storage/icds/RISE/sw8/cplex/22.1.1/cplex/bin/x86-64_linux/cplex")
-        solver = SolverFactory('gurobi')
+        solver = SolverFactory('glpk')
         results = solver.solve(instance, tee=False)
         
         first_stage_decisions = tuple(int(value(instance.y[p])) for p in instance.P)
@@ -108,8 +104,8 @@ def solve_for_file(data_file, size, model, num_iteration):
         transportation_cost = [value(instance.t[c, p]) for c in instance.C for p in instance.P]
 
         m = define_model()
-        expected_second_stage_value = Q(m, first_stage_decisions, capacity, transportation_cost, size, data_file)
-
+        expected_second_stage_value = Q(m, first_stage_decisions, capacity, transportation_cost, size, data_file,sample_size)
+        print("expected_second_stage_value",expected_second_stage_value)
         first_stage_decisions_lst.append(first_stage_decisions)
         second_stage_value_lst.append(expected_second_stage_value)
 
@@ -120,8 +116,8 @@ def solve_for_file(data_file, size, model, num_iteration):
 
 if __name__ == '__main__':
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
-    # problem_sizes = [(10, 10)]
     num_files_to_load = 3
+    sample_size = 10
     
     for size in problem_sizes:
         clients, facilities = size
@@ -147,8 +143,7 @@ if __name__ == '__main__':
         data_files_to_load = data_files_sorted[:num_files_to_load]
 
         pool = multiprocessing.Pool(processes=3)  
-        results = [pool.apply_async(solve_for_file, args=(data_file, size, model, num_iteration)) for data_file in data_files_to_load]
-        
+        results = [pool.apply_async(solve_for_file, args=(data_file, size, model, num_iteration, sample_size)) for data_file in data_files_to_load]
         
         pool.close()
         pool.join()
