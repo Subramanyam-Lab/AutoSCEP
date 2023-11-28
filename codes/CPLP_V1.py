@@ -46,6 +46,10 @@ def capacity_constraint_rule(model, p):
     return sum(model.demands[c] * model.x[c,p] for c in model.C) <= model.c[p] * model.y[p] + model.s[p]
 model.capacity_constraint = Constraint(model.P, rule=capacity_constraint_rule)
 
+def capacity_probability_rule(model,p):
+    return sum(model.f[p]*model.y[p] for p in model.P) >= 34.7*len(model.P)
+model.capacity_prob_constraint = Constraint(model.P, rule=capacity_probability_rule)
+
 
 # Post-processing: display variable values and save to CSV
 def pyomo_postprocess(options=None, instance=None, filename='optimization_results.csv',expected_second_stage_value=None,first_stage_decisions=None,size=None):

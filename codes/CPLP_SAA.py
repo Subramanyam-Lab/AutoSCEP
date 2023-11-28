@@ -49,9 +49,8 @@ model.capacity_constraint = Constraint(model.P, rule=capacity_constraint_rule)
 
 # Post-processing: display variable values and save to CSV
 def pyomo_postprocess(options=None, instance=None, filename='optimization_results.csv',expected_second_stage_value=None,first_stage_decisions=None,size=None):
-    
     clients, facilities = size
-    directory = f"results_SAA/CPLP_{clients}_{facilities}/"
+    directory = f"results_SAA1/CPLP_{clients}_{facilities}/"
     full_filename = os.path.join(directory, filename)
     
     if not os.path.exists(directory):
@@ -83,14 +82,13 @@ def solve_for_file(data_file, size, model, num_iteration, sample_size):
     result_filename = f"results_{problem_size}.csv"
 
     seen_decisions = {}
-    print("num_iteration",num_iteration)
     for i in range(num_iteration):
         print(f"data_file: {data_file} | {i} trial")
         instance = model.create_instance(data_file)
         demand_values = {c: random.uniform(5, 35) for c in instance.C}
         for c in instance.C:
             instance.demands[c] = demand_values[c]
-        solver = SolverFactory('glpk')
+        solver = SolverFactory('gurobi')
         results = solver.solve(instance, tee=False)
         
         first_stage_decisions = tuple(int(value(instance.y[p])) for p in instance.P)
@@ -105,7 +103,7 @@ def solve_for_file(data_file, size, model, num_iteration, sample_size):
 
         m = define_model()
         expected_second_stage_value = Q(m, first_stage_decisions, capacity, transportation_cost, size, data_file,sample_size)
-        print("expected_second_stage_value",expected_second_stage_value)
+        # print("expected_second_stage_value",expected_second_stage_value)
         first_stage_decisions_lst.append(first_stage_decisions)
         second_stage_value_lst.append(expected_second_stage_value)
 
@@ -116,17 +114,18 @@ def solve_for_file(data_file, size, model, num_iteration, sample_size):
 
 if __name__ == '__main__':
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
+    # problem_sizes = [(10, 10)]
     num_files_to_load = 3
-    sample_size = 10
+    sample_size = 1000
     
     for size in problem_sizes:
         clients, facilities = size
         if clients ==10:
-            num_iteration = 1000
+            num_iteration = 500
         elif clients ==25:
-            num_iteration = 2000
+            num_iteration = 1000
         else:
-            num_iteration = 2000
+            num_iteration = 1000
         
         #### for real ####
         # data_dir = f"data/CPLP_{clients}_{facilities}"

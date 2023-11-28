@@ -1,16 +1,24 @@
 from pyomo.environ import *
 import numpy as np
 import multiprocessing
+import random
 
-def solve_instance(instance, solver):
-    demand_values = {c: random.uniform(5, 35) for c in instance.C}
-    for c in instance.C:
-        instance.demands[c] = demand_values[c]
+def demand_generate(num_vectors, vector_length):
+    demand_vectors = {}
+    for vector_num in range(num_vectors):
+        demand_key = f'demand_{vector_num}'
+        demand_vectors[demand_key] = [random.uniform(5, 35) for _ in range(vector_length)]
+
+    return demand_vectors
+
+def solve_instance(demand_header, demands,instance, solver):
+    for idx, demand_value in enumerate(demands[demand_header]):
+        client = 'C{}'.format(idx)  # Convert 0, 1, ... to 'C0', 'C1', ...
+        instance.demands[client] = demand_value
     solver.solve(instance, tee=False)
     return value(instance.obj)
 
 def Q(model, y_fixed, capcity, trans_cost, size, data_file, sample_size):
-    print("Q entered")
     M = np.sum(trans_cost)
     clients, facilities = size
     second_stage_value_lst = []
@@ -34,7 +42,10 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file, sample_size):
 
     model.capacity_constraint = Constraint(model.P, rule=sub_capacity_constraint_rule)
 
-    solver = SolverFactory('glpk')
+    
+    solver = SolverFactory('gurobi')
+    load_demands = demand_generate(sample_size, clients)
+    demand_headers = [f'demand_{i}' for i in range(len(load_demands))]
     
     results_accumulated = []
     previous_checkpoint = 0
@@ -42,10 +53,9 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file, sample_size):
     check_points = sub_checkpoint + [len(demand_headers)] 
     
     for check_point in check_points:
-        for i in range(sample_size):
-            print(i)
-            result = solve_instance(model.create_instance(data_file), solver)
-            print(result)
+        headers_subset = demand_headers[previous_checkpoint:check_point]
+        for header in headers_subset:
+            result = solve_instance(header, load_demands, model.create_instance(data_file), solver)
             results_accumulated.append(result)
         
         if len(results_accumulated) > 1 and np.std(results_accumulated) / np.mean(results_accumulated) <= 0.05:
@@ -54,7 +64,5 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file, sample_size):
             break
         
         previous_checkpoint = check_point
-        
-    
                 
     return np.mean(results_accumulated)

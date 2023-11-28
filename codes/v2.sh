@@ -13,5 +13,5 @@ source ~/.bashrc
 
 source activate neurmhsp
 
-/storage/home/tzk5446/.conda/envs/neurmhsp/bin/python CPLP4.py 
+/storage/home/tzk5446/.conda/envs/neurmhsp/bin/python CPLP_V2.py 
 

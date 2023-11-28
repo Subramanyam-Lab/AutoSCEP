@@ -17,10 +17,10 @@ import numpy as np
 # Check for GPU availability and set the device
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 value_threshold = 150
-base_directory_path = "results4"
-problem_sizes = [(10, 10), (25, 25), (50, 50)]
+base_directory_path = "results_SAA"
+# problem_sizes = [(10, 10), (25, 25), (50, 50)]
 
-# problem_sizes = [(10, 10)]
+problem_sizes = [(10, 10)]
 
 for size in problem_sizes:
     size1, size2 = size
@@ -35,12 +35,16 @@ for size in problem_sizes:
             model_directory = os.path.join("Models1", f"CPLP_{size1}_{size2}")
             data = pd.read_csv(file_path)
             data['first stage decision'] = data['first stage decision'].apply(lambda x: list(eval(x)))
-        else: 
+        if base_directory_path == "results5": 
             model_directory = os.path.join("Models", f"CPLP_{size1}_{size2}")
             data = pd.read_csv(file_path)
             data['first stage decision'] = data['first stage decision'].apply(lambda x: list(map(int, x.strip("[]").split())))
-            
-            
+        if base_directory_path == "results_SAA": 
+            model_directory = os.path.join("Models_SAA", f"CPLP_{size1}_{size2}")
+            data = pd.read_csv(file_path)
+            data['first stage decision'] = data['first stage decision'].apply(lambda x: list(eval(x)))
+        
+        
             
         model_filename = f"CPLP_{size1}_{size2}_{i}.onnx"
         plot_filename = f"CPLP_{size1}_{size2}_{i}_loss_plot.png"
@@ -83,8 +87,8 @@ for size in problem_sizes:
                 
             def forward(self, x):
                 x = self.layer1(x)
+                x = self.dropout(x)
                 x = self.relu(x)
-                # x = self.dropout(x)
                 x = self.layer2(x)
                 return x
 
