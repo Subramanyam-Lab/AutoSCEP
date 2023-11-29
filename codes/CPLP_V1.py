@@ -11,6 +11,8 @@ import re
 import random
 import multiprocessing
 
+alpha = 0.7
+
 # Define the model
 model = AbstractModel()
 
@@ -47,7 +49,7 @@ def capacity_constraint_rule(model, p):
 model.capacity_constraint = Constraint(model.P, rule=capacity_constraint_rule)
 
 def capacity_probability_rule(model,p):
-    return sum(model.f[p]*model.y[p] for p in model.P) >= 34.7*len(model.P)
+    return sum(model.c[p]*model.y[p] for p in model.P) >= (30*alpha+5)*len(model.P)
 model.capacity_prob_constraint = Constraint(model.P, rule=capacity_probability_rule)
 
 
@@ -123,8 +125,8 @@ def solve_for_file(data_file, size, model, num_iteration):
                       first_stage_decisions=first_stage_decisions_lst, size=size)
 
 if __name__ == '__main__':
-    problem_sizes = [(10, 10), (25, 25), (50, 50)]
-    # problem_sizes = [(10, 10)]
+    # problem_sizes = [(10, 10), (25, 25), (50, 50)]
+    problem_sizes = [(10, 10)]
     num_files_to_load = 3
     
     for size in problem_sizes:
