@@ -10,4 +10,6 @@
   if len(results_accumulated) > 1 and np.std(results_accumulated) / np.mean(results_accumulated) <= 0.05:
 /storage/work/tzk5446/NeurMHSP/codes/func_Q2.py:91: RuntimeWarning: invalid value encountered in scalar divide
   if len(results_accumulated) > 1 and np.std(results_accumulated) / np.mean(results_accumulated) <= 0.05:
-slurmstepd: error: *** JOB 7239612 ON p-sc-2121 CANCELLED AT 2023-12-01T11:47:20 ***
+/storage/work/tzk5446/NeurMHSP/codes/func_Q2.py:91: RuntimeWarning: invalid value encountered in scalar divide
+  if len(results_accumulated) > 1 and np.std(results_accumulated) / np.mean(results_accumulated) <= 0.05:
+slurmstepd: error: *** JOB 7239650 ON p-gc-3109 CANCELLED AT 2023-12-01T11:47:13 ***

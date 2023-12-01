@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --mem=300GB
+#SBATCH --mem=100GB
 #SBATCH --time=96:00:00
 #SBATCH --job-name=neurumhsp
 #SBATCH --output=v1.out

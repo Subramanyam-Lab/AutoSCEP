@@ -15,7 +15,9 @@ def solve_instance(demand_header, demands,instance, solver):
     for idx, demand_value in enumerate(demands[demand_header]):
         client = 'C{}'.format(idx)  # Convert 0, 1, ... to 'C0', 'C1', ...
         instance.demands[client] = demand_value
-    solver.solve(instance, tee=False)
+    result = solver.solve(instance, tee=False)
+    if result.solver.termination_condition == TerminationCondition.infeasible:
+        return 0
     return value(instance.obj)
 
 def Q(model, y_fixed, capcity, trans_cost, size, data_file, sample_size):
@@ -28,7 +30,7 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file, sample_size):
     trans_dict = {f'C{i}': {f'P{j}': trans_cost[i * facilities + j] for j in range(facilities)} for i in range(clients)}
 
     def sub_objective_rule(model):
-        return sum(trans_dict[c][p] * model.x[c, p] for c in model.C for p in model.P) + M * sum(model.s[p] for p in model.P)
+        return sum(trans_dict[c][p] * model.x[c, p] for c in model.C for p in model.P)
 
     model.obj = Objective(rule=sub_objective_rule, sense=minimize)
 
@@ -38,7 +40,7 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file, sample_size):
     model.demand_constraint = Constraint(model.C, rule=sub_demand_constraint_rule)
 
     def sub_capacity_constraint_rule(model, p):
-        return sum(model.demands[c] * model.x[c, p] for c in model.C) <= capacity_value[p] * y_fixed_value[p] + model.s[p]
+        return sum(model.demands[c] * model.x[c, p] for c in model.C) <= capacity_value[p] * y_fixed_value[p]
 
     model.capacity_constraint = Constraint(model.P, rule=sub_capacity_constraint_rule)
 

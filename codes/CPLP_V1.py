@@ -65,7 +65,7 @@ def pyomo_postprocess(options=None, instance=None, filename='optimization_result
 
     df = pd.DataFrame({
         'first stage decision': [str(decision) for decision in first_stage_decisions],
-        'expected second stage value': expected_second_stage_value
+        'expected second stage value': expected_second_stage_value,
         'feasibility': feasibility_lst
     })
 
