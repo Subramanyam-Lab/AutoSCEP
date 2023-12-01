@@ -48,10 +48,10 @@ model.capacity_constraint = Constraint(model.P, rule=capacity_constraint_rule)
 
 
 # Post-processing: display variable values and save to CSV
-def pyomo_postprocess(options=None, instance=None, filename='optimization_results.csv',expected_second_stage_value=None,first_stage_decisions=None,size=None):
+def pyomo_postprocess(options=None, instance=None, filename='optimization_results.csv',expected_second_stage_value=None,first_stage_decisions=None, feasibility= None, size=None):
     
     clients, facilities = size
-    directory = f"results5/CPLP_{clients}_{facilities}/"
+    directory = f"results_V2/CPLP_{clients}_{facilities}/"
     
     full_filename = os.path.join(directory, filename)
     
@@ -68,6 +68,7 @@ def pyomo_postprocess(options=None, instance=None, filename='optimization_result
     df = pd.DataFrame({
         'first stage decision': [str(decision) for decision in first_stage_decisions],
         'expected second stage value': expected_second_stage_value
+        'feasibility': feasibility_lst
     })
 
     file_exists = os.path.isfile(full_filename)
@@ -79,7 +80,8 @@ def solve_for_file(data_file, size, model, num_iteration):
     clients, facilities = size
     first_stage_decisions_lst = []
     second_stage_value_lst = []
-
+    feasibility_lst = []
+    
     problem_size = f"{clients}_{facilities}_{data_file.split('_')[-1].split('.')[0]}"  
     result_filename = f"results_{problem_size}.csv"
     
@@ -104,19 +106,23 @@ def solve_for_file(data_file, size, model, num_iteration):
 
         m = define_model()
         expected_second_stage_value = Q(m, first_stage_decisions, capacity, transportation_cost, size, data_file)
-
+        if expected_second_stage_value ==0:
+            feasibility_lst.append(0)
+        else:
+            feasibility_lst.append(1)
+            
         first_stage_decisions_lst.append(first_stage_decisions)
         second_stage_value_lst.append(expected_second_stage_value)
 
     # Post-process results.
     pyomo_postprocess(options=None, instance=instance, filename=result_filename,
                       expected_second_stage_value=second_stage_value_lst,
-                      first_stage_decisions=first_stage_decisions_lst, size=size)
+                      first_stage_decisions=first_stage_decisions_lst, 
+                      feasibility = feasibility_lst, size=size)
 
 if __name__ == '__main__':
     problem_sizes = [(10, 10), (25, 25), (50, 50)]
     # problem_sizes = [(25, 25)]
-    num_files_to_load = 3
     
     for size in problem_sizes:
         clients, facilities = size
@@ -126,13 +132,23 @@ if __name__ == '__main__':
             num_iteration = 1000
         else:
             num_iteration = 1000
+            
+            
+        # data_dir = f"data/CPLP_{clients}_{facilities}"
+        # data_files = glob.glob(os.path.join(data_dir, "*.dat"))
+        # data_files_sorted = sorted(data_files, key=lambda x: int(re.search(r'(\d+)', os.path.basename(x)).group(1)))
+        # data_files_to_load = data_files_sorted[:num_files_to_load]
+
+        # pool = multiprocessing.Pool(processes=3)  
+        # results = [pool.apply_async(solve_for_file, args=(data_file, size, model, num_iteration)) for data_file in data_files_to_load]
+        
         data_dir = f"data/CPLP_{clients}_{facilities}"
         data_files = glob.glob(os.path.join(data_dir, "*.dat"))
         data_files_sorted = sorted(data_files, key=lambda x: int(re.search(r'(\d+)', os.path.basename(x)).group(1)))
-        data_files_to_load = data_files_sorted[:num_files_to_load]
 
-        pool = multiprocessing.Pool(processes=3)  
-        results = [pool.apply_async(solve_for_file, args=(data_file, size, model, num_iteration)) for data_file in data_files_to_load]
+        pool = multiprocessing.Pool(processes=30)  
+        results = [pool.apply_async(solve_for_file, args=(data_file, size, model, num_iteration)) for data_file in data_files_sorted]
+        
         pool.close()
         pool.join()
         
