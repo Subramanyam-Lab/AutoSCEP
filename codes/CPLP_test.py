@@ -1,5 +1,4 @@
 import time
-start_time = time.time()
 import onnxruntime as ort
 from pyomo.environ import *
 import pandas as pd
@@ -12,6 +11,9 @@ import re
 import random
 import multiprocessing
 import torch
+import pandas as pd
+import matplotlib.pyplot as plt
+
 
 # Define the model
 model = AbstractModel()
@@ -49,7 +51,6 @@ def capacity_constraint_rule(model, p):
 model.capacity_constraint = Constraint(model.P, rule=capacity_constraint_rule)
 
 
-
 def load_onnx_model(model_path):
     ort_session = ort.InferenceSession(model_path)
     input_name = ort_session.get_inputs()[0].name
@@ -73,7 +74,7 @@ def solve_and_predict(data_file, size, model, num_tests=1):
     result_filename = f"results_{problem_size}.csv"
     # ONNX 모델 로드
     file_number = data_file.split('_')[-1].split('.')[0]
-    onnx_model_path = f'Models1/CPLP_{clients}_{facilities}/CPLP_{clients}_{facilities}_{file_number}.onnx'
+    onnx_model_path = f'Models_V2/CPLP_{clients}_{facilities}/CPLP_{clients}_{facilities}_{file_number}.onnx'
     onnx_model, input_name = load_onnx_model(onnx_model_path)
 
 
@@ -127,8 +128,8 @@ def solve_and_predict(data_file, size, model, num_tests=1):
 
 if __name__ == '__main__':
     start_time = time.time()
-    problem_sizes = [(10, 10), (25, 25), (50, 50)]
-    # problem_sizes = [(10,10)]
+    # problem_sizes = [(10, 10), (25, 25), (50, 50)]
+    problem_sizes = [(10,10)]
     num_files_to_load = 3
     num_tests = 1000
 
@@ -142,6 +143,36 @@ if __name__ == '__main__':
         for data_file in data_files_to_load:
             df = solve_and_predict(data_file, size, model, num_tests)
             print(df)
+
+    # CSV 파일을 읽고 박스 플롯 생성
+    file_pattern = 'CPLP_test1/test_results*.csv'
+    csv_files = glob.glob(file_pattern)
+    gap_data_by_size = {}
+
+    for file in csv_files:
+        df = pd.read_csv(file)
+        size_info = file.split('/')[-1].split('_')[2:4]
+        size_key = f"{size_info[0]}_{size_info[1]}"
+        
+        if size_key not in gap_data_by_size:
+            gap_data_by_size[size_key] = []
+        gap_data_by_size[size_key].extend(df['Gap(%)'].tolist())
+
+    boxplot_data = [gaps for gaps in gap_data_by_size.values()]
+    size_labels = [size for size in gap_data_by_size.keys()]
+
+    plt.figure(figsize=(12, 6))
+    plt.boxplot(boxplot_data, labels=size_labels)
+    plt.title('Optimality Gap by Problem Size', fontsize=15)
+    plt.ylabel('Gap(%)', fontsize=15)
+    plt.xlabel('Problem Size ("Number of client"_"Num of plant")', fontsize=15)
+    plt.xticks(rotation=0)
+    plt.xticks(fontsize=15)
+    plt.yticks(fontsize=15)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join("CPLP_test1", "boxplot_gap_percent_by_size.png"))
+    plt.show()
 
     end_time = time.time()
     execution_time = end_time - start_time

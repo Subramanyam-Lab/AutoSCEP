@@ -30,7 +30,7 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file, sample_size):
     trans_dict = {f'C{i}': {f'P{j}': trans_cost[i * facilities + j] for j in range(facilities)} for i in range(clients)}
 
     def sub_objective_rule(model):
-        return sum(trans_dict[c][p] * model.x[c, p] for c in model.C for p in model.P)
+        return sum(trans_dict[c][p] * model.x[c, p] for c in model.C for p in model.P) + M*sum(model.s[p] for p in model.P)
 
     model.obj = Objective(rule=sub_objective_rule, sense=minimize)
 
@@ -40,7 +40,7 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file, sample_size):
     model.demand_constraint = Constraint(model.C, rule=sub_demand_constraint_rule)
 
     def sub_capacity_constraint_rule(model, p):
-        return sum(model.demands[c] * model.x[c, p] for c in model.C) <= capacity_value[p] * y_fixed_value[p]
+        return sum(model.demands[c] * model.x[c, p] for c in model.C) <= capacity_value[p] * y_fixed_value[p]+ model.s[p]
 
     model.capacity_constraint = Constraint(model.P, rule=sub_capacity_constraint_rule)
 
@@ -58,6 +58,8 @@ def Q(model, y_fixed, capcity, trans_cost, size, data_file, sample_size):
         headers_subset = demand_headers[previous_checkpoint:check_point]
         for header in headers_subset:
             result = solve_instance(header, load_demands, model.create_instance(data_file), solver)
+            if np.mean(results_accumulated) > 100:
+                break
             results_accumulated.append(result)
         
         if len(results_accumulated) > 1 and np.std(results_accumulated) / np.mean(results_accumulated) <= 0.05:

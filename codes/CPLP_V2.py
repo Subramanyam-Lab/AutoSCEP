@@ -68,7 +68,7 @@ def pyomo_postprocess(options=None, instance=None, filename='optimization_result
     df = pd.DataFrame({
         'first stage decision': [str(decision) for decision in first_stage_decisions],
         'expected second stage value': expected_second_stage_value,
-        'feasibility': feasibility_lst
+        'feasibility': feasibility
     })
 
     file_exists = os.path.isfile(full_filename)
@@ -105,12 +105,16 @@ def solve_for_file(data_file, size, model, num_iteration):
         transportation_cost = [value(instance.t[c, p]) for c in instance.C for p in instance.P]
 
         m = define_model()
-        expected_second_stage_value = Q(m, first_stage_decisions, capacity, transportation_cost, size, data_file)
-        if expected_second_stage_value ==0:
-            feasibility_lst.append(0)
+        expected_second_stage_values = Q(m, first_stage_decisions, capacity, transportation_cost, size, data_file)
+        
+        if expected_second_stage_values>=100:
+            expected_second_stage_value=0
+            feasibility=0
         else:
-            feasibility_lst.append(1)
-            
+            expected_second_stage_value=expected_second_stage_values
+            feasibility=1
+        
+        feasibility_lst.append(feasibility)
         first_stage_decisions_lst.append(first_stage_decisions)
         second_stage_value_lst.append(expected_second_stage_value)
 

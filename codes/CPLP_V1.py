@@ -24,11 +24,9 @@ model.c = Param(model.P, within=NonNegativeReals)  # Capacity of each plant
 model.demands = Param(model.C, mutable=True, within=NonNegativeReals)  # Demand of each customer
 model.t = Param(model.C, model.P, within=NonNegativeReals)  # Transport cost from plant to customer
 
-
 # Define variables
 model.x = Var(model.C, model.P, within=NonNegativeReals, bounds=(0, 1))  # Supply ratio from plant to customer
 model.y = Var(model.P, within=Binary)  # Binary variable indicating whether a plant is built
-
 
 # Define objective function: minimize setup and transport costs
 def objective_rule(model):
@@ -44,7 +42,6 @@ model.demand_constraint = Constraint(model.C, rule=demand_constraint_rule)
 def capacity_constraint_rule(model, p):
     return sum(model.demands[c] * model.x[c,p] for c in model.C) <= model.c[p] * model.y[p]
 model.capacity_constraint = Constraint(model.P, rule=capacity_constraint_rule)
-
 
 # Post-processing: display variable values and save to CSV
 def pyomo_postprocess(options=None, instance=None, filename='optimization_results.csv',expected_second_stage_value=None,first_stage_decisions=None, feasibility= None, size=None):
@@ -66,7 +63,7 @@ def pyomo_postprocess(options=None, instance=None, filename='optimization_result
     df = pd.DataFrame({
         'first stage decision': [str(decision) for decision in first_stage_decisions],
         'expected second stage value': expected_second_stage_value,
-        'feasibility': feasibility_lst
+        'feasibility': feasibility
     })
 
     file_exists = os.path.isfile(full_filename)
@@ -106,12 +103,16 @@ def solve_for_file(data_file, size, model, num_iteration):
         transportation_cost = [value(instance.t[c, p]) for c in instance.C for p in instance.P]
 
         m = define_model()
-        expected_second_stage_value = Q(m, first_stage_decisions, capacity, transportation_cost, size, data_file)
-        if expected_second_stage_value ==0:
-            feasibility_lst.append(0)
-        else:
-            feasibility_lst.append(1)
+        expected_second_stage_values = Q(m, first_stage_decisions, capacity, transportation_cost, size, data_file)
         
+        if expected_second_stage_values>=100:
+            expected_second_stage_value=0
+            feasibility=0
+        else:
+            expected_second_stage_value=expected_second_stage_values
+            feasibility=1
+        
+        feasibility_lst.append(feasibility)
         first_stage_decisions_lst.append(first_stage_decisions)
         second_stage_value_lst.append(expected_second_stage_value)
 
@@ -122,27 +123,27 @@ def solve_for_file(data_file, size, model, num_iteration):
                       feasibility = feasibility_lst, size=size)
 
 if __name__ == '__main__':
-    problem_sizes = [(10, 10), (25, 25), (50, 50)]
-    # problem_sizes = [(10, 10)]
+    num_files_to_load = 5
+    # problem_sizes = [(10, 10), (25, 25), (50, 50)]
+    problem_sizes = [(25, 25), (50, 50)]
     
     for size in problem_sizes:
         clients, facilities = size
-        if clients ==10:
+        if clients==10:
             num_iteration = 1000
-        elif clients ==25:
-            num_iteration = 2000
+        elif clients==25:
+            num_iteration = 1500
         else:
-            num_iteration = 2000
+            num_iteration = 1500
         
-        ### for real ####
+        ## for real ####
         data_dir = f"data/CPLP_{clients}_{facilities}"
         data_files = glob.glob(os.path.join(data_dir, "*.dat"))
         data_files_sorted = sorted(data_files, key=lambda x: int(re.search(r'(\d+)', os.path.basename(x)).group(1)))
 
         pool = multiprocessing.Pool(processes=30)  
         results = [pool.apply_async(solve_for_file, args=(data_file, size, model, num_iteration)) for data_file in data_files_sorted]
-        
-        
+    
         # data_dir = f"data/CPLP_{clients}_{facilities}"
         # data_files = glob.glob(os.path.join(data_dir, "*.dat"))
         # data_files_sorted = sorted(data_files, key=lambda x: int(re.search(r'(\d+)', os.path.basename(x)).group(1)))
