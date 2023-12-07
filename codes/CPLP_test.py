@@ -142,7 +142,6 @@ if __name__ == '__main__':
 
         for data_file in data_files_to_load:
             df = solve_and_predict(data_file, size, model, num_tests)
-            print(df)
 
     # CSV 파일을 읽고 박스 플롯 생성
     file_pattern = 'CPLP_test1/test_results*.csv'
@@ -153,6 +152,8 @@ if __name__ == '__main__':
         df = pd.read_csv(file)
         size_info = file.split('/')[-1].split('_')[2:4]
         size_key = f"{size_info[0]}_{size_info[1]}"
+        # print(size_info[0])
+        # print("average gap: ",np.mean(df['Gap(%)'].tolist()))
         
         if size_key not in gap_data_by_size:
             gap_data_by_size[size_key] = []
@@ -173,6 +174,10 @@ if __name__ == '__main__':
     plt.tight_layout()
     plt.savefig(os.path.join("CPLP_test1", "boxplot_gap_percent_by_size.png"))
     plt.show()
+    
+    for size_key, gaps in gap_data_by_size.items():
+        average_gap = np.mean(gaps)
+        print(f"Size {size_key} - Average Gap: {average_gap:.2f}%")
 
     end_time = time.time()
     execution_time = end_time - start_time

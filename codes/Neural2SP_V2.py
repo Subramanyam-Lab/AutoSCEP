@@ -13,13 +13,14 @@ import os
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 base_directory_path = "results_V2"
 problem_sizes = [(10, 10)]
+num_data_size = 30 
 
 for size in problem_sizes:
     size1, size2 = size
     directory_path = os.path.join(base_directory_path, f"CPLP_{size1}_{size2}")
     file_pattern = f"results_{size1}_{size2}_{{}}.csv"
 
-    for i in range(30):
+    for i in range(num_data_size):
         print(f"Processing file number {i} for problem size {size}")
         file_path = os.path.join(directory_path, file_pattern.format(i))
         model_filename = f"CPLP_{size1}_{size2}_{i}.onnx"
@@ -99,7 +100,7 @@ for size in problem_sizes:
             optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
             # Train model
-            EPOCHS = 100
+            EPOCHS = 1000
             min_val_loss = float('inf')
 
             for epoch in range(EPOCHS):
@@ -143,7 +144,7 @@ for size in problem_sizes:
 
         # Run the optimizer
         trials = Trials()
-        best = fmin(objective, space, algo=tpe.suggest, max_evals=100, trials=trials)
+        best = fmin(objective, space, algo=tpe.suggest, max_evals=300, trials=trials)
         
         
         print(f"Best parameters for file number {i}: ", best)
