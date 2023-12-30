@@ -6,8 +6,9 @@
 #SBATCH --job-name=NNtrain
 #SBATCH --output=NNtrain1.out
 #SBATCH --error=NNtrain1.err
-#SBATCH --account=azs7266_sc
+#SBATCH --account=azs7266_p_gpu
 #SBATCH --partition=sla-prio
+#SBATCH --gpus=1
 
 source ~/.bashrc
 

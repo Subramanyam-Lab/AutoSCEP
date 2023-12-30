@@ -130,7 +130,7 @@ if __name__ == '__main__':
     start_time = time.time()
     # problem_sizes = [(10, 10), (25, 25), (50, 50)]
     problem_sizes = [(10,10)]
-    num_files_to_load = 3
+    num_files_to_load = 30
     num_tests = 1000
 
     for size in problem_sizes:

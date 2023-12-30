@@ -12,7 +12,7 @@ import os
 # Check for GPU availability and set the device
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 base_directory_path = "results_V2"
-problem_sizes = [(10, 10)]
+problem_sizes = [(25, 25)]
 num_data_size = 30 
 
 for size in problem_sizes:
@@ -83,7 +83,7 @@ for size in problem_sizes:
             mse_loss = nn.MSELoss()(outputs[0], labels)
             bce_loss = nn.BCELoss()(outputs[1], feasibility.float().view(-1, 1))
             
-            scale_factor = outputs[1].mean()
+            scale_factor = feasibility.float().mean()
             scaled_mse_loss = mse_loss * scale_factor
 
             total_loss = scaled_mse_loss + lambda_param * bce_loss
@@ -144,7 +144,7 @@ for size in problem_sizes:
 
         # Run the optimizer
         trials = Trials()
-        best = fmin(objective, space, algo=tpe.suggest, max_evals=300, trials=trials)
+        best = fmin(objective, space, algo=tpe.suggest, max_evals=100, trials=trials)
         
         
         print(f"Best parameters for file number {i}: ", best)

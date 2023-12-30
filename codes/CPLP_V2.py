@@ -125,8 +125,8 @@ def solve_for_file(data_file, size, model, num_iteration):
                       feasibility = feasibility_lst, size=size)
 
 if __name__ == '__main__':
-    problem_sizes = [(10, 10), (25, 25), (50, 50)]
-    # problem_sizes = [(25, 25)]
+    # problem_sizes = [(10, 10), (25, 25), (50, 50)]
+    problem_sizes = [(25, 25)]
     
     for size in problem_sizes:
         clients, facilities = size
