@@ -1,0 +1,105 @@
+++++++++
++EMPIRE+
+++++++++
+LOADCHANGEMODULE: False
+Solver: GLPK
+Scenario Generation: True
+++++++++
+ID: test_reg24_peak24_sce2_randomSGR_202401102250
+++++++++
+Generating random scenarios...
+Generating .tab-files...
+Solver: GLPK
+No absolute emission cap...
+Declaring sets...
+Reading sets...
+Constructing sub sets...
+Declaring parameters...
+Reading parameters...
+Constructing parameter values...
+Sets and parameters declared and read...
+Declaring variables...
+Objective and constraints read...
+Building instance...
+Building instance took [sec]:
+1.3850765228271484
+----------------------Problem Statistics---------------------
+Nodes: 3
+Lines: 2
+
+GeneratorTypes: 27
+TotalGenerators: 65
+StorageTypes: 2
+TotalStorages: 5
+
+InvestmentUntil: 2030
+Scenarios: 2
+TotalOperationalHoursPerScenario: 144
+TotalOperationalHoursPerInvYear: 288
+Seasons: 6
+RegularSeasons: 4
+LengthRegSeason: 24
+PeakSeasons: 2
+LengthPeakSeason: 24
+
+Discount rate: 0.05
+Operational discount scale: 4.54595050416236
+--------------------------------------------------------------
+Solving...
+GLPSOL: GLPK LP/MIP Solver, v4.65
+Parameter(s) specified in the command line:
+ --write /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmp1o9w3r1l.glpk.raw
+ --wglp /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpzg7ltf63.glpk.glp --cpxlp
+ /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpukdjwpn5.pyomo.lp
+Reading problem data from '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpukdjwpn5.pyomo.lp'...
+81194 rows, 50421 columns, 244261 non-zeros
+574141 lines were read
+Writing problem data to '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpzg7ltf63.glpk.glp'...
+489830 lines were written
+GLPK Simplex Optimizer, v4.65
+81194 rows, 50421 columns, 244261 non-zeros
+Preprocessing...
+49036 rows, 38863 columns, 153692 non-zeros
+Scaling...
+ A: min|aij| =  1.200e-03  max|aij| =  1.296e+01  ratio =  1.080e+04
+GM: min|aij| =  3.651e-01  max|aij| =  2.739e+00  ratio =  7.503e+00
+EQ: min|aij| =  1.357e-01  max|aij| =  1.000e+00  ratio =  7.371e+00
+Constructing initial basis...
+Size of triangular part is 49036
+      0: obj =   1.996156573e+14 inf =   2.136e+05 (22)
+   1036: obj =   1.998226561e+14 inf =   0.000e+00 (0) 7
+*  6676: obj =   1.871260155e+13 inf =   1.353e-09 (23398) 26
+* 10713: obj =   1.674365527e+13 inf =   2.194e-10 (22819) 34
+* 15588: obj =   1.340174499e+13 inf =   2.224e-10 (19779) 25
+* 20359: obj =   1.014541510e+13 inf =   3.347e-10 (16547) 24
+* 24420: obj =   8.093698301e+12 inf =   4.545e-10 (15061) 25
+* 27817: obj =   6.989728825e+12 inf =   9.086e-09 (14420) 27
+* 31003: obj =   6.163597686e+12 inf =   2.790e-10 (14049) 26
+* 33961: obj =   5.544995252e+12 inf =   3.433e-10 (13446) 26
+* 36809: obj =   4.991559118e+12 inf =   4.375e-10 (13597) 24
+* 39645: obj =   4.397606582e+12 inf =   9.800e-10 (13367) 25
+* 42287: obj =   3.860862578e+12 inf =   7.028e-10 (13040) 24
+* 44822: obj =   3.485970291e+12 inf =   9.281e-10 (12822) 23
+* 47451: obj =   2.990832068e+12 inf =   6.712e-10 (13099) 23
+* 49939: obj =   2.760414266e+12 inf =   8.781e-10 (12780) 23
+* 52501: obj =   2.187857281e+12 inf =   5.441e-10 (12760) 23
+* 55058: obj =   1.719363011e+12 inf =   6.104e-10 (12684) 24
+* 57475: obj =   1.548186069e+12 inf =   4.459e-10 (11622) 23
+* 59830: obj =   1.443883855e+12 inf =   4.461e-10 (11885) 22
+* 62248: obj =   1.428997891e+12 inf =   3.888e-10 (10889) 23
+* 64464: obj =   1.419668001e+12 inf =   2.726e-10 (10863) 22
+* 66947: obj =   1.411988522e+12 inf =   4.947e-10 (9339) 23
+* 70359: obj =   1.392894863e+12 inf =   4.437e-10 (5745) 20
+* 74269: obj =   1.390876031e+12 inf =   4.008e-10 (2324) 19
+* 76980: obj =   1.390531527e+12 inf =   6.648e-10 (0) 15
+OPTIMAL LP SOLUTION FOUND
+Time used:   119.6 secs
+Memory used: 84.0 Mb (88123917 bytes)
+Writing basic solution to '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmp1o9w3r1l.glpk.raw'...
+131624 lines were written
+Writing results to .csv...
+Writing standard output to .csv...
+WARNING: DEPRECATED: Using __getitem__ to return a set value from its
+(ordered) position is deprecated.  Please use at()  (deprecated in 6.1, will
+be removed in (or after) 7.0) (called from
+/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/Empire.py:1184)
