@@ -18,6 +18,29 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
                discountrate, WACC, LeapYearsInvestment, IAMC_PRINT, WRITE_LP,
                PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE):
 
+
+
+    def calculate_investment_cost(self):
+        # 여기에 첫 번째 단계의 투자 비용 계산 로직을 추가합니다.
+        investment_cost = 0
+        # 투자 비용 계산 로직
+        return investment_cost
+
+    def calculate_operational_cost(self, scenario):
+        # 여기에 두 번째 단계의 운영 비용 계산 로직을 추가합니다.
+        operational_cost = 0
+        # 예제 로직
+        q_gen = 1  # 발전기 운영 비용 가중치
+        q_ll = 1   # 로드 손실 비용 가중치
+        alpha_s = 1  # 계절 가중치
+        pi_w = 1    # 시나리오 확률
+        for s in range(4):  # 계절 반복 (예: 4계절)
+            for h in range(24):  # 시간 반복 (예: 하루 24시간)
+                for n in range(10):  # 노드 반복 (예: 10개의 노드)
+                    operational_cost += pi_w * alpha_s * (q_gen * scenario + q_ll * scenario)
+        return operational_cost
+
+        
     if USE_TEMP_DIR:
         TempfileManager.tempdir = temp_dir
 
