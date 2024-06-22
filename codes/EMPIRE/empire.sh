@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --mem=300GB
+#SBATCH --mem=64GB
 #SBATCH --time=96:00:00
 #SBATCH --job-name=neurumhsp
 #SBATCH --output=empire.out
 #SBATCH --error=empire.err
-#SBATCH --account=azs7266_sc
+#SBATCH --account=azs7266_p_gpu
 #SBATCH --partition=sla-prio
 
 source ~/.bashrc
