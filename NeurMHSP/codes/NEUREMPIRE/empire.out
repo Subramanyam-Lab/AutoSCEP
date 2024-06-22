@@ -1,0 +1,103 @@
+++++++++
++EMPIRE+
+++++++++
+LOADCHANGEMODULE: False
+Solver: GLPK
+Scenario Generation: True
+++++++++
+ID: test_reg24_peak24_sce2_randomSGR_202401112301
+++++++++
+Generating random scenarios...
+Generating .tab-files...
+Solver: GLPK
+No absolute emission cap...
+Declaring sets...
+Reading sets...
+Constructing sub sets...
+Declaring parameters...
+Reading parameters...
+Constructing parameter values...
+Sets and parameters declared and read...
+Declaring variables...
+Objective and constraints read...
+Building instance...
+Building instance took [sec]:
+1.3664064407348633
+----------------------Problem Statistics---------------------
+Nodes: 3
+Lines: 2
+
+GeneratorTypes: 27
+TotalGenerators: 65
+StorageTypes: 2
+TotalStorages: 5
+
+InvestmentUntil: 2030
+Scenarios: 2
+TotalOperationalHoursPerScenario: 144
+TotalOperationalHoursPerInvYear: 288
+Seasons: 6
+RegularSeasons: 4
+LengthRegSeason: 24
+PeakSeasons: 2
+LengthPeakSeason: 24
+
+Discount rate: 0.05
+Operational discount scale: 4.54595050416236
+--------------------------------------------------------------
+Solving...
+GLPSOL: GLPK LP/MIP Solver, v4.65
+Parameter(s) specified in the command line:
+ --write /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpxwuzylu8.glpk.raw
+ --wglp /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpfvovl6z4.glpk.glp --cpxlp
+ /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpdd05b3l4.pyomo.lp
+Reading problem data from '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpdd05b3l4.pyomo.lp'...
+81194 rows, 50421 columns, 244339 non-zeros
+574219 lines were read
+Writing problem data to '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpfvovl6z4.glpk.glp'...
+489908 lines were written
+GLPK Simplex Optimizer, v4.65
+81194 rows, 50421 columns, 244339 non-zeros
+Preprocessing...
+49114 rows, 38941 columns, 153974 non-zeros
+Scaling...
+ A: min|aij| =  1.600e-03  max|aij| =  1.296e+01  ratio =  8.103e+03
+GM: min|aij| =  3.490e-01  max|aij| =  2.865e+00  ratio =  8.210e+00
+EQ: min|aij| =  1.265e-01  max|aij| =  1.000e+00  ratio =  7.907e+00
+Constructing initial basis...
+Size of triangular part is 49114
+      0: obj =   2.001038884e+14 inf =   2.149e+05 (22)
+   1035: obj =   2.003124510e+14 inf =   0.000e+00 (0) 7
+*  6723: obj =   1.887480659e+13 inf =   3.310e-10 (23680) 26
+* 11615: obj =   1.514600403e+13 inf =   3.059e-09 (22176) 31
+* 16978: obj =   1.222146649e+13 inf =   5.236e-10 (18066) 23
+* 21394: obj =   1.008135075e+13 inf =   2.440e-10 (15845) 25
+* 24902: obj =   8.788220969e+12 inf =   4.142e-10 (15193) 28
+* 28666: obj =   6.643577894e+12 inf =   4.754e-10 (14567) 25
+* 32002: obj =   5.311655671e+12 inf =   3.327e-10 (14141) 27
+* 35055: obj =   4.385906700e+12 inf =   4.160e-10 (13963) 25
+* 37945: obj =   4.033172994e+12 inf =   4.789e-10 (13473) 25
+* 40889: obj =   3.298632629e+12 inf =   5.212e-10 (13441) 25
+* 43619: obj =   2.533914985e+12 inf =   5.741e-10 (12802) 24
+* 46088: obj =   2.412136718e+12 inf =   6.833e-10 (13152) 23
+* 48564: obj =   2.099138511e+12 inf =   6.340e-10 (12936) 23
+* 51053: obj =   1.746366335e+12 inf =   3.661e-10 (12466) 23
+* 53424: obj =   1.694159219e+12 inf =   3.212e-10 (11810) 23
+* 55747: obj =   1.540187799e+12 inf =   3.210e-10 (11676) 21
+* 57989: obj =   1.526327462e+12 inf =   2.325e-10 (11482) 22
+* 60351: obj =   1.514838258e+12 inf =   2.910e-10 (10137) 22
+* 63334: obj =   1.496984191e+12 inf =   4.945e-10 (8047) 23
+* 66394: obj =   1.490151678e+12 inf =   4.284e-10 (6144) 22
+* 70581: obj =   1.487702256e+12 inf =   4.675e-10 (2361) 18
+* 72970: obj =   1.487424170e+12 inf =   6.216e-10 (0) 12
+OPTIMAL LP SOLUTION FOUND
+Time used:   108.9 secs
+Memory used: 84.1 Mb (88211717 bytes)
+Writing basic solution to '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpxwuzylu8.glpk.raw'...
+131624 lines were written
+Writing results to .csv...
+Writing standard output to .csv...
+WARNING: DEPRECATED: Using __getitem__ to return a set value from its
+(ordered) position is deprecated.  Please use at()  (deprecated in 6.1, will
+be removed in (or after) 7.0) (called from
+/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/Empire.py:1184)
