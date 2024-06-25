@@ -1,0 +1,1034 @@
+model,scenario,region,variable,unit,subannual,2025,2030
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Biomass,GW,Year,2.066,1.4757142857142902
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Coal|w/ CCS,GW,Year,0.0,0.0
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Coal|w/o CCS,GW,Year,3.7,2.27692307692308
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Gas|CCGT|w/ CCS,GW,Year,0.0,0.0
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Gas|CCGT|w/o CCS,GW,Year,24.6378383856953,26.82396832635213
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Gas|OCGT|w/o CCS,GW,Year,9.729249802225901,15.113786700520802
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Hydro|Run-of-River,GW,Year,0.007,0.007
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Oil,GW,Year,1.0070000000000001,0.5594444444444451
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Solar|PV,GW,Year,1.0,1.0
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Waste,GW,Year,0.323,0.323
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Wind|Offshore,GW,Year,1.701,1.701
+EMPIRE,1.5degree,Denmark,Capacity|Electricity|Wind|Onshore,GW,Year,4.423,4.423
+EMPIRE,1.5degree,Europe,CO2 Emmissions|Electricity|Coal|w/ CCS,tons/MWh,Year,0.2703133731133731,0.2703133731133731
+EMPIRE,1.5degree,Europe,CO2 Emmissions|Electricity|Coal|w/o CCS,tons/MWh,Year,2.5705263157894738,2.5627460960092536
+EMPIRE,1.5degree,Europe,CO2 Emmissions|Electricity|Gas|CCGT|w/ CCS,tons/MWh,Year,0.08571276560147231,0.08571276560147231
+EMPIRE,1.5degree,Europe,CO2 Emmissions|Electricity|Gas|CCGT|w/o CCS,tons/MWh,Year,0.7750657894736843,0.7673219244430095
+EMPIRE,1.5degree,Europe,CO2 Emmissions|Electricity|Gas|OCGT|w/o CCS,tons/MWh,Year,0.5049,0.5011414392059553
+EMPIRE,1.5degree,Europe,CO2 Emmissions|Electricity|Lignite|w/ CCS,tons/MWh,Year,0.21110489276139416,0.21110489276139416
+EMPIRE,1.5degree,Europe,CO2 Emmissions|Electricity|Lignite|w/o CCS,tons/MWh,Year,2.0172980142287154,2.011122258525508
+EMPIRE,1.5degree,Europe,CO2 Emmissions|Electricity|Oil,tons/MWh,Year,0.7410638297872342,0.7410638297872342
+EMPIRE,1.5degree,Europe,CO2 Emmissions|Electricity|Waste,tons/MWh,Year,0.40363636363636357,0.40363636363636357
+EMPIRE,1.5degree,Europe,Capacity|Electricity,GW,Year,1489.6768089395543,1656.4090961912586
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Biomass,GW,Year,12.979000000000001,44.102272106485096
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Coal|w/ CCS,GW,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Coal|w/o CCS,GW,Year,628.345,617.4430769230765
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Gas|CCGT|w/ CCS,GW,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Gas|CCGT|w/o CCS,GW,Year,131.01167441472018,129.34219858614625
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Gas|OCGT|w/o CCS,GW,Year,303.3554137732009,312.59555644072685
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Geothermal,GW,Year,0.042,0.042
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Hydro|Reservoir,GW,Year,4.32358333333333,4.38223477211946
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Hydro|Run-of-River,GW,Year,24.88,25.25035901148278
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Lignite|w/ CCS,GW,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Lignite|w/o CCS,GW,Year,167.091137418299,184.8338461538457
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Nuclear,GW,Year,72.646,51.88999999999996
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Ocean,GW,Year,0.24,0.24
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Oil,GW,Year,8.888000000000002,4.937777777777785
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Solar|PV,GW,Year,53.44800000000001,98.20015667033559
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Waste,GW,Year,2.99,3.1233500000000003
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Wind|Offshore,GW,Year,8.086,8.086
+EMPIRE,1.5degree,Europe,Capacity|Electricity|Wind|Onshore,GW,Year,71.351,171.940267749262
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Biomass,US$2010/kW,Year,2395.5555555555557,2395.5555555555557
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Coal|w/ CCS,US$2010/kW,Year,10360.777777777777,10360.777777777777
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Coal|w/o CCS,US$2010/kW,Year,3832.888888888889,3832.888888888889
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Gas|CCGT|w/ CCS,US$2010/kW,Year,3713.1111111111113,3713.1111111111113
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Gas|CCGT|w/o CCS,US$2010/kW,Year,862.4000000000001,862.4000000000001
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Gas|OCGT|w/o CCS,US$2010/kW,Year,479.11111111111114,479.11111111111114
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Geothermal,US$2010/kW,Year,5952.955555555556,5952.955555555556
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Hydro|Reservoir,US$2010/kW,Year,3593.3333333333335,3593.3333333333335
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Hydro|Run-of-River,US$2010/kW,Year,2934.5555555555557,2934.5555555555557
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Lignite|w/ CCS,US$2010/kW,Year,7664.8564102564105,7664.8564102564105
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Lignite|w/o CCS,US$2010/kW,Year,2156.0,2156.0
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Nuclear,US$2010/kW,Year,7186.666666666667,7186.666666666667
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Ocean,US$2010/kW,Year,7306.444444444444,7306.444444444444
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Oil,US$2010/kW,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Solar|PV,US$2010/kW,Year,850.4222222222222,850.4222222222222
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Waste,US$2010/kW,Year,2431.488888888889,2431.488888888889
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Wind|Offshore,US$2010/kW,Year,3327.4266666666667,3327.4266666666667
+EMPIRE,1.5degree,Europe,Capital Cost|Electricity|Wind|Onshore,US$2010/kW,Year,1551.1222222222223,1551.1222222222223
+EMPIRE,1.5degree,Europe,Discount rate|Electricity,%,Year,5.0,5.0
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity,billion US$2010/yr,Year,221422935164.85068,39929759614.530426
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Biomass,billion US$2010/yr,Year,0.0,6222957286.967373
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Coal|w/ CCS,billion US$2010/yr,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Coal|w/o CCS,billion US$2010/yr,Year,143088968127.2609,149185107.4242539
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Electricity storage,billion US$2010/yr,Year,304238137.41162664,2793166228.1735024
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Gas|CCGT|w/ CCS,billion US$2010/yr,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Gas|CCGT|w/o CCS,billion US$2010/yr,Year,10259042377.181978,861820158.0431316
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Gas|OCGT|w/o CCS,billion US$2010/yr,Year,26820688068.698406,458054713.75783277
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Geothermal,billion US$2010/yr,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Hydro|Reservoir,billion US$2010/yr,Year,1092265054.772562,11751437.1883524
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Hydro|Run-of-River,billion US$2010/yr,Year,0.0,57716848.64222116
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Lignite|w/ CCS,billion US$2010/yr,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Lignite|w/o CCS,billion US$2010/yr,Year,38594739960.19965,3948058357.7530317
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Nuclear,billion US$2010/yr,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Ocean,billion US$2010/yr,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Oil,billion US$2010/yr,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Solar|PV,billion US$2010/yr,Year,0.0,3069175191.944735
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Transmission and Distribution,billion US$2010/yr,Year,71200893.63785484,445877841.54541975
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Waste,billion US$2010/yr,Year,0.0,31250070.68998452
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Wind|Offshore,billion US$2010/yr,Year,0.0,0.0
+EMPIRE,1.5degree,Europe,Investment|Energy Supply|Electricity|Wind|Onshore,billion US$2010/yr,Year,0.0,11598734492.45797
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Biomass,EUR/MWh,Year,176.38171428571434,193.3078857142858
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Coal|w/ CCS,EUR/MWh,Year,90.12909697790587,103.93834360776356
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Coal|w/o CCS,EUR/MWh,Year,110.95139234098792,147.75601552963315
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Gas|CCGT|w/ CCS,EUR/MWh,Year,128.88367525273497,139.03323767785292
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Gas|CCGT|w/o CCS,EUR/MWh,Year,126.84855192712811,141.9482270956231
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Gas|OCGT|w/o CCS,EUR/MWh,Year,81.93317096967202,91.9996897873199
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Geothermal,EUR/MWh,Year,0.32,0.32
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Hydro|Reservoir,EUR/MWh,Year,0.32,0.32
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Lignite|w/ CCS,EUR/MWh,Year,36.69870762871214,36.89975990753251
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Lignite|w/o CCS,EUR/MWh,Year,62.781089792293386,81.76080549560966
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Nuclear,EUR/MWh,Year,17.35642105263158,17.553549473684207
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Ocean,EUR/MWh,Year,0.1,0.1
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Oil,EUR/MWh,Year,133.0274772036474,156.36182370820666
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Waste,EUR/MWh,Year,6.586233766233765,10.430389610389609
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Wind|Offshore,EUR/MWh,Year,0.39,0.39
+EMPIRE,1.5degree,Europe,Variable Cost|Electricity|Wind|Onshore,EUR/MWh,Year,0.18,0.18
+EMPIRE,1.5degree,France,Capacity|Electricity|Biomass,GW,Year,2.871,2.0507142857142897
+EMPIRE,1.5degree,France,Capacity|Electricity|Coal|w/ CCS,GW,Year,0.0,0.0
+EMPIRE,1.5degree,France,Capacity|Electricity|Coal|w/o CCS,GW,Year,400.0,399.99999999999966
+EMPIRE,1.5degree,France,Capacity|Electricity|Gas|CCGT|w/ CCS,GW,Year,0.0,0.0
+EMPIRE,1.5degree,France,Capacity|Electricity|Gas|CCGT|w/o CCS,GW,Year,12.151,8.295394230769231
+EMPIRE,1.5degree,France,Capacity|Electricity|Gas|OCGT|w/o CCS,GW,Year,187.84900000000002,191.70460576923102
+EMPIRE,1.5degree,France,Capacity|Electricity|Geothermal,GW,Year,0.0,0.0
+EMPIRE,1.5degree,France,Capacity|Electricity|Hydro|Reservoir,GW,Year,3.05658333333333,3.11523477211946
+EMPIRE,1.5degree,France,Capacity|Electricity|Hydro|Run-of-River,GW,Year,21.092,21.092
+EMPIRE,1.5degree,France,Capacity|Electricity|Nuclear,GW,Year,63.13,45.0928571428571
+EMPIRE,1.5degree,France,Capacity|Electricity|Ocean,GW,Year,0.24,0.24
+EMPIRE,1.5degree,France,Capacity|Electricity|Oil,GW,Year,3.4410000000000003,1.91166666666667
+EMPIRE,1.5degree,France,Capacity|Electricity|Solar|PV,GW,Year,8.526,8.526
+EMPIRE,1.5degree,France,Capacity|Electricity|Waste,GW,Year,0.883,0.92715
+EMPIRE,1.5degree,France,Capacity|Electricity|Wind|Offshore,GW,Year,0.0,0.0
+EMPIRE,1.5degree,France,Capacity|Electricity|Wind|Onshore,GW,Year,15.084,115.673267749262
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Biomass,GW,Year,8.042,40.575843535056514
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Coal|w/ CCS,GW,Year,0.0,0.0
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Coal|w/o CCS,GW,Year,224.645,215.1661538461538
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Gas|CCGT|w/ CCS,GW,Year,0.0,0.0
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Gas|CCGT|w/o CCS,GW,Year,94.2228360290249,94.2228360290249
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Gas|OCGT|w/o CCS,GW,Year,105.77716397097501,105.77716397097501
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Geothermal,GW,Year,0.042,0.042
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Hydro|Reservoir,GW,Year,1.2670000000000001,1.2670000000000001
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Hydro|Run-of-River,GW,Year,3.781,4.15135901148278
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Lignite|w/ CCS,GW,Year,0.0,0.0
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Lignite|w/o CCS,GW,Year,167.091137418299,184.8338461538457
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Nuclear,GW,Year,9.516,6.79714285714286
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Oil,GW,Year,4.44,2.4666666666666703
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Solar|PV,GW,Year,43.922000000000004,88.67415667033559
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Waste,GW,Year,1.784,1.8732
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Wind|Offshore,GW,Year,6.385,6.385
+EMPIRE,1.5degree,Germany,Capacity|Electricity|Wind|Onshore,GW,Year,51.844,51.844
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Biomass,MWh,Year,27715.940500483015,1062645.4001966757
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Coal|w/ CCS,MWh,Year,0.0,0.0
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Coal|w/o CCS,MWh,Year,622118596.9525642,617391801.8855257
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Gas|CCGT|w/ CCS,MWh,Year,0.0,0.0
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Gas|CCGT|w/o CCS,MWh,Year,107373281.63677631,117166933.22917472
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Gas|OCGT|w/o CCS,MWh,Year,39095234.129925676,70957151.9239263
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Geothermal,MWh,Year,45043.19999999985,45043.19999999985
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Hydro|Reservoir,MWh,Year,3421713.429464292,2359872.0787046086
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Hydro|Run-of-River,MWh,Year,24398098.139589984,23605823.01899249
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Lignite|w/ CCS,MWh,Year,0.0,0.0
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Lignite|w/o CCS,MWh,Year,177691884.80380654,197299486.839561
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Nuclear,MWh,Year,73040363.99999997,52171688.57142858
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Ocean,MWh,Year,106173.25714285696,106173.25714285696
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Oil,MWh,Year,5849.69999999997,78534.40002164166
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Solar|PV,MWh,Year,12367966.898285719,10718158.62090642
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Waste,MWh,Year,3807893.142857128,3977720.082857152
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Wind|Offshore,MWh,Year,4326645.481385714,3074699.9996642824
+EMPIRE,1.5degree|scenario1,Europe,Active Power|Electricity|Wind|Onshore,MWh,Year,21869607.73332141,72884603.33546242
+EMPIRE,1.5degree|scenario1,Europe,Emissions|CO2|Energy|Supply|Electricity,Mt CO2/yr,Year,720.3544665801726,750.26512382121
+EMPIRE,1.5degree|scenario1,Europe,Secondary Energy|Electricity,EJ/yr,Year,3.9229058464042135,4.222441209036824
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 00:00+01:00,16.162752625666958,16.385086873109966
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 01:00+01:00,16.162752625667814,15.416728238912368
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 02:00+01:00,16.162752625666958,14.746578185799155
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 03:00+01:00,16.162752625667814,14.304180840225275
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 04:00+01:00,16.162752625666958,14.304180840226254
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 05:00+01:00,16.162752625667814,14.304180840225275
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 06:00+01:00,22.759214158241655,14.304180840225275
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 07:00+01:00,22.759214158242635,14.304180840226254
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 08:00+01:00,22.759214158242635,14.746578185797443
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 09:00+01:00,23.463107379629967,14.746578185799155
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 10:00+01:00,23.463107379630944,20.023378959817933
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 11:00+01:00,22.759214158243488,20.023378959819645
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 12:00+01:00,23.463107379629967,20.023378959819645
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 13:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 14:00+01:00,23.4631073796318,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 15:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 16:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 17:00+01:00,23.463107379629967,20.023378959817933
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 18:00+01:00,24.18877049446373,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 19:00+01:00,22.759214158241655,20.023378959816956
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 20:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 21:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 22:00+01:00,22.759214158242635,20.023378959819645
+EMPIRE,1.5degree|scenario1fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 23:00+01:00,19.072956242980144,20.023378959817933
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 00:00+01:00,10.639046273103444,15.416728238910657
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 01:00+01:00,10.639046273103444,15.416728238909801
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 02:00+01:00,10.639046273103444,14.746578185799155
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 03:00+01:00,10.639046273102563,13.87505541501871
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 04:00+01:00,10.639046273103444,11.224861995603419
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 05:00+01:00,10.639046273104334,11.22486199560431
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 06:00+01:00,22.076437733495858,11.224861995603419
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 07:00+01:00,22.759214158242635,11.22486199560431
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 08:00+01:00,22.759214158243488,11.22486199560431
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 09:00+01:00,22.759214158241655,11.22486199560431
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 10:00+01:00,22.759214158243488,13.875055415017856
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 11:00+01:00,22.759214158242635,18.839997263293156
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 12:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 13:00+01:00,22.759214158242635,20.023378959817933
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 14:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 15:00+01:00,22.759214158241655,20.023378959819645
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 16:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 17:00+01:00,22.759214158241655,19.42267759102469
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 18:00+01:00,22.759214158242635,19.422677591023835
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 19:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 20:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 21:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 22:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 23:00+01:00,22.759214158241655,20.023378959819645
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 00:00+01:00,16.162752625666958,15.893534266917788
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 01:00+01:00,16.162752625666958,14.95422639174399
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 02:00+01:00,16.162752625667814,14.304180840225275
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 03:00+01:00,16.1627526256661,14.30418084022442
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 04:00+01:00,16.162752625666958,14.30418084022442
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 05:00+01:00,16.162752625666958,14.30418084022442
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 06:00+01:00,22.759214158243488,14.30418084022442
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 07:00+01:00,22.759214158242635,14.304180840226254
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 08:00+01:00,22.759214158241655,14.304180840223564
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 09:00+01:00,22.759214158241655,14.304180840225275
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 10:00+01:00,22.759214158243488,14.304180840225275
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 11:00+01:00,22.759214158243488,19.422677591023835
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 12:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 13:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 14:00+01:00,22.759214158241655,20.023378959817933
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 15:00+01:00,22.7592141582408,20.023378959817933
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 16:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 17:00+01:00,22.7592141582408,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 18:00+01:00,23.463107379630944,20.023378959817933
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 19:00+01:00,22.759214158243488,20.023378959819645
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 20:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 21:00+01:00,22.759214158242635,20.023378959819645
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 22:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario1fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 23:00+01:00,19.072956242980144,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 00:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 01:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 02:00+01:00,22.759214158244344,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 03:00+01:00,19.072956242979163,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 04:00+01:00,16.662631572853005,19.422677591023835
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 05:00+01:00,16.662631572851293,19.422677591023835
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 06:00+01:00,16.662631572853005,19.42267759102469
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 07:00+01:00,16.66263157285215,19.42267759102469
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 08:00+01:00,19.66284148760591,20.023378959817933
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 09:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 10:00+01:00,23.463107379630944,21.0363592558111
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 11:00+01:00,24.497460317460675,37.81283342966337
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 12:00+01:00,23.463107379630944,37.81283342966435
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 13:00+01:00,23.463107379629967,686.8133170654427
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 14:00+01:00,23.463107379630944,37.81283342966435
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 15:00+01:00,23.463107379630944,34.03155008669781
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 16:00+01:00,22.759214158242635,34.03155008669781
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 17:00+01:00,22.759214158243488,34.03155008669696
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 18:00+01:00,22.759214158243488,34.03155008669696
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 19:00+01:00,22.759214158241655,34.03155008669598
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 20:00+01:00,23.4631073796318,37.81283342966252
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 21:00+01:00,23.463107379632657,4644.568997899148
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 22:00+01:00,22.759214158243488,37.81283342966435
+EMPIRE,1.5degree|scenario1peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 23:00+01:00,22.759214158242635,21.0363592558111
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 00:00+01:00,22.7592141582408,21.686968304960505
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 01:00+01:00,22.759214158242635,21.686968304958672
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 02:00+01:00,22.759214158242635,22.248198844243042
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 03:00+01:00,22.759214158242635,20.642658721461135
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 04:00+01:00,22.759214158242635,20.642658721462965
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 05:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 06:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 07:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 08:00+01:00,22.759214158242635,20.023378959819645
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 09:00+01:00,22.759214158242635,34.03155008669598
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 10:00+01:00,22.759214158241655,729.9535732441747
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 11:00+01:00,28.4490176978028,4788.215461751692
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 12:00+01:00,36.95207700101342,729.9535732441735
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 13:00+01:00,28.449017697801946,729.9535732441735
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 14:00+01:00,28.449017697801946,729.9535732441735
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 15:00+01:00,28.449017697803658,298.6375176139528
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 16:00+01:00,22.759214158241655,280.9880403229678
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 17:00+01:00,22.759214158243488,280.9880403229665
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 18:00+01:00,22.759214158242635,34.03155008669513
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 19:00+01:00,22.759214158242635,34.03155008669598
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 20:00+01:00,22.759214158241655,34.03155008669781
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 21:00+01:00,23.4631073796318,37.81283342966252
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 22:00+01:00,28.449017697803658,37.81283342966337
+EMPIRE,1.5degree|scenario1peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 23:00+01:00,22.759214158242635,34.03155008669696
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 00:00+01:00,22.759214158242635,21.036359255811956
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 01:00+01:00,22.759214158243488,21.036359255810243
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 02:00+01:00,22.076437733495858,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 03:00+01:00,18.500767555689112,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 04:00+01:00,16.162752625666958,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 05:00+01:00,16.162752625666958,20.023378959817933
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 06:00+01:00,16.162752625666958,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 07:00+01:00,16.162752625666958,20.023378959819645
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 08:00+01:00,19.07295624297831,20.02337895981879
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 09:00+01:00,22.759214158242635,33.0106035840966
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 10:00+01:00,22.759214158242635,708.0549660468471
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 11:00+01:00,22.759214158242635,708.0549660468483
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 12:00+01:00,22.759214158242635,708.0549660468483
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 13:00+01:00,22.759214158243488,708.0549660468471
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 14:00+01:00,22.759214158242635,708.0549660468483
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 15:00+01:00,22.759214158243488,289.67839208553335
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 16:00+01:00,22.759214158242635,289.67839208553335
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 17:00+01:00,22.759214158241655,289.6783920855309
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 18:00+01:00,22.759214158241655,289.6783920855321
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 19:00+01:00,22.759214158242635,289.67839208553335
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 20:00+01:00,22.759214158242635,708.0549660468496
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 21:00+01:00,22.759214158244344,4788.215461751692
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 22:00+01:00,22.759214158242635,4788.215461751692
+EMPIRE,1.5degree|scenario1peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 23:00+01:00,22.759214158243488,4309.39391557653
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 00:00+01:00,22.759214158243488,805.7046018628303
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 01:00+01:00,19.072956242979163,1277.1994329350075
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 02:00+01:00,16.662631572853005,1277.1994329350075
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 03:00+01:00,16.662631572851293,4505.231927962172
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 04:00+01:00,16.662631572853005,1277.1994329350075
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 05:00+01:00,16.66263157285215,21.0363592558111
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 06:00+01:00,19.66284148760591,21.036359255811956
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 07:00+01:00,22.759214158242635,21.036359255811956
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 08:00+01:00,23.463107379630944,21.036359255810243
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 09:00+01:00,24.497460317460675,21.0363592558111
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 10:00+01:00,23.463107379630944,23.373732506458484
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 11:00+01:00,23.463107379629967,23.373732506456655
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 12:00+01:00,23.463107379630944,23.3737325064558
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 13:00+01:00,23.463107379630944,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 14:00+01:00,22.759214158242635,20.023378959817933
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 15:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 16:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 17:00+01:00,22.759214158241655,20.023378959819645
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 18:00+01:00,23.4631073796318,20.023378959819645
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 19:00+01:00,23.463107379632657,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 20:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 21:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 22:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 23:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 00:00+01:00,22.759214158242635,4788.215461751692
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 01:00+01:00,22.759214158242635,4788.215461751692
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 02:00+01:00,22.759214158242635,4788.215461751692
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 03:00+01:00,22.759214158242635,4788.215461751692
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 04:00+01:00,22.759214158243488,4788.215461751692
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 05:00+01:00,22.759214158242635,22.35769928346296
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 06:00+01:00,22.759214158242635,22.357699283464797
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 07:00+01:00,22.759214158242635,21.036359255812933
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 08:00+01:00,22.759214158243488,20.023378959816103
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 09:00+01:00,28.449017697803658,20.023378959817933
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 10:00+01:00,1777.3427304980928,20.023378959817933
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 11:00+01:00,28.449017697803658,22.248198844240356
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 12:00+01:00,28.4490176978028,22.248198844241212
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 13:00+01:00,28.44901769780463,20.023378959817933
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 14:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 15:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 16:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 17:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 18:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 19:00+01:00,23.4631073796318,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 20:00+01:00,28.44901769780463,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 21:00+01:00,22.759214158242635,20.023378959817933
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 22:00+01:00,22.759214158241655,20.023378959820622
+EMPIRE,1.5degree|scenario1peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 23:00+01:00,22.759214158242635,20.023378959817933
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 00:00+01:00,22.076437733495858,4644.568997899148
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 01:00+01:00,18.500767555689112,4644.568997899148
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 02:00+01:00,16.162752625666958,4644.568997899148
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 03:00+01:00,16.162752625666958,4644.568997899148
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 04:00+01:00,16.162752625666958,4644.568997899148
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 05:00+01:00,16.162752625666958,21.686968304959525
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 06:00+01:00,19.07295624297831,21.686968304960505
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 07:00+01:00,22.759214158242635,21.686968304960505
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 08:00+01:00,22.759214158242635,21.686968304959525
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 09:00+01:00,22.759214158242635,21.686968304962214
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 10:00+01:00,22.759214158242635,24.096631449956035
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 11:00+01:00,22.759214158243488,24.096631449956035
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 12:00+01:00,22.759214158242635,24.096631449955055
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 13:00+01:00,22.759214158243488,21.0363592558111
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 14:00+01:00,22.759214158242635,21.0363592558111
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 15:00+01:00,22.759214158241655,20.642658721461988
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 16:00+01:00,22.759214158241655,20.023378959817933
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 17:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 18:00+01:00,22.759214158242635,20.023378959819645
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 19:00+01:00,22.759214158244344,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 20:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 21:00+01:00,22.759214158243488,20.023378959819645
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 22:00+01:00,22.759214158242635,20.023378959817933
+EMPIRE,1.5degree|scenario1peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 23:00+01:00,22.759214158242635,20.642658721461988
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 00:00+01:00,19.0729562429781,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 01:00+01:00,22.75921415824483,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 02:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 03:00+01:00,22.07643773349564,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 04:00+01:00,22.076437733494558,20.023378959819137
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 05:00+01:00,19.0729562429781,19.42267759102303
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 06:00+01:00,17.131315681191687,14.30418084022558
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 07:00+01:00,16.162752625665906,14.304180840225015
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 08:00+01:00,16.162752625665906,14.30418084022558
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 09:00+01:00,16.162752625665906,14.304180840226662
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 10:00+01:00,16.16275262566699,14.30418084022558
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 11:00+01:00,16.16275262566699,14.30418084022558
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 12:00+01:00,16.16275262566699,14.304180840225015
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 13:00+01:00,16.16275262566699,19.422677591024115
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 14:00+01:00,19.072956242979185,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 15:00+01:00,22.759214158243747,20.023378959818054
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 16:00+01:00,22.759214158243747,20.023378959817492
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 17:00+01:00,22.75921415824153,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 18:00+01:00,22.759214158242614,20.023378959818054
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 19:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 20:00+01:00,22.75921415824153,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 21:00+01:00,22.759214158242614,20.023378959818054
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 22:00+01:00,22.759214158242614,20.023378959818054
+EMPIRE,1.5degree|scenario1spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 23:00+01:00,22.759214158243747,20.023378959818054
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 00:00+01:00,10.639046273103874,11.22486199560486
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 01:00+01:00,10.639046273103874,11.224861995603728
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 02:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 03:00+01:00,10.639046273102789,11.224861995604293
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 04:00+01:00,10.639046273103874,11.224861995603728
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 05:00+01:00,10.639046273103874,11.22486199560486
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 06:00+01:00,10.639046273103874,11.22486199560486
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 07:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 08:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 09:00+01:00,10.639046273105006,11.224861995604293
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 10:00+01:00,10.639046273103874,11.22486199560486
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 11:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 12:00+01:00,10.639046273105006,11.22486199560486
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 13:00+01:00,10.639046273105006,11.224861995605375
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 14:00+01:00,10.639046273105006,11.224861995604293
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 15:00+01:00,10.639046273103874,12.47206888400576
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 16:00+01:00,10.639046273103874,12.47206888400576
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 17:00+01:00,10.639046273103874,12.47206888400576
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 18:00+01:00,10.639046273103874,12.47206888400576
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 19:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 20:00+01:00,10.639046273103874,11.22486199560486
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 21:00+01:00,10.639046273102789,11.224861995605375
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 22:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario1spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 23:00+01:00,10.639046273102789,11.224861995604293
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 00:00+01:00,19.0729562429781,20.023378959819137
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 01:00+01:00,22.07643773349564,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 02:00+01:00,22.076437733494558,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 03:00+01:00,22.759214158242614,20.023378959816974
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 04:00+01:00,22.759214158242614,20.023378959819137
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 05:00+01:00,19.662841487606798,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 06:00+01:00,17.661150186796746,14.30418084022558
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 07:00+01:00,16.162752625665906,14.304180840225015
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 08:00+01:00,15.677870046895647,14.304180840225015
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 09:00+01:00,10.639046273102789,14.304180840225015
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 10:00+01:00,10.639046273103874,14.30418084022558
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 11:00+01:00,10.639046273103874,14.304180840224449
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 12:00+01:00,15.677870046896778,14.30418084022558
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 13:00+01:00,16.16275262566699,20.023378959818054
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 14:00+01:00,19.072956242980272,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 15:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 16:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 17:00+01:00,22.759214158242614,20.023378959819137
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 18:00+01:00,22.759214158242614,20.023378959818054
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 19:00+01:00,22.759214158242614,20.023378959819137
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 20:00+01:00,22.759214158242614,20.023378959818054
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 21:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 22:00+01:00,22.759214158243747,20.023378959819137
+EMPIRE,1.5degree|scenario1spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 23:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 00:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 01:00+01:00,22.759214158242635,20.023378959819645
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 02:00+01:00,22.759214158241655,20.023378959819645
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 03:00+01:00,22.759214158241655,20.023378959819645
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 04:00+01:00,22.759214158243488,20.023378959817933
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 05:00+01:00,22.759214158242635,19.42267759102298
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 06:00+01:00,22.759214158241655,16.590305330114536
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 07:00+01:00,22.759214158243488,15.538142072821168
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 08:00+01:00,22.759214158242635,14.304180840225275
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 09:00+01:00,22.759214158242635,14.304180840225275
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 10:00+01:00,22.759214158241655,14.304180840225275
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 11:00+01:00,22.759214158242635,14.304180840225275
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 12:00+01:00,18.50076755569082,14.304180840226254
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 13:00+01:00,16.162752625667814,14.304180840225275
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 14:00+01:00,16.162752625667814,14.304180840225275
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 15:00+01:00,16.162752625667814,16.0925961702124
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 16:00+01:00,16.162752625667814,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 17:00+01:00,16.162752625666958,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 18:00+01:00,16.162752625667814,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 19:00+01:00,16.162752625666958,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 20:00+01:00,22.076437733495858,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 21:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 22:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 23:00+01:00,22.759214158242635,20.023378959819645
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 00:00+01:00,10.639046273102563,11.224861995605202
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 01:00+01:00,10.639046273104334,11.224861995603419
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 02:00+01:00,10.639046273102563,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 03:00+01:00,10.639046273103444,11.224861995603419
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 04:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 05:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 06:00+01:00,10.639046273103444,11.224861995605202
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 07:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 08:00+01:00,10.639046273103444,11.224861995605202
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 09:00+01:00,10.639046273104334,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 10:00+01:00,10.639046273104334,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 11:00+01:00,10.639046273102563,11.224861995603419
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 12:00+01:00,10.639046273104334,11.224861995603419
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 13:00+01:00,10.639046273102563,11.224861995605202
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 14:00+01:00,10.639046273104334,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 15:00+01:00,10.639046273102563,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 16:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 17:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 18:00+01:00,10.639046273102563,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 19:00+01:00,10.639046273102563,11.22486199560431
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 20:00+01:00,10.639046273102563,14.031077494505357
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 21:00+01:00,10.639046273102563,14.031077494503647
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 22:00+01:00,10.639046273104334,14.031077494505357
+EMPIRE,1.5degree|scenario1summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 23:00+01:00,10.639046273103444,14.031077494506214
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 00:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 01:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 02:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 03:00+01:00,22.759214158242635,20.023378959817933
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 04:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 05:00+01:00,22.759214158242635,20.023378959816956
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 06:00+01:00,22.759214158242635,17.10340755681922
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 07:00+01:00,22.759214158241655,16.01870316785613
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 08:00+01:00,22.759214158243488,14.304180840225275
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 09:00+01:00,22.759214158242635,14.304180840226254
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 10:00+01:00,22.759214158242635,14.304180840225275
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 11:00+01:00,22.759214158242635,14.30418084022711
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 12:00+01:00,19.072956242980144,14.304180840226254
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 13:00+01:00,16.162752625667814,14.304180840225275
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 14:00+01:00,16.162752625666958,14.304180840225275
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 15:00+01:00,16.162752625666958,16.590305330115388
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 16:00+01:00,10.968088941342991,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 17:00+01:00,10.968088941343883,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 18:00+01:00,16.162752625666958,20.023378959819645
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 19:00+01:00,16.162752625666958,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 20:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 21:00+01:00,22.759214158241655,20.023378959817933
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 22:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario1summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 23:00+01:00,22.759214158241655,20.023378959817933
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 00:00+01:00,23.463107379630266,14.30418084022558
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 01:00+01:00,23.463107379632483,14.304180840225015
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 02:00+01:00,22.759214158243747,14.30418084022558
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 03:00+01:00,22.759214158242614,14.74657818579942
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 04:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 05:00+01:00,22.75921415824153,20.023378959818054
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 06:00+01:00,19.072956242980272,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 07:00+01:00,16.162752625665906,20.023378959818054
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 08:00+01:00,16.16275262566699,20.023378959818054
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 09:00+01:00,16.162752625668073,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 10:00+01:00,16.16275262566699,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 11:00+01:00,16.162752625668073,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 12:00+01:00,16.16275262566699,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 13:00+01:00,16.16275262566699,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 14:00+01:00,16.66263157285133,20.023378959817492
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 15:00+01:00,19.662841487606798,20.023378959817492
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 16:00+01:00,19.662841487607928,20.023378959818054
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 17:00+01:00,19.66284148760901,20.023378959818054
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 18:00+01:00,19.662841487606798,20.023378959818054
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 19:00+01:00,19.662841487607928,20.023378959818054
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 20:00+01:00,19.072956242980272,14.304180840226662
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 21:00+01:00,16.66263157285354,14.304180840226099
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 22:00+01:00,16.66263157285354,14.30418084022558
+EMPIRE,1.5degree|scenario1winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 23:00+01:00,16.66263157285241,14.304180840225015
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 00:00+01:00,22.759214158242614,11.224861995604293
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 01:00+01:00,22.75921415824153,11.22486199560486
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 02:00+01:00,22.759214158242614,11.224861995604293
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 03:00+01:00,22.75921415824153,11.224861995604293
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 04:00+01:00,22.75921415824153,19.422677591024684
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 05:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 06:00+01:00,22.75921415824153,20.02337895982027
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 07:00+01:00,22.759214158242614,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 08:00+01:00,22.759214158242614,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 09:00+01:00,22.75921415824153,20.023378959819706
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 10:00+01:00,19.072956242979185,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 11:00+01:00,15.677870046896778,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 12:00+01:00,16.66263157285024,20.023378959817492
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 13:00+01:00,19.072956242979185,19.422677591024115
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 14:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 15:00+01:00,22.759214158242614,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 16:00+01:00,22.75921415824153,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 17:00+01:00,22.759214158242614,16.887455807250696
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 18:00+01:00,22.75921415824153,11.224861995603728
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 19:00+01:00,22.75921415824153,11.22486199560486
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 20:00+01:00,22.759214158242614,11.224861995603728
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 21:00+01:00,19.0729562429781,11.224861995603728
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 22:00+01:00,16.66263157285241,11.22486199560486
+EMPIRE,1.5degree|scenario1winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 23:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 00:00+01:00,22.75921415824153,11.572022675880484
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 01:00+01:00,22.759214158242614,11.572022675880484
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 02:00+01:00,22.759214158242614,11.572022675880484
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 03:00+01:00,22.759214158242614,14.304180840224449
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 04:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 05:00+01:00,22.759214158242614,20.023378959816974
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 06:00+01:00,19.072956242980272,20.023378959818054
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 07:00+01:00,16.16275262566699,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 08:00+01:00,16.16275262566699,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 09:00+01:00,16.16275262566699,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 10:00+01:00,16.162752625665906,20.023378959818054
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 11:00+01:00,16.16275262566699,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 12:00+01:00,16.162752625665906,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 13:00+01:00,16.162752625668073,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 14:00+01:00,16.16275262566699,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 15:00+01:00,19.072956242979185,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 16:00+01:00,19.072956242979185,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 17:00+01:00,19.072956242979185,20.02337895981862
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 18:00+01:00,19.072956242979185,20.023378959819137
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 19:00+01:00,19.072956242979185,19.422677591023596
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 20:00+01:00,19.0729562429781,14.304180840225015
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 21:00+01:00,16.16275262566699,14.304180840225015
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 22:00+01:00,16.162752625668073,14.304180840226662
+EMPIRE,1.5degree|scenario1winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 23:00+01:00,16.162752625665906,14.304180840226099
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Biomass,MWh,Year,192683.90054816924,9941704.703970408
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Coal|w/ CCS,MWh,Year,0.0,0.0
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Coal|w/o CCS,MWh,Year,606629205.6694521,569781592.7609726
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Gas|CCGT|w/ CCS,MWh,Year,0.0,0.0
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Gas|CCGT|w/o CCS,MWh,Year,115837787.95683919,90205527.98547637
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Gas|OCGT|w/o CCS,MWh,Year,76764990.44537756,100195294.40113226
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Geothermal,MWh,Year,45043.19999999985,45043.19999999985
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Hydro|Reservoir,MWh,Year,3143315.4571428625,2378958.2285926207
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Hydro|Run-of-River,MWh,Year,21917323.59251846,20730679.02372658
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Lignite|w/ CCS,MWh,Year,0.0,0.0
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Lignite|w/o CCS,MWh,Year,177691884.80380654,197299486.839561
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Nuclear,MWh,Year,73040363.99999997,52171688.57142858
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Ocean,MWh,Year,106173.25714285696,106173.25714285696
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Oil,MWh,Year,122362.58435399366,78534.40002164134
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Solar|PV,MWh,Year,12044943.330857145,20188841.134172164
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Waste,MWh,Year,3807893.142857128,3977720.082857152
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Wind|Offshore,MWh,Year,3808978.0337142884,2985710.183342861
+EMPIRE,1.5degree|scenario2,Europe,Active Power|Electricity|Wind|Onshore,MWh,Year,16556543.64414285,51825741.44468707
+EMPIRE,1.5degree|scenario2,Europe,Emissions|CO2|Energy|Supply|Electricity,Mt CO2/yr,Year,728.412918298627,710.6926801906963
+EMPIRE,1.5degree|scenario2,Europe,Secondary Energy|Electricity,EJ/yr,Year,4.002154174867539,4.038885706381493
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 00:00+01:00,16.162752625667814,20.405268478135852
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 01:00+01:00,16.162752625666958,20.405268478137565
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 02:00+01:00,16.162752625667814,20.405268478135852
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 03:00+01:00,16.66263157285215,20.405268478137565
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 04:00+01:00,19.072956242979163,20.40526847813671
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 05:00+01:00,22.759214158244344,20.405268478139398
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 06:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 07:00+01:00,22.759214158242635,20.023378959817933
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 08:00+01:00,22.759214158242635,20.405268478139398
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 09:00+01:00,22.759214158242635,20.405268478139398
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 10:00+01:00,22.759214158242635,20.405268478135852
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 11:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 12:00+01:00,23.46310737963351,20.023378959819645
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 13:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 14:00+01:00,22.759214158242635,20.023378959819645
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 15:00+01:00,22.759214158242635,16.590305330114536
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 16:00+01:00,19.66284148760591,14.304180840225275
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 17:00+01:00,19.66284148760677,14.304180840225275
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 18:00+01:00,16.66263157285215,14.304180840226254
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 19:00+01:00,16.162752625666958,14.304180840226254
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 20:00+01:00,16.162752625666958,14.304180840226254
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 21:00+01:00,16.162752625666958,14.304180840226254
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 22:00+01:00,16.66263157285215,20.023378959817933
+EMPIRE,1.5degree|scenario2fall,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 23:00+01:00,16.662631572851293,20.023378959819645
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 00:00+01:00,10.639046273103444,20.02337895981879
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 01:00+01:00,10.639046273103444,20.023378959819645
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 02:00+01:00,10.639046273104334,20.02337895981879
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 03:00+01:00,10.639046273103444,20.02337895981879
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 04:00+01:00,15.677870046896254,20.023378959819645
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 05:00+01:00,19.07295624297831,20.023378959819645
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 06:00+01:00,20.828289466067446,20.023378959820622
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 07:00+01:00,22.759214158242635,19.42267759102469
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 08:00+01:00,22.759214158242635,20.023378959819645
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 09:00+01:00,19.072956242979163,20.023378959819645
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 10:00+01:00,10.639046273104334,20.02337895981879
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 11:00+01:00,10.639046273103444,20.023378959819645
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 12:00+01:00,19.597337558620442,20.02337895981879
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 13:00+01:00,22.759214158242635,19.42267759102469
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 14:00+01:00,22.759214158242635,19.422677591023835
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 15:00+01:00,22.759214158244344,16.590305330114536
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 16:00+01:00,19.597337558621298,13.87505541501871
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 17:00+01:00,19.66284148760677,11.22486199560431
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 18:00+01:00,22.759214158242635,11.22486199560431
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 19:00+01:00,19.072956242979163,11.224861995603419
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 20:00+01:00,15.677870046897235,11.22486199560431
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 21:00+01:00,10.639046273102563,11.224861995602526
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 22:00+01:00,10.639046273103444,19.422677591023835
+EMPIRE,1.5degree|scenario2fall,France,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 23:00+01:00,10.639046273102563,20.02337895981879
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 00:00+01:00,10.639046273104334,21.036359255810243
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 01:00+01:00,10.639046273103444,21.0363592558111
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 02:00+01:00,15.677870046896254,21.036359255810243
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 03:00+01:00,16.162752625666958,21.036359255812933
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 04:00+01:00,16.1627526256661,21.0363592558111
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 05:00+01:00,19.07295624297831,21.036359255812933
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 06:00+01:00,20.20344078208553,20.642658721464677
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 07:00+01:00,20.20344078208553,20.023378959817933
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 08:00+01:00,19.072956242979163,21.036359255811956
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 09:00+01:00,19.072956242979163,21.03635925580939
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 10:00+01:00,19.072956242981,21.0363592558111
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 11:00+01:00,19.07295624297831,21.0363592558111
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 12:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 13:00+01:00,22.759214158241655,20.023378959819645
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 14:00+01:00,22.759214158243488,20.023378959817933
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 15:00+01:00,19.072956242979163,16.590305330115388
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 16:00+01:00,19.072956242979163,14.304180840225275
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 17:00+01:00,19.07295624297831,14.304180840225275
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 18:00+01:00,16.1627526256661,14.30418084022711
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 19:00+01:00,16.162752625666958,14.304180840226254
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 20:00+01:00,16.162752625666958,14.304180840225275
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 21:00+01:00,16.16275262566879,14.304180840227964
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 22:00+01:00,16.162752625667814,20.02337895981879
+EMPIRE,1.5degree|scenario2fall,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,10-01 23:00+01:00,16.162752625666958,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 00:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 01:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 02:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 03:00+01:00,22.076437733495858,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 04:00+01:00,19.072956242979163,19.42267759102469
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 05:00+01:00,16.1627526256661,19.422677591023835
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 06:00+01:00,16.162752625666958,19.42267759102469
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 07:00+01:00,16.162752625666958,19.42267759102469
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 08:00+01:00,16.16275262566879,20.023378959817933
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 09:00+01:00,22.076437733495858,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 10:00+01:00,22.759214158242635,21.0363592558111
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 11:00+01:00,36.952077001014274,37.812833429665204
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 12:00+01:00,5927.777777777779,37.812833429665204
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 13:00+01:00,5927.777777777779,1923.148193170566
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 14:00+01:00,36.952077001014274,37.81283342966606
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 15:00+01:00,36.95207700101342,34.03155008669781
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 16:00+01:00,24.49746031745982,34.03155008669781
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 17:00+01:00,22.759214158241655,34.03155008669696
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 18:00+01:00,22.759214158241655,34.03155008669696
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 19:00+01:00,22.759214158242635,34.03155008669598
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 20:00+01:00,22.759214158243488,37.812833429665204
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 21:00+01:00,44.80439336372966,2136.831325745069
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 22:00+01:00,36.95207700101342,37.81283342966606
+EMPIRE,1.5degree|scenario2peak1,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 23:00+01:00,22.759214158242635,21.0363592558111
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 00:00+01:00,28.449017697803658,21.686968304960505
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 01:00+01:00,22.759214158241655,21.686968304958672
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 02:00+01:00,22.759214158243488,22.24819884424207
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 03:00+01:00,22.759214158243488,20.642658721461135
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 04:00+01:00,22.759214158242635,20.642658721462965
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 05:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 06:00+01:00,22.759214158241655,20.023378959817933
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 07:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 08:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 09:00+01:00,22.759214158242635,34.03155008669598
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 10:00+01:00,22.759214158242635,2043.9453641944572
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 11:00+01:00,6111.111111111115,2775.397339074674
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 12:00+01:00,6111.111111111115,2043.9453641944572
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 13:00+01:00,6111.111111111115,2043.9453641944572
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 14:00+01:00,6111.111111111115,2043.9453641944572
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 15:00+01:00,6111.111111111115,1176.0671472399304
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 16:00+01:00,47.61865592914008,1106.5615788380492
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 17:00+01:00,22.759214158241655,1106.5615788380492
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 18:00+01:00,22.759214158241655,995.9054209542451
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 19:00+01:00,22.759214158241655,995.9054209542462
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 20:00+01:00,22.759214158242635,995.9054209542451
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 21:00+01:00,22.7592141582408,1106.5615788380492
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 22:00+01:00,1746.6308434905732,1106.5615788380517
+EMPIRE,1.5degree|scenario2peak1,France,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 23:00+01:00,38.09492474331255,995.9054209542462
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 00:00+01:00,24.497460317460675,21.036359255811956
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 01:00+01:00,22.759214158242635,21.036359255810243
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 02:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 03:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 04:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 05:00+01:00,19.072956242979163,20.023378959817933
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 06:00+01:00,19.07295624297831,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 07:00+01:00,19.072956242980144,20.023378959819645
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 08:00+01:00,19.072956242979163,20.02337895981879
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 09:00+01:00,22.759214158243488,33.0106035840966
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 10:00+01:00,22.759214158242635,1982.627003268619
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 11:00+01:00,46.190096251265864,1982.6270032686314
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 12:00+01:00,6111.111111111115,1982.6270032686314
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 13:00+01:00,6111.111111111115,1982.6270032686314
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 14:00+01:00,6111.111111111115,1982.6270032686314
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 15:00+01:00,5927.777777777779,1140.7851328227327
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 16:00+01:00,46.19009625126672,1140.7851328227327
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 17:00+01:00,24.49746031745982,1140.7851328227318
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 18:00+01:00,22.7592141582408,1140.7851328227318
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 19:00+01:00,22.759214158242635,1140.7851328227318
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 20:00+01:00,23.46310737963351,1982.6270032686314
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 21:00+01:00,46.19009625126856,2202.9188925206904
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 22:00+01:00,1800.6503541139991,2202.9188925206904
+EMPIRE,1.5degree|scenario2peak1,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,11-01 23:00+01:00,36.95207700101342,1982.6270032686314
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 00:00+01:00,22.759214158242635,34.03155008669696
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 01:00+01:00,22.759214158242635,37.81283342966337
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 02:00+01:00,22.759214158242635,37.81283342966337
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 03:00+01:00,22.076437733495858,4505.231927962172
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 04:00+01:00,19.072956242979163,37.81283342966337
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 05:00+01:00,16.1627526256661,21.0363592558111
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 06:00+01:00,16.162752625666958,21.036359255811956
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 07:00+01:00,16.162752625666958,21.036359255811956
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 08:00+01:00,16.16275262566879,21.036359255810243
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 09:00+01:00,22.076437733495858,21.0363592558111
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 10:00+01:00,22.759214158242635,23.373732506458484
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 11:00+01:00,36.952077001014274,23.373732506456655
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 12:00+01:00,5927.777777777779,23.3737325064558
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 13:00+01:00,5927.777777777779,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 14:00+01:00,3758.203044539421,20.023378959817933
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 15:00+01:00,36.95207700101342,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 16:00+01:00,24.49746031745982,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 17:00+01:00,22.759214158241655,20.023378959819645
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 18:00+01:00,22.759214158241655,20.023378959819645
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 19:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 20:00+01:00,22.759214158243488,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 21:00+01:00,2202.3908934318015,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 22:00+01:00,36.95207700101342,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 23:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 00:00+01:00,28.449017697803658,4788.215461751692
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 01:00+01:00,22.759214158241655,4788.215461751692
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 02:00+01:00,22.759214158243488,4788.215461751692
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 03:00+01:00,22.759214158243488,4788.215461751692
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 04:00+01:00,22.759214158242635,4788.215461751692
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 05:00+01:00,22.759214158242635,22.35769928346296
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 06:00+01:00,22.759214158241655,22.357699283464797
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 07:00+01:00,22.759214158242635,21.036359255812933
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 08:00+01:00,22.759214158242635,20.023378959816103
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 09:00+01:00,22.759214158242635,20.023378959817933
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 10:00+01:00,22.759214158242635,20.023378959817933
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 11:00+01:00,6111.111111111115,22.248198844240356
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 12:00+01:00,6111.111111111115,22.248198844241212
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 13:00+01:00,6111.111111111115,20.023378959819645
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 14:00+01:00,6111.111111111115,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 15:00+01:00,6111.111111111115,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 16:00+01:00,2340.7279130957545,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 17:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 18:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 19:00+01:00,22.759214158241655,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 20:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 21:00+01:00,22.7592141582408,20.023378959817933
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 22:00+01:00,5927.777777777779,20.023378959820622
+EMPIRE,1.5degree|scenario2peak2,France,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 23:00+01:00,1872.5823304766086,20.023378959817933
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 00:00+01:00,24.497460317460675,4644.568997899148
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 01:00+01:00,22.759214158242635,4644.568997899148
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 02:00+01:00,22.759214158241655,4644.568997899148
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 03:00+01:00,22.759214158242635,4644.568997899148
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 04:00+01:00,22.759214158242635,4644.568997899148
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 05:00+01:00,19.072956242979163,21.686968304959525
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 06:00+01:00,19.07295624297831,21.686968304960505
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 07:00+01:00,19.072956242980144,21.686968304960505
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 08:00+01:00,19.072956242979163,21.686968304959525
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 09:00+01:00,22.759214158243488,21.686968304962214
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 10:00+01:00,22.759214158242635,24.096631449956035
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 11:00+01:00,2270.506075702895,24.096631449956035
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 12:00+01:00,6111.111111111115,24.096631449955055
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 13:00+01:00,6111.111111111115,21.0363592558111
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 14:00+01:00,6111.111111111115,21.0363592558111
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 15:00+01:00,5927.777777777779,20.642658721461988
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 16:00+01:00,2270.5060757028828,20.023378959817933
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 17:00+01:00,24.49746031745982,20.023378959817933
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 18:00+01:00,22.7592141582408,20.023378959819645
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 19:00+01:00,22.759214158242635,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 20:00+01:00,23.46310737963351,20.02337895981879
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 21:00+01:00,2270.5060757028828,20.023378959819645
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 22:00+01:00,6111.111111111115,20.023378959817933
+EMPIRE,1.5degree|scenario2peak2,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,12-01 23:00+01:00,1816.4048605623161,20.642658721461988
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 00:00+01:00,22.759214158242614,14.304180840226099
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 01:00+01:00,22.759214158242614,14.304180840226099
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 02:00+01:00,22.75921415824153,14.304180840226099
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 03:00+01:00,22.176395701878377,14.304180840226099
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 04:00+01:00,22.759214158242614,14.30418084022558
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 05:00+01:00,22.759214158242614,14.304180840226662
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 06:00+01:00,22.759214158242614,14.304180840225015
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 07:00+01:00,22.759214158242614,14.304180840226099
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 08:00+01:00,22.07643773349564,14.304180840225015
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 09:00+01:00,18.500767555689656,14.304180840225015
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 10:00+01:00,18.50076755568857,14.30418084022558
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 11:00+01:00,16.16275262566699,14.30418084022558
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 12:00+01:00,16.16275262566699,14.30418084022558
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 13:00+01:00,16.162752625668073,14.30418084022558
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 14:00+01:00,16.16275262566699,14.30418084022558
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 15:00+01:00,16.16275262566699,14.304180840225015
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 16:00+01:00,16.16275262566699,14.30418084022558
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 17:00+01:00,16.16275262566699,14.30418084022558
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 18:00+01:00,18.50076755569074,14.304180840225015
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 19:00+01:00,22.759214158243747,14.304180840224449
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 20:00+01:00,22.75921415824153,14.74657818579777
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 21:00+01:00,22.759214158243747,14.746578185798855
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 22:00+01:00,22.759214158242614,15.35251095300798
+EMPIRE,1.5degree|scenario2spring,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 23:00+01:00,22.759214158242614,14.74657818579942
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 00:00+01:00,10.639046273103874,11.224861995603728
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 01:00+01:00,10.639046273105006,11.22486199560486
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 02:00+01:00,10.639046273103874,11.22486199560486
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 03:00+01:00,10.639046273103874,11.22486199560486
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 04:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 05:00+01:00,10.639046273105006,11.22486199560486
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 06:00+01:00,10.639046273102789,11.224861995603728
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 07:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 08:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 09:00+01:00,10.639046273102789,11.22486199560486
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 10:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 11:00+01:00,10.639046273103874,11.22486199560486
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 12:00+01:00,10.639046273103874,11.224861995603728
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 13:00+01:00,10.639046273103874,10.736928255970463
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 14:00+01:00,10.639046273105006,10.102375796043509
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 15:00+01:00,10.639046273102789,10.10237579604464
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 16:00+01:00,10.639046273105006,10.10237579604464
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 17:00+01:00,10.639046273102789,10.102375796044075
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 18:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 19:00+01:00,10.639046273103874,11.224861995603728
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 20:00+01:00,10.639046273103874,11.22486199560486
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 21:00+01:00,10.639046273103874,11.224861995604293
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 22:00+01:00,10.639046273103874,11.22486199560486
+EMPIRE,1.5degree|scenario2spring,France,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 23:00+01:00,10.639046273105006,11.224861995604293
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 00:00+01:00,22.759214158242614,11.572022675881003
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 01:00+01:00,22.759214158243747,10.888116135735453
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 02:00+01:00,22.759214158242614,10.888116135736539
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 03:00+01:00,22.759214158242614,10.888116135736539
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 04:00+01:00,22.759214158243747,10.888116135735453
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 05:00+01:00,22.759214158242614,11.224861995604293
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 06:00+01:00,22.759214158242614,11.57202267587992
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 07:00+01:00,22.75921415824153,13.018525510365045
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 08:00+01:00,22.75921415824153,13.018525510365611
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 09:00+01:00,19.072956242979185,13.018525510365045
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 10:00+01:00,19.072956242979185,13.018525510365045
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 11:00+01:00,16.162752625665906,11.572022675880484
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 12:00+01:00,16.16275262566699,10.88811613573602
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 13:00+01:00,16.162752625665906,10.414820408291716
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 14:00+01:00,15.67787004689786,10.414820408291149
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 15:00+01:00,15.677870046896778,10.414820408291716
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 16:00+01:00,16.16275262566699,10.41482040829228
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 17:00+01:00,16.16275262566699,10.414820408291149
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 18:00+01:00,19.072956242979185,14.304180840225015
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 19:00+01:00,22.759214158243747,14.304180840226099
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 20:00+01:00,22.759214158242614,14.304180840224449
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 21:00+01:00,22.759214158242614,14.304180840224449
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 22:00+01:00,22.759214158242614,14.30418084022558
+EMPIRE,1.5degree|scenario2spring,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,04-01 23:00+01:00,22.759214158243747,14.304180840225015
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 00:00+01:00,22.759214158242635,14.30418084022442
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 01:00+01:00,22.759214158244344,14.30418084022442
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 02:00+01:00,22.759214158242635,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 03:00+01:00,22.759214158241655,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 04:00+01:00,22.759214158242635,14.304180840226254
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 05:00+01:00,22.759214158242635,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 06:00+01:00,22.759214158243488,14.304180840226254
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 07:00+01:00,22.759214158242635,14.30418084022442
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 08:00+01:00,22.759214158242635,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 09:00+01:00,19.07295624297831,14.304180840226254
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 10:00+01:00,16.162752625665124,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 11:00+01:00,16.162752625666958,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 12:00+01:00,16.162752625666958,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 13:00+01:00,16.162752625666958,14.304180840226254
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 14:00+01:00,16.162752625667814,14.304180840226254
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 15:00+01:00,16.162752625666958,14.746578185799155
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 16:00+01:00,16.162752625666958,14.746578185799155
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 17:00+01:00,19.07295624297831,14.74657818580001
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 18:00+01:00,22.759214158243488,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 19:00+01:00,22.759214158242635,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 20:00+01:00,22.759214158242635,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 21:00+01:00,22.759214158242635,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 22:00+01:00,22.759214158241655,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 23:00+01:00,22.759214158242635,14.304180840225275
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 00:00+01:00,10.639046273103444,10.009077334545841
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 01:00+01:00,10.639046273104334,10.009077334546735
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 02:00+01:00,10.639046273103444,10.009077334545841
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 03:00+01:00,10.639046273105228,10.009077334546735
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 04:00+01:00,10.639046273103444,10.009077334547625
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 05:00+01:00,10.639046273104334,11.224861995603419
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 06:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 07:00+01:00,10.639046273103444,11.224861995603419
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 08:00+01:00,10.639046273104334,11.22486199560431
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 09:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 10:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 11:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 12:00+01:00,10.639046273102563,11.22486199560431
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 13:00+01:00,10.639046273103444,11.224861995603419
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 14:00+01:00,10.639046273103444,11.224861995605202
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 15:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 16:00+01:00,10.639046273103444,11.224861995603419
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 17:00+01:00,10.639046273103444,11.224861995605202
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 18:00+01:00,10.639046273102563,11.224861995603419
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 19:00+01:00,10.639046273103444,11.224861995605202
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 20:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 21:00+01:00,10.639046273102563,11.22486199560431
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 22:00+01:00,10.639046273102563,11.224861995603419
+EMPIRE,1.5degree|scenario2summer,France,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 23:00+01:00,10.639046273103444,11.22486199560431
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 00:00+01:00,22.759214158243488,9.708805014510427
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 01:00+01:00,22.759214158243488,9.708805014510427
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 02:00+01:00,22.759214158242635,9.708805014509545
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 03:00+01:00,22.759214158241655,9.708805014510427
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 04:00+01:00,22.7592141582408,9.708805014510427
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 05:00+01:00,22.759214158241655,10.888116135736217
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 06:00+01:00,22.759214158241655,11.572022675879168
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 07:00+01:00,22.759214158241655,11.572022675879168
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 08:00+01:00,22.759214158243488,12.47206888400483
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 09:00+01:00,19.072956242979163,11.572022675880048
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 10:00+01:00,16.162752625666958,11.57202267588094
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 11:00+01:00,16.162752625666958,11.22486199560431
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 12:00+01:00,16.1627526256661,11.224861995603419
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 13:00+01:00,10.639046273103444,11.572022675880048
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 14:00+01:00,10.639046273102563,11.57202267588094
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 15:00+01:00,16.162752625666958,14.304180840226254
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 16:00+01:00,16.162752625667814,14.304180840226254
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 17:00+01:00,19.072956242979163,14.304180840226254
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 18:00+01:00,22.759214158242635,14.304180840226254
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 19:00+01:00,22.759214158241655,14.304180840226254
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 20:00+01:00,22.759214158242635,14.304180840222708
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 21:00+01:00,22.759214158243488,11.443344672179206
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 22:00+01:00,22.759214158241655,11.443344672179206
+EMPIRE,1.5degree|scenario2summer,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,07-01 23:00+01:00,22.759214158241655,11.443344672180086
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 00:00+01:00,22.759214158243747,15.893534266918998
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 01:00+01:00,22.759214158242614,14.304180840226099
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 02:00+01:00,19.662841487607928,14.304180840226099
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 03:00+01:00,16.66263157285241,14.304180840226662
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 04:00+01:00,16.162752625665906,14.30418084022558
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 05:00+01:00,16.16275262566699,14.30418084022558
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 06:00+01:00,16.16275262566699,16.59030533011494
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 07:00+01:00,16.162752625664773,20.023378959817492
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 08:00+01:00,18.770485903704202,20.023378959818054
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 09:00+01:00,22.759214158243747,20.023378959819137
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 10:00+01:00,22.759214158243747,20.405268478137017
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 11:00+01:00,23.463107379632483,20.405268478137017
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 12:00+01:00,23.463107379632483,20.40526847813645
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 13:00+01:00,22.759214158243747,20.023378959817492
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 14:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 15:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 16:00+01:00,22.759214158243747,20.023378959818054
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 17:00+01:00,22.759214158243747,20.023378959818054
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 18:00+01:00,22.75921415824153,20.405268478137536
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 19:00+01:00,22.75921415824153,20.405268478137536
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 20:00+01:00,22.759214158242614,20.023378959817492
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 21:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 22:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario2winter,Denmark,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 23:00+01:00,22.759214158242614,19.422677591024684
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 00:00+01:00,22.759214158242614,17.10340755682011
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 01:00+01:00,22.75921415824153,17.103407556819544
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 02:00+01:00,22.75921415824153,15.39306680113723
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 03:00+01:00,22.759214158243747,15.393066801137797
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 04:00+01:00,22.75921415824153,15.393066801137797
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 05:00+01:00,22.75921415824153,15.393066801138316
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 06:00+01:00,18.207371326593904,17.77007128117106
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 07:00+01:00,15.67787004689786,20.023378959818054
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 08:00+01:00,19.072956242979185,20.023378959819137
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 09:00+01:00,22.75921415824153,20.023378959817492
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 10:00+01:00,22.759214158242614,20.023378959818054
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 11:00+01:00,22.75921415824153,20.023378959818054
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 12:00+01:00,22.75921415824153,20.023378959819137
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 13:00+01:00,22.75921415824153,20.02337895981862
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 14:00+01:00,22.759214158242614,20.023378959819137
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 15:00+01:00,22.759214158242614,20.023378959817492
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 16:00+01:00,22.75921415824153,20.02337895981862
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 17:00+01:00,22.759214158242614,20.02337895981862
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 18:00+01:00,22.75921415824153,20.02337895981862
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 19:00+01:00,22.759214158242614,20.023378959818054
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 20:00+01:00,22.759214158242614,20.023378959819137
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 21:00+01:00,22.759214158242614,20.023378959819137
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 22:00+01:00,22.75921415824153,20.023378959819137
+EMPIRE,1.5degree|scenario2winter,France,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 23:00+01:00,22.759214158242614,20.023378959818054
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 00:00+01:00,22.75921415824153,16.59030533011494
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 01:00+01:00,22.75921415824153,14.931274797103487
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 02:00+01:00,19.072956242979185,14.931274797104006
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 03:00+01:00,16.16275262566699,14.93127479710292
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 04:00+01:00,16.16275262566699,14.931274797103487
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 05:00+01:00,16.16275262566699,14.931274797103487
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 06:00+01:00,16.16275262566699,17.236969142736275
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 07:00+01:00,16.162752625668073,20.02337895981862
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 08:00+01:00,18.20737132659277,21.036359255810225
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 09:00+01:00,22.759214158242614,21.036359255811313
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 10:00+01:00,22.759214158243747,21.036359255810794
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 11:00+01:00,22.759214158243747,21.036359255811313
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 12:00+01:00,22.759214158243747,21.036359255810794
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 13:00+01:00,22.759214158242614,21.036359255810794
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 14:00+01:00,22.759214158242614,21.036359255810794
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 15:00+01:00,22.759214158243747,21.036359255810225
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 16:00+01:00,22.759214158242614,21.036359255810225
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 17:00+01:00,22.759214158242614,21.036359255811313
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 18:00+01:00,22.759214158242614,21.036359255810794
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 19:00+01:00,22.759214158242614,21.036359255811313
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 20:00+01:00,22.759214158242614,21.036359255811313
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 21:00+01:00,22.759214158242614,21.036359255811313
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 22:00+01:00,22.759214158243747,20.023378959819137
+EMPIRE,1.5degree|scenario2winter,Germany,Price|Secondary Energy|Electricity,US$2010/GJ,01-01 23:00+01:00,22.759214158243747,20.023378959819137

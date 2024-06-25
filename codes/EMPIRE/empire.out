@@ -5,7 +5,7 @@ LOADCHANGEMODULE: False
 Solver: GLPK
 Scenario Generation: True
 ++++++++
-ID: test_reg24_peak24_sce2_randomSGR_202401102250
+ID: test_reg24_peak24_sce2_randomSGR_202406242247
 ++++++++
 Generating random scenarios...
 Generating .tab-files...
@@ -22,7 +22,9 @@ Declaring variables...
 Objective and constraints read...
 Building instance...
 Building instance took [sec]:
-1.3850765228271484
+1.760035514831543
+Number of parameters in instance: 69
+Number of scenarios in instance: 2
 ----------------------Problem Statistics---------------------
 Nodes: 3
 Lines: 2
@@ -48,58 +50,63 @@ Operational discount scale: 4.54595050416236
 Solving...
 GLPSOL: GLPK LP/MIP Solver, v4.65
 Parameter(s) specified in the command line:
- --write /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmp1o9w3r1l.glpk.raw
- --wglp /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpzg7ltf63.glpk.glp --cpxlp
- /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpukdjwpn5.pyomo.lp
-Reading problem data from '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpukdjwpn5.pyomo.lp'...
-81194 rows, 50421 columns, 244261 non-zeros
-574141 lines were read
-Writing problem data to '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpzg7ltf63.glpk.glp'...
-489830 lines were written
+ --write /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmp0rnhx_nn.glpk.raw
+ --wglp /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmp8h4nvbtl.glpk.glp --cpxlp
+ /storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpb4edkxc4.pyomo.lp
+Reading problem data from '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmpb4edkxc4.pyomo.lp'...
+81194 rows, 50421 columns, 244290 non-zeros
+574170 lines were read
+Writing problem data to '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmp8h4nvbtl.glpk.glp'...
+489859 lines were written
 GLPK Simplex Optimizer, v4.65
-81194 rows, 50421 columns, 244261 non-zeros
+81194 rows, 50421 columns, 244290 non-zeros
 Preprocessing...
-49036 rows, 38863 columns, 153692 non-zeros
+49065 rows, 38892 columns, 153779 non-zeros
 Scaling...
- A: min|aij| =  1.200e-03  max|aij| =  1.296e+01  ratio =  1.080e+04
-GM: min|aij| =  3.651e-01  max|aij| =  2.739e+00  ratio =  7.503e+00
-EQ: min|aij| =  1.357e-01  max|aij| =  1.000e+00  ratio =  7.371e+00
+ A: min|aij| =  1.300e-03  max|aij| =  1.296e+01  ratio =  9.973e+03
+GM: min|aij| =  3.684e-01  max|aij| =  2.714e+00  ratio =  7.366e+00
+EQ: min|aij| =  1.431e-01  max|aij| =  1.000e+00  ratio =  6.987e+00
 Constructing initial basis...
-Size of triangular part is 49036
-      0: obj =   1.996156573e+14 inf =   2.136e+05 (22)
-   1036: obj =   1.998226561e+14 inf =   0.000e+00 (0) 7
-*  6676: obj =   1.871260155e+13 inf =   1.353e-09 (23398) 26
-* 10713: obj =   1.674365527e+13 inf =   2.194e-10 (22819) 34
-* 15588: obj =   1.340174499e+13 inf =   2.224e-10 (19779) 25
-* 20359: obj =   1.014541510e+13 inf =   3.347e-10 (16547) 24
-* 24420: obj =   8.093698301e+12 inf =   4.545e-10 (15061) 25
-* 27817: obj =   6.989728825e+12 inf =   9.086e-09 (14420) 27
-* 31003: obj =   6.163597686e+12 inf =   2.790e-10 (14049) 26
-* 33961: obj =   5.544995252e+12 inf =   3.433e-10 (13446) 26
-* 36809: obj =   4.991559118e+12 inf =   4.375e-10 (13597) 24
-* 39645: obj =   4.397606582e+12 inf =   9.800e-10 (13367) 25
-* 42287: obj =   3.860862578e+12 inf =   7.028e-10 (13040) 24
-* 44822: obj =   3.485970291e+12 inf =   9.281e-10 (12822) 23
-* 47451: obj =   2.990832068e+12 inf =   6.712e-10 (13099) 23
-* 49939: obj =   2.760414266e+12 inf =   8.781e-10 (12780) 23
-* 52501: obj =   2.187857281e+12 inf =   5.441e-10 (12760) 23
-* 55058: obj =   1.719363011e+12 inf =   6.104e-10 (12684) 24
-* 57475: obj =   1.548186069e+12 inf =   4.459e-10 (11622) 23
-* 59830: obj =   1.443883855e+12 inf =   4.461e-10 (11885) 22
-* 62248: obj =   1.428997891e+12 inf =   3.888e-10 (10889) 23
-* 64464: obj =   1.419668001e+12 inf =   2.726e-10 (10863) 22
-* 66947: obj =   1.411988522e+12 inf =   4.947e-10 (9339) 23
-* 70359: obj =   1.392894863e+12 inf =   4.437e-10 (5745) 20
-* 74269: obj =   1.390876031e+12 inf =   4.008e-10 (2324) 19
-* 76980: obj =   1.390531527e+12 inf =   6.648e-10 (0) 15
+Size of triangular part is 49065
+      0: obj =   1.997478090e+14 inf =   2.078e+05 (22)
+   1038: obj =   1.999560383e+14 inf =   9.095e-13 (0) 7
+*  6017: obj =   3.133404602e+13 inf =   8.662e-10 (24136) 20
+*  9217: obj =   1.827617303e+13 inf =   2.618e-10 (23539) 27
+* 12165: obj =   1.769261815e+13 inf =   1.553e-10 (23467) 27
+* 15995: obj =   1.421691852e+13 inf =   3.055e-10 (21531) 19
+* 20415: obj =   1.131219630e+13 inf =   1.944e-10 (17163) 14
+* 23698: obj =   1.025747678e+13 inf =   3.939e-10 (15880) 21
+* 26756: obj =   8.673616100e+12 inf =   4.289e-10 (14989) 21
+* 29434: obj =   7.897546672e+12 inf =   2.714e-10 (14799) 22
+* 32256: obj =   6.503284270e+12 inf =   3.051e-10 (14145) 21
+* 34793: obj =   5.488327914e+12 inf =   2.574e-10 (13820) 20
+* 37152: obj =   4.868008700e+12 inf =   2.938e-10 (13482) 20
+* 39377: obj =   4.415040026e+12 inf =   4.292e-10 (13691) 20
+* 41599: obj =   3.710950972e+12 inf =   4.202e-10 (13162) 19
+* 43683: obj =   3.370370423e+12 inf =   3.819e-10 (13263) 19
+* 45833: obj =   2.879728457e+12 inf =   3.232e-10 (13352) 19
+* 47963: obj =   2.485213362e+12 inf =   4.176e-10 (12942) 18
+* 50144: obj =   1.942370226e+12 inf =   2.113e-10 (13049) 19
+* 52231: obj =   1.677064451e+12 inf =   2.325e-10 (13108) 19
+* 54233: obj =   1.522795031e+12 inf =   8.281e-11 (12781) 18
+* 56101: obj =   1.479112041e+12 inf =   3.175e-10 (12932) 18
+* 57921: obj =   1.456849303e+12 inf =   2.503e-10 (11849) 17
+* 59752: obj =   1.445606525e+12 inf =   2.023e-10 (11927) 18
+* 61544: obj =   1.437602165e+12 inf =   4.583e-10 (11210) 17
+* 63439: obj =   1.430587663e+12 inf =   4.495e-10 (10079) 18
+* 65701: obj =   1.416778092e+12 inf =   4.805e-10 (8378) 17
+* 68115: obj =   1.404740423e+12 inf =   5.754e-10 (6036) 17
+* 71254: obj =   1.402668324e+12 inf =   1.895e-09 (3465) 14
+* 74249: obj =   1.401595571e+12 inf =   7.102e-10 (596) 14
+* 74878: obj =   1.401578553e+12 inf =   1.057e-09 (0) 3
 OPTIMAL LP SOLUTION FOUND
-Time used:   119.6 secs
-Memory used: 84.0 Mb (88123917 bytes)
-Writing basic solution to '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmp1o9w3r1l.glpk.raw'...
+Time used:   142.3 secs
+Memory used: 84.1 Mb (88157265 bytes)
+Writing basic solution to '/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/tmp0rnhx_nn.glpk.raw'...
 131624 lines were written
 Writing results to .csv...
 Writing standard output to .csv...
 WARNING: DEPRECATED: Using __getitem__ to return a set value from its
 (ordered) position is deprecated.  Please use at()  (deprecated in 6.1, will
 be removed in (or after) 7.0) (called from
-/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/Empire.py:1184)
+/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/NEUREMPIRE.py:1262)

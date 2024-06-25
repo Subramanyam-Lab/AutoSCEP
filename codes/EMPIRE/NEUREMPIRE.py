@@ -8,9 +8,10 @@ import time
 import os
 from omlt import OmltBlock, OffsetScaling
 from omlt.neuralnet import FullSpaceNNFormulation
-from omlt.io import load_tensorflow_sequential
+from omlt.io import load_keras_sequential
 import joblib
 import tensorflow as tf
+import pandas as pd
 
 __author__ = "Stian Backe"
 __license__ = "MIT"
@@ -763,47 +764,47 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
 
     #################################################################
     # NN Embed Constraint
-    tf_model_path = 'models/fully_connected_nn_tf'
-    nn = tf.keras.models.load_model(tf_model_path, compile=False)
+    # tf_model_path = 'models/fully_connected_nn_tf'
+    # nn = tf.keras.models.load_model(tf_model_path, compile=False)
 
-    scaler_X = joblib.load('scalers/scaler_X.pkl')
-    scaler_y = joblib.load('scalers/scaler_y.pkl')
+    # scaler_X = joblib.load('scalers/scaler_X.pkl')
+    # scaler_y = joblib.load('scalers/scaler_y.pkl')
 
-    model.nn = OmltBlock()
-    model.input = Var(domain=NonNegativeReals)
-    model.output = Var(domain=NonNegativeReals)
+    # model.nn = OmltBlock()
+    # model.input = Var(domain=NonNegativeReals)
+    # model.output = Var(domain=NonNegativeReals)
 
-    scale_x = (scaler_X.mean_, scaler_X.scale_)
-    scale_y = (scaler_y.mean_, scaler_y.scale_)
-    scaler = OffsetScaling(offset_inputs=scale_x[0].tolist(),
-                        factor_inputs=scale_x[1].tolist(),
-                        offset_outputs=[scale_y[0].item()],
-                        factor_outputs=[scale_y[1].item()])
+    # scale_x = (scaler_X.mean_, scaler_X.scale_)
+    # scale_y = (scaler_y.mean_, scaler_y.scale_)
+    # scaler = OffsetScaling(offset_inputs=scale_x[0].tolist(),
+    #                     factor_inputs=scale_x[1].tolist(),
+    #                     offset_outputs=[scale_y[0].item()],
+    #                     factor_outputs=[scale_y[1].item()])
 
-    # boundary for input variable (e.g. training data)
-    scaled_input_bounds = {0: (0, 5)}
+    # # boundary for input variable (e.g. training data)
+    # scaled_input_bounds = {0: (0, 5)}
 
-    net = load_tensorflow_sequential(nn, scaler, scaled_input_bounds)
+    # net = load_keras_sequential(nn, scaler, scaled_input_bounds)
 
-    formulation = FullSpaceNNFormulation(net)
+    # formulation = FullSpaceNNFormulation(net)
 
-    model.nn.build_formulation(formulation)
+    # model.nn.build_formulation(formulation)
 
-    # @model.Constraint()
-    # def connect_input(mdl):
-    #     return mdl.input == mdl.nn.inputs[0]
+    # # @model.Constraint()
+    # # def connect_input(mdl):
+    # #     return mdl.input == mdl.nn.inputs[0]
 
-    # @model.Constraint()
-    # def connect_output(mdl):
-    #     return mdl.output == mdl.nn.outputs[0]
+    # # @model.Constraint()
+    # # def connect_output(mdl):
+    # #     return mdl.output == mdl.nn.outputs[0]
 
-    def connect_input_rule(model):
-        return model.input == model.nn.inputs[0]
-    model.connect_input = Constraint(rule=connect_input_rule)
+    # def connect_input_rule(model):
+    #     return model.input == model.nn.inputs[0]
+    # model.connect_input = Constraint(rule=connect_input_rule)
 
-    def connect_output_rule(model):
-        return model.output == model.nn.outputs[0]
-    model.connect_output = Constraint(rule=connect_output_rule)
+    # def connect_output_rule(model):
+    #     return model.output == model.nn.outputs[0]
+    # model.connect_output = Constraint(rule=connect_output_rule)
 
     # Example for Embed OPT
     # model.obj = pyo.Objective(expr=(model.output - 0.5)**2)
@@ -825,6 +826,11 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     end = time.time()
     print("Building instance took [sec]:")
     print(end - start)
+
+    num_parameters = len(instance.component_map(Param))
+    num_scenarios = len(instance.Scenario)
+    print(f"Number of parameters in instance: {num_parameters}")
+    print(f"Number of scenarios in instance: {num_scenarios}")
 
     #import pdb; pdb.set_trace()
     #instance.CO2price.pprint()
@@ -1269,12 +1275,40 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
         f.to_csv(result_file_path + "/" + 'IAMC/empire_iamc.csv', index=None)
 
 
+def get_results(instance):
+    # Retrieve relevant data from the instance
+    gen_inv_cap = instance.genInvCap.get_values()
+    transmision_inv_cap = instance.transmisionInvCap.get_values()
+    stor_pw_inv_cap = instance.storPWInvCap.get_values()
+    stor_en_inv_cap = instance.storENInvCap.get_values()
 
-def get_results(model):
-    gen_inv_cap = {(n, g, i): value(model.genInvCap[n, g, i]) for (n, g) in model.GeneratorsOfNode for i in model.PeriodActive}
-    transmision_inv_cap = {(n1, n2, i): value(model.transmisionInvCap[n1, n2, i]) for (n1, n2) in model.BidirectionalArc for i in model.PeriodActive}
-    stor_pw_inv_cap = {(n, b, i): value(model.storPWInvCap[n, b, i]) for (n, b) in model.StoragesOfNode for i in model.PeriodActive}
-    stor_en_inv_cap = {(n, b, i): value(model.storENInvCap[n, b, i]) for (n, b) in model.StoragesOfNode for i in model.PeriodActive}
-    input_vector = gen_inv_cap + transmision_inv_cap + stor_pw_inv_cap + stor_en_inv_cap
-    expected_second_stage_value = sum(model.discount_multiplier[i]*(model.shedcomponent[i] + model.operationalcost[i]) for i in model.PeriodActive)
+    # Combine all InvCap data into a single dictionary
+    inv_cap_data = {**gen_inv_cap, **transmision_inv_cap, **stor_pw_inv_cap, **stor_en_inv_cap}
+
+    # Create a DataFrame with the InvCap data
+    input_vector = pd.DataFrame(list(inv_cap_data.items()), columns=['Component', 'InvCap'])
+
+    # Compute the expected second stage value
+    expected_second_stage_value = compute_expected_second_stage_value(instance)
+
     return input_vector, expected_second_stage_value
+
+def compute_expected_second_stage_value(instance):
+    # Extract the total objective value
+    objective_value = instance.Obj()
+
+    # Compute the first stage value
+    first_stage_value = sum(instance.discount_multiplier[i] * (
+        sum(instance.genInvCost[g, i] * instance.genInvCap[n, g, i].value for (n, g) in instance.GeneratorsOfNode) +
+        sum(instance.transmissionInvCost[n1, n2, i] * instance.transmisionInvCap[n1, n2, i].value for (n1, n2) in instance.BidirectionalArc) +
+        sum((instance.storPWInvCost[b, i] * instance.storPWInvCap[n, b, i].value + instance.storENInvCost[b, i] * instance.storENInvCap[n, b, i].value) for (n, b) in instance.StoragesOfNode)
+    ) for i in instance.PeriodActive)
+
+    # Sum up the operational costs and shed components
+    total_operational_cost = sum(instance.discount_multiplier[i] * instance.operationalcost[i].value for i in instance.PeriodActive)
+    total_shed_component = sum(instance.discount_multiplier[i] * instance.shedcomponent[i].value for i in instance.PeriodActive)
+
+    # Compute the expected second stage value
+    expected_second_stage_value = total_operational_cost + total_shed_component
+
+    return expected_second_stage_value
