@@ -1281,34 +1281,15 @@ def get_results(instance):
     transmision_inv_cap = instance.transmisionInvCap.get_values()
     stor_pw_inv_cap = instance.storPWInvCap.get_values()
     stor_en_inv_cap = instance.storENInvCap.get_values()
-
     # Combine all InvCap data into a single dictionary
     inv_cap_data = {**gen_inv_cap, **transmision_inv_cap, **stor_pw_inv_cap, **stor_en_inv_cap}
-
     # Create a DataFrame with the InvCap data
     input_vector = pd.DataFrame(list(inv_cap_data.items()), columns=['Component', 'InvCap'])
-
     # Compute the expected second stage value
     expected_second_stage_value = compute_expected_second_stage_value(instance)
-
     return input_vector, expected_second_stage_value
 
 def compute_expected_second_stage_value(instance):
-    # Extract the total objective value
-    objective_value = instance.Obj()
-
-    # Compute the first stage value
-    first_stage_value = sum(instance.discount_multiplier[i] * (
-        sum(instance.genInvCost[g, i] * instance.genInvCap[n, g, i].value for (n, g) in instance.GeneratorsOfNode) +
-        sum(instance.transmissionInvCost[n1, n2, i] * instance.transmisionInvCap[n1, n2, i].value for (n1, n2) in instance.BidirectionalArc) +
-        sum((instance.storPWInvCost[b, i] * instance.storPWInvCap[n, b, i].value + instance.storENInvCost[b, i] * instance.storENInvCap[n, b, i].value) for (n, b) in instance.StoragesOfNode)
-    ) for i in instance.PeriodActive)
-
-    # Sum up the operational costs and shed components
-    total_operational_cost = sum(instance.discount_multiplier[i] * instance.operationalcost[i].value for i in instance.PeriodActive)
-    total_shed_component = sum(instance.discount_multiplier[i] * instance.shedcomponent[i].value for i in instance.PeriodActive)
-
-    # Compute the expected second stage value
-    expected_second_stage_value = total_operational_cost + total_shed_component
-
+    # Calculate the total operational cost over all periods
+    expected_second_stage_value = sum(instance.discount_multiplier[I] * (value(instance.shedcomponent[I])+value(instance.operationalcost[I])) for I in instance.PeriodActive)
     return expected_second_stage_value
