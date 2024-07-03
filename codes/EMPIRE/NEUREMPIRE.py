@@ -887,6 +887,7 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
         opt = SolverFactory('gurobi', Verbose=True)
         opt.options["Crossover"]=0
         opt.options["Method"]=2
+        opt.options['threads'] = 1
     if solver == "GLPK":
         opt = SolverFactory("glpk", Verbose=True)
 

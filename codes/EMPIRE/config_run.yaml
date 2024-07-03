@@ -4,8 +4,8 @@
 USE_TEMP_DIR : True #
 temp_dir : './'
 version : 'europe_v51'
-Horizon : 2050 # end point year, 2060 (original)
-NoOfScenarios : 2 # original 5
+Horizon : 2060 # end point year, 2060 (original)
+NoOfScenarios : 1 # original 5
 lengthRegSeason : 168
 discountrate : 0.05
 WACC : 0.05
