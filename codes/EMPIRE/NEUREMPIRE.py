@@ -12,6 +12,7 @@ from omlt.io import load_keras_sequential
 import joblib
 import tensorflow as tf
 import pandas as pd
+import numpy as np
 
 __author__ = "Stian Backe"
 __license__ = "MIT"
@@ -844,6 +845,7 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     print("StorageTypes: "+str(len(instance.Storage)))
     print("TotalStorages: "+str(len(instance.StoragesOfNode)))
     print("")
+    print("InvestmentPeriod: ", instance.PeriodActive)
     print("InvestmentUntil: "+str(value(2020+int(len(instance.PeriodActive)*LeapYearsInvestment))))
     print("Scenarios: "+str(len(instance.Scenario)))
     print("TotalOperationalHoursPerScenario: "+str(len(instance.Operationalhour)))
@@ -887,24 +889,24 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
         opt = SolverFactory('gurobi', Verbose=True)
         opt.options["Crossover"]=0
         opt.options["Method"]=2
-        opt.options['threads'] = 1
+        opt.options['threads'] = 2
     if solver == "GLPK":
         opt = SolverFactory("glpk", Verbose=True)
 
     results = opt.solve(instance, tee=True, logfile=result_file_path + '\logfile_' + name + '.log')#, keepfiles=True, symbolic_solver_labels=True)
 
+    csv_file_path = os.path.join(result_file_path, 'nn_training_data.csv')
     input_vector, expected_second_stage_value = get_results(instance)
 
-    csv_file_path = os.path.join(result_file_path, 'nn_training_data.csv')
     if os.path.exists(csv_file_path):
         with open(csv_file_path, 'a', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow([input_vector, expected_second_stage_value])
+            writer.writerow(np.concatenate([input_vector, [expected_second_stage_value]]))
     else:
         with open(csv_file_path, 'w', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(['X', 'Expected_Second_Stage_Value'])  # 헤더 작성
-            writer.writerow([input_vector, expected_second_stage_value])
+            writer.writerow(['X1', 'X2', ..., 'Xn', 'Expected_Second_Stage_Value'])  # Header
+            writer.writerow(np.concatenate([input_vector, [expected_second_stage_value]]))
     
 
 
@@ -1282,15 +1284,14 @@ def get_results(instance):
     transmision_inv_cap = instance.transmisionInvCap.get_values()
     stor_pw_inv_cap = instance.storPWInvCap.get_values()
     stor_en_inv_cap = instance.storENInvCap.get_values()
-    # Combine all InvCap data into a single dictionary
+    
     inv_cap_data = {**gen_inv_cap, **transmision_inv_cap, **stor_pw_inv_cap, **stor_en_inv_cap}
-    # Create a DataFrame with the InvCap data
-    input_vector = pd.DataFrame(list(inv_cap_data.items()), columns=['Component', 'InvCap'])
-    # Compute the expected second stage value
+    input_df = pd.DataFrame(list(inv_cap_data.items()), columns=['Component', 'InvCap'])
+    input_vector = input_df['InvCap'].values
     expected_second_stage_value = compute_expected_second_stage_value(instance)
+    
     return input_vector, expected_second_stage_value
 
 def compute_expected_second_stage_value(instance):
-    # Calculate the total operational cost over all periods
     expected_second_stage_value = sum(instance.discount_multiplier[I] * (value(instance.shedcomponent[I])+value(instance.operationalcost[I])) for I in instance.PeriodActive)
     return expected_second_stage_value

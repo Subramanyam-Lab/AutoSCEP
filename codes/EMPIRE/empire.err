@@ -1,15 +1,5 @@
-2024-06-28 15:53:37.517181: I external/local_tsl/tsl/cuda/cudart_stub.cc:32] Could not find cuda drivers on your machine, GPU will not be used.
-2024-06-28 15:53:37.520931: I external/local_tsl/tsl/cuda/cudart_stub.cc:32] Could not find cuda drivers on your machine, GPU will not be used.
-2024-06-28 15:53:37.567275: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+2024-07-05 15:35:45.311826: I external/local_tsl/tsl/cuda/cudart_stub.cc:32] Could not find cuda drivers on your machine, GPU will not be used.
+2024-07-05 15:35:45.315713: I external/local_tsl/tsl/cuda/cudart_stub.cc:32] Could not find cuda drivers on your machine, GPU will not be used.
+2024-07-05 15:35:45.362927: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
 To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2024-06-28 15:53:41.386995: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
-/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/NEUREMPIRE.py:1234: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
-  df = pd.concat([df, df2], ignore_index=True)
-Traceback (most recent call last):
-  File "/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/run.py", line 138, in <module>
-    run_empire(name = name, 
-    ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/NEUREMPIRE.py", line 1257, in run_empire
-    f = row_write(f, dict_countries_reversed[str(n)], "Price|Secondary Energy|Electricity", "US$2010/GJ", seasonhours[h-1], \
-                     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-KeyError: 'MorayFirth'
+2024-07-05 15:35:47.544563: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT

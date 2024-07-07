@@ -19,6 +19,6 @@ n_cluster : 10
 moment_matching : False #True
 n_tree_compare : 20
 EMISSION_CAP : True #False
-IAMC_PRINT : True #False
+IAMC_PRINT : False #False
 WRITE_LP : False #True
 PICKLE_INSTANCE : False #True 
