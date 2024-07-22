@@ -13,6 +13,7 @@ import joblib
 import tensorflow as tf
 import pandas as pd
 import numpy as np
+import multiprocessing
 
 __author__ = "Stian Backe"
 __license__ = "MIT"
@@ -629,9 +630,9 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
 
     #################################################################
 
-    def hydro_node_limit_rule(model, n, i):
-        return sum(model.genOperational[n,g,h,i,w]*model.seasScale[s]*model.sceProbab[w] for g in model.HydroGenerator if (n,g) in model.GeneratorsOfNode for (s,h) in model.HoursOfSeason for w in model.Scenario) - model.maxHydroNode[n] <= 0   #
-    model.hydro_node_limit = Constraint(model.Node, model.PeriodActive, rule=hydro_node_limit_rule)
+    # def hydro_node_limit_rule(model, n, i):
+    #     return sum(model.genOperational[n,g,h,i,w]*model.seasScale[s]*model.sceProbab[w] for g in model.HydroGenerator if (n,g) in model.GeneratorsOfNode for (s,h) in model.HoursOfSeason for w in model.Scenario) - model.maxHydroNode[n] <= 0   #
+    # model.hydro_node_limit = Constraint(model.Node, model.PeriodActive, rule=hydro_node_limit_rule)
 
 
     #################################################################
@@ -820,7 +821,6 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     print("Building instance...")
 
     start = time.time()
-
     instance = model.create_instance(data) #, report_timing=True)
     instance.dual = Suffix(direction=Suffix.IMPORT) #Make sure the dual value is collected into solver results (if solver supplies dual information)
 
@@ -828,10 +828,10 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     print("Building instance took [sec]:")
     print(end - start)
 
-    num_parameters = len(instance.component_map(Param))
-    num_scenarios = len(instance.Scenario)
-    print(f"Number of parameters in instance: {num_parameters}")
-    print(f"Number of scenarios in instance: {num_scenarios}")
+    hydro_size = len(instance.maxRegHydroGenRaw)
+    availability_size = len(instance.genCapAvailStochRaw)
+    load_size = len(instance.sloadRaw)
+    total_size = hydro_size + availability_size + load_size
 
     #import pdb; pdb.set_trace()
     #instance.CO2price.pprint()
@@ -850,6 +850,7 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     print("Scenarios: "+str(len(instance.Scenario)))
     print("TotalOperationalHoursPerScenario: "+str(len(instance.Operationalhour)))
     print("TotalOperationalHoursPerInvYear: "+str(len(instance.Operationalhour)*len(instance.Scenario)))
+    print(f"Total size of random scenarios: {total_size}")
     print("Seasons: "+str(len(instance.Season)))
     print("RegularSeasons: "+str(len(instance.FirstHoursOfRegSeason)))
     print("LengthRegSeason: "+str(value(instance.lengthRegSeason)))
@@ -859,6 +860,8 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     print("Discount rate: "+str(value(instance.discountrate)))
     print("Operational discount scale: "+str(value(instance.operationalDiscountrate)))
     print("--------------------------------------------------------------")
+    
+
 
     if WRITE_LP:
         print("Writing LP-file...")
@@ -890,25 +893,31 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
         opt.options["Crossover"]=0
         opt.options["Method"]=2
         opt.options['threads'] = 2
+        opt.options['BarConvTol'] = 1e-4
     if solver == "GLPK":
         opt = SolverFactory("glpk", Verbose=True)
 
     results = opt.solve(instance, tee=True, logfile=result_file_path + '\logfile_' + name + '.log')#, keepfiles=True, symbolic_solver_labels=True)
 
-    csv_file_path = os.path.join(result_file_path, 'nn_training_data.csv')
     input_vector, expected_second_stage_value = get_results(instance)
 
-    if os.path.exists(csv_file_path):
-        with open(csv_file_path, 'a', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(np.concatenate([input_vector, [expected_second_stage_value]]))
-    else:
-        with open(csv_file_path, 'w', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow(['X1', 'X2', ..., 'Xn', 'Expected_Second_Stage_Value'])  # Header
-            writer.writerow(np.concatenate([input_vector, [expected_second_stage_value]]))
-    
+    print("input_vector",input_vector)
+    print("Length of input_vector:", len(input_vector))  
+    print("expected_second_stage_value",expected_second_stage_value)
 
+    # csv_file_path = os.path.join(result_file_path, 'nn_training_data.csv')
+
+    # # Write to CSV
+    # if os.path.exists(csv_file_path):
+    #     mode = 'a'
+    # else:
+    #     mode = 'w'
+
+    # with open(csv_file_path, mode, newline='') as f:
+    #     writer = csv.writer(f)
+    #     if mode == 'w':
+    #         writer.writerow(['X', 'Expected_Second_Stage_Value'])  # Write header if it's a new file
+    #     writer.writerow([input_vector, expected_second_stage_value])
 
     if PICKLE_INSTANCE:
         start = time.time()
@@ -1277,6 +1286,7 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
             os.makedirs(result_file_path + "/" + 'IAMC')
         f.to_csv(result_file_path + "/" + 'IAMC/empire_iamc.csv', index=None)
 
+    return input_vector, expected_second_stage_value
 
 def get_results(instance):
     # Retrieve relevant data from the instance
@@ -1284,14 +1294,39 @@ def get_results(instance):
     transmision_inv_cap = instance.transmisionInvCap.get_values()
     stor_pw_inv_cap = instance.storPWInvCap.get_values()
     stor_en_inv_cap = instance.storENInvCap.get_values()
+
+    # Print lengths of individual data sources
+    print(f"Length of gen_inv_cap: {len(gen_inv_cap)}")
+    print(f"Length of transmision_inv_cap: {len(transmision_inv_cap)}")
+    print(f"Length of stor_pw_inv_cap: {len(stor_pw_inv_cap)}")
+    print(f"Length of stor_en_inv_cap: {len(stor_en_inv_cap)}")
     
+    # Add a generator type label to each entry
+    gen_inv_cap = {(k[0], k[1], k[2], 'Generation'): v for k, v in gen_inv_cap.items()}
+    transmision_inv_cap = {(k[0], k[1], k[2], 'Transmission'): v for k, v in transmision_inv_cap.items()}
+    stor_pw_inv_cap = {(k[0], k[1], k[2], 'Storage Power'): v for k, v in stor_pw_inv_cap.items()}
+    stor_en_inv_cap = {(k[0], k[1], k[2], 'Storage Energy'): v for k, v in stor_en_inv_cap.items()}
+
+    # Combine all investment capacities into one dictionary
     inv_cap_data = {**gen_inv_cap, **transmision_inv_cap, **stor_pw_inv_cap, **stor_en_inv_cap}
-    input_df = pd.DataFrame(list(inv_cap_data.items()), columns=['Component', 'InvCap'])
-    input_vector = input_df['InvCap'].values
+
+    # Convert the data into a DataFrame
+    data = [(k[0], k[1], k[2], k[3], v) for k, v in inv_cap_data.items()]
+    df = pd.DataFrame(data, columns=['Country', 'Energy_Type', 'Period', 'Type', 'Value'])
+
+    print("DataFrame created successfully:")
+    output_file_path = "european_power_system_inv_cap.csv"
+    df.to_csv(output_file_path, index=False)
+    input_vector = np.array(list(inv_cap_data.values()), dtype=float)
     expected_second_stage_value = compute_expected_second_stage_value(instance)
     
     return input_vector, expected_second_stage_value
 
 def compute_expected_second_stage_value(instance):
-    expected_second_stage_value = sum(instance.discount_multiplier[I] * (value(instance.shedcomponent[I])+value(instance.operationalcost[I])) for I in instance.PeriodActive)
+    # Calculate the total operational cost over all periods
+    expected_second_stage_value = sum(
+        value(instance.discount_multiplier[I]) * 
+        (value(instance.shedcomponent[I]) + value(instance.operationalcost[I])) 
+        for I in instance.PeriodActive
+    )
     return expected_second_stage_value

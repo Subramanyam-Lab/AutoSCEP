@@ -1,21 +1,18 @@
 #!/bin/bash
 #SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --mem=200GB
+#SBATCH --ntasks=16
+#SBATCH --mem=64GB
 #SBATCH --time=96:00:00
 #SBATCH --job-name=neurumhsp
-#SBATCH --output=empire.out
-#SBATCH --error=empire.err
-#SBATCH --account=azs7266_p_gpu
+#SBATCH --output=empire-%j.out
+#SBATCH --error=empire-%j.err
+#SBATCH --account=azs7266_sc
 #SBATCH --partition=sla-prio
-#SBATCH --cpus-per-task=10
-#SBATCH --gpus=1
 
 source ~/.bashrc
 
 source activate neurmhsp
 module load gurobi/10.0.3
-module load cuda/11.5
 
 /storage/home/tzk5446/.conda/envs/neurmhsp/bin/python run.py 
 

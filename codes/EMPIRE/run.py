@@ -33,6 +33,7 @@ EMISSION_CAP = UserRunTimeConfig["EMISSION_CAP"]
 IAMC_PRINT = UserRunTimeConfig["IAMC_PRINT"]
 WRITE_LP = UserRunTimeConfig["WRITE_LP"]
 PICKLE_INSTANCE = UserRunTimeConfig["PICKLE_INSTANCE"] 
+Iterations = UserRunTimeConfig["Iterations"]
 
 
 #############################
@@ -115,27 +116,27 @@ print('++++++++')
 
 if scenariogeneration:
     generate_random_scenario(filepath = scenario_data_path,
-                             tab_file_path = tab_file_path,
-                             scenarios = NoOfScenarios,
-                             seasons = regular_seasons,
-                             Periods = len(Period),
-                             regularSeasonHours = lengthRegSeason,
-                             peakSeasonHours = lengthPeakSeason,
-                             dict_countries = dict_countries,
-                             time_format = time_format,
-                             filter_make = filter_make,
-                             filter_use = filter_use,
-                             n_cluster = n_cluster,
-                             moment_matching = moment_matching,
-                             n_tree_compare = n_tree_compare,
-                             fix_sample = fix_sample,
-                             north_sea = north_sea,
-                             LOADCHANGEMODULE = LOADCHANGEMODULE)
+                            tab_file_path = tab_file_path,
+                            scenarios = NoOfScenarios,
+                            seasons = regular_seasons,
+                            Periods = len(Period),
+                            regularSeasonHours = lengthRegSeason,
+                            peakSeasonHours = lengthPeakSeason,
+                            dict_countries = dict_countries,
+                            time_format = time_format,
+                            filter_make = filter_make,
+                            filter_use = filter_use,
+                            n_cluster = n_cluster,
+                            moment_matching = moment_matching,
+                            n_tree_compare = n_tree_compare,
+                            fix_sample = fix_sample,
+                            north_sea = north_sea,
+                            LOADCHANGEMODULE = LOADCHANGEMODULE)
 
 generate_tab_files(filepath = workbook_path, tab_file_path = tab_file_path)
 
 
-run_empire(name = name, 
+input_vector, expected_second_stage_value = run_empire(name = name, 
            tab_file_path = tab_file_path,
            result_file_path = result_file_path, 
            scenariogeneration = scenariogeneration,
