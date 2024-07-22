@@ -901,23 +901,8 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
 
     input_vector, expected_second_stage_value = get_results(instance)
 
-    print("input_vector",input_vector)
     print("Length of input_vector:", len(input_vector))  
     print("expected_second_stage_value",expected_second_stage_value)
-
-    # csv_file_path = os.path.join(result_file_path, 'nn_training_data.csv')
-
-    # # Write to CSV
-    # if os.path.exists(csv_file_path):
-    #     mode = 'a'
-    # else:
-    #     mode = 'w'
-
-    # with open(csv_file_path, mode, newline='') as f:
-    #     writer = csv.writer(f)
-    #     if mode == 'w':
-    #         writer.writerow(['X', 'Expected_Second_Stage_Value'])  # Write header if it's a new file
-    #     writer.writerow([input_vector, expected_second_stage_value])
 
     if PICKLE_INSTANCE:
         start = time.time()

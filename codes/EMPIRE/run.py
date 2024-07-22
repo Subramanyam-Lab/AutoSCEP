@@ -33,7 +33,6 @@ EMISSION_CAP = UserRunTimeConfig["EMISSION_CAP"]
 IAMC_PRINT = UserRunTimeConfig["IAMC_PRINT"]
 WRITE_LP = UserRunTimeConfig["WRITE_LP"]
 PICKLE_INSTANCE = UserRunTimeConfig["PICKLE_INSTANCE"] 
-Iterations = UserRunTimeConfig["Iterations"]
 
 
 #############################

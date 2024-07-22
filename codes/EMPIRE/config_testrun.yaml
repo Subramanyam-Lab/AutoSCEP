@@ -6,7 +6,7 @@ temp_dir : './'
 version : 'test'
 Horizon : 2030
 NoOfScenarios : 2
-lengthRegSeason : 24
+lengthRegSeason : 48
 discountrate : 0.05
 WACC : 0.05
 solver : "GLPK" #"Gurobi" #"Xpress" # #"CPLEX"
