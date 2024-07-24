@@ -4,6 +4,9 @@ from NEUREMPIRE import run_empire
 from scenario_random import generate_random_scenario
 from datetime import datetime
 from yaml import safe_load
+import time
+
+start = time.time()
 
 __author__ = "Stian Backe"
 __license__ = "MIT"
@@ -120,7 +123,7 @@ if scenariogeneration:
 
 generate_tab_files(filepath = workbook_path, tab_file_path = tab_file_path)
 
-run_empire(name = name, 
+input_vector, expected_second_stage_value = run_empire(name = name, 
            tab_file_path = tab_file_path,
            result_file_path = result_file_path, 
            scenariogeneration = scenariogeneration,
@@ -145,3 +148,7 @@ run_empire(name = name,
            EMISSION_CAP = EMISSION_CAP,
            USE_TEMP_DIR = USE_TEMP_DIR,
            LOADCHANGEMODULE = LOADCHANGEMODULE)
+
+end = time.time()
+print("EMPIRE Implementation took [sec]:")
+print(end - start)
