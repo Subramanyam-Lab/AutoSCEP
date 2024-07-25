@@ -5,6 +5,10 @@ from scenario_random import generate_random_scenario
 from datetime import datetime
 from yaml import safe_load
 import time
+# from E_Second_Stage import run_second_stage
+from Second_opt import run_second_stage
+import pandas as pd
+import csv
 
 start = time.time()
 
@@ -41,7 +45,7 @@ PICKLE_INSTANCE = UserRunTimeConfig["PICKLE_INSTANCE"]
 #############################
 ##Non configurable settings##
 #############################
-
+second_stage = True
 NoOfRegSeason = 4
 regular_seasons = ["winter", "spring", "summer", "fall"]
 NoOfPeakSeason = 2
@@ -123,7 +127,19 @@ if scenariogeneration:
 
 generate_tab_files(filepath = workbook_path, tab_file_path = tab_file_path)
 
-input_vector, expected_second_stage_value = run_empire(name = name, 
+
+def read_fsd_from_csv(file_path):
+    with open(file_path, 'r') as csvfile:
+        csv_reader = csv.reader(csvfile)
+        next(csv_reader)  
+        fsd_data = [row for row in csv_reader]
+    return fsd_data
+
+fsd_file_path = 'european_power_system_inv_cap.csv'
+FSD = read_fsd_from_csv(fsd_file_path)
+
+if second_stage:
+    expected_second_stage_value = run_second_stage(name = name, 
            tab_file_path = tab_file_path,
            result_file_path = result_file_path, 
            scenariogeneration = scenariogeneration,
@@ -142,13 +158,43 @@ input_vector, expected_second_stage_value = run_empire(name = name,
            discountrate = discountrate, 
            WACC = WACC, 
            LeapYearsInvestment = LeapYearsInvestment,
-           IAMC_PRINT = IAMC_PRINT, 
+           FSD = FSD, 
            WRITE_LP = WRITE_LP, 
            PICKLE_INSTANCE = PICKLE_INSTANCE, 
            EMISSION_CAP = EMISSION_CAP,
            USE_TEMP_DIR = USE_TEMP_DIR,
            LOADCHANGEMODULE = LOADCHANGEMODULE)
+    end = time.time()
+    print("SECOND STAGE RUN took [sec]:")
+    print(end - start)
+    print(expected_second_stage_value)
 
-end = time.time()
-print("EMPIRE Implementation took [sec]:")
-print(end - start)
+else:
+    input_vector, expected_second_stage_value = run_empire(name = name, 
+            tab_file_path = tab_file_path,
+            result_file_path = result_file_path, 
+            scenariogeneration = scenariogeneration,
+            scenario_data_path = scenario_data_path,
+            solver = solver,
+            temp_dir = temp_dir, 
+            FirstHoursOfRegSeason = FirstHoursOfRegSeason, 
+            FirstHoursOfPeakSeason = FirstHoursOfPeakSeason, 
+            lengthRegSeason = lengthRegSeason,
+            lengthPeakSeason = lengthPeakSeason,
+            Period = Period, 
+            Operationalhour = Operationalhour,
+            Scenario = Scenario,
+            Season = Season,
+            HoursOfSeason = HoursOfSeason,
+            discountrate = discountrate, 
+            WACC = WACC, 
+            LeapYearsInvestment = LeapYearsInvestment,
+            IAMC_PRINT = IAMC_PRINT, 
+            WRITE_LP = WRITE_LP, 
+            PICKLE_INSTANCE = PICKLE_INSTANCE, 
+            EMISSION_CAP = EMISSION_CAP,
+            USE_TEMP_DIR = USE_TEMP_DIR,
+            LOADCHANGEMODULE = LOADCHANGEMODULE)
+    end = time.time()
+    print("EMPIRE Implementation took [sec]:")
+    print(end - start)
