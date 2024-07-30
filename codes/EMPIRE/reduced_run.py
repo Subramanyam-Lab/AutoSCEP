@@ -5,8 +5,8 @@ from scenario_random import generate_random_scenario
 from datetime import datetime
 from yaml import safe_load
 import time
-# from E_Second_Stage import run_second_stage
-from Second_opt import run_second_stage
+from Expected_Second_Stage import run_second_stage # Fully worked
+# from Second_Parellel import run_second_stage # not work good
 import pandas as pd
 import csv
 
@@ -45,7 +45,7 @@ PICKLE_INSTANCE = UserRunTimeConfig["PICKLE_INSTANCE"]
 #############################
 ##Non configurable settings##
 #############################
-second_stage = True
+second_stage = False
 NoOfRegSeason = 4
 regular_seasons = ["winter", "spring", "summer", "fall"]
 NoOfPeakSeason = 2
@@ -165,9 +165,8 @@ if second_stage:
            USE_TEMP_DIR = USE_TEMP_DIR,
            LOADCHANGEMODULE = LOADCHANGEMODULE)
     end = time.time()
-    print("SECOND STAGE RUN took [sec]:")
-    print(end - start)
-    print(expected_second_stage_value)
+    print("SECOND STAGE RUN took [sec]: ", end - start)
+    print("EXPECTED SECOND STAGE",expected_second_stage_value)
 
 else:
     input_vector, expected_second_stage_value = run_empire(name = name, 
