@@ -1,0 +1,617 @@
+Country,Energy_Type,Period,Type,Value
+Germany,Liginiteexisting,1,Generation,0.0
+Germany,Liginiteexisting,2,Generation,0.0
+Germany,Liginiteexisting,3,Generation,0.0
+Germany,Liginiteexisting,4,Generation,0.0
+Germany,Liginiteexisting,5,Generation,0.0
+Germany,Liginiteexisting,6,Generation,0.0
+Germany,Liginiteexisting,7,Generation,0.0
+Germany,Liginiteexisting,8,Generation,0.0
+Germany,Lignite,1,Generation,47.88938232814955
+Germany,Lignite,2,Generation,112726.67656473174
+Germany,Lignite,3,Generation,71498.70536735587
+Germany,Lignite,4,Generation,4720.078863396403
+Germany,Lignite,5,Generation,3356.4667764506853
+Germany,Lignite,6,Generation,5610.9610332080065
+Germany,Lignite,7,Generation,1896.6447827859272
+Germany,Lignite,8,Generation,0.0337534077694124
+Germany,LigniteCCSadv,1,Generation,0.0
+Germany,LigniteCCSadv,2,Generation,0.0
+Germany,LigniteCCSadv,3,Generation,0.0
+Germany,LigniteCCSadv,4,Generation,0.0
+Germany,LigniteCCSadv,5,Generation,0.0
+Germany,LigniteCCSadv,6,Generation,0.0
+Germany,LigniteCCSadv,7,Generation,0.0
+Germany,LigniteCCSadv,8,Generation,0.0
+Germany,Coalexisting,1,Generation,0.0
+Germany,Coalexisting,2,Generation,0.0
+Germany,Coalexisting,3,Generation,0.0
+Germany,Coalexisting,4,Generation,0.0
+Germany,Coalexisting,5,Generation,0.0
+Germany,Coalexisting,6,Generation,0.0
+Germany,Coalexisting,7,Generation,0.0
+Germany,Coalexisting,8,Generation,0.0
+Denmark,Coalexisting,1,Generation,0.0
+Denmark,Coalexisting,2,Generation,0.0
+Denmark,Coalexisting,3,Generation,0.0
+Denmark,Coalexisting,4,Generation,0.0
+Denmark,Coalexisting,5,Generation,0.0
+Denmark,Coalexisting,6,Generation,0.0
+Denmark,Coalexisting,7,Generation,0.0
+Denmark,Coalexisting,8,Generation,0.0
+France,Coalexisting,1,Generation,0.0
+France,Coalexisting,2,Generation,0.0
+France,Coalexisting,3,Generation,0.0
+France,Coalexisting,4,Generation,0.0
+France,Coalexisting,5,Generation,0.0
+France,Coalexisting,6,Generation,0.0
+France,Coalexisting,7,Generation,0.0
+France,Coalexisting,8,Generation,0.0
+Germany,Coal,1,Generation,30.72834266135181
+Germany,Coal,2,Generation,3.9624971487764284
+Germany,Coal,3,Generation,6.4069504509870265
+Germany,Coal,4,Generation,21.79510781539626
+Germany,Coal,5,Generation,0.01449174018920126
+Germany,Coal,6,Generation,79.45422657231228
+Germany,Coal,7,Generation,0.15917023689132515
+Germany,Coal,8,Generation,0.006321155240905324
+Denmark,Coal,1,Generation,9.341682203332496
+Denmark,Coal,2,Generation,0.6293223494907347
+Denmark,Coal,3,Generation,0.6280452769113258
+Denmark,Coal,4,Generation,0.6427194630813662
+Denmark,Coal,5,Generation,0.7649431746557823
+Denmark,Coal,6,Generation,1.2477984566966078
+Denmark,Coal,7,Generation,1.7578353562893823
+Denmark,Coal,8,Generation,4.432752343025166
+France,Coal,1,Generation,27.486051930434012
+France,Coal,2,Generation,40.749186939695775
+France,Coal,3,Generation,1.6206303544808311
+France,Coal,4,Generation,0.15073311227800265
+France,Coal,5,Generation,0.1967254124454861
+France,Coal,6,Generation,0.11423358344547024
+France,Coal,7,Generation,0.20101355490092743
+France,Coal,8,Generation,0.20600238357167602
+Germany,CoalCCSadv,1,Generation,0.0
+Germany,CoalCCSadv,2,Generation,0.0
+Germany,CoalCCSadv,3,Generation,0.0
+Germany,CoalCCSadv,4,Generation,0.0
+Germany,CoalCCSadv,5,Generation,0.0
+Germany,CoalCCSadv,6,Generation,0.0
+Germany,CoalCCSadv,7,Generation,0.0
+Germany,CoalCCSadv,8,Generation,0.0
+Denmark,CoalCCSadv,1,Generation,0.0
+Denmark,CoalCCSadv,2,Generation,0.0
+Denmark,CoalCCSadv,3,Generation,0.0
+Denmark,CoalCCSadv,4,Generation,0.0
+Denmark,CoalCCSadv,5,Generation,0.0
+Denmark,CoalCCSadv,6,Generation,0.0
+Denmark,CoalCCSadv,7,Generation,0.0
+Denmark,CoalCCSadv,8,Generation,0.0
+France,CoalCCSadv,1,Generation,0.0
+France,CoalCCSadv,2,Generation,0.0
+France,CoalCCSadv,3,Generation,0.0
+France,CoalCCSadv,4,Generation,0.0
+France,CoalCCSadv,5,Generation,0.0
+France,CoalCCSadv,6,Generation,0.0
+France,CoalCCSadv,7,Generation,0.0
+France,CoalCCSadv,8,Generation,0.0
+Germany,Gasexisting,1,Generation,0.0
+Germany,Gasexisting,2,Generation,0.0
+Germany,Gasexisting,3,Generation,0.0
+Germany,Gasexisting,4,Generation,0.0
+Germany,Gasexisting,5,Generation,0.0
+Germany,Gasexisting,6,Generation,0.0
+Germany,Gasexisting,7,Generation,0.0
+Germany,Gasexisting,8,Generation,0.0
+Denmark,Gasexisting,1,Generation,0.0
+Denmark,Gasexisting,2,Generation,0.0
+Denmark,Gasexisting,3,Generation,0.0
+Denmark,Gasexisting,4,Generation,0.0
+Denmark,Gasexisting,5,Generation,0.0
+Denmark,Gasexisting,6,Generation,0.0
+Denmark,Gasexisting,7,Generation,0.0
+Denmark,Gasexisting,8,Generation,0.0
+France,Gasexisting,1,Generation,0.0
+France,Gasexisting,2,Generation,0.0
+France,Gasexisting,3,Generation,0.0
+France,Gasexisting,4,Generation,0.0
+France,Gasexisting,5,Generation,0.0
+France,Gasexisting,6,Generation,0.0
+France,Gasexisting,7,Generation,0.0
+France,Gasexisting,8,Generation,0.0
+Germany,GasOCGT,1,Generation,48.64382461403582
+Germany,GasOCGT,2,Generation,0.08279060074433002
+Germany,GasOCGT,3,Generation,0.002480479763385693
+Germany,GasOCGT,4,Generation,0.002510749674937798
+Germany,GasOCGT,5,Generation,0.0017324167498766836
+Germany,GasOCGT,6,Generation,0.0026725545369298827
+Germany,GasOCGT,7,Generation,8.61293831317736
+Germany,GasOCGT,8,Generation,3.0434542287532835
+Denmark,GasOCGT,1,Generation,8500.900227124243
+Denmark,GasOCGT,2,Generation,6180.09225641444
+Denmark,GasOCGT,3,Generation,0.08221426533907243
+Denmark,GasOCGT,4,Generation,0.13547486546750614
+Denmark,GasOCGT,5,Generation,0.7427706614519445
+Denmark,GasOCGT,6,Generation,428.0899137014224
+Denmark,GasOCGT,7,Generation,4.437702629316824
+Denmark,GasOCGT,8,Generation,8699.281457589734
+France,GasOCGT,1,Generation,84399.4839359822
+France,GasOCGT,2,Generation,0.09272671643482086
+France,GasOCGT,3,Generation,0.00492791408303192
+France,GasOCGT,4,Generation,0.004779852147522031
+France,GasOCGT,5,Generation,0.004701371193308277
+France,GasOCGT,6,Generation,0.007578699224527788
+France,GasOCGT,7,Generation,65.8983815370872
+France,GasOCGT,8,Generation,0.1531931089719239
+Germany,GasCCGT,1,Generation,169396.2408933134
+Germany,GasCCGT,2,Generation,9696.342246789603
+Germany,GasCCGT,3,Generation,7932.200602157612
+Germany,GasCCGT,4,Generation,9988.505271302947
+Germany,GasCCGT,5,Generation,493.7036821674921
+Germany,GasCCGT,6,Generation,2444.275973475257
+Germany,GasCCGT,7,Generation,169436.20057165954
+Germany,GasCCGT,8,Generation,9693.415105894446
+Denmark,GasCCGT,1,Generation,13487.667938491177
+Denmark,GasCCGT,2,Generation,5691.75076578276
+Denmark,GasCCGT,3,Generation,9424.847176849598
+Denmark,GasCCGT,4,Generation,12339.661716434763
+Denmark,GasCCGT,5,Generation,3314.9602432672673
+Denmark,GasCCGT,6,Generation,16493.983310807696
+Denmark,GasCCGT,7,Generation,10768.818108249337
+Denmark,GasCCGT,8,Generation,1873.6292127653858
+France,GasCCGT,1,Generation,104219.65899458162
+France,GasCCGT,2,Generation,3611.9179831962633
+France,GasCCGT,3,Generation,2954.19629680126
+France,GasCCGT,4,Generation,3720.0127494352473
+France,GasCCGT,5,Generation,183.4336957069167
+France,GasCCGT,6,Generation,910.028823198216
+France,GasCCGT,7,Generation,137970.0339379922
+France,GasCCGT,8,Generation,0.04714486818428912
+Germany,GasCCSadv,1,Generation,0.0
+Germany,GasCCSadv,2,Generation,0.0
+Germany,GasCCSadv,3,Generation,0.0
+Germany,GasCCSadv,4,Generation,0.0
+Germany,GasCCSadv,5,Generation,0.0
+Germany,GasCCSadv,6,Generation,0.0
+Germany,GasCCSadv,7,Generation,0.0
+Germany,GasCCSadv,8,Generation,0.0
+Denmark,GasCCSadv,1,Generation,0.0
+Denmark,GasCCSadv,2,Generation,0.0
+Denmark,GasCCSadv,3,Generation,0.0
+Denmark,GasCCSadv,4,Generation,0.0
+Denmark,GasCCSadv,5,Generation,0.0
+Denmark,GasCCSadv,6,Generation,0.0
+Denmark,GasCCSadv,7,Generation,0.0
+Denmark,GasCCSadv,8,Generation,0.0
+France,GasCCSadv,1,Generation,0.0
+France,GasCCSadv,2,Generation,0.0
+France,GasCCSadv,3,Generation,0.0
+France,GasCCSadv,4,Generation,0.0
+France,GasCCSadv,5,Generation,0.0
+France,GasCCSadv,6,Generation,0.0
+France,GasCCSadv,7,Generation,0.0
+France,GasCCSadv,8,Generation,0.0
+Germany,Oilexisting,1,Generation,0.0
+Germany,Oilexisting,2,Generation,0.0
+Germany,Oilexisting,3,Generation,0.0
+Germany,Oilexisting,4,Generation,0.0
+Germany,Oilexisting,5,Generation,0.0
+Germany,Oilexisting,6,Generation,0.0
+Germany,Oilexisting,7,Generation,0.0
+Germany,Oilexisting,8,Generation,0.0
+Denmark,Oilexisting,1,Generation,0.0
+Denmark,Oilexisting,2,Generation,0.0
+Denmark,Oilexisting,3,Generation,0.0
+Denmark,Oilexisting,4,Generation,0.0
+Denmark,Oilexisting,5,Generation,0.0
+Denmark,Oilexisting,6,Generation,0.0
+Denmark,Oilexisting,7,Generation,0.0
+Denmark,Oilexisting,8,Generation,0.0
+France,Oilexisting,1,Generation,0.0
+France,Oilexisting,2,Generation,0.0
+France,Oilexisting,3,Generation,0.0
+France,Oilexisting,4,Generation,0.0
+France,Oilexisting,5,Generation,0.0
+France,Oilexisting,6,Generation,0.0
+France,Oilexisting,7,Generation,0.0
+France,Oilexisting,8,Generation,0.0
+Germany,Bioexisting,1,Generation,0.0
+Germany,Bioexisting,2,Generation,0.0
+Germany,Bioexisting,3,Generation,0.0
+Germany,Bioexisting,4,Generation,0.0
+Germany,Bioexisting,5,Generation,0.0
+Germany,Bioexisting,6,Generation,0.0
+Germany,Bioexisting,7,Generation,0.0
+Germany,Bioexisting,8,Generation,0.0
+Denmark,Bioexisting,1,Generation,0.0
+Denmark,Bioexisting,2,Generation,0.0
+Denmark,Bioexisting,3,Generation,0.0
+Denmark,Bioexisting,4,Generation,0.0
+Denmark,Bioexisting,5,Generation,0.0
+Denmark,Bioexisting,6,Generation,0.0
+Denmark,Bioexisting,7,Generation,0.0
+Denmark,Bioexisting,8,Generation,0.0
+France,Bioexisting,1,Generation,0.0
+France,Bioexisting,2,Generation,0.0
+France,Bioexisting,3,Generation,0.0
+France,Bioexisting,4,Generation,0.0
+France,Bioexisting,5,Generation,0.0
+France,Bioexisting,6,Generation,0.0
+France,Bioexisting,7,Generation,0.0
+France,Bioexisting,8,Generation,0.0
+Germany,Bio10cofiring,1,Generation,73149.44032210944
+Germany,Bio10cofiring,2,Generation,126840.9967787221
+Germany,Bio10cofiring,3,Generation,8.856194090422433
+Germany,Bio10cofiring,4,Generation,0.29780206859981084
+Germany,Bio10cofiring,5,Generation,0.3579871640781299
+Germany,Bio10cofiring,6,Generation,0.004119157158748219
+Germany,Bio10cofiring,7,Generation,0.002939763154575516
+Germany,Bio10cofiring,8,Generation,0.02347493715470909
+Denmark,Bio10cofiring,1,Generation,11.114170417910486
+Denmark,Bio10cofiring,2,Generation,1.1265910774608177
+Denmark,Bio10cofiring,3,Generation,0.022290101473242896
+Denmark,Bio10cofiring,4,Generation,0.022034769041783225
+Denmark,Bio10cofiring,5,Generation,0.13513987694178142
+Denmark,Bio10cofiring,6,Generation,0.82303790638045
+Denmark,Bio10cofiring,7,Generation,1.9095851670186947
+Denmark,Bio10cofiring,8,Generation,4.408943955182665
+France,Bio10cofiring,1,Generation,71521.25255637644
+France,Bio10cofiring,2,Generation,121733.678464797
+France,Bio10cofiring,3,Generation,0.002921279815255906
+France,Bio10cofiring,4,Generation,0.0929747752113477
+France,Bio10cofiring,5,Generation,0.11083978350629345
+France,Bio10cofiring,6,Generation,0.15654613870151823
+France,Bio10cofiring,7,Generation,0.03320560449353979
+France,Bio10cofiring,8,Generation,0.19141245589843947
+Germany,Nuclear,1,Generation,0.0
+Germany,Nuclear,2,Generation,0.0
+Germany,Nuclear,3,Generation,0.0
+Germany,Nuclear,4,Generation,0.0
+Germany,Nuclear,5,Generation,0.0
+Germany,Nuclear,6,Generation,0.0
+Germany,Nuclear,7,Generation,0.0
+Germany,Nuclear,8,Generation,0.0
+France,Nuclear,1,Generation,0.028145986907475162
+France,Nuclear,2,Generation,0.4272506094972742
+France,Nuclear,3,Generation,0.5614646850354355
+France,Nuclear,4,Generation,0.011053318162778478
+France,Nuclear,5,Generation,0.4089773259112721
+France,Nuclear,6,Generation,0.1278961009756503
+France,Nuclear,7,Generation,13.085053675567933
+France,Nuclear,8,Generation,0.693791832877498
+France,Wave,1,Generation,0.010611899578691464
+France,Wave,2,Generation,0.00011140500965437845
+France,Wave,3,Generation,0.0243569119589188
+France,Wave,4,Generation,0.0008314555045349296
+France,Wave,5,Generation,205.02011123294403
+France,Wave,6,Generation,0.4823416014505475
+France,Wave,7,Generation,0.7704002183652559
+France,Wave,8,Generation,0.027243108447369636
+Germany,Geo,1,Generation,0.021605189781801926
+Germany,Geo,2,Generation,0.004583240600647641
+Germany,Geo,3,Generation,0.05470797829738531
+Germany,Geo,4,Generation,0.0009587827058555544
+Germany,Geo,5,Generation,241.9077705385127
+Germany,Geo,6,Generation,0.0007521746091192151
+Germany,Geo,7,Generation,0.028729032352222694
+Germany,Geo,8,Generation,0.006542027264990362
+France,Geo,1,Generation,0.6367837109180664
+France,Geo,2,Generation,0.1379014265547624
+France,Geo,3,Generation,0.7299132340205674
+France,Geo,4,Generation,0.009205236974767307
+France,Geo,5,Generation,66.40851517518252
+France,Geo,6,Generation,0.24431304467467613
+France,Geo,7,Generation,12.417258213635732
+France,Geo,8,Generation,0.09725714105058826
+Germany,Hydroregulated,1,Generation,0.009636323195081786
+Germany,Hydroregulated,2,Generation,0.017081842209454398
+Germany,Hydroregulated,3,Generation,0.014611818933951668
+Germany,Hydroregulated,4,Generation,0.005793057832392872
+Germany,Hydroregulated,5,Generation,0.0099022271858269
+Germany,Hydroregulated,6,Generation,0.020979758511378593
+Germany,Hydroregulated,7,Generation,0.020962573575428658
+Germany,Hydroregulated,8,Generation,0.012657560771771534
+France,Hydroregulated,1,Generation,0.031468834220504505
+France,Hydroregulated,2,Generation,0.0001659901991362378
+France,Hydroregulated,3,Generation,0.00023306987060801596
+France,Hydroregulated,4,Generation,0.04649714175283631
+France,Hydroregulated,5,Generation,0.006937258928428688
+France,Hydroregulated,6,Generation,0.11283936926906449
+France,Hydroregulated,7,Generation,0.14152258779726762
+France,Hydroregulated,8,Generation,0.004268666130033083
+Germany,Hydrorun-of-the-river,1,Generation,0.013358549650092755
+Germany,Hydrorun-of-the-river,2,Generation,0.02920512658367819
+Germany,Hydrorun-of-the-river,3,Generation,433.1039640649245
+Germany,Hydrorun-of-the-river,4,Generation,0.08540227842103396
+Germany,Hydrorun-of-the-river,5,Generation,0.0046647977227656425
+Germany,Hydrorun-of-the-river,6,Generation,0.00010382237456251276
+Germany,Hydrorun-of-the-river,7,Generation,0.0038835274345873257
+Germany,Hydrorun-of-the-river,8,Generation,0.009952719799493727
+Denmark,Hydrorun-of-the-river,1,Generation,0.005416550300593848
+Denmark,Hydrorun-of-the-river,2,Generation,0.002573906996073894
+Denmark,Hydrorun-of-the-river,3,Generation,4.472765255687275e-05
+Denmark,Hydrorun-of-the-river,4,Generation,0.07017976896886242
+Denmark,Hydrorun-of-the-river,5,Generation,0.0849206490453624
+Denmark,Hydrorun-of-the-river,6,Generation,1.400583271995542
+Denmark,Hydrorun-of-the-river,7,Generation,0.03200266669427665
+Denmark,Hydrorun-of-the-river,8,Generation,0.2154788457922738
+France,Hydrorun-of-the-river,1,Generation,4688.379985343341
+France,Hydrorun-of-the-river,2,Generation,0.052069862631307896
+France,Hydrorun-of-the-river,3,Generation,0.0036001122803995403
+France,Hydrorun-of-the-river,4,Generation,0.03867324106608794
+France,Hydrorun-of-the-river,5,Generation,0.0004986349720336896
+France,Hydrorun-of-the-river,6,Generation,0.0005187650083108351
+France,Hydrorun-of-the-river,7,Generation,0.044514677358690476
+France,Hydrorun-of-the-river,8,Generation,0.010705725487480063
+Germany,Bio,1,Generation,3.5534705460834424
+Germany,Bio,2,Generation,0.024588283492295034
+Germany,Bio,3,Generation,51809.68131017346
+Germany,Bio,4,Generation,137040.19860861942
+Germany,Bio,5,Generation,8225.937878055387
+Germany,Bio,6,Generation,1460.29695814387
+Germany,Bio,7,Generation,1460.2903556705899
+Germany,Bio,8,Generation,0.008742567832640331
+France,Bio,1,Generation,3.6227589002941603
+France,Bio,2,Generation,0.8061776530841661
+France,Bio,3,Generation,32934.42818496794
+France,Bio,4,Generation,63605.89599515583
+France,Bio,5,Generation,0.6297634550894173
+France,Bio,6,Generation,44185.95073196122
+France,Bio,7,Generation,59263.36571819615
+France,Bio,8,Generation,0.02348449641180552
+Germany,Windonshore,1,Generation,0.08247927929915022
+Germany,Windonshore,2,Generation,0.015003045354371462
+Germany,Windonshore,3,Generation,0.3618293201359294
+Germany,Windonshore,4,Generation,0.03333318199114972
+Germany,Windonshore,5,Generation,51368.899062718425
+Germany,Windonshore,6,Generation,27815.161913316086
+Germany,Windonshore,7,Generation,27814.93039737916
+Germany,Windonshore,8,Generation,0.5642726116381352
+Denmark,Windonshore,1,Generation,0.01915732223096711
+Denmark,Windonshore,2,Generation,0.12763881494981094
+Denmark,Windonshore,3,Generation,0.7765370303843642
+Denmark,Windonshore,4,Generation,0.03623000124630173
+Denmark,Windonshore,5,Generation,26416.643631250943
+Denmark,Windonshore,6,Generation,26258.787759416446
+Denmark,Windonshore,7,Generation,2322.285968929369
+Denmark,Windonshore,8,Generation,0.6601276721455978
+France,Windonshore,1,Generation,0.2084039279952964
+France,Windonshore,2,Generation,0.7376533794350658
+France,Windonshore,3,Generation,38539.576125704196
+France,Windonshore,4,Generation,0.014938846298977043
+France,Windonshore,5,Generation,358749.82405375916
+France,Windonshore,6,Generation,53098.65736514788
+France,Windonshore,7,Generation,104262.55369759316
+France,Windonshore,8,Generation,18142.721110101902
+Germany,Windoffshore,1,Generation,0.0
+Germany,Windoffshore,2,Generation,0.0
+Germany,Windoffshore,3,Generation,0.0
+Germany,Windoffshore,4,Generation,0.0
+Germany,Windoffshore,5,Generation,0.0
+Germany,Windoffshore,6,Generation,2260.2182283167326
+Germany,Windoffshore,7,Generation,0.0020216155275217924
+Germany,Windoffshore,8,Generation,0.0011381473373896797
+Denmark,Windoffshore,1,Generation,0.03271222380362815
+Denmark,Windoffshore,2,Generation,0.00030158527673556973
+Denmark,Windoffshore,3,Generation,0.11165438688709903
+Denmark,Windoffshore,4,Generation,0.07763454048938925
+Denmark,Windoffshore,5,Generation,1.0224508973612194
+Denmark,Windoffshore,6,Generation,36.20619661906341
+Denmark,Windoffshore,7,Generation,11544.239742618358
+Denmark,Windoffshore,8,Generation,0.7225158670137127
+France,Windoffshore,1,Generation,1.959376821773307
+France,Windoffshore,2,Generation,0.0014134458783577448
+France,Windoffshore,3,Generation,59.067712826262216
+France,Windoffshore,4,Generation,0.10090369423988763
+France,Windoffshore,5,Generation,0.2722688416642146
+France,Windoffshore,6,Generation,57838.59741460632
+France,Windoffshore,7,Generation,0.049511038273259804
+France,Windoffshore,8,Generation,59.59368625162263
+Germany,Solar,1,Generation,0.295956337658182
+Germany,Solar,2,Generation,0.0894711764613749
+Germany,Solar,3,Generation,1.1169073738312647
+Germany,Solar,4,Generation,145539.9706925146
+Germany,Solar,5,Generation,499999.4476101503
+Germany,Solar,6,Generation,499999.0760387953
+Germany,Solar,7,Generation,227460.3976896063
+Germany,Solar,8,Generation,1.0297572854147528
+Denmark,Solar,1,Generation,0.014002775892095087
+Denmark,Solar,2,Generation,0.0685848114759221
+Denmark,Solar,3,Generation,0.0014048852348223944
+Denmark,Solar,4,Generation,0.013598578067519101
+Denmark,Solar,5,Generation,0.3452492417064964
+Denmark,Solar,6,Generation,0.8877460036414676
+Denmark,Solar,7,Generation,75789.04031414524
+Denmark,Solar,8,Generation,13843.688399869488
+France,Solar,1,Generation,0.2723422297964392
+France,Solar,2,Generation,0.14346747798706908
+France,Solar,3,Generation,0.5457502845349598
+France,Solar,4,Generation,0.005565963639641256
+France,Solar,5,Generation,136189.69855763292
+France,Solar,6,Generation,104997.5588128674
+France,Solar,7,Generation,147620.66833124962
+France,Solar,8,Generation,41134.93960980396
+Germany,Bio10cofiringCCS,1,Generation,0.0
+Germany,Bio10cofiringCCS,2,Generation,0.0
+Germany,Bio10cofiringCCS,3,Generation,0.0
+Germany,Bio10cofiringCCS,4,Generation,0.0
+Germany,Bio10cofiringCCS,5,Generation,0.0
+Germany,Bio10cofiringCCS,6,Generation,0.0
+Germany,Bio10cofiringCCS,7,Generation,0.0
+Germany,Bio10cofiringCCS,8,Generation,0.0
+Denmark,Bio10cofiringCCS,1,Generation,0.0
+Denmark,Bio10cofiringCCS,2,Generation,0.0
+Denmark,Bio10cofiringCCS,3,Generation,0.0
+Denmark,Bio10cofiringCCS,4,Generation,0.0
+Denmark,Bio10cofiringCCS,5,Generation,0.0
+Denmark,Bio10cofiringCCS,6,Generation,0.0
+Denmark,Bio10cofiringCCS,7,Generation,0.0
+Denmark,Bio10cofiringCCS,8,Generation,0.0
+France,Bio10cofiringCCS,1,Generation,0.0
+France,Bio10cofiringCCS,2,Generation,0.0
+France,Bio10cofiringCCS,3,Generation,0.0
+France,Bio10cofiringCCS,4,Generation,0.0
+France,Bio10cofiringCCS,5,Generation,0.0
+France,Bio10cofiringCCS,6,Generation,0.0
+France,Bio10cofiringCCS,7,Generation,0.0
+France,Bio10cofiringCCS,8,Generation,0.0
+Germany,LigniteCCSsup,1,Generation,0.0
+Germany,LigniteCCSsup,2,Generation,0.0
+Germany,LigniteCCSsup,3,Generation,0.0
+Germany,LigniteCCSsup,4,Generation,0.0
+Germany,LigniteCCSsup,5,Generation,0.0
+Germany,LigniteCCSsup,6,Generation,0.0
+Germany,LigniteCCSsup,7,Generation,0.0
+Germany,LigniteCCSsup,8,Generation,0.0
+Germany,CoalCCS,1,Generation,0.0
+Germany,CoalCCS,2,Generation,0.0
+Germany,CoalCCS,3,Generation,0.0
+Germany,CoalCCS,4,Generation,0.0
+Germany,CoalCCS,5,Generation,0.0
+Germany,CoalCCS,6,Generation,0.0
+Germany,CoalCCS,7,Generation,0.0
+Germany,CoalCCS,8,Generation,0.0
+France,CoalCCS,1,Generation,0.0
+France,CoalCCS,2,Generation,0.0
+France,CoalCCS,3,Generation,0.0
+France,CoalCCS,4,Generation,0.0
+France,CoalCCS,5,Generation,0.0
+France,CoalCCS,6,Generation,0.0
+France,CoalCCS,7,Generation,0.0
+France,CoalCCS,8,Generation,0.0
+Germany,GasCCS,1,Generation,0.0
+Germany,GasCCS,2,Generation,0.0
+Germany,GasCCS,3,Generation,0.0
+Germany,GasCCS,4,Generation,0.0
+Germany,GasCCS,5,Generation,0.0
+Germany,GasCCS,6,Generation,0.0
+Germany,GasCCS,7,Generation,0.0
+Germany,GasCCS,8,Generation,0.0
+France,GasCCS,1,Generation,0.0
+France,GasCCS,2,Generation,0.0
+France,GasCCS,3,Generation,0.0
+France,GasCCS,4,Generation,0.0
+France,GasCCS,5,Generation,0.0
+France,GasCCS,6,Generation,0.0
+France,GasCCS,7,Generation,0.0
+France,GasCCS,8,Generation,0.0
+Germany,Waste,1,Generation,273.6513769525236
+Germany,Waste,2,Generation,0.029959579504873993
+Germany,Waste,3,Generation,0.4677639283852507
+Germany,Waste,4,Generation,0.006125289602338314
+Germany,Waste,5,Generation,273.6759012926356
+Germany,Waste,6,Generation,0.029926357268445683
+Germany,Waste,7,Generation,0.4653668248988093
+Germany,Waste,8,Generation,0.015657298922465392
+Denmark,Waste,1,Generation,0.0
+Denmark,Waste,2,Generation,0.0
+Denmark,Waste,3,Generation,0.0
+Denmark,Waste,4,Generation,0.0
+Denmark,Waste,5,Generation,0.0
+Denmark,Waste,6,Generation,0.0
+Denmark,Waste,7,Generation,0.0
+Denmark,Waste,8,Generation,0.0
+France,Waste,1,Generation,0.07970968166966941
+France,Waste,2,Generation,44.025179768228
+France,Waste,3,Generation,0.014007721935031185
+France,Waste,4,Generation,0.0017938278679950023
+France,Waste,5,Generation,0.004307942746361628
+France,Waste,6,Generation,0.0009052931580174036
+France,Waste,7,Generation,0.0011897777176440708
+France,Waste,8,Generation,0.001937848493057077
+Denmark,Germany,1,Transmission,0.0
+Denmark,Germany,2,Transmission,1999.498065902656
+Denmark,Germany,3,Transmission,0.16092681165160366
+Denmark,Germany,4,Transmission,0.009130988200241366
+Denmark,Germany,5,Transmission,0.21680321736890046
+Denmark,Germany,6,Transmission,0.04776188744305162
+Denmark,Germany,7,Transmission,0.004384187030876112
+Denmark,Germany,8,Transmission,0.025103171619937435
+France,Germany,1,Transmission,0.0
+France,Germany,2,Transmission,0.0
+France,Germany,3,Transmission,1799.6213261914372
+France,Germany,4,Transmission,0.11663611996683307
+France,Germany,5,Transmission,0.15440729213580123
+France,Germany,6,Transmission,0.0012533708794473897
+France,Germany,7,Transmission,0.0020805755573973317
+France,Germany,8,Transmission,0.030771220620066493
+Germany,HydroPumpStorage,1,Storage Power,0.13884200771826727
+Germany,HydroPumpStorage,2,Storage Power,0.1614763502464041
+Germany,HydroPumpStorage,3,Storage Power,0.01585696768293749
+Germany,HydroPumpStorage,4,Storage Power,0.0006479369565256402
+Germany,HydroPumpStorage,5,Storage Power,0.04091625074883629
+Germany,HydroPumpStorage,6,Storage Power,0.3238558036586564
+Germany,HydroPumpStorage,7,Storage Power,0.060335512139055074
+Germany,HydroPumpStorage,8,Storage Power,0.12176007499865737
+Germany,Li-Ion_BESS,1,Storage Power,25.073375462602744
+Germany,Li-Ion_BESS,2,Storage Power,47.282826162866165
+Germany,Li-Ion_BESS,3,Storage Power,11132.838147047712
+Germany,Li-Ion_BESS,4,Storage Power,35794.49624043453
+Germany,Li-Ion_BESS,5,Storage Power,249999.43612037442
+Germany,Li-Ion_BESS,6,Storage Power,214007.78366799958
+Germany,Li-Ion_BESS,7,Storage Power,227096.00006278217
+Germany,Li-Ion_BESS,8,Storage Power,184683.53461923674
+Denmark,Li-Ion_BESS,1,Storage Power,14.729465988631361
+Denmark,Li-Ion_BESS,2,Storage Power,523.8659880301437
+Denmark,Li-Ion_BESS,3,Storage Power,0.5345229863812311
+Denmark,Li-Ion_BESS,4,Storage Power,56.12845326093557
+Denmark,Li-Ion_BESS,5,Storage Power,0.041851089454569695
+Denmark,Li-Ion_BESS,6,Storage Power,1612.6533113723935
+Denmark,Li-Ion_BESS,7,Storage Power,404.88801035882574
+Denmark,Li-Ion_BESS,8,Storage Power,4490.9834580506895
+France,HydroPumpStorage,1,Storage Power,0.015105695862075663
+France,HydroPumpStorage,2,Storage Power,0.3911173644902226
+France,HydroPumpStorage,3,Storage Power,0.004545704547941486
+France,HydroPumpStorage,4,Storage Power,0.28705180284941445
+France,HydroPumpStorage,5,Storage Power,1455.3918969346992
+France,HydroPumpStorage,6,Storage Power,0.10356477806659559
+France,HydroPumpStorage,7,Storage Power,1065.8426286783426
+France,HydroPumpStorage,8,Storage Power,0.032648474151101024
+France,Li-Ion_BESS,1,Storage Power,12.264644713516933
+France,Li-Ion_BESS,2,Storage Power,90.43984191313642
+France,Li-Ion_BESS,3,Storage Power,930.09353234843
+France,Li-Ion_BESS,4,Storage Power,2377.580084611494
+France,Li-Ion_BESS,5,Storage Power,2.7594383665004094
+France,Li-Ion_BESS,6,Storage Power,0.7518902788661816
+France,Li-Ion_BESS,7,Storage Power,31505.65948710738
+France,Li-Ion_BESS,8,Storage Power,8.336737478222235
+Germany,HydroPumpStorage,1,Storage Energy,0.0267939805999049
+Germany,HydroPumpStorage,2,Storage Energy,0.22723122807913848
+Germany,HydroPumpStorage,3,Storage Energy,3860.9858716790072
+Germany,HydroPumpStorage,4,Storage Energy,0.02170146882445314
+Germany,HydroPumpStorage,5,Storage Energy,0.2603084694265116
+Germany,HydroPumpStorage,6,Storage Energy,0.019534789687976332
+Germany,HydroPumpStorage,7,Storage Energy,0.03609720551015468
+Germany,HydroPumpStorage,8,Storage Energy,3860.1903856191484
+Germany,Li-Ion_BESS,1,Storage Energy,50.14675092520549
+Germany,Li-Ion_BESS,2,Storage Energy,94.56565232573239
+Germany,Li-Ion_BESS,3,Storage Energy,22265.676294095654
+Germany,Li-Ion_BESS,4,Storage Energy,71588.99248086783
+Germany,Li-Ion_BESS,5,Storage Energy,499998.87224075064
+Germany,Li-Ion_BESS,6,Storage Energy,428015.56733599835
+Germany,Li-Ion_BESS,7,Storage Energy,454192.00012556335
+Germany,Li-Ion_BESS,8,Storage Energy,369367.06923847535
+Denmark,Li-Ion_BESS,1,Storage Energy,29.458931977262722
+Denmark,Li-Ion_BESS,2,Storage Energy,1047.7319760606356
+Denmark,Li-Ion_BESS,3,Storage Energy,1.0690459726776673
+Denmark,Li-Ion_BESS,4,Storage Energy,112.25690652187407
+Denmark,Li-Ion_BESS,5,Storage Energy,0.08370217899813477
+Denmark,Li-Ion_BESS,6,Storage Energy,3225.306622744727
+Denmark,Li-Ion_BESS,7,Storage Energy,809.7760207176626
+Denmark,Li-Ion_BESS,8,Storage Energy,8981.966916101426
+France,HydroPumpStorage,1,Storage Energy,0.05795915488852188
+France,HydroPumpStorage,2,Storage Energy,0.006300280519316841
+France,HydroPumpStorage,3,Storage Energy,0.05435258546504291
+France,HydroPumpStorage,4,Storage Energy,0.12355717810037366
+France,HydroPumpStorage,5,Storage Energy,0.00836029912758985
+France,HydroPumpStorage,6,Storage Energy,0.13682816000119602
+France,HydroPumpStorage,7,Storage Energy,0.10421845663786933
+France,HydroPumpStorage,8,Storage Energy,0.08130281809555391
+France,Li-Ion_BESS,1,Storage Energy,24.529289427033866
+France,Li-Ion_BESS,2,Storage Energy,180.87968382627145
+France,Li-Ion_BESS,3,Storage Energy,1860.1870646968782
+France,Li-Ion_BESS,4,Storage Energy,4755.160169252255
+France,Li-Ion_BESS,5,Storage Energy,5.518876704725185
+France,Li-Ion_BESS,6,Storage Energy,1.5037805642050959
+France,Li-Ion_BESS,7,Storage Energy,63011.31897423537
+France,Li-Ion_BESS,8,Storage Energy,16.673474939648464

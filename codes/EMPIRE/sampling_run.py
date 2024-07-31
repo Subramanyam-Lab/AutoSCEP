@@ -1,20 +1,15 @@
-#!/usr/bin/env python
-from reader import generate_tab_files
-from datetime import datetime
-from yaml import safe_load
+import os
 import time
 import pandas as pd
 import numpy as np
-import os
 import logging
-from pyomo.environ import DataPortal
+from yaml import safe_load
+from pyomo.environ import *
+from datetime import datetime
 
-__author__ = "Stian Backe"
-__license__ = "MIT"
-__maintainer__ = "Stian Backe"
-__email__ = "stian.backe@ntnu.no"
+start = time.time()
 
-# Set up logging
+# Logging setup
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Load configuration
@@ -22,17 +17,9 @@ UserRunTimeConfig = safe_load(open("config_reducedrun.yaml"))
 
 USE_TEMP_DIR = UserRunTimeConfig["USE_TEMP_DIR"]
 temp_dir = UserRunTimeConfig["temp_dir"]
-version = UserRunTimeConfig["version"]
-Horizon = UserRunTimeConfig["Horizon"]
 NoOfScenarios = UserRunTimeConfig["NoOfScenarios"]
 lengthRegSeason = UserRunTimeConfig["lengthRegSeason"]
-discountrate = UserRunTimeConfig["discountrate"]
-WACC = UserRunTimeConfig["WACC"]
 scenariogeneration = UserRunTimeConfig["scenariogeneration"]
-fix_sample = UserRunTimeConfig["fix_sample"]
-LOADCHANGEMODULE = UserRunTimeConfig["LOADCHANGEMODULE"]
-filter_make = UserRunTimeConfig["filter_make"] 
-filter_use = UserRunTimeConfig["filter_use"]
 n_cluster = UserRunTimeConfig["n_cluster"]
 moment_matching = UserRunTimeConfig["moment_matching"]
 n_tree_compare = UserRunTimeConfig["n_tree_compare"]
@@ -40,375 +27,480 @@ n_tree_compare = UserRunTimeConfig["n_tree_compare"]
 #############################
 ##Non configurable settings##
 #############################
-NoOfRegSeason = 4
-regular_seasons = ["winter", "spring", "summer", "fall"]
-NoOfPeakSeason = 2
-lengthPeakSeason = 7
 LeapYearsInvestment = 5
-time_format = "%d/%m/%Y %H:%M"
 
-def load_empire_data(tab_file_path):
-    """
-    Load relevant data from EMPIRE model files.
-    """
+
+
+def sample_model(tab_file_path):
+
+    print("Loading complete. Model setup starting...")
+    # Define the Pyomo model
+
+    model = AbstractModel()
+
+    Period = [i + 1 for i in range(int((2060-2020)/LeapYearsInvestment))]
+
+    #Supply technology sets
+    model.Generator = Set(ordered=True) #g
+    model.Technology = Set(ordered=True) #t
+    model.Storage =  Set() #b
+
+    #Temporal sets
+    model.Period = Set(ordered=True) #max period
+    model.PeriodActive = Set(ordered=True, initialize=Period) #i
+
+    #Spatial sets
+    model.Node = Set(ordered=True) #n
+    model.OffshoreNode = Set(ordered=True, within=model.Node) #n
+    model.DirectionalLink = Set(dimen=2, within=model.Node*model.Node, ordered=True) #a
+    model.TransmissionType = Set(ordered=True)
+
+    #Subsets
+    model.GeneratorsOfTechnology=Set(dimen=2) #(t,g) for all t in T, g in G_t
+    model.GeneratorsOfNode = Set(dimen=2) #(n,g) for all n in N, g in G_n
+    model.TransmissionTypeOfDirectionalLink = Set(dimen=3) #(n1,n2,t) for all (n1,n2) in L, t in T
+    model.StoragesOfNode = Set(dimen=2) #(n,b) for all n in N, b in B_n
+
     data = DataPortal()
-    
-    num_periods = int((2060 - 2020) / 5)
-    period_set = list(range(1, num_periods + 1))
-    data['Period'] = {None: period_set}
-    logging.info(f"Generated Period set: {period_set}")
+    data.load(filename=tab_file_path + "/" + 'Sets_Generator.tab',format="set", set=model.Generator)
+    data.load(filename=tab_file_path + "/" + 'Sets_Storage.tab',format="set", set=model.Storage)
+    data.load(filename=tab_file_path + "/" + 'Sets_Technology.tab',format="set", set=model.Technology)
+    data.load(filename=tab_file_path + "/" + 'Sets_Node.tab',format="set", set=model.Node)
+    data.load(filename=tab_file_path + "/" + 'Sets_Horizon.tab',format="set", set=model.Period)
+    data.load(filename=tab_file_path + "/" + 'Sets_DirectionalLines.tab',format="set", set=model.DirectionalLink)
+    data.load(filename=tab_file_path + "/" + 'Sets_GeneratorsOfTechnology.tab',format="set", set=model.GeneratorsOfTechnology)
+    data.load(filename=tab_file_path + "/" + 'Sets_GeneratorsOfNode.tab',format="set", set=model.GeneratorsOfNode)
+    data.load(filename=tab_file_path + "/" + 'Sets_StorageOfNodes.tab',format="set", set=model.StoragesOfNode)
+    data.load(filename=tab_file_path + "/" + 'Sets_LineType.tab',format="set", set=model.TransmissionType)
+    data.load(filename=tab_file_path + "/" + 'Sets_LineTypeOfDirectionalLines.tab',format="set", set=model.TransmissionTypeOfDirectionalLink)
 
-    # Load sets
-    data.load(filename=os.path.join(tab_file_path, "Sets_Generator.tab"), format="set", set="Generator")
-    data.load(filename=os.path.join(tab_file_path, "Sets_Node.tab"), format="set", set="Node")
-    data.load(filename=os.path.join(tab_file_path, "Sets_Storage.tab"), format="set", set="Storage")
-    data.load(filename=os.path.join(tab_file_path, "Sets_Technology.tab"), format="set", set="Technology")
-    data.load(filename=os.path.join(tab_file_path, "Sets_DirectionalLines.tab"), format="set", set="DirectionalLink")
-    data.load(filename=os.path.join(tab_file_path, "Sets_GeneratorsOfNode.tab"), format="set", set="GeneratorsOfNode")
-    data.load(filename=os.path.join(tab_file_path, "Sets_StorageOfNodes.tab"), format="set", set="StoragesOfNode")
-    data.load(filename=os.path.join(tab_file_path, "Sets_GeneratorsOfTechnology.tab"), format="set", set="GeneratorsOfTechnology")
+
+    #Build arc subsets
+
+    def NodesLinked_init(model, node):
+        retval = []
+        for (i,j) in model.DirectionalLink:
+            if j == node:
+                retval.append(i)
+        return retval
+    model.NodesLinked = Set(model.Node, initialize=NodesLinked_init)
+
+    def BidirectionalArc_init(model):
+        retval = []
+        for (i,j) in model.DirectionalLink:
+            if i != j and (not (j,i) in retval):
+                retval.append((i,j))
+        return retval
+    model.BidirectionalArc = Set(dimen=2, initialize=BidirectionalArc_init, ordered=True) #l
+
+
+    print("Sets are ready!")
+
+    # Initialize any additional sets or parameters if needed
+    model.LeapYearsInvestment = Param(initialize=LeapYearsInvestment)
+    model.genRefInitCap = Param(model.GeneratorsOfNode, default=0.0, mutable=True)
+    model.genScaleInitCap = Param(model.Generator, model.Period, default=0.0, mutable=True)
+    model.genInitCap = Param(model.GeneratorsOfNode, model.Period, default=0.0, mutable=True)
+    model.transmissionInitCap = Param(model.BidirectionalArc, model.Period, default=0.0, mutable=True)
+    model.storPWInitCap = Param(model.StoragesOfNode, model.Period, default=0.0, mutable=True)
+    model.storENInitCap = Param(model.StoragesOfNode, model.Period, default=0.0, mutable=True)
+    model.genMaxBuiltCap = Param(model.Node, model.Technology, model.Period, default=500000.0, mutable=True)
+    model.transmissionMaxBuiltCap = Param(model.BidirectionalArc, model.Period, default=20000.0, mutable=True)
+    model.storPWMaxBuiltCap = Param(model.StoragesOfNode, model.Period, default=500000.0, mutable=True)
+    model.storENMaxBuiltCap = Param(model.StoragesOfNode, model.Period, default=500000.0, mutable=True)
+    model.genMaxInstalledCapRaw = Param(model.Node, model.Technology, default=0.0, mutable=True)
+    model.genMaxInstalledCap = Param(model.Node, model.Technology, model.Period, default=0.0, mutable=True)
+    model.transmissionMaxInstalledCapRaw = Param(model.BidirectionalArc, model.Period, default=0.0)
+    model.transmissionMaxInstalledCap = Param(model.BidirectionalArc, model.Period, default=0.0, mutable=True)
+    model.storPWMaxInstalledCap = Param(model.StoragesOfNode, model.Period, default=0.0, mutable=True)
+    model.storPWMaxInstalledCapRaw = Param(model.StoragesOfNode, default=0.0, mutable=True)
+    model.storENMaxInstalledCap = Param(model.StoragesOfNode, model.Period, default=0.0, mutable=True)
+    model.storENMaxInstalledCapRaw = Param(model.StoragesOfNode, default=0.0, mutable=True)
+    model.genLifetime = Param(model.Generator, default=0.0, mutable=True)
+    model.transmissionLifetime = Param(model.BidirectionalArc, default=40.0, mutable=True)
+    model.storageLifetime = Param(model.Storage, default=0.0, mutable=True)
 
     # Load parameters
-    data.load(filename=os.path.join(tab_file_path, "Generator_MaxBuiltCapacity.tab"), param="genMaxBuiltCap", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Transmission_MaxBuiltCapacity.tab"), param="transmissionMaxBuiltCap", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Storage_PowerMaxBuiltCapacity.tab"), param="storPWMaxBuiltCap", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Storage_EnergyMaxBuiltCapacity.tab"), param="storENMaxBuiltCap", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Generator_MaxInstalledCapacity.tab"), param="genMaxInstalledCapRaw", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Transmission_MaxInstallCapacityRaw.tab"), param="transmissionMaxInstalledCapRaw", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Storage_PowerMaxInstalledCapacity.tab"), param="storPWMaxInstalledCapRaw", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Storage_EnergyMaxInstalledCapacity.tab"), param="storENMaxInstalledCapRaw", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Generator_InitialCapacity.tab"), param="genInitCap", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Transmission_InitialCapacity.tab"), param="transmissionInitCap", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Storage_InitialPowerCapacity.tab"), param="storPWInitCap", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Storage_EnergyInitialCapacity.tab"), param="storENInitCap", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Generator_Lifetime.tab"), param="genLifetime", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Storage_Lifetime.tab"), param="storageLifetime", format="table")
-    data.load(filename=os.path.join(tab_file_path, "Transmission_Lifetime.tab"), param="transmissionLifetime", format="table")
-    data.load(filename=os.path.join(tab_file_path, 'Generator_RefInitialCap.tab'), param="genRefInitCap", format="table")
-    data.load(filename=os.path.join(tab_file_path, 'Generator_ScaleFactorInitialCap.tab'), param="genScaleInitCap", format="table")
+    data.load(filename=tab_file_path + "/" + "Generator_MaxBuiltCapacity.tab", param=model.genMaxBuiltCap, format="table")
+    data.load(filename=tab_file_path + "/" + "Transmission_MaxBuiltCapacity.tab", param=model.transmissionMaxBuiltCap, format="table")
+    data.load(filename=tab_file_path + "/" + "Storage_PowerMaxBuiltCapacity.tab", param=model.storPWMaxBuiltCap, format="table")
+    data.load(filename=tab_file_path + "/" + "Storage_EnergyMaxBuiltCapacity.tab", param=model.storENMaxBuiltCap, format="table")
+    data.load(filename=tab_file_path + "/" + "Generator_MaxInstalledCapacity.tab", param=model.genMaxInstalledCapRaw, format="table")
+    data.load(filename=tab_file_path + "/" + "Transmission_MaxInstallCapacityRaw.tab", param=model.transmissionMaxInstalledCapRaw, format="table")
+    data.load(filename=tab_file_path + "/" + "Storage_PowerMaxInstalledCapacity.tab", param=model.storPWMaxInstalledCapRaw, format="table")
+    data.load(filename=tab_file_path + "/" + "Storage_EnergyMaxInstalledCapacity.tab", param=model.storENMaxInstalledCapRaw, format="table")
+    data.load(filename=tab_file_path + "/" + "Generator_InitialCapacity.tab", param=model.genInitCap, format="table")
+    data.load(filename=tab_file_path + "/" + "Transmission_InitialCapacity.tab", param=model.transmissionInitCap, format="table")
+    data.load(filename=tab_file_path + "/" + "Storage_InitialPowerCapacity.tab", param=model.storPWInitCap, format="table")
+    data.load(filename=tab_file_path + "/" + "Storage_EnergyInitialCapacity.tab", param=model.storENInitCap, format="table")
+    data.load(filename=tab_file_path + "/" + "Generator_Lifetime.tab", param=model.genLifetime, format="table")
+    data.load(filename=tab_file_path + "/" + "Storage_Lifetime.tab", param=model.storageLifetime, format="table")
+    data.load(filename=tab_file_path + "/" + "Transmission_Lifetime.tab", param=model.transmissionLifetime, format="table")
+    data.load(filename=tab_file_path + "/" + 'Generator_RefInitialCap.tab', param=model.genRefInitCap, format="table")
+    data.load(filename=tab_file_path + "/" + 'Generator_ScaleFactorInitialCap.tab', param=model.genScaleInitCap, format="table")
 
-    data['genMaxInstalledCap'] = {}
-    data['transmissionMaxInstalledCap'] = {}
-    data['storPWMaxInstalledCap'] = {}
-    data['storENMaxInstalledCap'] = {}
-    data['genInstalledCap'] = {}
-    data['transmissionInstalledCap'] = {}
-    data['storPWInstalledCap'] = {}
-    data['storENInstalledCap'] = {}
-
-    # Generate BidirectionalArc set
-    directional_link = data['DirectionalLink']
-    bidirectional_arc = set()
-    for i, j in directional_link:
-        if i != j and (j, i) not in bidirectional_arc:
-            bidirectional_arc.add((i, j))
-    data['BidirectionalArc'] = {None: list(bidirectional_arc)}
-    logging.info(f"Generated BidirectionalArc set with {len(bidirectional_arc)} elements")
-
-    return data
+    print("Parameters are ready!")
 
 
+    # Define variables, constraints, and other model components as needed
+    model.genInvCap = Var(model.GeneratorsOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.transmisionInvCap = Var(model.BidirectionalArc, model.PeriodActive, domain=NonNegativeReals)
+    model.storPWInvCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.storENInvCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.genInstalledCap = Var(model.GeneratorsOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.transmissionInstalledCap = Var(model.BidirectionalArc, model.PeriodActive, domain=NonNegativeReals)
+    model.storPWInstalledCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.storENInstalledCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
 
-def prepare_data(sample, data):
 
-    sample_dict = {(row['Country'], row['Energy_Type'], row['Period'], row['Type']): row['Value'] 
-                   for _, row in sample.iterrows()}
+    print("Variables are ready!")
 
-    for n,g in data['GeneratorsOfNode']:
-        for i in data['Period']:
-            if data['genInitCap'].get((n, g, i), 0) == 0:
-                data['genInitCap'][(n,g,i)] = data['genRefInitCap'].get((n, g, i),0)*(1-data["genScaleInitCap"].get((g, i),0))
 
-    for n1, n2 in data['BidirectionalArc']:
-        for i in data['Period']:
-            if data['transmissionMaxInstalledCapRaw'].get((n1, n2, i), 0) <= data['transmissionInitCap'].get((n1, n2, i), 0):
-                data['transmissionMaxInstalledCap'][(n1, n2, i)] = data['transmissionInitCap'].get((n1, n2, i), 0)
-            else:
-                data['transmissionMaxInstalledCap'][(n1, n2, i)] = data['transmissionMaxInstalledCapRaw'].get((n1, n2, i), 0)
+    ##############
+    ####RULE######
+    ##############
 
-    for t in data['Technology']:
-        for n in data['Node']:
-            for i in data['Period']:
-                init_cap_sum = sum(data['genInitCap'].get((n, g, i), 0) 
-                                   for g in data['Generator'] 
-                                   if (n, g) in data['GeneratorsOfNode'] and (t, g) in data['GeneratorsOfTechnology'])
-                if data['genMaxInstalledCapRaw'].get((n, t), 0) <= init_cap_sum:
-                    data['genMaxInstalledCap'][(n, t, i)] = init_cap_sum
+    def prepInitialCapacityNodeGen_rule(model):
+        #Build initial capacity for generator type in node
+
+        for (n,g) in model.GeneratorsOfNode:
+            for i in model.PeriodActive:
+                if value(model.genInitCap[n,g,i]) == 0:
+                    model.genInitCap[n,g,i] = model.genRefInitCap[n,g]*(1-model.genScaleInitCap[g,i])
+
+    model.build_InitialCapacityNodeGen = BuildAction(rule=prepInitialCapacityNodeGen_rule)
+
+    def prepInitialCapacityTransmission_rule(model):
+        #Build initial capacity for transmission lines to ensure initial capacity is the upper installation bound if infeasible
+
+        for (n1,n2) in model.BidirectionalArc:
+            for i in model.PeriodActive:
+                if value(model.transmissionMaxInstalledCapRaw[n1,n2,i]) <= value(model.transmissionInitCap[n1,n2,i]):
+                    model.transmissionMaxInstalledCap[n1,n2,i] = model.transmissionInitCap[n1,n2,i]
                 else:
-                    data['genMaxInstalledCap'][(n, t, i)] = data['genMaxInstalledCapRaw'].get((n, t), 0)
+                    model.transmissionMaxInstalledCap[n1,n2,i] = model.transmissionMaxInstalledCapRaw[n1,n2,i]
 
-    # Prepare storENMaxInstalledCap
-    for n, b in data['StoragesOfNode']:
-        for i in data['Period']:
-            data['storENMaxInstalledCap'][(n, b, i)] = data['storENMaxInstalledCapRaw'].get((n, b), 0)
+    model.build_InitialCapacityTransmission = BuildAction(rule=prepInitialCapacityTransmission_rule)
 
-    # Prepare storPWMaxInstalledCap
-    for n, b in data['StoragesOfNode']:
-        for i in data['Period']:
-            data['storPWMaxInstalledCap'][(n, b, i)] = data['storPWMaxInstalledCapRaw'].get((n, b), float('inf'))
+    def prepGenMaxInstalledCap_rule(model):
+        #Build resource limit (installed limit) for all periods. Avoid infeasibility if installed limit lower than initially installed cap.
+
+        for t in model.Technology:
+            for n in model.Node:
+                for i in model.PeriodActive:
+                    if value(model.genMaxInstalledCapRaw[n,t] <= sum(model.genInitCap[n,g,i] for g in model.Generator if (n,g) in model.GeneratorsOfNode and (t,g) in model.GeneratorsOfTechnology)):
+                        model.genMaxInstalledCap[n,t,i]=sum(model.genInitCap[n,g,i] for g in model.Generator if (n,g) in model.GeneratorsOfNode and (t,g) in model.GeneratorsOfTechnology)
+                    else:
+                        model.genMaxInstalledCap[n,t,i]=model.genMaxInstalledCapRaw[n,t]
+                        
+    model.build_genMaxInstalledCap = BuildAction(rule=prepGenMaxInstalledCap_rule)
+
+    def storENMaxInstalledCap_rule(model):
+        #Build installed limit (resource limit) for storEN
+
+        for (n,b) in model.StoragesOfNode:
+            for i in model.PeriodActive:
+                model.storENMaxInstalledCap[n,b,i]=model.storENMaxInstalledCapRaw[n,b]
+
+    model.build_storENMaxInstalledCap = BuildAction(rule=storENMaxInstalledCap_rule)
+
+    def storPWMaxInstalledCap_rule(model):
+        #Build installed limit (resource limit) for storPW
+
+        for (n,b) in model.StoragesOfNode:
+            for i in model.PeriodActive:
+                model.storPWMaxInstalledCap[n,b,i]=model.storPWMaxInstalledCapRaw[n,b]
+
+    model.build_storPWMaxInstalledCap = BuildAction(rule=storPWMaxInstalledCap_rule)
+
+
+    print("Preprocessing all done!")
+
+    ###############
+    ##CONSTRAINTS##
+    ###############
+
+    def investment_gen_cap_rule(model, t, n, i):
+        return sum(model.genInvCap[n,g,i] for g in model.Generator if (n,g) in model.GeneratorsOfNode and (t,g) in model.GeneratorsOfTechnology) - model.genMaxBuiltCap[n,t,i] <= 0
+    model.investment_gen_cap = Constraint(model.Technology, model.Node, model.PeriodActive, rule=investment_gen_cap_rule)
+
+    #################################################################
+
+    def investment_trans_cap_rule(model, n1, n2, i):
+        return model.transmisionInvCap[n1,n2,i] - model.transmissionMaxBuiltCap[n1,n2,i] <= 0
+    model.investment_trans_cap = Constraint(model.BidirectionalArc, model.PeriodActive, rule=investment_trans_cap_rule)
+
+    #################################################################
+
+    def investment_storage_power_cap_rule(model, n, b, i):
+        return model.storPWInvCap[n,b,i] - model.storPWMaxBuiltCap[n,b,i] <= 0
+    model.investment_storage_power_cap = Constraint(model.StoragesOfNode, model.PeriodActive, rule=investment_storage_power_cap_rule)
+
+    #################################################################
+
+    def investment_storage_energy_cap_rule(model, n, b, i):
+        return model.storENInvCap[n,b,i] - model.storENMaxBuiltCap[n,b,i] <= 0
+    model.investment_storage_energy_cap = Constraint(model.StoragesOfNode, model.PeriodActive, rule=investment_storage_energy_cap_rule)
+
+    ################################################################
+
+    def installed_gen_cap_rule(model, t, n, i):
+        return sum(model.genInstalledCap[n,g,i] for g in model.Generator if (n,g) in model.GeneratorsOfNode and (t,g) in model.GeneratorsOfTechnology) - model.genMaxInstalledCap[n,t,i] <= 0
+    model.installed_gen_cap = Constraint(model.Technology, model.Node, model.PeriodActive, rule=installed_gen_cap_rule)
+
+    #################################################################
+
+    def installed_trans_cap_rule(model, n1, n2, i):
+        return model.transmissionInstalledCap[n1,n2,i] - model.transmissionMaxInstalledCap[n1,n2,i] <= 0
+    model.installed_trans_cap = Constraint(model.BidirectionalArc, model.PeriodActive, rule=installed_trans_cap_rule)
+
+    #################################################################
+
+    def installed_storage_power_cap_rule(model, n, b, i):
+        return model.storPWInstalledCap[n,b,i] - model.storPWMaxInstalledCap[n,b,i] <= 0
+    model.installed_storage_power_cap = Constraint(model.StoragesOfNode, model.PeriodActive, rule=installed_storage_power_cap_rule)
+
+    #################################################################
+
+    def installed_storage_energy_cap_rule(model, n, b, i):
+        return model.storENInstalledCap[n,b,i] - model.storENMaxInstalledCap[n,b,i] <= 0
+    model.installed_storage_energy_cap = Constraint(model.StoragesOfNode, model.PeriodActive, rule=installed_storage_energy_cap_rule)
+
+    return model, data
+
+
+
+
+def load_multiple_best_samples(directory_path):
+    all_samples = []
+    for filename in os.listdir(directory_path):
+        if filename.endswith('.csv'):
+            file_path = os.path.join(directory_path, filename)
+            samples = pd.read_csv(file_path)
+            all_samples.append(samples)
+    return all_samples
+
+def calculate_statistics(samples_df):
+    # Calculate mean and std dev for each type by Country, Energy_Type, and Period
+    statistics_df = samples_df.groupby(['Country', 'Energy_Type', 'Period', 'Type']).agg(['mean', 'std']).reset_index()
+    statistics_df.columns = ['Country', 'Energy_Type', 'Period', 'Type', 'Mean', 'Std']
     
+    return statistics_df
 
-    # Life time constraints, installedCap
-    def get_start_period(current_period, lifetime, leap_years):
-        start_period = 1
-        if 1 + current_period - (lifetime / leap_years) > start_period:
-            start_period = 1 + current_period - lifetime / leap_years
-        return max(1, int(start_period))
+def validate_sample(instance, sample):
+    # Reset all investment variables
+    for var in [instance.genInvCap, instance.storENInvCap, instance.storPWInvCap, instance.transmisionInvCap]:
+        for key in var.keys():
+            var[key].set_value(0)
 
-    for t in data['Technology']:
-        for n in data['Node']:
-            for i in data['Period']:
-                for g in data['Generator']:
-                    if (n, g) in data['GeneratorsOfNode'] and (t, g) in data['GeneratorsOfTechnology']:
-                        start_period = get_start_period(i, data['genLifetime'][g], LeapYearsInvestment)
-                        data['genInstalledCap'][(n, g, i)] = sum(sample_dict.get((n, g, j, 'Generation'), 0) 
-                                                                 for j in range(start_period, i+1)) + data['genInitCap'].get((n, g, i), 0)
-    for n, b in data['StoragesOfNode']:
-        for i in data['Period']:
-            start_period = get_start_period(i, data['storageLifetime'][b],  LeapYearsInvestment)
-            data['storENInstalledCap'][(n, b, i)] = sum(sample_dict.get((n, b, j, 'Storage Energy'), 0) 
-                                                        for j in range(start_period, i+1)) + data['storENInitCap'].get((n, b, i), 0)
+    # Set values from the sample
+    for _, row in sample.iterrows():
+        if row['Type'] == 'Generation':
+            instance.genInvCap[row['Country'], row['Energy_Type'], row['Period']].set_value(row['Value'])
+        elif row['Type'] == 'Transmission':
+            instance.transmisionInvCap[row['Country'], row['Energy_Type'], row['Period']].set_value(row['Value'])
+        elif row['Type'] == 'Storage Energy':
+            instance.storENInvCap[row['Country'], row['Energy_Type'], row['Period']].set_value(row['Value'])
+        elif row['Type'] == 'Storage Power':
+            instance.storPWInvCap[row['Country'], row['Energy_Type'], row['Period']].set_value(row['Value'])
+        
+    # Initialize installed capacities
+    update_installed_capacities(instance)
+    
+    violated_constraints = check_constraints(instance)
+    return violated_constraints
 
-    for n, b in data['StoragesOfNode']:
-        for i in data['Period']:
-            start_period = get_start_period(i, data['storageLifetime'][b],  LeapYearsInvestment)
-            data['storPWInstalledCap'][(n, b, i)] = sum(sample_dict.get((n, b, j, 'Storage Power'), 0) 
-                                                        for j in range(start_period, i+1)) + data['storPWInitCap'].get((n, b, i), 0)
+def update_installed_capacities(instance):
+    # Initialize genInstalledCap
+    for (n, g) in instance.GeneratorsOfNode:
+        for i in instance.PeriodActive:
+            startPeriod = max(1, value(1 + i - (instance.genLifetime[g] / instance.LeapYearsInvestment)))
+            instance.genInstalledCap[n, g, i].set_value(
+                value(instance.genInitCap[n, g, i]) +
+                sum(instance.genInvCap[n, g, j].value for j in instance.PeriodActive if startPeriod <= j <= i)
+            )
 
-    for n1, n2 in data['BidirectionalArc']:
-        for i in data['Period']:
-            init_cap = data['transmissionInitCap'].get((n1, n2, i), 0)
-            start_period = get_start_period(i, data['transmissionLifetime'].get((n1, n2), 40),  LeapYearsInvestment)
-            data['transmissionInstalledCap'][(n1, n2, i)] = sum(sample_dict.get((f"{n1},{n2}", 'Transmission', j, 'Transmission'), 0)
-                                                                for j in range(start_period, i+1)) + init_cap
+    # Update transmission installed capacities
+    for n1, n2 in instance.BidirectionalArc:
+        for i in instance.PeriodActive:
+            startPeriod = max(1, value(1 + i - (instance.transmissionLifetime[n1,n2] / instance.LeapYearsInvestment)))
+            instance.transmissionInstalledCap[n1,n2,i].set_value(
+                value(instance.transmissionInitCap[n1,n2,i] +
+                sum(instance.transmisionInvCap[n1,n2,j].value for j in instance.PeriodActive if startPeriod <= j <= i))
+            )
 
-    return data
+    # Update storage installed capacities
+    for n, b in instance.StoragesOfNode:
+        for i in instance.PeriodActive:
+            startPeriod = max(1, value(1 + i - (instance.storageLifetime[b] / instance.LeapYearsInvestment)))
+            instance.storENInstalledCap[n, b, i].set_value(
+                value(instance.storENInitCap[n, b, i]) +
+                sum(instance.storENInvCap[n, b, j].value for j in instance.PeriodActive if startPeriod <= j <= i)
+            )
+            instance.storPWInstalledCap[n, b, i].set_value(
+                value(instance.storPWInitCap[n, b, i]) +
+                sum(instance.storPWInvCap[n, b, j].value for j in instance.PeriodActive if startPeriod <= j <= i)
+            )
+
+def check_constraints(instance):
+    violated_constraints = []
+    for const in instance.component_objects(Constraint):
+        for index in const:
+            try:
+                body_value = value(const[index].body())
+                lower_value = value(const[index].lower) if const[index].lower is not None else None
+                upper_value = value(const[index].upper) if const[index].upper is not None else None
+                
+                if lower_value is not None and body_value < lower_value - 1e-6:
+                    violated_constraints.append((const.name, index, 'lower', body_value, lower_value))
+                if upper_value is not None and body_value > upper_value + 1e-6:
+                    violated_constraints.append((const.name, index, 'upper', body_value, upper_value))
+            except ValueError as e:
+                logging.info(f"Error evaluating constraint {const.name}[{index}]: {str(e)}")
+    return violated_constraints
 
 
-def generate_sample(data):
+def resample_violated_constraints(instance, sample, violated_constraints):
+    for const_name, index, bound_type, body_value, bound_value in violated_constraints:
+        if const_name == 'investment_gen_cap':
+            t, n, i = index
+            related_samples = sample[(sample['Country'] == n) & 
+                                     (sample['Period'] == i) & 
+                                     (sample['Type'] == 'Generation')]
+            current_sum = related_samples['Value'].sum()
+            max_cap = value(instance.genMaxBuiltCap[n, t, i])
+            
+            if current_sum > max_cap:  # If sum is too high
+                reduction_factor = max_cap / current_sum
+                for idx in related_samples.index:
+                    sample.at[idx, 'Value'] *= reduction_factor
+
+        elif const_name == 'investment_trans_cap':
+            n1, n2, i = index
+            max_cap = value(instance.transmissionMaxBuiltCap[n1, n2, i])
+            new_value = np.random.uniform(0, max_cap)
+            sample.loc[(sample['Country'] == n1) & (sample['Energy_Type'] == n2) & 
+                       (sample['Period'] == i) & (sample['Type'] == 'Transmission'), 'Value'] = new_value
+
+        elif const_name in ['investment_storage_power_cap', 'investment_storage_energy_cap']:
+            n, b, i = index
+            if const_name == 'investment_storage_power_cap':
+                max_cap = value(instance.storPWMaxBuiltCap[n, b, i])
+                sample_type = 'Storage Power'
+            else:
+                max_cap = value(instance.storENMaxBuiltCap[n, b, i])
+                sample_type = 'Storage Energy'
+            new_value = np.random.uniform(0, max_cap)
+            sample.loc[(sample['Country'] == n) & (sample['Energy_Type'] == b) & 
+                       (sample['Period'] == i) & (sample['Type'] == sample_type), 'Value'] = new_value
+    
+    return sample
+
+
+def sample_generation(instance, num_samples=1, max_iterations=1000):
+    print("Sample Generating!")
+    samples = []
+
+    for sample_num in range(num_samples):
+        try:
+            sample = []
+            # Generate initial sample
+            for n, g in instance.GeneratorsOfNode:
+                for i in instance.PeriodActive:
+                    max_cap = max(value(instance.genMaxBuiltCap[n, t, i]) 
+                                  for t in instance.Technology if (t, g) in instance.GeneratorsOfTechnology)
+                    sample_value = np.random.uniform(0, max_cap) if np.random.rand() > 0.99 else 0
+                    sample.append({'Country': n, 'Energy_Type': g, 'Period': i, 'Type': 'Generation', 'Value': sample_value})
+
+            for n1, n2 in instance.BidirectionalArc:
+                for i in instance.PeriodActive:
+                    sample_value = np.random.uniform(0, value(instance.transmissionMaxBuiltCap[n1, n2, i])) 
+                    sample.append({'Country': n1, 'Energy_Type': n2, 'Period': i, 'Type': 'Transmission', 'Value': sample_value})
+
+            for n, b in instance.StoragesOfNode:
+                for i in instance.PeriodActive:
+                    en_sample_value = np.random.uniform(0, value(instance.storENMaxBuiltCap[n, b, i])) 
+                    pw_sample_value = np.random.uniform(0, value(instance.storPWMaxBuiltCap[n, b, i]))
+                    sample.append({'Country': n, 'Energy_Type': b, 'Period': i, 'Type': 'Storage Energy', 'Value': en_sample_value})
+                    sample.append({'Country': n, 'Energy_Type': b, 'Period': i, 'Type': 'Storage Power', 'Value': pw_sample_value})
+
+            sample_df = pd.DataFrame(sample)
+            
+            # Validate and resample if necessary
+            for iteration in range(max_iterations):
+                violated_constraints = validate_sample(instance, sample_df)
+                if not violated_constraints:
+                    break
+                sample_df = resample_violated_constraints(instance, sample_df, violated_constraints)
+                print(f"Sample {sample_num + 1}, Iteration {iteration + 1}: Resampled {len(violated_constraints)} violated constraints")
+            
+            if not violated_constraints:
+                samples.append(sample_df)
+                print(f"Sample {sample_num + 1} generated successfully after {iteration + 1} iterations")
+            else:
+                print(f"Failed to generate valid sample {sample_num + 1} after {max_iterations} iterations")
+        
+        except Exception as e:
+            print(f"Error generating sample {sample_num + 1}: {str(e)}")
+
+    return samples
+
+def generate_samples_from_statistics(instance, statistics_df):
     sample = []
     
-    # Sample genInvCap
-    for n, g in data['GeneratorsOfNode']:
-        for t in data['Technology']:
-            for i in data['Period']:
-                max_cap = data['genMaxBuiltCap'].get((n, t, i), 5000.0) # original 500000.0
-                sample.append({
-                            'Country': n,
-                            'Energy_Type': g,
-                            'Period': i,
-                            'Type': 'Generation',
-                            'Value': np.random.uniform(0, max_cap)
-                        })
+    for _, row in statistics_df.iterrows():
+        mean = row['Mean']
+        std = row['Std']
+        # Generate a sample value from a normal distribution centered at the mean with the given std dev
+        sampled_value = max(0,np.random.normal(mean, std))
+        # Append the generated sample to the sample list
+        sample.append({
+            'Country': row['Country'],
+            'Energy_Type': row['Energy_Type'],
+            'Period': row['Period'],
+            'Type': row['Type'],
+            'Value': sampled_value
+        })
     
-     # Sample transmisionInvCap
-    for n1, n2 in data['BidirectionalArc']:
-        for i in data['Period']:
-            max_cap = data['transmissionMaxBuiltCap'].get((n1, n2, i), 20000.0)
-            sample.append({
-                'Country': f"{n1},{n2}",
-                'Energy_Type': 'Transmission',
-                'Period': i,
-                'Type': 'Transmission',
-                'Value': np.random.uniform(0, max_cap)
-            })
+    # Convert list of dicts to DataFrame
+    sample_df = pd.DataFrame(sample)
+    # Validate and apply sample if necessary
+    if validate_sample(instance, sample_df):
+        new_samples = [sample_df]
     
-    # Sample storPWInvCap and storENInvCap
-    for n, b in data['StoragesOfNode']:
-        for i in data['Period']:
-            max_pw_cap = data['storPWMaxBuiltCap'].get((n, b, i), 500000.0)
-            max_en_cap = data['storENMaxBuiltCap'].get((n, b, i), 500000.0)
-            sample.append({
-                'Country': n,
-                'Energy_Type': b,
-                'Period': i,
-                'Type': 'Storage Power',
-                'Value': np.random.uniform(0, max_pw_cap)
-            })
-            sample.append({
-                'Country': n,
-                'Energy_Type': b,
-                'Period': i,
-                'Type': 'Storage Energy',
-                'Value': np.random.uniform(0, max_en_cap)
-            })
-    
-    return pd.DataFrame(sample)
+    return new_samples
 
-CONSTRAINT_TOLERANCE = 1e-6  # You can adjust this value as needed
-
-def check_constraints(sample, data):
-    """
-    Check if the sample satisfies the constraints.
-    """
-    sample_dict = {(row['Country'], row['Energy_Type'], row['Period'], row['Type']): row['Value'] 
-                   for _, row in sample.iterrows()}
-    
-
-    def log_constraint_violation(constraint_type, details):
-        logging.debug(f"Constraint violation: {constraint_type} - {details}")
-
-    # Check generator lifetime and capacity constraints
-    # for n, g in data['GeneratorsOfNode']:
-    #     for t in data['Technology']:
-    #         for i in data['Period']:
-    #             max_installed_cap = sum(
-    #                 data['genInstalledCap'][(n,g,i)] for g in data['Generator']
-    #                 if (n, g) in data['GeneratorsOfNode'] and (t, g) in data['GeneratorsOfTechnology']
-    #             )
-    #             if max_installed_cap > data['genMaxInstalledCap'].get((n, t, i), 0):
-    #                 log_constraint_violation("Generator max capacity", f"Node: {n}, Generator: {g}, Period: {i}")
-    #                 return False
-    
-    for t in data['Technology']:
-        for n in data['Node']:
-            for i in data['Period']:
-                installed_cap = sum(
-                    data['genInstalledCap'].get((n, g, i), 0)
-                    for g in data['Generator']
-                    if (n, g) in data['GeneratorsOfNode'] and (t, g) in data['GeneratorsOfTechnology']
-                )
-                max_installed_cap = data['genMaxInstalledCap'].get((n, t, i), 0)
-                if installed_cap > max_installed_cap:
-                    print("installed_cap",installed_cap)
-                    print("max_installed_cap", max_installed_cap)
-                    log_constraint_violation("Generator max capacity", f"Node: {n}, Technology: {t}, Period: {i}")
-                    return False
-            
-    # Check storage energy lifetime and capacity constraints
-    for n, b in data['StoragesOfNode']:
-        for i in data['Period']:
-            if data['storENInstalledCap'].get((n, b, i),0) > data['storENMaxInstalledCap'].get((n, b, i),0):
-                log_constraint_violation("Storage energy max capacity", f"Node: {n}, Storage: {b}, Period: {i}")
-                return False
-
-    # Check storage power lifetime and capacity constraints
-    for n, b in data['StoragesOfNode']:
-        for i in data['Period']:
-            if data['storPWInstalledCap'].get((n, b, i),0) > data['storPWMaxInstalledCap'].get((n, b, i), 0):
-                log_constraint_violation("Storage power max capacity", f"Node: {n}, Storage: {b}, Period: {i}")
-                return False
-
-    # Check transmission lifetime and capacity constraints
-    for n1, n2 in data['BidirectionalArc']:
-        for i in data['Period']:
-            if data['transmissionInstalledCap'].get((n1, n2, i), 0) > data['transmissionMaxInstalledCap'].get((n1, n2, i), 0):
-                log_constraint_violation("Transmission max capacity", f"Link: {n1}-{n2}, Period: {i}")
-                return False
-            
-    # Check investment constraints
-    for t in data['Technology']:
-        for n in data['Node']:
-            for i in data['Period']:
-                gen_inv = sum(sample_dict.get((n, g, i, 'Generation'), 0) for g in data['Generator'] 
-                              if (n, g) in data['GeneratorsOfNode'] and (t, g) in data['GeneratorsOfTechnology'])
-                if gen_inv > data['genMaxBuiltCap'].get((n, t, i), 500000.0):
-                    log_constraint_violation("Generator investment", f"Node: {n}, Technology: {t}, Period: {i}")
-                    return False
-
-    for n1, n2 in data['BidirectionalArc']:
-        for i in data['Period']:
-            if sample_dict.get((f"{n1},{n2}", 'Transmission', i, 'Transmission'), 0) > data['transmissionMaxBuiltCap'].get((n1, n2, i), 20000.0):
-                log_constraint_violation("Transmission investment", f"Link: {n1}-{n2}, Period: {i}")
-                return False
-
-    for n, b in data['StoragesOfNode']:
-        for i in data['Period']:
-            if sample_dict.get((n, b, i, 'Storage Power'), 0) > data['storPWMaxBuiltCap'].get((n, b, i), 500000.0):
-                log_constraint_violation("Storage power investment", f"Node: {n}, Storage: {b}, Period: {i}")
-                return False
-            if sample_dict.get((n, b, i, 'Storage Energy'), 0) > data['storENMaxBuiltCap'].get((n, b, i), 500000.0):
-                log_constraint_violation("Storage energy investment", f"Node: {n}, Storage: {b}, Period: {i}")
-                return False
-
-    return True
-
-def generate_and_save_samples(sample, data, num_samples, output_file):
-    """
-    Generate multiple samples, check constraints, and save valid samples to a CSV file.
-    """
-    all_samples = []
-    attempts = 0
-    max_attempts = num_samples * 1000  # Limit the number of attempts
-
-    while len(all_samples) < num_samples and attempts < max_attempts:
-        # sample = generate_sample(data)
-        if check_constraints(sample, data):
-            sample['Sample_ID'] = len(all_samples) + 1
-            all_samples.append(sample)
-        attempts += 1
-        if attempts % 10 == 0:
-            logging.debug(f"Completed {attempts} attempts, found {len(all_samples)} valid samples")
-
-    if len(all_samples) < num_samples:
-        logging.warning(f"Only {len(all_samples)} valid samples were generated out of {num_samples} requested after {attempts} attempts.")
-
-    if not all_samples:
-        logging.error("No valid samples were generated.")
-        return None
-
-    combined_samples = pd.concat(all_samples, ignore_index=True)
-    combined_samples.to_csv(output_file, index=False)
-    logging.info(f"Samples saved to {output_file}")
-    return combined_samples
 
 
 if __name__ == "__main__":
-    start = time.time()
+    tab_file_path = 'Data handler/sampling'
+    num_samples = 100
+    max_attempts = 10000
+    model, data = sample_model(tab_file_path)
+    instance = model.create_instance(data)
 
-    # Generate name for this run
-    name = version + '_reg' + str(lengthRegSeason) + \
-        '_peak' + str(lengthPeakSeason) + \
-        '_sce' + str(NoOfScenarios)
-    if scenariogeneration and not fix_sample:
-        name = name + "_randomSGR"
-    else:
-        name = name + "_noSGR"
-    if filter_use:
-        name = name + "_filter" + str(n_cluster)
-    if moment_matching:
-        name = name + "_moment" + str(n_tree_compare)
-    name = name + str(datetime.now().strftime("_%Y%m%d%H%M"))
+    best_samples_directory = 'FSD'
+    best_samples = load_multiple_best_samples(best_samples_directory)
 
-    # Set up paths
-    workbook_path = 'Data handler/' + version
-    tab_file_path = 'Data handler/' + version + '/Tab_Files_' + name
-    scenario_data_path = 'Data handler/' + version + '/ScenarioData'
-    result_file_path = 'Results/' + name
+    combined_samples = pd.concat(best_samples, ignore_index=True)
+    statistics = calculate_statistics(combined_samples)
+    print("Model setup complete. Starting sample generation...")
 
-    # Create necessary directories
-    os.makedirs(tab_file_path, exist_ok=True)
-    os.makedirs(result_file_path, exist_ok=True)
+    # valid_samples = sample_generation(instance, num_samples)
+    for i in range(num_samples):
+        valid_samples = generate_samples_from_statistics(instance, statistics)
 
-    # Set up logging for constraint violations
-    logging.getLogger().setLevel(logging.DEBUG)
-    constraint_log_file = os.path.join(result_file_path, f"constraint_violations_{name}.log")
-    file_handler = logging.FileHandler(constraint_log_file)
-    file_handler.setLevel(logging.DEBUG)
-    logging.getLogger().addHandler(file_handler)
+        if valid_samples:
+            output_dir = "FSDsamples"
+            os.makedirs(output_dir, exist_ok=True)
+            output_path = os.path.join(output_dir, f"valid_samples_{datetime.now().strftime('%Y%m%d%H%M%S')}_{i}.csv")
+            pd.concat(valid_samples).to_csv(output_path, index=False)
+            logging.info(f"Saved {len(valid_samples)} valid samples to {output_path}")
+        else:
+            logging.warning(f"No valid samples found after {max_attempts} attempts. Check constraints and sampling ranges.")
 
-    # Generate tab files
-    generate_tab_files(filepath=workbook_path, tab_file_path=tab_file_path)
-
-    # Load EMPIRE data
-    empire_data = load_empire_data(tab_file_path)
-    sample = generate_sample(empire_data)
-    empire_data = prepare_data(sample, empire_data)
-
-    # Generate samples
-    num_samples = 1  # You can change this or make it configurable
-    output_file = os.path.join(result_file_path, f"samples_{name}.csv")
-    samples = generate_and_save_samples(sample, empire_data, num_samples, output_file)
-
-    if samples is not None:
-        logging.info(f"Generated {len(samples)} samples and saved to {output_file}")
-    else:
-        logging.error("Failed to generate any valid samples.")
-
-    end = time.time()
-    logging.info(f"Sampling Implementation took {end - start} seconds")
-    logging.info(f"Generated {len(samples)} samples and saved to {output_file}")
-
-    # Remove the file handler to avoid duplicate logs in future runs
-    logging.getLogger().removeHandler(file_handler)
-    
+        for const in instance.component_objects(Constraint):
+            for index in const:
+                lower = value(const[index].lower) if const[index].lower is not None else "-inf"
+                upper = value(const[index].upper) if const[index].upper is not None else "inf"
+                logging.debug(f"Constraint {const.name}[{index}] range: [{lower}, {upper}]")

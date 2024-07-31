@@ -1,0 +1,8 @@
+2024-07-30 22:24:21.446919: I external/local_tsl/tsl/cuda/cudart_stub.cc:32] Could not find cuda drivers on your machine, GPU will not be used.
+2024-07-30 22:24:21.451188: I external/local_tsl/tsl/cuda/cudart_stub.cc:32] Could not find cuda drivers on your machine, GPU will not be used.
+2024-07-30 22:24:21.501031: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-07-30 22:24:23.670077: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+2024-07-30 23:40:52,156 - WARNING - Element ('Germany', 'Denmark', 'HVAC_OverheadLine') already exists in Set TransmissionTypeOfDirectionalLink; no action taken
+2024-07-30 23:40:52,156 - WARNING - Element ('Germany', 'France', 'HVAC_OverheadLine') already exists in Set TransmissionTypeOfDirectionalLink; no action taken
+2024-07-30 23:42:23,098 - INFO - Saved 1000 valid samples to FSDsamples/valid_samples_20240730234221.csv

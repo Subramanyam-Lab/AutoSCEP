@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --nodes=1
 #SBATCH --ntasks=16
-#SBATCH --mem=64GB 
+#SBATCH --mem=128GB 
 #SBATCH --time=96:00:00
 #SBATCH --job-name=neurumhsp
 #SBATCH --output=empire-%j.out
@@ -14,5 +14,5 @@ source ~/.bashrc
 source activate neurmhsp
 module load gurobi/10.0.3
 
-/storage/home/tzk5446/.conda/envs/neurmhsp/bin/python reduced_run.py 
+/storage/home/tzk5446/.conda/envs/neurmhsp/bin/python sampling_run.py 
 

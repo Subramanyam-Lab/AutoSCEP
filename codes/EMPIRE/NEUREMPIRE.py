@@ -5,6 +5,7 @@ import csv
 import sys
 import cloudpickle
 import time
+from datetime import datetime
 import os
 from omlt import OmltBlock, OffsetScaling
 from omlt.neuralnet import FullSpaceNNFormulation
@@ -1300,7 +1301,9 @@ def get_results(instance):
     df = pd.DataFrame(data, columns=['Country', 'Energy_Type', 'Period', 'Type', 'Value'])
 
     print("DataFrame created successfully:")
-    output_file_path = "european_power_system_inv_cap.csv"
+    output_dir = "FSD"
+    os.makedirs(output_dir, exist_ok=True)
+    output_file_path = os.path.join(output_dir, f"{datetime.now().strftime('%Y%m%d%H%M')}_inv_cap.csv")
     df.to_csv(output_file_path, index=False)
     input_vector = np.array(list(inv_cap_data.values()), dtype=float)
     expected_second_stage_value = compute_expected_second_stage_value(instance)
