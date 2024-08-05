@@ -14,5 +14,5 @@ source ~/.bashrc
 source activate neurmhsp
 module load gurobi/10.0.3
 
-/storage/home/tzk5446/.conda/envs/neurmhsp/bin/python sampling_run.py 
+/storage/home/tzk5446/.conda/envs/neurmhsp/bin/python neur2sp_dataset_ver2.py 
 

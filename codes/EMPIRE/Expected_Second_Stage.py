@@ -57,6 +57,8 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     else:
         print("No absolute emission cap...")
     
+    scenariopath = tab_file_path
+    tab_file_path = "Data handler/sampling"
     ########
     ##SETS##
     ########
@@ -363,11 +365,11 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     data.load(filename=tab_file_path + "/" + 'Node_ElectricAnnualDemand.tab', param=model.sloadAnnualDemand, format="table") 
     data.load(filename=tab_file_path + "/" + 'Node_HydroGenMaxAnnualProduction.tab', param=model.maxHydroNode, format="table") 
     
-    if scenariogeneration:
-        scenariopath = tab_file_path
-    else:
-        scenariopath = scenario_data_path
-
+    # if scenariogeneration:
+    #     scenariopath = tab_file_path
+    # else:
+    #     scenariopath = scenario_data_path
+        
     # It should be passed by inputs of this function
     data.load(filename=scenariopath + "/" + 'Stochastic_HydroGenMaxSeasonalProduction.tab', param=model.maxRegHydroGenRaw, format="table")
     data.load(filename=scenariopath + "/" + 'Stochastic_StochasticAvailability.tab', param=model.genCapAvailStochRaw, format="table") 

@@ -820,7 +820,7 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     print("Objective and constraints read...")
 
     print("Building instance...")
-
+    
     start = time.time()
     instance = model.create_instance(data) #, report_timing=True)
     instance.dual = Suffix(direction=Suffix.IMPORT) #Make sure the dual value is collected into solver results (if solver supplies dual information)
@@ -828,7 +828,10 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     end = time.time()
     print("Building instance took [sec]:")
     print(end - start)
-
+    
+    # model statistics
+    count_specific_constraints(instance)
+    
     hydro_size = len(instance.maxRegHydroGenRaw)
     availability_size = len(instance.genCapAvailStochRaw)
     load_size = len(instance.sloadRaw)
@@ -1281,12 +1284,22 @@ def get_results(instance):
     stor_pw_inv_cap = instance.storPWInvCap.get_values()
     stor_en_inv_cap = instance.storENInvCap.get_values()
 
+    # Second Stage variables from the instance
+    load_shed = instance.loadShed.get_values()
+    gen_operational = instance.genOperational.get_values()
+    
+
     # Print lengths of individual data sources
+    print("First Stage Decision Length: ")
     print(f"Length of gen_inv_cap: {len(gen_inv_cap)}")
     print(f"Length of transmision_inv_cap: {len(transmision_inv_cap)}")
     print(f"Length of stor_pw_inv_cap: {len(stor_pw_inv_cap)}")
     print(f"Length of stor_en_inv_cap: {len(stor_en_inv_cap)}")
     
+    print("Second Stage Decision Length: ")
+    print(f"Length of load_shed: {len(load_shed)}")
+    print(f"Length of gen_operational: {len(gen_operational)}")
+
     # Add a generator type label to each entry
     gen_inv_cap = {(k[0], k[1], k[2], 'Generation'): v for k, v in gen_inv_cap.items()}
     transmision_inv_cap = {(k[0], k[1], k[2], 'Transmission'): v for k, v in transmision_inv_cap.items()}
@@ -1318,3 +1331,33 @@ def compute_expected_second_stage_value(instance):
         for I in instance.PeriodActive
     )
     return expected_second_stage_value
+
+def count_specific_constraints(instance):
+    specific_constraints = [
+        'installedCapDefinitionGen',
+        'installedCapDefinitionStorEN',
+        'installedCapDefinitionStorPOW',
+        'installedCapDefinitionTrans',
+        'investment_gen_cap',
+        'investment_trans_cap',
+        'investment_storage_power_cap',
+        'investment_storage_energy_cap',
+        'installed_gen_cap',
+        'installed_trans_cap',
+        'installed_storage_power_cap',
+        'installed_storage_energy_cap'
+    ]
+
+    total_specific_constraints = 0
+    active_specific_constraints = 0
+
+    for constraint_name in specific_constraints:
+        if hasattr(instance, constraint_name):
+            constraint = getattr(instance, constraint_name)
+            total_specific_constraints += len(constraint)
+            active_specific_constraints += sum(1 for _ in constraint.values() if _.active)
+    
+    total_constraints = instance.nconstraints()
+    print(f"Total number of constraints: {total_constraints}")
+    print(f"Number of first-stage constraints: {active_specific_constraints}")
+    print(f"Number of second-stage constraints: {total_constraints-active_specific_constraints}")

@@ -57,123 +57,135 @@ if version in ["europe_v50"]:
 else:
     north_sea = True
 
-#######
-##RUN##
-#######
-
-name = version + '_reg' + str(lengthRegSeason) + \
-    '_peak' + str(lengthPeakSeason) + \
-    '_sce' + str(NoOfScenarios)
-if scenariogeneration and not fix_sample:
-        name = name + "_randomSGR"
-else:
-	name = name + "_noSGR"
-if filter_use:
-    name = name + "_filter" + str(n_cluster)
-if moment_matching:
-    name = name + "_moment" + str(n_tree_compare)
-name = name + str(datetime.now().strftime("_%Y%m%d%H%M"))
-workbook_path = 'Data handler/' + version
-tab_file_path = 'Data handler/' + version + '/Tab_Files_' + name
-scenario_data_path = 'Data handler/' + version + '/ScenarioData'
-result_file_path = 'Results/' + name
-FirstHoursOfRegSeason = [lengthRegSeason*i + 1 for i in range(NoOfRegSeason)]
-FirstHoursOfPeakSeason = [lengthRegSeason*NoOfRegSeason + lengthPeakSeason*i + 1 for i in range(NoOfPeakSeason)]
-Period = [i + 1 for i in range(int((Horizon-2020)/LeapYearsInvestment))]
-Scenario = ["scenario"+str(i + 1) for i in range(NoOfScenarios)]
-peak_seasons = ['peak'+str(i + 1) for i in range(NoOfPeakSeason)]
-Season = regular_seasons + peak_seasons
-Operationalhour = [i + 1 for i in range(FirstHoursOfPeakSeason[-1] + lengthPeakSeason - 1)]
-HoursOfRegSeason = [(s,h) for s in regular_seasons for h in Operationalhour \
-                 if h in list(range(regular_seasons.index(s)*lengthRegSeason+1,
-                               regular_seasons.index(s)*lengthRegSeason+lengthRegSeason+1))]
-HoursOfPeakSeason = [(s,h) for s in peak_seasons for h in Operationalhour \
-                     if h in list(range(lengthRegSeason*len(regular_seasons)+ \
-                                        peak_seasons.index(s)*lengthPeakSeason+1,
-                                        lengthRegSeason*len(regular_seasons)+ \
-                                            peak_seasons.index(s)*lengthPeakSeason+ \
-                                                lengthPeakSeason+1))]
-HoursOfSeason = HoursOfRegSeason + HoursOfPeakSeason
-dict_countries = {"DE": "Germany", "DK": "Denmark", "FR": "France"}
-    
-print('++++++++')
-print('+EMPIRE+')
-print('++++++++')
-print('LOADCHANGEMODULE: ' + str(LOADCHANGEMODULE))
-print('Solver: ' + solver)
-print('Scenario Generation: ' + str(scenariogeneration))
-print('++++++++')
-print('ID: ' + name)
-print('++++++++')
-
-if scenariogeneration:
-    generate_random_scenario(filepath = scenario_data_path,
-                             tab_file_path = tab_file_path,
-                             scenarios = NoOfScenarios,
-                             seasons = regular_seasons,
-                             Periods = len(Period),
-                             regularSeasonHours = lengthRegSeason,
-                             peakSeasonHours = lengthPeakSeason,
-                             dict_countries = dict_countries,
-                             time_format = time_format,
-                             filter_make = filter_make,
-                             filter_use = filter_use,
-                             n_cluster = n_cluster,
-                             moment_matching = moment_matching,
-                             n_tree_compare = n_tree_compare,
-                             fix_sample = fix_sample,
-                             north_sea = False,
-                             LOADCHANGEMODULE = LOADCHANGEMODULE)
-
-generate_tab_files(filepath = workbook_path, tab_file_path = tab_file_path)
-
-
-def read_fsd_from_csv(file_path):
-    with open(file_path, 'r') as csvfile:
-        csv_reader = csv.reader(csvfile)
-        next(csv_reader)  
-        fsd_data = [row for row in csv_reader]
-    return fsd_data
-
-def load_fsd_samples(directory_path):
-    all_samples = []
-    for filename in os.listdir(directory_path):
-        if filename.endswith('.csv'):
-            file_path = os.path.join(directory_path, filename)
-            samples = pd.read_csv(file_path)
-            all_samples.append(samples)
-    return all_samples
 
 
 fsd_file_path = 'FSDsamples'
-FSD = read_fsd_from_csv(fsd_file_path)
+results = []
+
+# def delete_non_stochastic_files(tab_file_path):
+#     for filename in os.listdir(tab_file_path):
+#         if filename.endswith('.tab') and not filename.startswith('Stochastic_'):
+#             file_path = os.path.join(tab_file_path, filename)
+#             os.remove(file_path)
+#             # print(f"Deleted {filename}")
+#     print(f"Deleted {tab_file_path} except for random scenarios")
+
+def read_fsd_from_csv(file_path):
+        with open(file_path, 'r') as csvfile:
+            csv_reader = csv.reader(csvfile)
+            next(csv_reader)  
+            fsd_data = [row for row in csv_reader]
+        return fsd_data
+
+for filename in os.listdir(fsd_file_path):
+    #######
+    ##RUN##
+    #######
+
+    name = version + '_reg' + str(lengthRegSeason) + \
+        '_peak' + str(lengthPeakSeason) + \
+        '_sce' + str(NoOfScenarios)
+    if scenariogeneration and not fix_sample:
+            name = name + "_randomSGR"
+    else:
+        name = name + "_noSGR"
+    if filter_use:
+        name = name + "_filter" + str(n_cluster)
+    if moment_matching:
+        name = name + "_moment" + str(n_tree_compare)
+    name = name + str(datetime.now().strftime("_%Y%m%d%H%M"))
+    workbook_path = 'Data handler/' + version
+    tab_file_path = 'Data handler/' + version + '/Tab_Files_' + name
+    scenario_data_path = 'Data handler/' + version + '/ScenarioData'
+    result_file_path = 'Results/' + name
+    FirstHoursOfRegSeason = [lengthRegSeason*i + 1 for i in range(NoOfRegSeason)]
+    FirstHoursOfPeakSeason = [lengthRegSeason*NoOfRegSeason + lengthPeakSeason*i + 1 for i in range(NoOfPeakSeason)]
+    Period = [i + 1 for i in range(int((Horizon-2020)/LeapYearsInvestment))]
+    Scenario = ["scenario"+str(i + 1) for i in range(NoOfScenarios)]
+    peak_seasons = ['peak'+str(i + 1) for i in range(NoOfPeakSeason)]
+    Season = regular_seasons + peak_seasons
+    Operationalhour = [i + 1 for i in range(FirstHoursOfPeakSeason[-1] + lengthPeakSeason - 1)]
+    HoursOfRegSeason = [(s,h) for s in regular_seasons for h in Operationalhour \
+                    if h in list(range(regular_seasons.index(s)*lengthRegSeason+1,
+                                regular_seasons.index(s)*lengthRegSeason+lengthRegSeason+1))]
+    HoursOfPeakSeason = [(s,h) for s in peak_seasons for h in Operationalhour \
+                        if h in list(range(lengthRegSeason*len(regular_seasons)+ \
+                                            peak_seasons.index(s)*lengthPeakSeason+1,
+                                            lengthRegSeason*len(regular_seasons)+ \
+                                                peak_seasons.index(s)*lengthPeakSeason+ \
+                                                    lengthPeakSeason+1))]
+    HoursOfSeason = HoursOfRegSeason + HoursOfPeakSeason
+    dict_countries = {"DE": "Germany", "DK": "Denmark", "FR": "France"}
+        
+    print('++++++++')
+    print('+EMPIRE+')
+    print('++++++++')
+    print('LOADCHANGEMODULE: ' + str(LOADCHANGEMODULE))
+    print('Solver: ' + solver)
+    print('Scenario Generation: ' + str(scenariogeneration))
+    print('++++++++')
+    print('ID: ' + name)
+    print('++++++++')
 
 
-expected_second_stage_value = run_second_stage(name = name, 
-        tab_file_path = tab_file_path,
-        result_file_path = result_file_path, 
-        scenariogeneration = scenariogeneration,
-        scenario_data_path = scenario_data_path,
-        solver = solver,
-        temp_dir = temp_dir, 
-        FirstHoursOfRegSeason = FirstHoursOfRegSeason, 
-        FirstHoursOfPeakSeason = FirstHoursOfPeakSeason, 
-        lengthRegSeason = lengthRegSeason,
-        lengthPeakSeason = lengthPeakSeason,
-        Period = Period, 
-        Operationalhour = Operationalhour,
-        Scenario = Scenario,
-        Season = Season,
-        HoursOfSeason = HoursOfSeason,
-        discountrate = discountrate, 
-        WACC = WACC, 
-        LeapYearsInvestment = LeapYearsInvestment,
-        FSD = FSD, 
-        WRITE_LP = WRITE_LP, 
-        PICKLE_INSTANCE = PICKLE_INSTANCE, 
-        EMISSION_CAP = EMISSION_CAP,
-        USE_TEMP_DIR = USE_TEMP_DIR,
-        LOADCHANGEMODULE = LOADCHANGEMODULE)
+    if not os.path.exists(tab_file_path):
+        os.makedirs(tab_file_path)
+
+    if scenariogeneration:
+        generate_random_scenario(filepath = scenario_data_path,
+                                tab_file_path = tab_file_path,
+                                scenarios = NoOfScenarios,
+                                seasons = regular_seasons,
+                                Periods = len(Period),
+                                regularSeasonHours = lengthRegSeason,
+                                peakSeasonHours = lengthPeakSeason,
+                                dict_countries = dict_countries,
+                                time_format = time_format,
+                                filter_make = filter_make,
+                                filter_use = filter_use,
+                                n_cluster = n_cluster,
+                                moment_matching = moment_matching,
+                                n_tree_compare = n_tree_compare,
+                                fix_sample = fix_sample,
+                                north_sea = False,
+                                LOADCHANGEMODULE = LOADCHANGEMODULE)
+
+    if filename.endswith('.csv'):
+        file_path = os.path.join(fsd_file_path, filename)
+        FSD = read_fsd_from_csv(file_path)
+        expected_second_stage_value = run_second_stage(name = name, 
+                tab_file_path = tab_file_path,
+                result_file_path = result_file_path, 
+                scenariogeneration = scenariogeneration,
+                scenario_data_path = scenario_data_path,
+                solver = solver,
+                temp_dir = temp_dir, 
+                FirstHoursOfRegSeason = FirstHoursOfRegSeason, 
+                FirstHoursOfPeakSeason = FirstHoursOfPeakSeason, 
+                lengthRegSeason = lengthRegSeason,
+                lengthPeakSeason = lengthPeakSeason,
+                Period = Period, 
+                Operationalhour = Operationalhour,
+                Scenario = Scenario,
+                Season = Season,
+                HoursOfSeason = HoursOfSeason,
+                discountrate = discountrate, 
+                WACC = WACC, 
+                LeapYearsInvestment = LeapYearsInvestment,
+                FSD = FSD, 
+                WRITE_LP = WRITE_LP, 
+                PICKLE_INSTANCE = PICKLE_INSTANCE, 
+                EMISSION_CAP = EMISSION_CAP,
+                USE_TEMP_DIR = USE_TEMP_DIR,
+                LOADCHANGEMODULE = LOADCHANGEMODULE)
+        results.append({
+            "Filename": filename,
+            "ExpectedSecondStage": expected_second_stage_value
+        })
+        print(f"Processed {filename}: Expected Second Stage Value = {expected_second_stage_value}")
+    # delete_non_stochastic_files(tab_file_path)
+
+results_df = pd.DataFrame(results)
+results_df.to_csv(f"expected_second_stage_results_{str(datetime.now().strftime("_%Y%m%d%H%M"))}.csv", index=False)
 end = time.time()
-print("SECOND STAGE RUN took [sec]: ", end - start)
-print("EXPECTED SECOND STAGE",expected_second_stage_value)
+print("TOTAL TIME took [sec]: ", end - start)
