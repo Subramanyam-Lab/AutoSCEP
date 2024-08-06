@@ -471,6 +471,16 @@ def generate_samples_from_statistics(instance, statistics_df):
     return new_samples
 
 
+# Pass to the dataset building
+def new_samples(instance,num_samples):
+    best_samples_directory = 'FSD'
+    best_samples = load_multiple_best_samples(best_samples_directory)
+
+    combined_samples = pd.concat(best_samples, ignore_index=True)
+    statistics = calculate_statistics(combined_samples)
+    print("Model setup complete. Starting sample generation...")
+    valid_samples = generate_samples_from_statistics(instance, statistics)
+    return valid_samples
 
 if __name__ == "__main__":
     tab_file_path = 'Data handler/sampling'

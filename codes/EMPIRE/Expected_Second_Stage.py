@@ -369,7 +369,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     #     scenariopath = tab_file_path
     # else:
     #     scenariopath = scenario_data_path
-        
+
     # It should be passed by inputs of this function
     data.load(filename=scenariopath + "/" + 'Stochastic_HydroGenMaxSeasonalProduction.tab', param=model.maxRegHydroGenRaw, format="table")
     data.load(filename=scenariopath + "/" + 'Stochastic_StochasticAvailability.tab', param=model.genCapAvailStochRaw, format="table") 
