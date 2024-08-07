@@ -9,6 +9,12 @@ from yaml import safe_load
 from sampling import new_samples, sample_model
 from scenario_random import generate_random_scenario
 from Expected_Second_Stage import run_second_stage
+import multiprocessing
+from functools import partial
+import shutil
+import uuid
+from multiprocessing import current_process
+
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -77,7 +83,7 @@ HoursOfSeason = HoursOfRegSeason + HoursOfPeakSeason
 dict_countries = {"DE": "Germany", "DK": "Denmark", "FR": "France"}
 
 # Constants
-N_SAMPLES = 2  # Number of FSD samples
+N_SAMPLES = 100  # Number of FSD samples
 K_SCENARIOS = 30  # Number of scenarios for NN-E
 SINGLE_SCENARIO = 1  # Number of scenario for NN-P
 
@@ -159,15 +165,6 @@ def calculate_second_stage_value(fsd, name_path, tab_file_path, Scenario, result
         USE_TEMP_DIR = USE_TEMP_DIR,
         LOADCHANGEMODULE = LOADCHANGEMODULE)
     return expected_second_stage_value
-    # return run_second_stage(
-    #     name=name_path,
-    #     tab_file_path=tab_file_path,
-    #     result_file_path=result_file_path,
-    #     FSD=fsd,
-    #     **UserRunTimeConfig
-    # )
-
-
 
 def process_new_samples_output(samples):
     processed_samples = []
@@ -198,40 +195,30 @@ def process_dataframe(df):
 
 
 def load_and_process_scenario_data(tab_file_path):
-    scenario_data = {}
+    scenario_data = []
     
     # Load and process electric load data
     electric_load_path = os.path.join(tab_file_path, 'Stochastic_ElectricLoadRaw.tab')
-    scenario_data['electric_load'] = process_tab_data(
-        electric_load_path, 'Operationalhour', 'ElectricLoadRaw_in_MW'
-    )
+    scenario_data.extend(process_tab_data(electric_load_path, 'ElectricLoadRaw_in_MW'))
     
     # Load and process hydro data
     hydro_path = os.path.join(tab_file_path, 'Stochastic_HydroGenMaxSeasonalProduction.tab')
-    scenario_data['hydro'] = process_tab_data(
-        hydro_path, ['Season', 'Operationalhour'], 'HydroGeneratorMaxSeasonalProduction'
-    )
+    scenario_data.extend(process_tab_data(hydro_path, 'HydroGeneratorMaxSeasonalProduction'))
     
     # Load and process availability data
     availability_path = os.path.join(tab_file_path, 'Stochastic_StochasticAvailability.tab')
-    scenario_data['availability'] = process_tab_data(
-        availability_path, ['IntermitentGenerators', 'Operationalhour'], 'GeneratorStochasticAvailabilityRaw'
-    )
+    scenario_data.extend(process_tab_data(availability_path, 'GeneratorStochasticAvailabilityRaw'))
     
     return scenario_data
 
-def process_tab_data(file_path, pivot_columns, value_column):
+def extract_fsd_values(processed_fsd):
+    return [item[4] for item in processed_fsd]
+
+def process_tab_data(file_path, value_column):
     try:
         df = pd.read_csv(file_path, sep='\t')
-        processed_data = {country: torch.stack([
-            torch.tensor(
-                df[(df['Node'] == country) & (df['Scenario'] == scenario)]
-                .pivot_table(index='Period', columns=pivot_columns, values=value_column)
-                .values, 
-                dtype=torch.float32
-            ) for scenario in df['Scenario'].unique()
-        ]) for country in df['Node'].unique()}
-        logging.info(f"Successfully processed {file_path}")
+        processed_data = df[value_column].tolist()
+        # logging.info(f"Successfully processed {file_path}")
         return processed_data
     except Exception as e:
         logging.error(f"Error processing {file_path}: {str(e)}")
@@ -244,13 +231,10 @@ def save_nnp_dataset_to_csv(nnp_dataset, filename=None):
     data = []
     for fsd_data, scenario_data, label in nnp_dataset:
         row = {
-            'label': label,
             'fsd_data': str(fsd_data),  # Convert list to string
+            'scenario_data': str(scenario_data),  # Convert list to string
+            'label': label
         }
-        
-        # Add scenario data
-        for key, value in scenario_data.items():
-            row[f'{key}_data'] = str(value)  # Convert dict to string
         
         data.append(row)
     
@@ -292,34 +276,134 @@ def run_second_stage_parallel(args):
 
 #     return NNEDataset(*zip(*nne_dataset))
 
-def create_nnp_datasets():
-    nnp_dataset = []
-    sample_model_path = 'Data handler/sampling'
-    scenario_data_path = f'Data handler/reduced/ScenarioData'
-    model, data = sample_model(sample_model_path)
-    instance = model.create_instance(data)
-    for i in range(N_SAMPLES):
-        name = UserRunTimeConfig["version"] + '_sce' + f'{SINGLE_SCENARIO}' + \
-        str(datetime.now().strftime("_%Y%m%d%H%M"))
-        tab_file_path = 'Data handler/' + UserRunTimeConfig["version"] + '/Tab_Files_' + name
-        fsd_sample = generate_fsd_samples(instance, 1)
-        print(fsd_sample)
-        logging.info(f"Processing FSD sample {i+1}/{N_SAMPLES}")
+def get_safe_directory_name(base_path, prefix):
+    process_id = current_process().pid
+    unique_id = uuid.uuid4().hex[:8]
+    dir_name = f"{prefix}_{process_id}_{unique_id}"
+
+    full_path = os.path.join(base_path, dir_name)
+
+    counter = 1
+    while os.path.exists(full_path):
+        dir_name = f"{prefix}_{process_id}_{unique_id}_{counter}"
+        full_path = os.path.join(base_path, dir_name)
+        counter += 1
+    
+    return full_path
+
+# def process_single_sample(i, sample_model_path, scenario_data_path):
+#     model, data = sample_model(sample_model_path)
+#     instance = model.create_instance(data)
+    
+#     name = UserRunTimeConfig["version"] + '_sce' + f'{SINGLE_SCENARIO}' + \
+#     str(datetime.now().strftime("_%Y%m%d%H%M%S")) + f'_{i}'
+#     # tab_file_path = 'Data handler/' + UserRunTimeConfig["version"] + '/Tab_Files_' + name
+    
+#     base_path = f'Data handler/{UserRunTimeConfig["version"]}/Tab_Files'
+#     prefix = f'sce_{SINGLE_SCENARIO}'
+#     tab_file_path = get_safe_directory_name(base_path, prefix)
+#     print(tab_file_path)
+#     fsd_sample = generate_fsd_samples(instance, 1)
+#     logging.info(f"Processing FSD sample {i+1}/{N_SAMPLES}")
+    
+#     generate_scenarios(scenario_data_path, tab_file_path, SINGLE_SCENARIO)
+    
+#     processed_fsd = process_new_samples_output(fsd_sample)
+#     nnp_value = calculate_second_stage_value(processed_fsd, name, tab_file_path, "scenario1", 'Results/NNE')
+#     print(f"nnp_value for sample {i+1}: {nnp_value}")
+    
+#     fsd_values = extract_fsd_values(processed_fsd)
+#     scenario_data = load_and_process_scenario_data(tab_file_path)
+#     # if os.path.exists(tab_file_path):
+#     #         shutil.rmtree(tab_file_path)
+#     return (fsd_values, scenario_data, nnp_value)
+
+def process_single_sample(i, sample_model_path, scenario_data_path):
+    try:
+        logging.info(f"Starting process for sample {i+1}")
         
-        # Generate 1 scenarios for NN-P
+        model, data = sample_model(sample_model_path)
+        instance = model.create_instance(data)
+        logging.info(f"Instance created for sample {i+1}")
+        
+        base_path = f'Data handler/{UserRunTimeConfig["version"]}/Tab_Files'
+        prefix = f'sce_{SINGLE_SCENARIO}'
+        tab_file_path = get_safe_directory_name(base_path, prefix)
+        logging.info(f"Directory created: {tab_file_path}")
+        
+        fsd_sample = generate_fsd_samples(instance, 1)
+        logging.info(f"FSD sample generated for sample {i+1}")
+        
         Scenario = ["scenario"+str(i + 1) for i in range(SINGLE_SCENARIO)]
+        logging.info(f"Generating scenarios for sample {i+1}")
         generate_scenarios(scenario_data_path, tab_file_path, SINGLE_SCENARIO)
+        logging.info(f"Scenarios generated for sample {i+1}")
         
         processed_fsd = process_new_samples_output(fsd_sample)
-        # Calculate second stage value for NN-P
-        nnp_value = calculate_second_stage_value(processed_fsd,name, tab_file_path, Scenario, 'Results/NNE')
+        logging.info(f"FSD processed for sample {i+1}")
         
-        # Load and process scenario data
+        logging.info(f"Calculating second stage value for sample {i+1}")
+        nnp_value = calculate_second_stage_value(processed_fsd, os.path.basename(tab_file_path), tab_file_path, Scenario, 'Results/NNE')
+        logging.info(f"nnp_value calculated for sample {i+1}: {nnp_value}")
+        
+        fsd_values = extract_fsd_values(processed_fsd)
         scenario_data = load_and_process_scenario_data(tab_file_path)
-        # Add to datasets
-        nnp_dataset.append((processed_fsd, scenario_data, nnp_value))
+        logging.info(f"Data loaded and processed for sample {i+1}")
+        
+        return (fsd_values, scenario_data, nnp_value)
+    except Exception as e:
+        logging.error(f"Error in process_single_sample for sample {i+1}: {str(e)}")
+        raise
+    finally:
+        if os.path.exists(tab_file_path):
+            shutil.rmtree(tab_file_path)
+            logging.info(f"Removed directory: {tab_file_path}")
 
+            
+
+def create_nnp_datasets():
+    sample_model_path = 'Data handler/sampling'
+    scenario_data_path = f'Data handler/reduced/ScenarioData'
+    
+    # Create a partial function with fixed arguments
+    process_sample = partial(process_single_sample, sample_model_path=sample_model_path, scenario_data_path=scenario_data_path)
+    
+    num_processes = max(1, multiprocessing.cpu_count() // 2)
+    print(f"Using {num_processes} processes")
+    
+    with multiprocessing.Pool(processes=num_processes) as pool:
+        nnp_dataset = pool.map(process_sample, range(N_SAMPLES))
+    
     return NNPDataset(*zip(*nnp_dataset))
+
+# def create_nnp_datasets():
+#     nnp_dataset = []
+#     sample_model_path = 'Data handler/sampling'
+#     scenario_data_path = f'Data handler/reduced/ScenarioData'
+#     model, data = sample_model(sample_model_path)
+#     instance = model.create_instance(data)
+#     for i in range(N_SAMPLES):
+#         name = UserRunTimeConfig["version"] + '_sce' + f'{SINGLE_SCENARIO}' + \
+#         str(datetime.now().strftime("_%Y%m%d%H%M"))
+#         tab_file_path = 'Data handler/' + UserRunTimeConfig["version"] + '/Tab_Files_' + name
+#         fsd_sample = generate_fsd_samples(instance, 1)
+#         logging.info(f"Processing FSD sample {i+1}/{N_SAMPLES}")
+        
+#         # Generate 1 scenarios for NN-P
+#         Scenario = ["scenario"+str(i + 1) for i in range(SINGLE_SCENARIO)]
+#         generate_scenarios(scenario_data_path, tab_file_path, SINGLE_SCENARIO)
+        
+#         processed_fsd = process_new_samples_output(fsd_sample)
+#         # Calculate second stage value for NN-P
+#         nnp_value = calculate_second_stage_value(processed_fsd,name, tab_file_path, Scenario, 'Results/NNE')
+#         print("nnp_value: ",nnp_value)
+#         # Load and process scenario data
+#         fsd_values = extract_fsd_values(processed_fsd)
+#         scenario_data = load_and_process_scenario_data(tab_file_path)
+#         # Add to datasets
+#         nnp_dataset.append((fsd_values, scenario_data, nnp_value))
+
+#     return NNPDataset(*zip(*nnp_dataset))
 
 if __name__ == "__main__":
     try:

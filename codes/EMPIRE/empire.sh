@@ -6,7 +6,7 @@
 #SBATCH --job-name=neurumhsp
 #SBATCH --output=empire-%j.out
 #SBATCH --error=empire-%j.err
-#SBATCH --account=azs7266_p_gpu
+#SBATCH --account=azs7266_sc
 #SBATCH --partition=sla-prio
 
 source ~/.bashrc
