@@ -59,6 +59,9 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     
     scenariopath = tab_file_path
     tab_file_path = "Data handler/sampling"
+
+    def period_filter(model):
+        return [2]
     ########
     ##SETS##
     ########
@@ -74,7 +77,8 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
 
     #Temporal sets
     model.Period = Set(ordered=True) #max period
-    model.PeriodActive = Set(ordered=True, initialize=Period) #i
+    model.PeriodActive = Set(initialize=period_filter)
+    # model.PeriodActive = Set(ordered=True, initialize=Period) #i
     model.Operationalhour = Set(ordered=True, initialize=Operationalhour) #h
     model.Season = Set(ordered=True, initialize=Season) #s
 
