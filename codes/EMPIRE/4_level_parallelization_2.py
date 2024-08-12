@@ -26,12 +26,83 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 with open("config_reducedrun.yaml", 'r') as config_file:
     UserRunTimeConfig = safe_load(config_file)
 
+USE_TEMP_DIR = UserRunTimeConfig["USE_TEMP_DIR"]
+temp_dir = UserRunTimeConfig["temp_dir"]
+version = UserRunTimeConfig["version"]
+Horizon = UserRunTimeConfig["Horizon"]
+lengthRegSeason = UserRunTimeConfig["lengthRegSeason"]
+discountrate = UserRunTimeConfig["discountrate"]
+WACC = UserRunTimeConfig["WACC"]
+solver = UserRunTimeConfig["solver"]
+scenariogeneration = UserRunTimeConfig["scenariogeneration"]
+fix_sample = UserRunTimeConfig["fix_sample"]
+LOADCHANGEMODULE = UserRunTimeConfig["LOADCHANGEMODULE"]
+filter_make = UserRunTimeConfig["filter_make"] 
+filter_use = UserRunTimeConfig["filter_use"]
+n_cluster = UserRunTimeConfig["n_cluster"]
+moment_matching = UserRunTimeConfig["moment_matching"]
+n_tree_compare = UserRunTimeConfig["n_tree_compare"]
+EMISSION_CAP = UserRunTimeConfig["EMISSION_CAP"]
+IAMC_PRINT = UserRunTimeConfig["IAMC_PRINT"]
+WRITE_LP = UserRunTimeConfig["WRITE_LP"]
+PICKLE_INSTANCE = UserRunTimeConfig["PICKLE_INSTANCE"] 
+
+
+#############################
+##Non configurable settings##
+#############################
+NoOfRegSeason = 4
+regular_seasons = ["winter", "spring", "summer", "fall"]
+NoOfPeakSeason = 2
+lengthPeakSeason = 7
+LeapYearsInvestment = 5
+time_format = "%d/%m/%Y %H:%M"
+if version in ["europe_v50"]:
+    north_sea = False
+else:
+    north_sea = True
+
+#######
+##RUN##
+#######
+
+FirstHoursOfRegSeason = [lengthRegSeason*i + 1 for i in range(NoOfRegSeason)]
+FirstHoursOfPeakSeason = [lengthRegSeason*NoOfRegSeason + lengthPeakSeason*i + 1 for i in range(NoOfPeakSeason)]
+Period = [i + 1 for i in range(int((Horizon-2020)/LeapYearsInvestment))]
+peak_seasons = ['peak'+str(i + 1) for i in range(NoOfPeakSeason)]
+Season = regular_seasons + peak_seasons
+Operationalhour = [i + 1 for i in range(FirstHoursOfPeakSeason[-1] + lengthPeakSeason - 1)]
+HoursOfRegSeason = [(s,h) for s in regular_seasons for h in Operationalhour \
+                if h in list(range(regular_seasons.index(s)*lengthRegSeason+1,
+                            regular_seasons.index(s)*lengthRegSeason+lengthRegSeason+1))]
+HoursOfPeakSeason = [(s,h) for s in peak_seasons for h in Operationalhour \
+                    if h in list(range(lengthRegSeason*len(regular_seasons)+ \
+                                        peak_seasons.index(s)*lengthPeakSeason+1,
+                                        lengthRegSeason*len(regular_seasons)+ \
+                                            peak_seasons.index(s)*lengthPeakSeason+ \
+                                                lengthPeakSeason+1))]
+HoursOfSeason = HoursOfRegSeason + HoursOfPeakSeason
+dict_countries = {"DE": "Germany", "DK": "Denmark", "FR": "France"}
+
+
 # Constants (from original code)
 N_SAMPLES = 100  # Number of FSD samples
 K_SCENARIOS = 30  # Number of scenarios for NN-E
 SINGLE_SCENARIO = 1  # Number of scenario for NN-P
 
-# ... (other constants and configurations from the original code)
+
+class NNPDataset(Dataset):
+    def __init__(self, fsd_data, scenario_data, labels):
+        self.fsd_data = fsd_data
+        self.scenario_data = scenario_data
+        self.labels = labels
+
+    def __len__(self):
+        return len(self.labels)
+
+    def __getitem__(self, idx):
+        return self.fsd_data[idx], self.scenario_data[idx], self.labels[idx]
+
 
 class FourLevelParallelization:
     def __init__(self, T: int, N: int, seasons: List[str], model, data):
@@ -53,7 +124,6 @@ class FourLevelParallelization:
     def level4_solve(self, processed_fsd: List, name_path: str, tab_file_path: str, Scenario: List[str]) -> float:
         return calculate_second_stage_value(processed_fsd, name_path, tab_file_path, Scenario, 'Results/NNE')
 
-    @retry_on_exception(max_attempts=3, delay=2)
     def process_single_sample(self, i: int, scenario_data_path: str) -> Tuple[List, List, float]:
         try:
             logging.info(f"Starting process for sample {i+1}")
@@ -128,6 +198,24 @@ def get_safe_directory_name(base_path, prefix):
 def retry_on_exception(max_attempts=10, delay=5):
     # ... (implementation from original code)
     return 0
+
+def save_nnp_dataset_to_csv(nnp_dataset, filename=None):
+    if filename is None:
+        filename = f"nnp_dataset_{datetime.now().strftime('%Y%m%d%H%M%S')}.csv"
+    
+    data = []
+    for fsd_data, scenario_data, label in nnp_dataset:
+        row = {
+            'fsd_data': str(fsd_data),  # Convert list to string
+            'scenario_data': str(scenario_data),  # Convert list to string
+            'label': label
+        }
+        
+        data.append(row)
+    
+    df = pd.DataFrame(data)
+    df.to_csv(filename, index=False)
+    print(f"NNP dataset saved to {filename}")
 
 # Main execution
 if __name__ == "__main__":
