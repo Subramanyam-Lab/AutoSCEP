@@ -31,16 +31,16 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     ##SOLVERS##
     ###########
 
-    if solver == "CPLEX":
-        print("Solver: CPLEX")
-    elif solver == "Xpress":
-        print("Solver: Xpress")
-    elif solver == "Gurobi":
-        print("Solver: Gurobi")
-    elif solver == "GLPK":
-        print("Solver: GLPK")
-    else:
-        sys.exit("ERROR! Invalid solver! Options: CPLEX, Xpress, Gurobi")
+    # if solver == "CPLEX":
+    #     print("Solver: CPLEX")
+    # elif solver == "Xpress":
+    #     print("Solver: Xpress")
+    # elif solver == "Gurobi":
+    #     print("Solver: Gurobi")
+    # elif solver == "GLPK":
+    #     print("Solver: GLPK")
+    # else:
+    #     sys.exit("ERROR! Invalid solver! Options: CPLEX, Xpress, Gurobi")
 
     ##########
     ##MODULE##
@@ -65,7 +65,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
 
     #Define the sets
 
-    print("Declaring sets...")
+#    print("Declaring sets...")
 
     #Supply technology sets
     model.Generator = Set(ordered=True) #g
@@ -100,7 +100,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     model.FirstHoursOfRegSeason = Set(within=model.Operationalhour, ordered=True, initialize=FirstHoursOfRegSeason)
     model.FirstHoursOfPeakSeason = Set(within=model.Operationalhour, ordered=True, initialize=FirstHoursOfPeakSeason)
 
-    print("Reading sets...")
+#    print("Reading sets...")
 
     #Load the data
 
@@ -213,7 +213,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
 
     #Define the parameters
 
-    print("Declaring parameters...")
+#    print("Declaring parameters...")
 
     #Scaling
 
@@ -317,7 +317,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     
     #Load the parameters
 
-    print("Reading parameters...")
+#    print("Reading parameters...")
 
     data.load(filename=tab_file_path + "/" + 'Generator_CapitalCosts.tab', param=model.genCapitalCost, format="table")
     data.load(filename=tab_file_path + "/" + 'Generator_FixedOMCosts.tab', param=model.genFixedOMCost, format="table")
@@ -386,7 +386,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     if LOADCHANGEMODULE:
         data.load(filename=scenariopath + "/" + 'LoadchangeModule/Stochastic_ElectricLoadMod.tab', param=model.sloadMod, format="table")
 
-    print("Constructing parameter values...")
+#    print("Constructing parameter values...")
 
     def prepSceProbab_rule(model):
         #Build an equiprobable probability distribution for scenarios
@@ -484,13 +484,13 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
 
     model.build_sload = BuildAction(rule=prepSload_rule)
 
-    print("Sets and parameters declared and read...")
+#    print("Sets and parameters declared and read...")
 
     #############
     ##VARIABLES##
     #############
 
-    print("Declaring variables...")
+#    print("Declaring variables...")
 
     ## Second Stage Decisions ##
     model.genOperational = Var(model.GeneratorsOfNode, model.Operationalhour, model.PeriodActive, model.Scenario, domain=NonNegativeReals)
@@ -650,7 +650,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     ##RUN##
     #######
 
-    print("Objective and constraints read...")
+#    print("Objective and constraints read...")
 
     print("Building instance...")
 
@@ -723,16 +723,16 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     calculate_transmission_installed_cap(instance)
     calculate_storage_installed_cap(instance)
 
-    print("----------------------Problem Statistics---------------------")
-    print("Scenarios: "+str(len(instance.Scenario)))
-    print("TotalOperationalHoursPerScenario: "+str(len(instance.Operationalhour)))
-    print("TotalOperationalHoursPerInvYear: "+str(len(instance.Operationalhour)*len(instance.Scenario)))
-    print("Seasons: "+str(len(instance.Season)))
-    print("RegularSeasons: "+str(len(instance.FirstHoursOfRegSeason)))
-    print("LengthRegSeason: "+str(value(instance.lengthRegSeason)))
-    print("PeakSeasons: "+str(len(instance.FirstHoursOfPeakSeason)))
-    print("LengthPeakSeason: "+str(value(instance.lengthPeakSeason)))
-    print("--------------------------------------------------------------")
+    # print("----------------------Problem Statistics---------------------")
+    # print("Scenarios: "+str(len(instance.Scenario)))
+    # print("TotalOperationalHoursPerScenario: "+str(len(instance.Operationalhour)))
+    # print("TotalOperationalHoursPerInvYear: "+str(len(instance.Operationalhour)*len(instance.Scenario)))
+    # print("Seasons: "+str(len(instance.Season)))
+    # print("RegularSeasons: "+str(len(instance.FirstHoursOfRegSeason)))
+    # print("LengthRegSeason: "+str(value(instance.lengthRegSeason)))
+    # print("PeakSeasons: "+str(len(instance.FirstHoursOfPeakSeason)))
+    # print("LengthPeakSeason: "+str(value(instance.lengthPeakSeason)))
+    # print("--------------------------------------------------------------")
 
 
     if WRITE_LP:

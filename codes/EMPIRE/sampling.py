@@ -484,7 +484,7 @@ def new_samples(instance,num_samples):
 
 if __name__ == "__main__":
     tab_file_path = 'Data handler/sampling'
-    num_samples = 1000
+    num_samples = 100
     max_attempts = 10000
     model, data = sample_model(tab_file_path)
     instance = model.create_instance(data)

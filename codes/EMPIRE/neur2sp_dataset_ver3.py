@@ -14,7 +14,8 @@ from functools import partial
 import shutil
 import uuid
 from multiprocessing import current_process
-
+from functools import wraps
+import time
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -111,9 +112,6 @@ class NNPDataset(Dataset):
     def __getitem__(self, idx):
         return self.fsd_data[idx], self.scenario_data[idx], self.labels[idx]
 
-def generate_fsd_samples(instance, num_samples):
-    return new_samples(instance, num_samples)
-
 
 def generate_scenarios(filepath, tab_file_path, num_scenarios):
     if not os.path.exists(tab_file_path):
@@ -193,7 +191,7 @@ def process_dataframe(df):
         for _, row in df.iterrows()
     ]
 
-
+# We need to change this function can be fit to the NN-E
 def load_and_process_scenario_data(tab_file_path):
     scenario_data = []
     
@@ -211,8 +209,6 @@ def load_and_process_scenario_data(tab_file_path):
     
     return scenario_data
 
-def extract_fsd_values(processed_fsd):
-    return [item[4] for item in processed_fsd]
 
 def process_tab_data(file_path, value_column):
     try:
@@ -242,39 +238,6 @@ def save_nnp_dataset_to_csv(nnp_dataset, filename=None):
     df.to_csv(filename, index=False)
     print(f"NNP dataset saved to {filename}")
 
-def run_second_stage_parallel(args):
-    fsd, name, scenario_data_path, result_file_path = args
-    try:
-        return calculate_second_stage_value(fsd, name, scenario_data_path, result_file_path)
-    except Exception as e:
-        logging.error(f"Error in run_second_stage for {name}: {str(e)}")
-        return None
-
-
-# def create_nne_datasets():
-#     nne_dataset = []
-#     sample_model_path = 'Data handler/sampling'
-#     model, data = sample_model(sample_model_path)
-#     instance = model.create_instance(data)
-#     for i in range(N_SAMPLES):
-#         name = UserRunTimeConfig["version"] + '_sce' + f'{K_SCENARIOS}' + \
-#         str(datetime.now().strftime("_%Y%m%d%H%M"))
-#         tab_file_path = 'Data handler/' + UserRunTimeConfig["version"] + '/Tab_Files_' + name
-#         fsd_sample = generate_fsd_samples(instance, 1)
-#         logging.info(f"Processing FSD sample {i+1}/{N_SAMPLES}")
-#         scenario_data_path = f'Data handler/reduced/ScenarioData'
-
-#         # Generate K scenarios for NN-E
-#         Scenario = ["scenario"+str(i + 1) for i in range(K_SCENARIOS)]
-#         generate_scenarios(scenario_data_path, tab_file_path, K_SCENARIOS)
-
-#         # Calculate expected second stage value for NN-E
-#         nne_value = calculate_second_stage_value(fsd_sample, name, scenario_data_path, 'Results/NNE')
-        
-#         # Add to datasets
-#         nne_dataset.append((fsd_sample, torch.load(scenario_data_path), nne_value))
-
-#     return NNEDataset(*zip(*nne_dataset))
 
 def get_safe_directory_name(base_path, prefix):
     process_id = current_process().pid
@@ -291,33 +254,27 @@ def get_safe_directory_name(base_path, prefix):
     
     return full_path
 
-# def process_single_sample(i, sample_model_path, scenario_data_path):
-#     model, data = sample_model(sample_model_path)
-#     instance = model.create_instance(data)
-    
-#     name = UserRunTimeConfig["version"] + '_sce' + f'{SINGLE_SCENARIO}' + \
-#     str(datetime.now().strftime("_%Y%m%d%H%M%S")) + f'_{i}'
-#     # tab_file_path = 'Data handler/' + UserRunTimeConfig["version"] + '/Tab_Files_' + name
-    
-#     base_path = f'Data handler/{UserRunTimeConfig["version"]}/Tab_Files'
-#     prefix = f'sce_{SINGLE_SCENARIO}'
-#     tab_file_path = get_safe_directory_name(base_path, prefix)
-#     print(tab_file_path)
-#     fsd_sample = generate_fsd_samples(instance, 1)
-#     logging.info(f"Processing FSD sample {i+1}/{N_SAMPLES}")
-    
-#     generate_scenarios(scenario_data_path, tab_file_path, SINGLE_SCENARIO)
-    
-#     processed_fsd = process_new_samples_output(fsd_sample)
-#     nnp_value = calculate_second_stage_value(processed_fsd, name, tab_file_path, "scenario1", 'Results/NNE')
-#     print(f"nnp_value for sample {i+1}: {nnp_value}")
-    
-#     fsd_values = extract_fsd_values(processed_fsd)
-#     scenario_data = load_and_process_scenario_data(tab_file_path)
-#     # if os.path.exists(tab_file_path):
-#     #         shutil.rmtree(tab_file_path)
-#     return (fsd_values, scenario_data, nnp_value)
 
+
+def retry_on_exception(max_attempts=10, delay=5):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            attempts = 0
+            while attempts < max_attempts:
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    attempts += 1
+                    logging.warning(f"Attempt {attempts} failed: {str(e)}")
+                    if attempts == max_attempts:
+                        logging.error(f"All {max_attempts} attempts failed. Raising last exception.")
+                        raise
+                    time.sleep(delay)
+        return wrapper
+    return decorator
+
+@retry_on_exception(max_attempts=3, delay=2)
 def process_single_sample(i, sample_model_path, scenario_data_path):
     try:
         logging.info(f"Starting process for sample {i+1}")
@@ -331,7 +288,7 @@ def process_single_sample(i, sample_model_path, scenario_data_path):
         tab_file_path = get_safe_directory_name(base_path, prefix)
         logging.info(f"Directory created: {tab_file_path}")
         
-        fsd_sample = generate_fsd_samples(instance, 1)
+        fsd_sample = new_samples(instance, 1)
         logging.info(f"FSD sample generated for sample {i+1}")
         
         Scenario = ["scenario"+str(i + 1) for i in range(SINGLE_SCENARIO)]
@@ -346,7 +303,7 @@ def process_single_sample(i, sample_model_path, scenario_data_path):
         nnp_value = calculate_second_stage_value(processed_fsd, os.path.basename(tab_file_path), tab_file_path, Scenario, 'Results/NNE')
         logging.info(f"nnp_value calculated for sample {i+1}: {nnp_value}")
         
-        fsd_values = extract_fsd_values(processed_fsd)
+        fsd_values = [item[4] for item in processed_fsd]
         scenario_data = load_and_process_scenario_data(tab_file_path)
         logging.info(f"Data loaded and processed for sample {i+1}")
         
@@ -356,8 +313,11 @@ def process_single_sample(i, sample_model_path, scenario_data_path):
         raise
     finally:
         if os.path.exists(tab_file_path):
-            shutil.rmtree(tab_file_path)
-            logging.info(f"Removed directory: {tab_file_path}")
+            try:
+                shutil.rmtree(tab_file_path)
+                logging.info(f"Removed directory: {tab_file_path}")
+            except Exception as e:
+                logging.warning(f"Failed to remove directory {tab_file_path}: {str(e)}")
 
             
 
@@ -368,7 +328,7 @@ def create_nnp_datasets():
     # Create a partial function with fixed arguments
     process_sample = partial(process_single_sample, sample_model_path=sample_model_path, scenario_data_path=scenario_data_path)
     
-    num_processes = max(1, multiprocessing.cpu_count() // 2)
+    num_processes = max(1, multiprocessing.cpu_count())
     print(f"Using {num_processes} processes")
     
     with multiprocessing.Pool(processes=num_processes) as pool:

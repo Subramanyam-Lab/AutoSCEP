@@ -46,7 +46,7 @@ PICKLE_INSTANCE = UserRunTimeConfig["PICKLE_INSTANCE"]
 #############################
 ##Non configurable settings##
 #############################
-second_stage = False
+second_stage = True
 NoOfRegSeason = 4
 regular_seasons = ["winter", "spring", "summer", "fall"]
 NoOfPeakSeason = 2
