@@ -15,6 +15,7 @@ import tensorflow as tf
 import pandas as pd
 import numpy as np
 import multiprocessing
+import json
 
 __author__ = "Stian Backe"
 __license__ = "MIT"
@@ -25,7 +26,7 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
                solver, temp_dir, FirstHoursOfRegSeason, FirstHoursOfPeakSeason, lengthRegSeason,
                lengthPeakSeason, Period, Operationalhour, Scenario, Season, HoursOfSeason,
                discountrate, WACC, LeapYearsInvestment, IAMC_PRINT, WRITE_LP,
-               PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE):
+               PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE, seed):
 
     if USE_TEMP_DIR:
         TempfileManager.tempdir = temp_dir
@@ -64,12 +65,13 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
         print("Absolute emission cap in each scenario...")
     else:
         print("No absolute emission cap...")
-    
     ########
     ##SETS##
     ########
 
     #Define the sets
+
+    # tab_file_path = "Data handler/sampling"
 
     print("Declaring sets...")
 
@@ -903,425 +905,108 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
 
     results = opt.solve(instance, tee=True, logfile=result_file_path + '\logfile_' + name + '.log')#, keepfiles=True, symbolic_solver_labels=True)
 
-    input_vector, expected_second_stage_value = get_results(instance)
+    # input_vector, expected_second_stage_value = get_results(instance)
+    num_scenarios = len(instance.Scenario)
+    x_v_i, xi_Q_i = get_results(instance, num_scenarios, seed)
+    save_results(x_v_i, xi_Q_i, num_scenarios,seed)
+    # expected_second_stage_value = compute_expected_second_stage_value(instance)
+    scenario_variance = compute_scenario_variance(instance)
+    objective_value = value(instance.Obj)
 
-    print("Length of input_vector:", len(input_vector))  
-    print("expected_second_stage_value",expected_second_stage_value)
+    return objective_value, scenario_variance
 
-    if PICKLE_INSTANCE:
-        start = time.time()
-        picklestring = 'instance' + name + '.pkl'
-        if USE_TEMP_DIR:
-            picklestring = temp_dir + '/instance' + name + '.pkl'
-        with open(picklestring, mode='wb') as file:
-            cloudpickle.dump(instance, file)
-        end = time.time()
-        print("Pickling instance took [sec]:")
-        print(end - start)
-                
-    #instance.display('outputs_gurobi.txt')
 
-    #import pdb; pdb.set_trace()
-
-    ###########
-    ##RESULTS##
-    ###########
-
-    print("Writing results to .csv...")
-
-    inv_per = []
+def get_results(instance, num_scenarios, seed):
+    # First stage decisions (x_i) and local variables (v_i)
+    x_v_i = {i: {'x_i': {}, 'v_i': {}} for i in instance.PeriodActive}
     for i in instance.PeriodActive:
-        my_string = str(value(2015+int(i)*LeapYearsInvestment))+"-"+str(value(2020+int(i)*LeapYearsInvestment))
-        inv_per.append(my_string)
+        # x_i
+        x_v_i[i]['x_i']['gen_inv_cap'] = {str((n, g)): get_value(instance.genInvCap[n, g, i])
+                                          for n, g in instance.GeneratorsOfNode}
+        x_v_i[i]['x_i']['transmision_inv_cap'] = {str((n1, n2)): get_value(instance.transmisionInvCap[n1, n2, i])
+                                                  for n1, n2 in instance.BidirectionalArc}
+        x_v_i[i]['x_i']['stor_pw_inv_cap'] = {str((n, b)): get_value(instance.storPWInvCap[n, b, i])
+                                              for n, b in instance.StoragesOfNode}
+        x_v_i[i]['x_i']['stor_en_inv_cap'] = {str((n, b)): get_value(instance.storENInvCap[n, b, i])
+                                              for n, b in instance.StoragesOfNode}
+        
+        # v_i
+        x_v_i[i]['v_i']['genInstalledCap'] = {str((n, g)): get_value(instance.genInstalledCap[n, g, i])
+                                              for n, g in instance.GeneratorsOfNode}
+        x_v_i[i]['v_i']['transmissionInstalledCap'] = {str((n1, n2)): get_value(instance.transmissionInstalledCap[n1, n2, i])
+                                                       for n1, n2 in instance.BidirectionalArc}
+        x_v_i[i]['v_i']['storPWInstalledCap'] = {str((n, b)): get_value(instance.storPWInstalledCap[n, b, i])
+                                                 for n, b in instance.StoragesOfNode}
+        x_v_i[i]['v_i']['storENInstalledCap'] = {str((n, b)): get_value(instance.storENInstalledCap[n, b, i])
+                                                 for n, b in instance.StoragesOfNode}
 
-    f = open(result_file_path + "/" + 'results_objective.csv', 'w', newline='')
-    writer = csv.writer(f)
-    writer.writerow(["Objective function value:" + str(value(instance.Obj))])
+    # Scenario data (ξ_i) and second-stage value (Q_i)
+    xi_Q_i = {i: {'xi_i': {}, 'Q_i': {}} for i in instance.PeriodActive}
+    for i in instance.PeriodActive:
+        # ξ_i
+        xi_Q_i[i]['xi_i']['sload'] = {str((n, h, w)): get_value(instance.sload[n, h, i, w])
+                                      for n in instance.Node 
+                                      for h in instance.Operationalhour 
+                                      for w in instance.Scenario}
+        xi_Q_i[i]['xi_i']['maxRegHydroGen'] = {str((n, s, w)): get_value(instance.maxRegHydroGen[n, i, s, w])
+                                               for n in instance.Node 
+                                               for s in instance.Season 
+                                               for w in instance.Scenario}
+        xi_Q_i[i]['xi_i']['genCapAvail'] = {str((n, g, h, w)): get_value(instance.genCapAvail[n, g, h, w, i])
+                                            for n, g in instance.GeneratorsOfNode 
+                                            for h in instance.Operationalhour 
+                                            for w in instance.Scenario}
+        
+        # Q_i (second-stage value for each scenario)
+        xi_Q_i[i]['Q_i'] = {w: calculate_Q_i(instance, i, w) for w in instance.Scenario}
 
-    f = open(result_file_path + "/" + 'results_output_gen.csv', 'w', newline='')
-    writer = csv.writer(f)
-    my_string = ["Node","GeneratorType","Period","genInvCap_MW","genInstalledCap_MW","genExpectedCapacityFactor","DiscountedInvestmentCost_Euro","genExpectedAnnualProduction_GWh"]
-    writer.writerow(my_string)
-    for (n,g) in instance.GeneratorsOfNode:
-        for i in instance.PeriodActive:
-            my_string=[n,g,inv_per[int(i-1)],value(instance.genInvCap[n,g,i]),value(instance.genInstalledCap[n,g,i]), 
-            value(sum(instance.sceProbab[w]*instance.seasScale[s]*instance.genOperational[n,g,h,i,w] for (s,h) in instance.HoursOfSeason for w in instance.Scenario)/(instance.genInstalledCap[n,g,i]*8760) if value(instance.genInstalledCap[n,g,i]) != 0 else 0), 
-            value(instance.discount_multiplier[i]*instance.genInvCap[n,g,i]*instance.genInvCost[g,i]),
-            value(sum(instance.seasScale[s]*instance.sceProbab[w]*instance.genOperational[n,g,h,i,w]/1000 for (s,h) in instance.HoursOfSeason for w in instance.Scenario))]
-            writer.writerow(my_string)
-    f.close()
+    # Save results
+    save_results(x_v_i, xi_Q_i, num_scenarios,seed)
 
-    f = open(result_file_path + "/" + 'results_output_stor.csv', 'w', newline='')
-    writer = csv.writer(f)
-    writer.writerow(["Node","StorageType","Period","storPWInvCap_MW","storPWInstalledCap_MW","storENInvCap_MWh","storENInstalledCap_MWh","DiscountedInvestmentCostPWEN_EuroPerMWMWh","ExpectedAnnualDischargeVolume_GWh","ExpectedAnnualLossesChargeDischarge_GWh"])
-    for (n,b) in instance.StoragesOfNode:
-        for i in instance.PeriodActive:
-            writer.writerow([n,b,inv_per[int(i-1)],value(instance.storPWInvCap[n,b,i]),value(instance.storPWInstalledCap[n,b,i]), 
-            value(instance.storENInvCap[n,b,i]),value(instance.storENInstalledCap[n,b,i]), 
-            value(instance.discount_multiplier[i]*(instance.storPWInvCap[n,b,i]*instance.storPWInvCost[b,i] + instance.storENInvCap[n,b,i]*instance.storENInvCost[b,i])), 
-            value(sum(instance.sceProbab[w]*instance.seasScale[s]*instance.storDischarge[n,b,h,i,w]/1000 for (s,h) in instance.HoursOfSeason for w in instance.Scenario)), 
-            value(sum(instance.sceProbab[w]*instance.seasScale[s]*((1 - instance.storageDischargeEff[b])*instance.storDischarge[n,b,h,i,w] + (1 - instance.storageChargeEff[b])*instance.storCharge[n,b,h,i,w])/1000 for (s,h) in instance.HoursOfSeason for w in instance.Scenario))])
-    f.close()
+    return x_v_i, xi_Q_i
 
-    f = open(result_file_path + "/" + 'results_output_transmision.csv', 'w', newline='')
-    writer = csv.writer(f)
-    writer.writerow(["BetweenNode","AndNode","Period","transmisionInvCap_MW","transmissionInstalledCap_MW","DiscountedInvestmentCost_EuroPerMW","transmisionExpectedAnnualVolume_GWh","ExpectedAnnualLosses_GWh"])
-    for (n1,n2) in instance.BidirectionalArc:
-        for i in instance.PeriodActive:
-            writer.writerow([n1,n2,inv_per[int(i-1)],value(instance.transmisionInvCap[n1,n2,i]),value(instance.transmissionInstalledCap[n1,n2,i]), 
-            value(instance.discount_multiplier[i]*instance.transmisionInvCap[n1,n2,i]*instance.transmissionInvCost[n1,n2,i]), 
-            value(sum(instance.sceProbab[w]*instance.seasScale[s]*(instance.transmisionOperational[n1,n2,h,i,w]+instance.transmisionOperational[n2,n1,h,i,w])/1000 for (s,h) in instance.HoursOfSeason for w in instance.Scenario)), 
-            value(sum(instance.sceProbab[w]*instance.seasScale[s]*((1 - instance.lineEfficiency[n1,n2])*instance.transmisionOperational[n1,n2,h,i,w] + (1 - instance.lineEfficiency[n2,n1])*instance.transmisionOperational[n2,n1,h,i,w])/1000 for (s,h) in instance.HoursOfSeason for w in instance.Scenario))])
-    f.close()
+def get_value(param):
+    return param.value if hasattr(param, 'value') else param
 
-    f = open(result_file_path + "/" + 'results_output_transmision_operational.csv', 'w', newline='')
-    writer = csv.writer(f)
-    writer.writerow(["FromNode","ToNode","Period","Season","Scenario","Hour","TransmissionRecieved_MW","Losses_MW"])
-    for (n1,n2) in instance.DirectionalLink:
-        for i in instance.PeriodActive:
-            for (s,h) in instance.HoursOfSeason:
-                for w in instance.Scenario:
-                    writer.writerow([n1,n2,inv_per[int(i-1)],s,w,h, 
-                    value(instance.lineEfficiency[n1,n2]*instance.transmisionOperational[n1,n2,h,i,w]), 
-                    value((1 - instance.lineEfficiency[n1,n2])*instance.transmisionOperational[n1,n2,h,i,w])])
-    f.close()
+def calculate_Q_i(instance, i, w):
+    # Calculate Q_i for a specific period i and scenario w
+    operational_cost = sum(get_value(instance.seasScale[s]) * get_value(instance.genMargCost[g,i]) * get_value(instance.genOperational[n,g,h,i,w])
+                           for (n,g) in instance.GeneratorsOfNode 
+                           for (s,h) in instance.HoursOfSeason)
     
-    f = open(result_file_path + "/" + 'results_output_Operational.csv', 'w', newline='')
-    writer = csv.writer(f)
-    my_header = ["Node","Period","Scenario","Season","Hour","AllGen_MW","Load_MW","Net_load_MW"]
-    for g in instance.Generator:
-        my_string = str(g)+"_MW"
-        my_header.append(my_string)
-    my_header.extend(["storCharge_MW","storDischarge_MW","storEnergyLevel_MWh","LossesChargeDischargeBleed_MW","FlowOut_MW","FlowIn_MW","LossesFlowIn_MW","LoadShed_MW","Price_EURperMWh","AvgCO2_kgCO2perMWh"])    
-    writer.writerow(my_header)
-    for n in instance.Node:
-        for i in instance.PeriodActive:
-            for w in instance.Scenario:
-                for (s,h) in instance.HoursOfSeason:
-                    my_string=[n,inv_per[int(i-1)],w,s,h, 
-                        value(sum(instance.genOperational[n,g,h,i,w] for g in instance.Generator if (n,g) in instance.GeneratorsOfNode)), 
-                        value(-instance.sload[n,h,i,w]), 
-                        value(-(instance.sload[n,h,i,w] - instance.loadShed[n,h,i,w] + sum(instance.storCharge[n,b,h,i,w] - instance.storageDischargeEff[b]*instance.storDischarge[n,b,h,i,w] for b in instance.Storage if (n,b) in instance.StoragesOfNode) + 
-                        sum(instance.transmisionOperational[n,link,h,i,w] - instance.lineEfficiency[link,n]*instance.transmisionOperational[link,n,h,i,w] for link in instance.NodesLinked[n])))]
-                    for g in instance.Generator:
-                        if (n,g) in instance.GeneratorsOfNode:
-                            my_string.append(value(instance.genOperational[n,g,h,i,w]))
-                        else:
-                            my_string.append(0)
-                    my_string.extend([value(sum(-instance.storCharge[n,b,h,i,w] for b in instance.Storage if (n,b) in instance.StoragesOfNode)), 
-                        value(sum(instance.storDischarge[n,b,h,i,w] for b in instance.Storage if (n,b) in instance.StoragesOfNode)), 
-                        value(sum(instance.storOperational[n,b,h,i,w] for b in instance.Storage if (n,b) in instance.StoragesOfNode)), 
-                        value(sum(-(1 - instance.storageDischargeEff[b])*instance.storDischarge[n,b,h,i,w] - (1 - instance.storageChargeEff[b])*instance.storCharge[n,b,h,i,w] - (1 - instance.storageBleedEff[b])*instance.storOperational[n,b,h,i,w] for b in instance.Storage if (n,b) in instance.StoragesOfNode)), 
-                        value(sum(-instance.transmisionOperational[n,link,h,i,w] for link in instance.NodesLinked[n])), 
-                        value(sum(instance.transmisionOperational[link,n,h,i,w] for link in instance.NodesLinked[n])), 
-                        value(sum(-(1 - instance.lineEfficiency[link,n])*instance.transmisionOperational[link,n,h,i,w] for link in instance.NodesLinked[n])), 
-                        value(instance.loadShed[n,h,i,w]), 
-                        value(instance.dual[instance.FlowBalance[n,h,i,w]]/(instance.operationalDiscountrate*instance.seasScale[s]*instance.sceProbab[w])),
-                        value(sum(instance.genOperational[n,g,h,i,w]*instance.genCO2TypeFactor[g]*(3.6/instance.genEfficiency[g,i]) for g in instance.Generator if (n,g) in instance.GeneratorsOfNode)/sum(instance.genOperational[n,g,h,i,w] for g in instance.Generator if (n,g) in instance.GeneratorsOfNode) if value(sum(instance.genOperational[n,g,h,i,w] for g in instance.Generator if (n,g) in instance.GeneratorsOfNode)) != 0 else 0)])
-                    writer.writerow(my_string)
-    f.close()
-
-    f = open(result_file_path + "/" + 'results_output_curtailed_prod.csv', 'w', newline='')
-    writer = csv.writer(f)
-    writer.writerow(["Node","RESGeneratorType","Period","ExpectedAnnualCurtailment_GWh"])
-    for t in instance.Technology:
-        if t == 'Hydro_ror' or t == 'Wind_onshr' or t == 'Wind_offshr' or t == 'Solar':
-            for (n,g) in instance.GeneratorsOfNode:
-                if (t,g) in instance.GeneratorsOfTechnology: 
-                    for i in instance.PeriodActive:
-                        writer.writerow([n,g,inv_per[int(i-1)], 
-                        value(sum(instance.sceProbab[w]*instance.seasScale[s]*(instance.genCapAvail[n,g,h,w,i]*instance.genInstalledCap[n,g,i] - instance.genOperational[n,g,h,i,w])/1000 for w in instance.Scenario for (s,h) in instance.HoursOfSeason))])
-    f.close()
-
-    f = open(result_file_path + "/" + 'results_output_EuropePlot.csv', 'w', newline='')
-    writer = csv.writer(f)
-    writer.writerow(["Period","genInstalledCap_MW"])
-    my_string=[""]
-    for g in instance.Generator:
-        my_string.append(g)
-    writer.writerow(my_string)
-    my_string=["Initial"]
-    for g in instance.Generator:
-        my_string.append((value(sum(instance.genInitCap[n,g,1] for n in instance.Node if (n,g) in instance.GeneratorsOfNode))))
-    writer.writerow(my_string)
-    for i in instance.PeriodActive:
-        my_string=[inv_per[int(i-1)]]
-        for g in instance.Generator:
-            my_string.append(value(sum(instance.genInstalledCap[n,g,i] for n in instance.Node if (n,g) in instance.GeneratorsOfNode)))
-        writer.writerow(my_string)
-    writer.writerow([""])
-    writer.writerow(["Period","genExpectedAnnualProduction_GWh"])
-    my_string=[""]
-    for g in instance.Generator:
-        my_string.append(g)
-    writer.writerow(my_string)
-    for i in instance.PeriodActive:
-        my_string=[inv_per[int(i-1)]]
-        for g in instance.Generator:
-            my_string.append(value(sum(instance.sceProbab[w]*instance.seasScale[s]*instance.genOperational[n,g,h,i,w]/1000 for n in instance.Node if (n,g) in instance.GeneratorsOfNode for (s,h) in instance.HoursOfSeason for w in instance.Scenario)))
-        writer.writerow(my_string)
-    writer.writerow([""])
-    writer.writerow(["Period","storPWInstalledCap_MW"])
-    my_string=[""]
-    for b in instance.Storage:
-        my_string.append(b)
-    writer.writerow(my_string)
-    for i in instance.PeriodActive:
-        my_string=[inv_per[int(i-1)]]
-        for b in instance.Storage:
-            my_string.append(value(sum(instance.storPWInstalledCap[n,b,i] for n in instance.Node if (n,b) in instance.StoragesOfNode)))
-        writer.writerow(my_string)
-    writer.writerow([""])
-    writer.writerow(["Period","storENInstalledCap_MW"])
-    my_string=[""]
-    for b in instance.Storage:
-        my_string.append(b)
-    writer.writerow(my_string)
-    for i in instance.PeriodActive:
-        my_string=[inv_per[int(i-1)]]
-        for b in instance.Storage:
-            my_string.append(value(sum(instance.storENInstalledCap[n,b,i] for n in instance.Node if (n,b) in instance.StoragesOfNode)))
-        writer.writerow(my_string)
-    writer.writerow([""])
-    writer.writerow(["Period","storExpectedAnnualDischarge_GWh"])
-    my_string=[""]
-    for b in instance.Storage:
-        my_string.append(b)
-    writer.writerow(my_string)
-    for i in instance.PeriodActive:
-        my_string=[inv_per[int(i-1)]]
-        for b in instance.Storage:
-            my_string.append(value(sum(instance.sceProbab[w]*instance.seasScale[s]*instance.storDischarge[n,b,h,i,w]/1000 for n in instance.Node if (n,b) in instance.StoragesOfNode for (s,h) in instance.HoursOfSeason for w in instance.Scenario)))
-        writer.writerow(my_string)
-    f.close()
-
-    f = open(result_file_path + "/" + 'results_output_EuropeSummary.csv', 'w', newline='')
-    writer = csv.writer(f)
-    writer.writerow(["Period","Scenario","AnnualCO2emission_Ton","CO2Price_EuroPerTon","CO2Cap_Ton","AnnualGeneration_GWh","AvgCO2factor_TonPerMWh","AvgELPrice_EuroPerMWh","TotAnnualCurtailedRES_GWh","TotAnnualLossesChargeDischarge_GWh","AnnualLossesTransmission_GWh"])
-    for i in instance.PeriodActive:
-        for w in instance.Scenario:
-            my_string=[inv_per[int(i-1)],w, 
-            value(sum(instance.seasScale[s]*instance.genOperational[n,g,h,i,w]*instance.genCO2TypeFactor[g]*(3.6/instance.genEfficiency[g,i]) for (n,g) in instance.GeneratorsOfNode for (s,h) in instance.HoursOfSeason))]
-            if EMISSION_CAP:
-                my_string.extend([value(instance.dual[instance.emission_cap[i,w]]/(instance.operationalDiscountrate*instance.sceProbab[w]*1e6)),value(instance.CO2cap[i]*1e6)])
-            else:
-                my_string.extend([value(instance.CO2price[i]),0])
-            my_string.extend([value(sum(instance.seasScale[s]*instance.genOperational[n,g,h,i,w]/1000 for (n,g) in instance.GeneratorsOfNode for (s,h) in instance.HoursOfSeason)), 
-            value(sum(instance.seasScale[s]*instance.genOperational[n,g,h,i,w]*instance.genCO2TypeFactor[g]*(3.6/instance.genEfficiency[g,i]) for (n,g) in instance.GeneratorsOfNode for (s,h) in instance.HoursOfSeason)/sum(instance.seasScale[s]*instance.genOperational[n,g,h,i,w] for (n,g) in instance.GeneratorsOfNode for (s,h) in instance.HoursOfSeason)), 
-            value(sum(instance.dual[instance.FlowBalance[n,h,i,w]]/(instance.operationalDiscountrate*instance.seasScale[s]*instance.sceProbab[w]) for n in instance.Node for (s,h) in instance.HoursOfSeason)/value(len(instance.HoursOfSeason)*len(instance.Node))),
-            value(sum(instance.seasScale[s]*(instance.genCapAvail[n,g,h,w,i]*instance.genInstalledCap[n,g,i] - instance.genOperational[n,g,h,i,w])/1000 for (n,g) in instance.GeneratorsOfNode if g == 'Hydrorun-of-the-river' or g == 'Windonshore' or g == 'Windoffshore' or g == 'Solar' for (s,h) in instance.HoursOfSeason)), 
-            value(sum(instance.seasScale[s]*((1 - instance.storageDischargeEff[b])*instance.storDischarge[n,b,h,i,w] + (1 - instance.storageChargeEff[b])*instance.storCharge[n,b,h,i,w])/1000 for (n,b) in instance.StoragesOfNode for (s,h) in instance.HoursOfSeason)), 
-            value(sum(instance.seasScale[s]*((1 - instance.lineEfficiency[n1,n2])*instance.transmisionOperational[n1,n2,h,i,w] + (1 - instance.lineEfficiency[n2,n1])*instance.transmisionOperational[n2,n1,h,i,w])/1000 for (n1,n2) in instance.BidirectionalArc for (s,h) in instance.HoursOfSeason))])
-            writer.writerow(my_string)
-    writer.writerow([""])
-    writer.writerow(["GeneratorType","Period","genInvCap_MW","genInstalledCap_MW","TotDiscountedInvestmentCost_Euro","genExpectedAnnualProduction_GWh"])
-    for g in instance.Generator:
-        for i in instance.PeriodActive:
-            writer.writerow([g,inv_per[int(i-1)],value(sum(instance.genInvCap[n,g,i] for n in instance.Node if (n,g) in instance.GeneratorsOfNode)), 
-            value(sum(instance.genInstalledCap[n,g,i] for n in instance.Node if (n,g) in instance.GeneratorsOfNode)), 
-            value(sum(instance.discount_multiplier[i]*instance.genInvCap[n,g,i]*instance.genInvCost[g,i] for n in instance.Node if (n,g) in instance.GeneratorsOfNode)), 
-            value(sum(instance.seasScale[s]*instance.sceProbab[w]*instance.genOperational[n,g,h,i,w]/1000 for n in instance.Node if (n,g) in instance.GeneratorsOfNode for (s,h) in instance.HoursOfSeason for w in instance.Scenario))])
-    writer.writerow([""])
-    writer.writerow(["StorageType","Period","storPWInvCap_MW","storPWInstalledCap_MW","storENInvCap_MWh","storENInstalledCap_MWh","TotDiscountedInvestmentCostPWEN_Euro","ExpectedAnnualDischargeVolume_GWh"])
-    for b in instance.Storage:
-        for i in instance.PeriodActive:
-            writer.writerow([b,inv_per[int(i-1)],value(sum(instance.storPWInvCap[n,b,i] for n in instance.Node if (n,b) in instance.StoragesOfNode)), 
-            value(sum(instance.storPWInstalledCap[n,b,i] for n in instance.Node if (n,b) in instance.StoragesOfNode)), 
-            value(sum(instance.storENInvCap[n,b,i] for n in instance.Node if (n,b) in instance.StoragesOfNode)), 
-            value(sum(instance.storENInstalledCap[n,b,i] for n in instance.Node if (n,b) in instance.StoragesOfNode)), 
-            value(sum(instance.discount_multiplier[i]*(instance.storPWInvCap[n,b,i]*instance.storPWInvCost[b,i] + instance.storENInvCap[n,b,i]*instance.storENInvCost[b,i]) for n in instance.Node if (n,b) in instance.StoragesOfNode)), 
-            value(sum(instance.seasScale[s]*instance.sceProbab[w]*instance.storDischarge[n,b,h,i,w]/1000 for n in instance.Node if (n,b) in instance.StoragesOfNode for (s,h) in instance.HoursOfSeason for w in instance.Scenario))])
-    f.close()
-
-    if IAMC_PRINT:
-        ####################
-        ###STANDARD PRINT###
-        ####################
-        
-        import pandas as pd
-        
-        Modelname = "EMPIRE"
-        Scenario = "1.5degree"
-
-        dict_countries = {"Austria": "Austria",
-                          "Bosnia and Herzegovina": "BosniaH",
-                          "Belgium": "Belgium", "Bulgaria": "Bulgaria",
-                          "Switzerland": "Switzerland", 
-                          "Czech Republic": "CzechR", "Germany": "Germany",
-                          "Denmark": "Denmark", "Estonia": "Estonia", 
-                          "Spain": "Spain", "Finland": "Finland",
-                          "France": "France", "United Kingdom": "GreatBrit.",
-                          "Greece": "Greece", "Croatia": "Croatia", 
-                          "Hungary": "Hungary", "Ireland": "Ireland", 
-                          "Italy": "Italy", "Lithuania": "Lithuania",
-                          "Luxembourg": "Luxemb.", "Latvia": "Latvia",
-                          "North Macedonia": "Macedonia", 
-                          "The Netherlands": "Netherlands", "Norway": "Norway",
-                          "Poland": "Poland", "Portugal": "Portugal",
-                          "Romania": "Romania", "Serbia": "Serbia", 
-                          "Sweden": "Sweden", "Slovenia": "Slovenia",
-                          "Slovakia": "Slovakia", "Norway|Ostland": "NO1", 
-                          "Norway|Sorland": "NO2", "Norway|Norgemidt": "NO3",
-                          "Norway|Troms": "NO4", "Norway|Vestmidt": "NO5"}
-
-        dict_countries_reversed = dict([reversed(i) for i in dict_countries.items()])
-
-        dict_generators = {"Bio": "Biomass", "Bioexisting": "Biomass",
-                           "Coalexisting": "Coal|w/o CCS",
-                           "Coal": "Coal|w/o CCS", "CoalCCS": "Coal|w/ CCS",
-                           "CoalCCSadv": "Coal|w/ CCS", 
-                           "Lignite": "Lignite|w/o CCS",
-                           "Liginiteexisting": "Lignite|w/o CCS", 
-                           "LigniteCCSadv": "Lignite|w/ CCS", 
-                           "Gasexisting": "Gas|CCGT|w/o CCS", 
-                           "GasOCGT": "Gas|OCGT|w/o CCS", 
-                           "GasCCGT": "Gas|CCGT|w/o CCS", 
-                           "GasCCS": "Gas|CCGT|w/ CCS", 
-                           "GasCCSadv": "Gas|CCGT|w/ CCS", 
-                           "Oilexisting": "Oil", "Nuclear": "Nuclear", 
-                           "Wave": "Ocean", "Geo": "Geothermal", 
-                           "Hydroregulated": "Hydro|Reservoir", 
-                           "Hydrorun-of-the-river": "Hydro|Run-of-River", 
-                           "Windonshore": "Wind|Onshore", 
-                           "Windoffshore": "Wind|Offshore",
-                           "Windoffshoregrounded": "Wind|Offshore", 
-                           "Windoffshorefloating": "Wind|Offshore", 
-                           "Solar": "Solar|PV", "Waste": "Waste", 
-                           "Bio10cofiring": "Coal|w/o CCS", 
-                           "Bio10cofiringCCS": "Coal|w/ CCS", 
-                           "LigniteCCSsup": "Lignite|w/ CCS"}
-        
-        #Make datetime from HoursOfSeason       
-        seasonstart={"winter": '2020-01-01',
-                     "spring": '2020-04-01',
-                     "summer": '2020-07-01',
-                     "fall": '2020-10-01',
-                     "peak1": '2020-11-01',
-                     "peak2": '2020-12-01'}
-        
-        seasonhours=[]
+    shed_cost = sum(get_value(instance.seasScale[s]) * get_value(instance.nodeLostLoadCost[n,i]) * get_value(instance.loadShed[n,h,i,w])
+                    for n in instance.Node 
+                    for (s,h) in instance.HoursOfSeason)
     
-        for s in instance.Season:
-            if s not in 'peak':
-                t=pd.to_datetime(list(range(lengthRegSeason)), unit='h', origin=pd.Timestamp(seasonstart[s]))
-                t=[str(i)[5:-3] for i in t]
-                t=[str(i)+"+01:00" for i in t]
-                seasonhours+=t
-            else:
-                t=pd.to_datetime(list(range(lengthPeakSeason)), unit='h', origin=pd.Timestamp(seasonstart[s]))
-                t=[str(i)[5:-3] for i in t]
-                t=[str(i)+"+01:00" for i in t]
-                seasonhours+=t       
-        
-        #Scalefactors to make units
-        Mtonperton = (1/1000000)
+    return operational_cost + shed_cost
 
-        GJperMWh = 3.6
-        EJperMWh = 3.6*10**(-9)
-
-        GWperMW = (1/1000)
-
-        USD10perEUR10 = 1.33 #Source: https://www.statista.com/statistics/412794/euro-to-u-s-dollar-annual-average-exchange-rate/ 
-        EUR10perEUR18 = 154/171 #Source: https://www.inflationtool.com/euro 
-        USD10perEUR18 = USD10perEUR10*EUR10perEUR18 
-
-        print("Writing standard output to .csv...")
-        
-        f = pd.DataFrame(columns=["model", "scenario", "region", "variable", "unit", "subannual"]+[value(2020+(i)*instance.LeapYearsInvestment) for i in instance.PeriodActive])
-
-        def row_write(df, region, variable, unit, subannual, input_value, scenario=Scenario, modelname=Modelname):
-            df2 = pd.DataFrame([[modelname, scenario, region, variable, unit, subannual]+input_value],
-                               columns=["model", "scenario", "region", "variable", "unit", "subannual"]+[value(2020+(i)*instance.LeapYearsInvestment) for i in instance.PeriodActive])
-            df = pd.concat([df, df2], ignore_index=True)
-            return df
-
-        f = row_write(f, "Europe", "Discount rate|Electricity", "%", "Year", [value(instance.discountrate*100)]*len(instance.PeriodActive)) #Discount rate
-        f = row_write(f, "Europe", "Capacity|Electricity", "GW", "Year", [value(sum(instance.genInstalledCap[n,g,i]*GWperMW for (n,g) in instance.GeneratorsOfNode)) for i in instance.PeriodActive]) #Total European installed generator capacity 
-        f = row_write(f, "Europe", "Investment|Energy Supply|Electricity", "billion US$2010/yr", "Year", [value((1/instance.LeapYearsInvestment)*USD10perEUR18* \
-                    sum(instance.genInvCost[g,i]*instance.genInvCap[n,g,i] for (n,g) in instance.GeneratorsOfNode) + \
-                    sum(instance.transmissionInvCost[n1,n2,i]*instance.transmisionInvCap[n1,n2,i] for (n1,n2) in instance.BidirectionalArc) + \
-                    sum((instance.storPWInvCost[b,i]*instance.storPWInvCap[n,b,i]+instance.storENInvCost[b,i]*instance.storENInvCap[n,b,i]) for (n,b) in instance.StoragesOfNode)) for i in instance.PeriodActive]) #Total European investment cost (gen+stor+trans)
-        f = row_write(f, "Europe", "Investment|Energy Supply|Electricity|Electricity storage", "billion US$2010/yr", "Year", [value((1/instance.LeapYearsInvestment)*USD10perEUR18* \
-                    sum((instance.storPWInvCost[b,i]*instance.storPWInvCap[n,b,i]+instance.storENInvCost[b,i]*instance.storENInvCap[n,b,i]) for (n,b) in instance.StoragesOfNode)) for i in instance.PeriodActive]) #Total European storage investment cost
-        f = row_write(f, "Europe", "Investment|Energy Supply|Electricity|Transmission and Distribution", "billion US$2010/yr", "Year", [value((1/instance.LeapYearsInvestment)*USD10perEUR18* \
-                    sum(instance.transmissionInvCost[n1,n2,i]*instance.transmisionInvCap[n1,n2,i] for (n1,n2) in instance.BidirectionalArc)) for i in instance.PeriodActive]) #Total European transmission investment cost
-        for w in instance.Scenario:
-            f = row_write(f, "Europe", "Emissions|CO2|Energy|Supply|Electricity", "Mt CO2/yr", "Year", [value(Mtonperton*sum(instance.seasScale[s]*instance.genCO2TypeFactor[g]*(GJperMWh/instance.genEfficiency[g,i])* \
-                    instance.genOperational[n,g,h,i,w] for (n,g) in instance.GeneratorsOfNode for (s,h) in instance.HoursOfSeason)) for i in instance.PeriodActive], Scenario+"|"+str(w)) #Total European emissions per scenario
-            f = row_write(f, "Europe", "Secondary Energy|Electricity", "EJ/yr", "Year", \
-                    [value(sum(EJperMWh*instance.seasScale[s]*instance.genOperational[n,g,h,i,w] for (n,g) in instance.GeneratorsOfNode for (s,h) in instance.HoursOfSeason)) for i in instance.PeriodActive], Scenario+"|"+str(w)) #Total European generation per scenario
-            for g in instance.Generator:
-                f = row_write(f, "Europe", "Active Power|Electricity|"+dict_generators[str(g)], "MWh", "Year", \
-                    [value(sum(instance.seasScale[s]*instance.genOperational[n,g,h,i,w] for n in instance.Node if (n,g) in instance.GeneratorsOfNode for (s,h) in instance.HoursOfSeason)) for i in instance.PeriodActive], Scenario+"|"+str(w)) #Total generation per type and scenario
-            for (s,h) in instance.HoursOfSeason:
-                for n in instance.Node:
-                    f = row_write(f, dict_countries_reversed[str(n)], "Price|Secondary Energy|Electricity", "US$2010/GJ", seasonhours[h-1], \
-                        [value(instance.dual[instance.FlowBalance[n,h,i,w]]/(GJperMWh*instance.operationalDiscountrate*instance.seasScale[s]*instance.sceProbab[w])) for i in instance.PeriodActive], Scenario+"|"+str(w)+str(s))
-        for g in instance.Generator:
-            f = row_write(f, "Europe", "Capacity|Electricity|"+dict_generators[str(g)], "GW", "Year", [value(sum(instance.genInstalledCap[n,g,i]*GWperMW for n in instance.Node if (n,g) in instance.GeneratorsOfNode)) for i in instance.PeriodActive]) #Total European installed generator capacity per type
-            f = row_write(f, "Europe", "Capital Cost|Electricity|"+dict_generators[str(g)], "US$2010/kW", "Year", [value(instance.genCapitalCost[g,i]*USD10perEUR18) for i in instance.PeriodActive]) #Capital generator cost
-            if value(instance.genMargCost[g,instance.PeriodActive[1]]) != 0: 
-                f = row_write(f, "Europe", "Variable Cost|Electricity|"+dict_generators[str(g)], "EUR/MWh", "Year", [value(instance.genMargCost[g,i]) for i in instance.PeriodActive])
-            f = row_write(f, "Europe", "Investment|Energy Supply|Electricity|"+dict_generators[str(g)], "billion US$2010/yr", "Year", [value((1/instance.LeapYearsInvestment)*USD10perEUR18* \
-                    sum(instance.genInvCost[g,i]*instance.genInvCap[n,g,i] for n in instance.Node if (n,g) in instance.GeneratorsOfNode)) for i in instance.PeriodActive]) #Total generator investment cost per type
-            if value(instance.genCO2TypeFactor[g]) != 0:
-                f = row_write(f, "Europe", "CO2 Emmissions|Electricity|"+dict_generators[str(g)], "tons/MWh", "Year", [value(instance.genCO2TypeFactor[g]*(GJperMWh/instance.genEfficiency[g,i])) for i in instance.PeriodActive]) #CO2 factor per generator type
-        for (n,g) in instance.GeneratorsOfNode:
-            f = row_write(f, dict_countries_reversed[str(n)], "Capacity|Electricity|"+dict_generators[str(g)], "GW", "Year", [value(instance.genInstalledCap[n,g,i]*GWperMW) for i in instance.PeriodActive]) #Installed generator capacity per country and type
-        
-        f = f.groupby(['model','scenario','region','variable','unit','subannual']).sum().reset_index() #NB! DOES NOT WORK FOR UNIT COSTS; SHOULD BE FIXED
-        
-        if not os.path.exists(result_file_path + "/" + 'IAMC'):
-            os.makedirs(result_file_path + "/" + 'IAMC')
-        f.to_csv(result_file_path + "/" + 'IAMC/empire_iamc.csv', index=None)
-
-    return input_vector, expected_second_stage_value
-
-def get_results(instance):
-    # Retrieve relevant data from the instance
-    gen_inv_cap = instance.genInvCap.get_values()
-    transmision_inv_cap = instance.transmisionInvCap.get_values()
-    stor_pw_inv_cap = instance.storPWInvCap.get_values()
-    stor_en_inv_cap = instance.storENInvCap.get_values()
-
-    # Second Stage variables from the instance
-    load_shed = instance.loadShed.get_values()
-    gen_operational = instance.genOperational.get_values()
-    
-
-    # Print lengths of individual data sources
-    print("First Stage Decision Length: ")
-    print(f"Length of gen_inv_cap: {len(gen_inv_cap)}")
-    print(f"Length of transmision_inv_cap: {len(transmision_inv_cap)}")
-    print(f"Length of stor_pw_inv_cap: {len(stor_pw_inv_cap)}")
-    print(f"Length of stor_en_inv_cap: {len(stor_en_inv_cap)}")
-    
-    print("Second Stage Decision Length: ")
-    print(f"Length of load_shed: {len(load_shed)}")
-    print(f"Length of gen_operational: {len(gen_operational)}")
-
-    # Add a generator type label to each entry
-    gen_inv_cap = {(k[0], k[1], k[2], 'Generation'): v for k, v in gen_inv_cap.items()}
-    transmision_inv_cap = {(k[0], k[1], k[2], 'Transmission'): v for k, v in transmision_inv_cap.items()}
-    stor_pw_inv_cap = {(k[0], k[1], k[2], 'Storage Power'): v for k, v in stor_pw_inv_cap.items()}
-    stor_en_inv_cap = {(k[0], k[1], k[2], 'Storage Energy'): v for k, v in stor_en_inv_cap.items()}
-
-    # Combine all investment capacities into one dictionary
-    inv_cap_data = {**gen_inv_cap, **transmision_inv_cap, **stor_pw_inv_cap, **stor_en_inv_cap}
-
-    # Convert the data into a DataFrame
-    data = [(k[0], k[1], k[2], k[3], v) for k, v in inv_cap_data.items()]
-    df = pd.DataFrame(data, columns=['Country', 'Energy_Type', 'Period', 'Type', 'Value'])
-
-    print("DataFrame created successfully:")
-    output_dir = "FSD"
+def save_results(x_v_i, xi_Q_i, num_scenarios,seed):
+    output_dir = f"results_{num_scenarios}_scenarios"
     os.makedirs(output_dir, exist_ok=True)
-    output_file_path = os.path.join(output_dir, f"{datetime.now().strftime('%Y%m%d%H%M')}_inv_cap.csv")
-    df.to_csv(output_file_path, index=False)
-    input_vector = np.array(list(inv_cap_data.values()), dtype=float)
-    expected_second_stage_value = compute_expected_second_stage_value(instance)
+    timestamp = datetime.now().strftime('%Y%m%d%H%M')
+
+    # Save x_v_i
+    with open(f"{output_dir}/x_v_i_{num_scenarios}_scenarios_{seed}_seed_{timestamp}.json", 'w') as f:
+        json.dump(x_v_i, f)
+
+    # Save xi_Q_i
+    with open(f"{output_dir}/xi_Q_i_{num_scenarios}_scenarios_{seed}_seed_{timestamp}.json", 'w') as f:
+        json.dump(xi_Q_i, f)
+
+def compute_scenario_variance(instance):
+    second_stage_values = []
+    for w in instance.Scenario:
+        scenario_value = sum(
+            value(instance.discount_multiplier[I]) * 
+            (sum(value(instance.seasScale[s]) * value(instance.nodeLostLoadCost[n,I]) * value(instance.loadShed[n,h,I,w])
+                 for n in instance.Node for (s,h) in instance.HoursOfSeason) +
+             sum(value(instance.seasScale[s]) * value(instance.genMargCost[g,I]) * value(instance.genOperational[n,g,h,I,w])
+                 for (n,g) in instance.GeneratorsOfNode for (s,h) in instance.HoursOfSeason))
+            for I in instance.PeriodActive
+        )
+        second_stage_values.append(scenario_value)
     
-    return input_vector, expected_second_stage_value
+    return np.var(second_stage_values)
 
 def compute_expected_second_stage_value(instance):
     # Calculate the total operational cost over all periods

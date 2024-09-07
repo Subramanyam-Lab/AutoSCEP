@@ -77,8 +77,8 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
 
     #Temporal sets
     model.Period = Set(ordered=True) #max period
-    model.PeriodActive = Set(initialize=period_filter)
-    # model.PeriodActive = Set(ordered=True, initialize=Period) #i
+    # model.PeriodActive = Set(initialize=period_filter)
+    model.PeriodActive = Set(ordered=True, initialize=Period) #i
     model.Operationalhour = Set(ordered=True, initialize=Operationalhour) #h
     model.Season = Set(ordered=True, initialize=Season) #s
 
@@ -669,7 +669,6 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     # Load FSD data
     gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap = load_investment_data(FSD)
 
-
     # Generator
     for (n, g) in instance.GeneratorsOfNode:
         if (n, g) in gen_inv_cap:
@@ -726,17 +725,6 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     calculate_gen_installed_cap(instance)
     calculate_transmission_installed_cap(instance)
     calculate_storage_installed_cap(instance)
-
-    # print("----------------------Problem Statistics---------------------")
-    # print("Scenarios: "+str(len(instance.Scenario)))
-    # print("TotalOperationalHoursPerScenario: "+str(len(instance.Operationalhour)))
-    # print("TotalOperationalHoursPerInvYear: "+str(len(instance.Operationalhour)*len(instance.Scenario)))
-    # print("Seasons: "+str(len(instance.Season)))
-    # print("RegularSeasons: "+str(len(instance.FirstHoursOfRegSeason)))
-    # print("LengthRegSeason: "+str(value(instance.lengthRegSeason)))
-    # print("PeakSeasons: "+str(len(instance.FirstHoursOfPeakSeason)))
-    # print("LengthPeakSeason: "+str(value(instance.lengthPeakSeason)))
-    # print("--------------------------------------------------------------")
 
 
     if WRITE_LP:

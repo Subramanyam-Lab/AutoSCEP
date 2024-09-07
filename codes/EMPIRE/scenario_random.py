@@ -10,6 +10,8 @@ import os
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from scipy.stats import wasserstein_distance, skew, kurtosis
+import random
+import shutil
 
 def season_month(season):
     if season=="winter":
@@ -333,12 +335,17 @@ def generate_random_scenario(filepath, tab_file_path, scenarios, seasons,
                              dict_countries, time_format, filter_make,
                              filter_use, n_cluster, moment_matching,
                              n_tree_compare, fix_sample, north_sea,
-                             LOADCHANGEMODULE):
+                             LOADCHANGEMODULE, seed=None):
     
+    # Set random seed at the beginning of the function
+    if seed is not None:
+        random.seed(seed)
+        np.random.seed(seed)
+
     if fix_sample:
         print("Generating scenarios according to key...")
     else:
-        print("Generating random scenarios...")
+        print(f"Generating random scenarios with seed {seed}...")
 
     # Generate dataframes to print as stochastic-files
     genAvail = pd.DataFrame()

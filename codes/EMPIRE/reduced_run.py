@@ -46,7 +46,7 @@ PICKLE_INSTANCE = UserRunTimeConfig["PICKLE_INSTANCE"]
 #############################
 ##Non configurable settings##
 #############################
-second_stage = False
+second_stage = True
 NoOfRegSeason = 4
 regular_seasons = ["winter", "spring", "summer", "fall"]
 NoOfPeakSeason = 2
@@ -108,6 +108,8 @@ print('++++++++')
 print('ID: ' + name)
 print('++++++++')
 
+seed = 42
+
 if scenariogeneration:
     generate_random_scenario(filepath = scenario_data_path,
                             tab_file_path = tab_file_path,
@@ -125,7 +127,8 @@ if scenariogeneration:
                             n_tree_compare = n_tree_compare,
                             fix_sample = fix_sample,
                             north_sea = False,
-                            LOADCHANGEMODULE = LOADCHANGEMODULE)
+                            LOADCHANGEMODULE = LOADCHANGEMODULE,
+                            seed=seed)
 
 generate_tab_files(filepath = workbook_path, tab_file_path = tab_file_path)
 
@@ -171,7 +174,7 @@ if second_stage:
     print("EXPECTED SECOND STAGE",expected_second_stage_value)
 
 else:
-    input_vector, expected_second_stage_value = run_empire(name = name, 
+    expected_second_stage_value = run_empire(name = name, 
             tab_file_path = tab_file_path,
             result_file_path = result_file_path, 
             scenariogeneration = scenariogeneration,
@@ -195,7 +198,9 @@ else:
             PICKLE_INSTANCE = PICKLE_INSTANCE, 
             EMISSION_CAP = EMISSION_CAP,
             USE_TEMP_DIR = USE_TEMP_DIR,
-            LOADCHANGEMODULE = LOADCHANGEMODULE)
+            LOADCHANGEMODULE = LOADCHANGEMODULE,
+            seed = seed)
     end = time.time()
     print("EMPIRE Implementation took [sec]:")
     print(end - start)
+    print("Expected Second Stage Value :", expected_second_stage_value)
