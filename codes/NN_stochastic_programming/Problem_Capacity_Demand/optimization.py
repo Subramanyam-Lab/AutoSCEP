@@ -30,7 +30,7 @@ def define_optimization_model():
     model.total_cost = Objective(expr=capacity_cost * model.x + model.expected_cost, sense=minimize)
 
     # Solve the model using a MILP solver
-    solver = SolverFactory('gurobi')  # Replace 'gurobi' with your preferred MILP solver
+    solver = SolverFactory('glpk')  
     result = solver.solve(model, tee=True)
 
     print(f"Optimal Capacity: {model.x.value}")
