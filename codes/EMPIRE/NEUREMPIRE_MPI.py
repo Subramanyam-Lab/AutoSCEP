@@ -29,6 +29,11 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
                discountrate, WACC, LeapYearsInvestment, IAMC_PRINT, WRITE_LP,
                PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE, seed):
 
+    # MPI 초기화
+    comm = MPI.COMM_WORLD
+    rank = comm.Get_rank()
+    size = comm.Get_size()
+
     if USE_TEMP_DIR:
         TempfileManager.tempdir = temp_dir
 
@@ -767,7 +772,7 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     print("Objective and constraints read...")
 
     print("Building instance...")
-    
+
     start = time.time()
     instance = model.create_instance(data) #, report_timing=True)
     instance.dual = Suffix(direction=Suffix.IMPORT) # Dual 값 수집 설정
@@ -789,7 +794,7 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
 
     print("Solving...")
 
-    # 솔버 설정 및 실행
+    # Solver 설정 및 실행
     if solver == "CPLEX":
         opt = SolverFactory("cplex", Verbose=True)
         opt.options["lpmethod"] = 4
@@ -924,20 +929,10 @@ def compute_scenario_variance(instance):
     return np.var(second_stage_values)
 
 def compute_local_sum_season(args):
-    instance, i, w, s = args
-    discount = value(instance.discount_multiplier[i])
-    shed_cost = sum(
-        value(instance.seasScale[s]) * value(instance.nodeLostLoadCost[n, i]) * value(instance.loadShed[n, h, i, w])
-        for n in instance.Node
-        for (s_inner, h) in instance.HoursOfSeason
-        if s_inner == s
-    )
-    operational_cost = sum(
-        value(instance.seasScale[s]) * value(instance.genMargCost[g, i]) * value(instance.genOperational[n, g, h, i, w])
-        for (n, g) in instance.GeneratorsOfNode
-        for (s_inner, h) in instance.HoursOfSeason
-        if s_inner == s
-    )
+    # 필요한 데이터만 전달받습니다.
+    discount, seasScale, nodeLostLoadCost, loadShed, genMargCost, genOperational = args
+    shed_cost = seasScale * nodeLostLoadCost * loadShed
+    operational_cost = seasScale * genMargCost * genOperational
     return discount * (shed_cost + operational_cost)
 
 def compute_expected_second_stage_value_parallel(instance, num_scenarios, seed):
@@ -962,13 +957,25 @@ def compute_expected_second_stage_value_parallel(instance, num_scenarios, seed):
 
     local_scenarios = scenarios[start:end]
 
-    # 멀티프로세싱 풀 생성 (예: 4개의 스레드)
-    pool = multiprocessing.Pool(processes=4)  # 원하는 프로세스 수로 조정
+    # 각 MPI 프로세스에서 필요한 데이터를 미리 추출
     tasks = []
     for w in local_scenarios:
         for s in instance.Season:
             for i in instance.PeriodActive:
-                tasks.append((instance, i, w, s))
+                discount = value(instance.discount_multiplier[i])
+                seasScale = value(instance.seasScale[s])
+                nodeLostLoadCost = value(instance.nodeLostLoadCost[:, i])  # 모든 Node에 대한 비용
+                # 각 Node, Operationalhour에 대해
+                for n in instance.Node:
+                    for h in instance.Operationalhour:
+                        if (s, h) in instance.HoursOfSeason:
+                            loadShed_val = value(instance.loadShed[n, h, i, w])
+                            genMargCost_val = value(instance.genMargCost[:, i]).sum()
+                            genOperational_val = value(instance.genOperational[n, :, h, i, w]).sum()
+                            tasks.append((discount, seasScale, value(instance.nodeLostLoadCost[n, i]), loadShed_val, genMargCost_val, genOperational_val))
+
+    # 멀티프로세싱 풀 생성 (예: 4개의 프로세스)
+    pool = multiprocessing.Pool(processes=4)  # 프로세스 수는 하드웨어에 맞게 조정
 
     # 병렬로 부분 합 계산 (시즌 단위)
     results = pool.map(compute_local_sum_season, tasks)
@@ -976,7 +983,7 @@ def compute_expected_second_stage_value_parallel(instance, num_scenarios, seed):
     pool.close()
     pool.join()
 
-    # 모든 프로세스의 부분 합을 합산하여 최종 기대값 계산
+    # 모든 프로세스의 부분 합계를 합산하여 최종 기대값 계산
     total_sum = comm.reduce(local_sum, op=MPI.SUM, root=0)
 
     if rank == 0:
