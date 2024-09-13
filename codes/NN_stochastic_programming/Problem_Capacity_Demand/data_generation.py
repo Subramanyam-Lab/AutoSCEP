@@ -35,14 +35,15 @@ def solve_second_stage(capacity, demand, production_cost=2):
     cost = production_cost * production
     return cost
 
-def generate_training_data(first_stage_decisions, num_scenarios):
+def generate_training_data(num_samples, num_scenarios):
     """
-    Generate training data consisting of first-stage decisions and expected second-stage costs.
+    Generate training data consisting of sampled capacities and expected second-stage costs.
     """
+    capacities = np.linspace(50, 150, num_samples)  # Sample capacities
     demands = generate_demand_scenarios(num_scenarios)
     training_data = []
 
-    for capacity in first_stage_decisions:
+    for capacity in capacities:
         costs = []
         for demand in demands:
             cost = solve_second_stage(capacity, demand)
@@ -55,12 +56,12 @@ def generate_training_data(first_stage_decisions, num_scenarios):
     return df
 
 if __name__ == "__main__":
-    # Define a range of capacities
-    first_stage_decisions = np.linspace(50, 150, 20)  # Capacities from 50 to 150 units
-    num_scenarios = 1000
+    # Parameters
+    num_samples = 50       # Number of capacity samples
+    num_scenarios = 1000   # Number of demand scenarios per capacity
 
     # Generate training data
-    training_data = generate_training_data(first_stage_decisions, num_scenarios)
+    training_data = generate_training_data(num_samples, num_scenarios)
 
     # Save the training data to a CSV file
     training_data.to_csv('training_data.csv', index=False)
