@@ -765,54 +765,6 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
             return Constraint.Skip
     model.power_energy_relate = Constraint(model.StoragesOfNode, model.PeriodActive, rule=power_energy_relate_rule)
 
-    #################################################################
-    # NN Embed Constraint
-    # tf_model_path = 'models/fully_connected_nn_tf'
-    # nn = tf.keras.models.load_model(tf_model_path, compile=False)
-
-    # scaler_X = joblib.load('scalers/scaler_X.pkl')
-    # scaler_y = joblib.load('scalers/scaler_y.pkl')
-
-    # model.nn = OmltBlock()
-    # model.input = Var(domain=NonNegativeReals)
-    # model.output = Var(domain=NonNegativeReals)
-
-    # scale_x = (scaler_X.mean_, scaler_X.scale_)
-    # scale_y = (scaler_y.mean_, scaler_y.scale_)
-    # scaler = OffsetScaling(offset_inputs=scale_x[0].tolist(),
-    #                     factor_inputs=scale_x[1].tolist(),
-    #                     offset_outputs=[scale_y[0].item()],
-    #                     factor_outputs=[scale_y[1].item()])
-
-    # # boundary for input variable (e.g. training data)
-    # scaled_input_bounds = {0: (0, 5)}
-
-    # net = load_keras_sequential(nn, scaler, scaled_input_bounds)
-
-    # formulation = FullSpaceNNFormulation(net)
-
-    # model.nn.build_formulation(formulation)
-
-    # # @model.Constraint()
-    # # def connect_input(mdl):
-    # #     return mdl.input == mdl.nn.inputs[0]
-
-    # # @model.Constraint()
-    # # def connect_output(mdl):
-    # #     return mdl.output == mdl.nn.outputs[0]
-
-    # def connect_input_rule(model):
-    #     return model.input == model.nn.inputs[0]
-    # model.connect_input = Constraint(rule=connect_input_rule)
-
-    # def connect_output_rule(model):
-    #     return model.output == model.nn.outputs[0]
-    # model.connect_output = Constraint(rule=connect_output_rule)
-
-    # Example for Embed OPT
-    # model.obj = pyo.Objective(expr=(model.output - 0.5)**2)
-    #################################################################
-
     #######
     ##RUN##
     #######

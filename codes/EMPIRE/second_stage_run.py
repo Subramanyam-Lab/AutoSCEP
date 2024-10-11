@@ -4,6 +4,10 @@ from NEUREMPIRE import run_empire
 from scenario_random import generate_random_scenario
 from datetime import datetime
 from yaml import safe_load
+from Expected_Second_Stage import run_second_stage
+import pandas as pd
+import csv
+import time
 
 __author__ = "Stian Backe"
 __license__ = "MIT"
@@ -52,6 +56,11 @@ else:
 
 #######
 ##RUN##
+#######
+
+# Control settings 
+specific_period = 5
+seed = 8 
 #######
 
 name = version + '_reg' + str(lengthRegSeason) + \
@@ -113,8 +122,6 @@ print('++++++++')
 print('ID: ' + name)
 print('++++++++')
 
-seed=3
-
 if scenariogeneration:
     generate_random_scenario(filepath = scenario_data_path,
                             tab_file_path = tab_file_path,
@@ -135,31 +142,46 @@ if scenariogeneration:
                             LOADCHANGEMODULE = LOADCHANGEMODULE,
                             seed=seed)
 
-generate_tab_files(filepath = workbook_path, tab_file_path = tab_file_path)
 
-input_vector, expected_second_stage_value = run_empire(name = name, 
-        tab_file_path = tab_file_path,
-        result_file_path = result_file_path, 
-        scenariogeneration = scenariogeneration,
-        scenario_data_path = scenario_data_path,
-        solver = solver,
-        temp_dir = temp_dir, 
-        FirstHoursOfRegSeason = FirstHoursOfRegSeason, 
-        FirstHoursOfPeakSeason = FirstHoursOfPeakSeason, 
-        lengthRegSeason = lengthRegSeason,
-        lengthPeakSeason = lengthPeakSeason,
-        Period = Period, 
-        Operationalhour = Operationalhour,
-        Scenario = Scenario,
-        Season = Season,
-        HoursOfSeason = HoursOfSeason,
-        discountrate = discountrate, 
-        WACC = WACC, 
-        LeapYearsInvestment = LeapYearsInvestment,
-        IAMC_PRINT = IAMC_PRINT, 
-        WRITE_LP = WRITE_LP, 
-        PICKLE_INSTANCE = PICKLE_INSTANCE, 
-        EMISSION_CAP = EMISSION_CAP,
-        USE_TEMP_DIR = USE_TEMP_DIR,
-        LOADCHANGEMODULE = LOADCHANGEMODULE,
-        seed=seed)
+def read_fsd_from_csv(file_path):
+    with open(file_path, 'r') as csvfile:
+        csv_reader = csv.reader(csvfile)
+        next(csv_reader)  
+        fsd_data = [row for row in csv_reader]
+    return fsd_data
+
+fsd_file_path = "FSD/202409222202_8144_seed_42_inv_cap.csv"
+FSD = read_fsd_from_csv(fsd_file_path)
+
+
+start = time.time()
+expected_second_stage_value = run_second_stage(name = name, 
+    tab_file_path = tab_file_path,
+    result_file_path = result_file_path, 
+    scenariogeneration = scenariogeneration,
+    scenario_data_path = scenario_data_path,
+    solver = solver,
+    temp_dir = temp_dir, 
+    FirstHoursOfRegSeason = FirstHoursOfRegSeason, 
+    FirstHoursOfPeakSeason = FirstHoursOfPeakSeason, 
+    lengthRegSeason = lengthRegSeason,
+    lengthPeakSeason = lengthPeakSeason,
+    Period = Period, 
+    Operationalhour = Operationalhour,
+    Scenario = Scenario,
+    Season = Season,
+    HoursOfSeason = HoursOfSeason,
+    discountrate = discountrate, 
+    WACC = WACC, 
+    LeapYearsInvestment = LeapYearsInvestment,
+    FSD = FSD, 
+    WRITE_LP = WRITE_LP, 
+    PICKLE_INSTANCE = PICKLE_INSTANCE, 
+    EMISSION_CAP = EMISSION_CAP,
+    USE_TEMP_DIR = USE_TEMP_DIR,
+    LOADCHANGEMODULE = LOADCHANGEMODULE,
+    seed=seed,
+    specific_period = specific_period)
+end = time.time()
+print("SECOND STAGE RUN took [sec]: ", end - start)
+print("SECOND STAGE VALUE: ",expected_second_stage_value)

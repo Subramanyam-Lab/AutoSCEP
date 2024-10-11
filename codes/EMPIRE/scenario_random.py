@@ -339,13 +339,8 @@ def generate_random_scenario(filepath, tab_file_path, scenarios, seasons,
     
     # Set random seed at the beginning of the function
     if seed is not None:
-        random.seed(seed)
         np.random.seed(seed)
-
-    if fix_sample:
-        print("Generating scenarios according to key...")
-    else:
-        print(f"Generating random scenarios with seed {seed}...")
+        print(f"seed was set to {seed}")
 
     # Generate dataframes to print as stochastic-files
     genAvail = pd.DataFrame()

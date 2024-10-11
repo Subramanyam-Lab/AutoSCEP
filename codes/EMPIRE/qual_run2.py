@@ -78,7 +78,6 @@ def monitor_python_processes():
 
 def run_experiment(NoOfScenarios, run):
     seed = run + 1
-    
     name = version + '_reg' + str(lengthRegSeason) + \
         '_peak' + str(lengthPeakSeason) + \
         '_sce' + str(NoOfScenarios) + \
