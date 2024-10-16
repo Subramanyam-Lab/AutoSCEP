@@ -45,7 +45,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
         print("No absolute emission cap...")
     
     scenariopath = tab_file_path
-    tab_file_path = "Data handler/sampling/full"
+    tab_file_path = "Data handler/sampling/reduced"
     
     def period_filter(model):
         return [specific_period]
@@ -633,7 +633,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
                 for i in instance.PeriodActive:
                     if i in gen_inv_cap[(n, g)]:
                         cap_value = gen_inv_cap[(n, g)][i]
-                        instance.genInvCap[n, g, i] = cap_value
+                        instance.genInvCapParam[n, g, i] = cap_value
             else:
                 print(f"(n, g) = ({n}, {g}): Not found in gen_inv_cap")
 
@@ -643,7 +643,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
             for i in instance.PeriodActive:
                 if i in transmission_inv_cap[(n1, n2)]:
                     cap_value = transmission_inv_cap[(n1, n2)][i]
-                    instance.transmisionInvCap[n1, n2, i] = cap_value
+                    instance.transmisionInvCapParam[n1, n2, i] = cap_value
         else:
             print(f"(n1, n2) = ({n1}, {n2}): Not found in transmission_inv_cap")
 
@@ -653,7 +653,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
             for i in instance.PeriodActive:
                 if i in stor_pw_inv_cap[(n, b)]:
                     cap_value = stor_pw_inv_cap[(n, b)][i]
-                    instance.storPWInvCap[n, b, i] = cap_value
+                    instance.storPWInvCapParam[n, b, i] = cap_value
         else:
             print(f"(n, b) = ({n}, {b}): Not found in stor_pw_inv_cap")
 
@@ -661,7 +661,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
             for i in instance.PeriodActive:
                 if i in stor_en_inv_cap[(n, b)]:
                     cap_value = stor_en_inv_cap[(n, b)][i]
-                    instance.storENInvCap[n, b, i] = cap_value
+                    instance.storENInvCapParam[n, b, i] = cap_value
         else:
             print(f"(n, b) = ({n}, {b}): Not found in stor_en_inv_cap")
 

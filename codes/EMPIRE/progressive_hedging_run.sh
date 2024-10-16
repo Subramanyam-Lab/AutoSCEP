@@ -8,7 +8,7 @@
 #SBATCH --error=empire-%j.err
 #SBATCH --account=azs7266_sc
 #SBATCH --partition=sla-prio
-#SBATCH --array=4-10  
+#SBATCH --array=1-10  
 
 source ~/.bashrc
 

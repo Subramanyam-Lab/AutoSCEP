@@ -2,7 +2,7 @@ from pyomo.environ import *
 import pandas as pd
 import csv
 
-def create_model(tab_file_path,fsd_data):
+def create_model(tab_file_path, gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap):
     model = AbstractModel()
 
     Period = [i + 1 for i in range(int(8))]
@@ -71,38 +71,6 @@ def create_model(tab_file_path,fsd_data):
         return retval
     model.BidirectionalArc = Set(dimen=2, initialize=BidirectionalArc_init, ordered=True) #l
 
-    def load_investment_data(fsd_data):
-        gen_inv_cap = {}
-        transmission_inv_cap = {}
-        stor_pw_inv_cap = {}
-        stor_en_inv_cap = {}
-        
-        for row in fsd_data:
-            node, energy_type, period, type_, cap_value = row
-            period = int(period)
-            cap_value = float(cap_value)
-            
-            if type_ == 'Generation':
-                if (node, energy_type) not in gen_inv_cap:
-                    gen_inv_cap[(node, energy_type)] = {}
-                gen_inv_cap[(node, energy_type)][period] = cap_value
-            elif type_ == 'Transmission':
-                if (node, energy_type) not in transmission_inv_cap:
-                    transmission_inv_cap[(node, energy_type)] = {}
-                transmission_inv_cap[(node, energy_type)][period] = cap_value
-            elif type_ == 'Storage Power':
-                if (node, energy_type) not in stor_pw_inv_cap:
-                    stor_pw_inv_cap[(node, energy_type)] = {}
-                stor_pw_inv_cap[(node, energy_type)][period] = cap_value
-            elif type_ == 'Storage Energy':
-                if (node, energy_type) not in stor_en_inv_cap:
-                    stor_en_inv_cap[(node, energy_type)] = {}
-                stor_en_inv_cap[(node, energy_type)][period] = cap_value
-
-        return gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap
-
-    gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap = load_investment_data(fsd_data)
-
     def inv_cap_allo(model, gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap):
         # Generator
         for (n, g) in model.GeneratorsOfNode:
@@ -151,14 +119,25 @@ def create_model(tab_file_path,fsd_data):
 
 
     # new fsd param
-    model.genInvCap = Param(model.GeneratorsOfNode, model.PeriodActive, default=0.0, mutable=True)
-    model.transmisionInvCap = Param(model.BidirectionalArc, model.PeriodActive, default=0.0, mutable=True)
-    model.storPWInvCap = Param(model.StoragesOfNode, model.PeriodActive, default=0.0, mutable=True)
-    model.storENInvCap = Param(model.StoragesOfNode, model.PeriodActive, default=0.0, mutable=True)
+    model.genInvCap = Param(model.GeneratorsOfNode, model.PeriodActive, domain=NonNegativeReals, initialize=gen_inv_cap, default=0.0, mutable=True)
+    model.transmisionInvCap = Param(model.BidirectionalArc, model.PeriodActive, domain=NonNegativeReals, initialize=transmission_inv_cap, default=0.0, mutable=True)
+    model.storPWInvCap = Param(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals, initialize=stor_pw_inv_cap, default=0.0, mutable=True)
+    model.storENInvCap = Param(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals, initialize=stor_en_inv_cap, default=0.0, mutable=True)
+    
+    # variables
     model.genInstalledCap = Var(model.GeneratorsOfNode, model.PeriodActive, domain=NonNegativeReals)
     model.transmissionInstalledCap = Var(model.BidirectionalArc, model.PeriodActive, domain=NonNegativeReals)
     model.storPWInstalledCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
     model.storENInstalledCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
+    # Define slack variables
+    model.lifetimeSlackPos_gen = Var(model.GeneratorsOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.lifetimeSlackNeg_gen = Var(model.GeneratorsOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.lifetimeSlackPos_tran = Var(model.BidirectionalArc, model.PeriodActive, domain=NonNegativeReals)
+    model.lifetimeSlackNeg_tran = Var(model.BidirectionalArc, model.PeriodActive, domain=NonNegativeReals)
+    model.lifetimeSlackPos_storpw = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.lifetimeSlackNeg_storpw = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.lifetimeSlackPos_storen = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.lifetimeSlackNeg_storen = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
 
     #Cost
 
@@ -285,14 +264,45 @@ def create_model(tab_file_path,fsd_data):
 
     model.build_storPWMaxInstalledCap = BuildAction(rule=storPWMaxInstalledCap_rule)
 
+    ######## objective ###########
+    def total_slack_objective(model):
+        # Sum slack variables for generators
+        gen_slack = sum(
+            model.lifetimeSlackPos_gen[n, g, i] + model.lifetimeSlackNeg_gen[n, g, i]
+            for n, g in model.GeneratorsOfNode
+            for i in model.PeriodActive
+        )
+        # Sum slack variables for transmission lines
+        tran_slack = sum(
+            model.lifetimeSlackPos_tran[n1, n2, i] + model.lifetimeSlackNeg_tran[n1, n2, i]
+            for n1, n2 in model.BidirectionalArc
+            for i in model.PeriodActive
+        )
+        # Sum slack variables for storage power capacity
+        storpw_slack = sum(
+            model.lifetimeSlackPos_storpw[n, b, i] + model.lifetimeSlackNeg_storpw[n, b, i]
+            for n, b in model.StoragesOfNode
+            for i in model.PeriodActive
+        )
+        # Sum slack variables for storage energy capacity
+        storen_slack = sum(
+            model.lifetimeSlackPos_storen[n, b, i] + model.lifetimeSlackNeg_storen[n, b, i]
+            for n, b in model.StoragesOfNode
+            for i in model.PeriodActive
+        )
+        # Total slack
+        total_slack = gen_slack + tran_slack + storpw_slack + storen_slack
+        return total_slack
 
-
+    model.total_slack_objective = Objective(rule=total_slack_objective, sense=minimize)
+    
+    
     ######## constraints ###########
     def lifetime_rule_gen(model, n, g, i):
         startPeriod=1
         if value(1+i-(model.genLifetime[g]/model.LeapYearsInvestment))>startPeriod:
             startPeriod=value(1+i-model.genLifetime[g]/model.LeapYearsInvestment)
-        return sum(model.genInvCap[n,g,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.genInstalledCap[n,g,i] + model.genInitCap[n,g,i]== 0   #
+        return sum(model.genInvCap[n,g,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.genInstalledCap[n,g,i] + model.genInitCap[n,g,i]== model.lifetimeSlackPos_gen[n, g, i] - model.lifetimeSlackNeg_gen[n, g, i]   #
     model.installedCapDefinitionGen = Constraint(model.GeneratorsOfNode, model.PeriodActive, rule=lifetime_rule_gen)
 
     #################################################################
@@ -301,7 +311,7 @@ def create_model(tab_file_path,fsd_data):
         startPeriod=1
         if value(1+i-model.storageLifetime[b]*(1/model.LeapYearsInvestment))>startPeriod:
             startPeriod=value(1+i-model.storageLifetime[b]/model.LeapYearsInvestment)
-        return sum(model.storENInvCap[n,b,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.storENInstalledCap[n,b,i] + model.storENInitCap[n,b,i]== 0   #
+        return sum(model.storENInvCap[n,b,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.storENInstalledCap[n,b,i] + model.storENInitCap[n,b,i]== model.lifetimeSlackPos_storen[n, b, i] - model.lifetimeSlackNeg_storen[n, b, i]   #
     model.installedCapDefinitionStorEN = Constraint(model.StoragesOfNode, model.PeriodActive, rule=lifetime_rule_storEN)
 
     #################################################################
@@ -310,7 +320,7 @@ def create_model(tab_file_path,fsd_data):
         startPeriod=1
         if value(1+i-model.storageLifetime[b]*(1/model.LeapYearsInvestment))>startPeriod:
             startPeriod=value(1+i-model.storageLifetime[b]/model.LeapYearsInvestment)
-        return sum(model.storPWInvCap[n,b,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.storPWInstalledCap[n,b,i] + model.storPWInitCap[n,b,i]== 0   #
+        return sum(model.storPWInvCap[n,b,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.storPWInstalledCap[n,b,i] + model.storPWInitCap[n,b,i]== model.lifetimeSlackPos_storpw[n, b, i] - model.lifetimeSlackNeg_storpw[n, b, i]   #
     model.installedCapDefinitionStorPOW = Constraint(model.StoragesOfNode, model.PeriodActive, rule=lifetime_rule_storPOW)
 
     #################################################################
@@ -319,7 +329,7 @@ def create_model(tab_file_path,fsd_data):
         startPeriod=1
         if value(1+i-model.transmissionLifetime[n1,n2]*(1/model.LeapYearsInvestment))>startPeriod:
             startPeriod=value(1+i-model.transmissionLifetime[n1,n2]/model.LeapYearsInvestment)
-        return sum(model.transmisionInvCap[n1,n2,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.transmissionInstalledCap[n1,n2,i] + model.transmissionInitCap[n1,n2,i] == 0   #
+        return sum(model.transmisionInvCap[n1,n2,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.transmissionInstalledCap[n1,n2,i] + model.transmissionInitCap[n1,n2,i] == model.lifetimeSlackPos_tran[n1, n2, i] - model.lifetimeSlackNeg_tran[n1, n2, i]   #
     model.installedCapDefinitionTrans = Constraint(model.BidirectionalArc, model.PeriodActive, rule=lifetime_rule_trans)
 
     #################################################################
@@ -374,12 +384,36 @@ def create_model(tab_file_path,fsd_data):
 
     return model, data
 
+def load_investment_data(fsd_data):
+    gen_inv_cap = {}
+    transmission_inv_cap = {}
+    stor_pw_inv_cap = {}
+    stor_en_inv_cap = {}
+
+    for row in fsd_data:
+        node, energy_type, period, type_, cap_value = row
+        period = int(period)
+        cap_value = float(cap_value)
+
+        index = (node, energy_type, period)
+
+        if type_ == 'Generation':
+            gen_inv_cap[index] = cap_value
+        elif type_ == 'Transmission':
+            transmission_inv_cap[index] = cap_value
+        elif type_ == 'Storage Power':
+            stor_pw_inv_cap[index] = cap_value
+        elif type_ == 'Storage Energy':
+            stor_en_inv_cap[index] = cap_value
+
+    return gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap
+
+
 def check_model_feasibility(instance):
     solver = SolverFactory('glpk')
     results = solver.solve(instance)
 
     if results.solver.termination_condition == TerminationCondition.optimal:
-        # print("feasible")
         return True
     elif results.solver.termination_condition == TerminationCondition.infeasible:
         print("infeasible.")
@@ -400,9 +434,11 @@ def read_fsd_from_csv(file_path):
 
 def main():
     fsd = read_fsd_from_csv('sampled_data.csv')
-    model,data = create_model('Data handler/sampling/full',fsd)
+    gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap = load_investment_data(fsd)
+    model, data = create_model('Data handler/sampling/reduced', gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap)
     instance = model.create_instance(data)
     is_feasible = check_model_feasibility(instance)
+
 
 if __name__ == "__main__":
     main()

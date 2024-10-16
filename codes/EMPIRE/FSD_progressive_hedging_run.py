@@ -15,7 +15,7 @@ import logging
 import argparse
 
 def run_experiment(seed):
-    UserRunTimeConfig = safe_load(open("config_run.yaml"))
+    UserRunTimeConfig = safe_load(open("config_reducedrun.yaml"))
 
     # Extract all the configuration variables as in your original code
     USE_TEMP_DIR = UserRunTimeConfig["USE_TEMP_DIR"]
@@ -44,10 +44,12 @@ def run_experiment(seed):
     NoOfRegSeason = 4
     regular_seasons = ["winter", "spring", "summer", "fall"]
     NoOfPeakSeason = 2
-    lengthPeakSeason = 24
+    lengthPeakSeason = 7
     LeapYearsInvestment = 5
     time_format = "%d/%m/%Y %H:%M"
     if version in ["europe_v50"]:
+        north_sea = False
+    elif version in ["reduced"]:
         north_sea = False
     else:
         north_sea = True
@@ -91,21 +93,22 @@ def run_experiment(seed):
                                                     lengthPeakSeason+1))]
     
     HoursOfSeason = HoursOfRegSeason + HoursOfPeakSeason
-    dict_countries = {"AT": "Austria", "BA": "BosniaH", "BE": "Belgium",
-                "BG": "Bulgaria", "CH": "Switzerland", "CZ": "CzechR",
-                "DE": "Germany", "DK": "Denmark", "EE": "Estonia",
-                "ES": "Spain", "FI": "Finland", "FR": "France",
-                "GB": "GreatBrit.", "GR": "Greece", "HR": "Croatia",
-                "HU": "Hungary", "IE": "Ireland", "IT": "Italy",
-                "LT": "Lithuania", "LU": "Luxemb.", "LV": "Latvia",
-                "MK": "Macedonia", "NL": "Netherlands", "NO": "Norway",
-                "PL": "Poland", "PT": "Portugal", "RO": "Romania",
-                "RS": "Serbia", "SE": "Sweden", "SI": "Slovenia",
-                "SK": "Slovakia", "MF": "MorayFirth", "FF": "FirthofForth",
-                "DB": "DoggerBank", "HS": "Hornsea", "OD": "OuterDowsing",
-                "NF": "Norfolk", "EA": "EastAnglia", "BS": "Borssele",
-                "HK": "HollandseeKust", "HB": "HelgolanderBucht", "NS": "Nordsoen",
-                "UN": "UtsiraNord", "SN1": "SorligeNordsjoI", "SN2": "SorligeNordsjoII"}
+    # dict_countries = {"AT": "Austria", "BA": "BosniaH", "BE": "Belgium",
+    #             "BG": "Bulgaria", "CH": "Switzerland", "CZ": "CzechR",
+    #             "DE": "Germany", "DK": "Denmark", "EE": "Estonia",
+    #             "ES": "Spain", "FI": "Finland", "FR": "France",
+    #             "GB": "GreatBrit.", "GR": "Greece", "HR": "Croatia",
+    #             "HU": "Hungary", "IE": "Ireland", "IT": "Italy",
+    #             "LT": "Lithuania", "LU": "Luxemb.", "LV": "Latvia",
+    #             "MK": "Macedonia", "NL": "Netherlands", "NO": "Norway",
+    #             "PL": "Poland", "PT": "Portugal", "RO": "Romania",
+    #             "RS": "Serbia", "SE": "Sweden", "SI": "Slovenia",
+    #             "SK": "Slovakia", "MF": "MorayFirth", "FF": "FirthofForth",
+    #             "DB": "DoggerBank", "HS": "Hornsea", "OD": "OuterDowsing",
+    #             "NF": "Norfolk", "EA": "EastAnglia", "BS": "Borssele",
+    #             "HK": "HollandseeKust", "HB": "HelgolanderBucht", "NS": "Nordsoen",
+    #             "UN": "UtsiraNord", "SN1": "SorligeNordsjoI", "SN2": "SorligeNordsjoII"}
+    dict_countries = {"DE": "Germany", "DK": "Denmark", "FR": "France"}
         
 
     print(f'Running scenario {NoOfScenarios}, w/ seed {seed}')

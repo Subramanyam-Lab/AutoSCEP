@@ -24,8 +24,8 @@ def read_fsd_from_csv(file_path):
     return fsd_data
 
 
-def run_experiment(seed,specific_period):
-    UserRunTimeConfig = safe_load(open("config_run.yaml"))
+def run_experiment(seed,specific_period,fsd_file_path):
+    UserRunTimeConfig = safe_load(open("config_reducedrun.yaml"))
 
     # Extract all the configuration variables as in your original code
     USE_TEMP_DIR = UserRunTimeConfig["USE_TEMP_DIR"]
@@ -54,10 +54,12 @@ def run_experiment(seed,specific_period):
     NoOfRegSeason = 4
     regular_seasons = ["winter", "spring", "summer", "fall"]
     NoOfPeakSeason = 2
-    lengthPeakSeason = 24
+    lengthPeakSeason = 7
     LeapYearsInvestment = 5
     time_format = "%d/%m/%Y %H:%M"
     if version in ["europe_v50"]:
+        north_sea = False
+    elif version in ["reduced"]:
         north_sea = False
     else:
         north_sea = True
@@ -101,21 +103,23 @@ def run_experiment(seed,specific_period):
                                                     lengthPeakSeason+1))]
     
     HoursOfSeason = HoursOfRegSeason + HoursOfPeakSeason
-    dict_countries = {"AT": "Austria", "BA": "BosniaH", "BE": "Belgium",
-                "BG": "Bulgaria", "CH": "Switzerland", "CZ": "CzechR",
-                "DE": "Germany", "DK": "Denmark", "EE": "Estonia",
-                "ES": "Spain", "FI": "Finland", "FR": "France",
-                "GB": "GreatBrit.", "GR": "Greece", "HR": "Croatia",
-                "HU": "Hungary", "IE": "Ireland", "IT": "Italy",
-                "LT": "Lithuania", "LU": "Luxemb.", "LV": "Latvia",
-                "MK": "Macedonia", "NL": "Netherlands", "NO": "Norway",
-                "PL": "Poland", "PT": "Portugal", "RO": "Romania",
-                "RS": "Serbia", "SE": "Sweden", "SI": "Slovenia",
-                "SK": "Slovakia", "MF": "MorayFirth", "FF": "FirthofForth",
-                "DB": "DoggerBank", "HS": "Hornsea", "OD": "OuterDowsing",
-                "NF": "Norfolk", "EA": "EastAnglia", "BS": "Borssele",
-                "HK": "HollandseeKust", "HB": "HelgolanderBucht", "NS": "Nordsoen",
-                "UN": "UtsiraNord", "SN1": "SorligeNordsjoI", "SN2": "SorligeNordsjoII"}
+    # dict_countries = {"AT": "Austria", "BA": "BosniaH", "BE": "Belgium",
+    #             "BG": "Bulgaria", "CH": "Switzerland", "CZ": "CzechR",
+    #             "DE": "Germany", "DK": "Denmark", "EE": "Estonia",
+    #             "ES": "Spain", "FI": "Finland", "FR": "France",
+    #             "GB": "GreatBrit.", "GR": "Greece", "HR": "Croatia",
+    #             "HU": "Hungary", "IE": "Ireland", "IT": "Italy",
+    #             "LT": "Lithuania", "LU": "Luxemb.", "LV": "Latvia",
+    #             "MK": "Macedonia", "NL": "Netherlands", "NO": "Norway",
+    #             "PL": "Poland", "PT": "Portugal", "RO": "Romania",
+    #             "RS": "Serbia", "SE": "Sweden", "SI": "Slovenia",
+    #             "SK": "Slovakia", "MF": "MorayFirth", "FF": "FirthofForth",
+    #             "DB": "DoggerBank", "HS": "Hornsea", "OD": "OuterDowsing",
+    #             "NF": "Norfolk", "EA": "EastAnglia", "BS": "Borssele",
+    #             "HK": "HollandseeKust", "HB": "HelgolanderBucht", "NS": "Nordsoen",
+    #             "UN": "UtsiraNord", "SN1": "SorligeNordsjoI", "SN2": "SorligeNordsjoII"}
+
+    dict_countries = {"DE": "Germany", "DK": "Denmark", "FR": "France"}
         
 
     print(f'Running scenario with SEED={seed} and PERIOD={specific_period}')
@@ -142,7 +146,6 @@ def run_experiment(seed,specific_period):
             seed=seed
         )
 
-    fsd_file_path = "FSD/202409271758_8144_seed_10_inv_cap.csv"
     FSD = read_fsd_from_csv(fsd_file_path)
 
     # Run the model
@@ -181,21 +184,23 @@ def main():
 
     specific_period = args.period
 
-    
-    N = 10   # Number of seeds to generate
-    M = 10   # maximum number of parallel processes
+    for i in range(10):
+        fsd_file_path = f"SeedSamples/reduced/fsd_seed{i+1}.csv"
 
-    # Generate N random seeds
-    seeds = [random.randint(1, 1000000) for _ in range(N)]
+        N = 10   # Number of seeds to generate
+        M = 10   # maximum number of parallel processes
 
-    print(f"Running for PERIOD={specific_period} with seeds: {seeds}")
+        # Generate N random seeds
+        seeds = [random.randint(1, 1000000) for _ in range(N)]
 
-    # Limit the number of processes if needed
-    num_processes = min(N, M)  # Adjust '10' to the desired maximum number of parallel processes
+        print(f"Running for PERIOD={specific_period} with seeds: {seeds} about {i+1}-th fsd file")
 
-    # Use multiprocessing to run experiments in parallel
-    with multiprocessing.Pool(processes=num_processes) as pool:
-        pool.starmap(run_experiment, [(seed, specific_period) for seed in seeds])
+        # Limit the number of processes if needed
+        num_processes = min(N, M)  # Adjust '10' to the desired maximum number of parallel processes
+
+        # Use multiprocessing to run experiments in parallel
+        with multiprocessing.Pool(processes=num_processes) as pool:
+            pool.starmap(run_experiment, [(seed, specific_period,fsd_file_path) for seed in seeds])
 
 if __name__ == "__main__":
     main()

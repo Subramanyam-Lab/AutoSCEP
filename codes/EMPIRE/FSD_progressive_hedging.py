@@ -54,8 +54,8 @@ def F_star(N_star: List[str], df_investments: pd.DataFrame, t: str, delta: float
     return {t: minimal_units}
 
 def main():
-    dir_seed = 'SeedSamples'
-    epsilon = 60
+    dir_seed = 'SeedSamples/reduced'
+    epsilon = 80
     delta = 80
     results_dict = {}
 

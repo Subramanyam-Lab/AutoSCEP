@@ -14,6 +14,6 @@ source ~/.bashrc
 source activate neurmhsp
 module load gurobi/10.0.3
 
-/storage/home/tzk5446/.conda/envs/neurmhsp/bin/python run.py 
+/storage/home/tzk5446/.conda/envs/neurmhsp/bin/python FSD_sampling2.py 
 
 
