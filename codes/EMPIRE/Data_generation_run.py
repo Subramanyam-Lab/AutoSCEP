@@ -184,8 +184,8 @@ def main():
 
     specific_period = args.period
 
-    for i in range(10):
-        fsd_file_path = f"SeedSamples/reduced/fsd_seed{i+1}.csv"
+    for i in range(30):
+        fsd_file_path = f"FSDsamples/sampled_data_{i+1}.csv"
 
         N = 10   # Number of seeds to generate
         M = 10   # maximum number of parallel processes

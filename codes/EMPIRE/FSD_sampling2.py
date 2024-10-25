@@ -46,26 +46,6 @@ def build_kde_and_sample(data_list, bandwidth_factor):
 def save_to_csv(df, output_file):
     df.to_csv(output_file, index=False)
 
-# def check_constraints(instance):
-#     violated_constraints = []
-#     for constr in instance.component_objects(Constraint, active=True):
-#         for index in constr:
-#             c = constr[index]
-#             try:
-#                 body_value = value(c.body)
-#                 lower = value(c.lower) if c.lower is not None else None
-#                 upper = value(c.upper) if c.upper is not None else None
-#                 tol = 1e-6  # Tolerance for floating-point comparisons
-#                 if lower is not None and body_value < lower - tol:
-#                     violated_constraints.append((c.name, index, 'Lower bound violated', body_value, lower))
-#                 elif upper is not None and body_value > upper + tol:
-#                     violated_constraints.append((c.name, index, 'Upper bound violated', body_value, upper))
-#             except ValueError:
-#                 # Skip constraints with uninitialized variables
-#                 continue
-#     return violated_constraints
-
-
 def check_constraints(instance):
     violated_constraints = []
     for constr in instance.component_objects(Constraint, active=True):
@@ -183,7 +163,7 @@ def generate_feasible_samples(n, input_file_pattern, data_folder, bandwidth_fact
             print(f"Current accept-rejection ratio: {current_ratio:.6f}")
 
     final_ratio = feasible_samples / total_attempts
-    print(f"Generated {n} feasible samples.")
+    print(f"Generated {feasible_samples} feasible samples.")
     print(f"Final accept-rejection ratio: {final_ratio:.6f}")
     print(f"Total attempts: {total_attempts}")
 
@@ -192,6 +172,6 @@ if __name__ == "__main__":
     input_file_pattern = "SeedSamples/reduced/fsd_seed*.csv"  # Adjust this pattern to match your input files
     data_folder = 'Data handler/sampling/reduced'
     n_samples = 10  # Number of feasible samples you want to generate
-    bandwidth_factor = 5e-5  # Adjust this value to control the bandwidth (0 for exploit, larger for explore)
+    bandwidth_factor = 7e-6  # Adjust this value to control the bandwidth (0 for exploit, larger for explore)
     
     generate_feasible_samples(n_samples, input_file_pattern, data_folder, bandwidth_factor)

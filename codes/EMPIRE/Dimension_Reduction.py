@@ -11,8 +11,8 @@ import logging
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-desired_generators = ['Solar', 'Windonshore'] 
-desired_countries = ['Germany', 'France', 'Spain', 'GreatBrit.', 'Italy']  
+desired_generators = ['Solar', 'Windonshore', 'GasCCGT', 'Bio'] 
+desired_countries = ['Germany', 'France']  
 
 def include_entry(var, k):
     try:
