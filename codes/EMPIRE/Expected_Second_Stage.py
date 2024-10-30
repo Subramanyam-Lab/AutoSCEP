@@ -63,6 +63,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
 
     # Temporal sets
     model.Period = Set(ordered=True) #max period
+    model.Periodwhole = Set(ordered=True, initialize=Period)
     model.PeriodActive = Set(initialize=period_filter)
     # model.PeriodActive = Set(ordered=True, initialize=Period) #i
     model.Operationalhour = Set(ordered=True, initialize=Operationalhour) #h
@@ -162,32 +163,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
 
         return gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap
     
-    def calculate_gen_installed_cap(model):
-        for (n, g) in model.GeneratorsOfNode:
-            for i in model.PeriodActive:
-                startPeriod = max(1, value(1 + i - model.genLifetime[g] / model.LeapYearsInvestment))
-                model.genInstalledCap[n, g, i] = sum(model.genInvCapParam[n, g, j]
-                                                    for j in model.PeriodActive
-                                                    if startPeriod <= j <= i) + model.genInitCap[n, g, i]
-
-    def calculate_transmission_installed_cap(model):
-        for (n1, n2) in model.BidirectionalArc:
-            for i in model.PeriodActive:
-                startPeriod = max(1, value(1 + i - model.transmissionLifetime[n1, n2] / model.LeapYearsInvestment))
-                model.transmissionInstalledCap[n1, n2, i] = sum(model.transmisionInvCapParam[n1, n2, j]
-                                                                for j in model.PeriodActive
-                                                                if startPeriod <= j <= i) + model.transmissionInitCap[n1, n2, i]
-
-    def calculate_storage_installed_cap(model):
-        for (n, b) in model.StoragesOfNode:
-            for i in model.PeriodActive:
-                startPeriod = max(1, value(1 + i - model.storageLifetime[b] / model.LeapYearsInvestment))
-                model.storPWInstalledCap[n, b, i] = sum(model.storPWInvCapParam[n, b, j]
-                                                        for j in model.PeriodActive
-                                                        if startPeriod <= j <= i) + model.storPWInitCap[n, b, i]
-                model.storENInstalledCap[n, b, i] = sum(model.storENInvCapParam[n, b, j]
-                                                        for j in model.PeriodActive
-                                                        if startPeriod <= j <= i) + model.storENInitCap[n, b, i]
+    
     
     
     ##############
@@ -265,14 +241,14 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     model.storOperationalInit = Param(model.Storage, default=0.0, mutable=True) #Percentage of installed energy capacity initially
     
     # Define new parameters for FSD data
-    model.genInvCapParam = Param(model.GeneratorsOfNode, model.PeriodActive, default=0.0, mutable=True)
-    model.transmisionInvCapParam = Param(model.BidirectionalArc, model.PeriodActive, default=0.0, mutable=True)
-    model.storPWInvCapParam = Param(model.StoragesOfNode, model.PeriodActive, default=0.0, mutable=True)
-    model.storENInvCapParam = Param(model.StoragesOfNode, model.PeriodActive, default=0.0, mutable=True)
-    model.genInstalledCap = Param(model.GeneratorsOfNode, model.PeriodActive, default=0.0, mutable=True)
-    model.transmissionInstalledCap = Param(model.BidirectionalArc, model.PeriodActive, default=0.0, mutable=True)
-    model.storPWInstalledCap = Param(model.StoragesOfNode, model.PeriodActive, default=0.0, mutable=True)
-    model.storENInstalledCap = Param(model.StoragesOfNode, model.PeriodActive, default=0.0, mutable=True)
+    model.genInvCapParam = Param(model.GeneratorsOfNode, model.Periodwhole, default=0.0, mutable=True)
+    model.transmisionInvCapParam = Param(model.BidirectionalArc, model.Periodwhole, default=0.0, mutable=True)
+    model.storPWInvCapParam = Param(model.StoragesOfNode, model.Periodwhole, default=0.0, mutable=True)
+    model.storENInvCapParam = Param(model.StoragesOfNode, model.Periodwhole, default=0.0, mutable=True)
+    model.genInstalledCap = Param(model.GeneratorsOfNode, model.Periodwhole, default=0.0, mutable=True)
+    model.transmissionInstalledCap = Param(model.BidirectionalArc, model.Periodwhole, default=0.0, mutable=True)
+    model.storPWInstalledCap = Param(model.StoragesOfNode, model.Periodwhole, default=0.0, mutable=True)
+    model.storENInstalledCap = Param(model.StoragesOfNode, model.Periodwhole, default=0.0, mutable=True)
 
     if EMISSION_CAP:
         model.CO2cap = Param(model.Period, default=5000.0, mutable=True)
@@ -565,72 +541,15 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
 
     print("Building instance...")
 
-    start = time.time()
     instance = model.create_instance(data) #, report_timing=True)
     instance.dual = Suffix(direction=Suffix.IMPORT) #Make sure the dual value is collected into solver results (if solver supplies dual information)
-
-    end = time.time()
-    print("Building instance took [sec]:")
-    print(end - start)
 
     # Load FSD data
     gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap = load_investment_data(FSD)
 
-    # # Generator
-    # for (n, g) in instance.GeneratorsOfNode:
-    #     if (n, g) in gen_inv_cap:
-    #         for i in instance.PeriodActive:
-    #             if i in gen_inv_cap[(n, g)]:
-    #                 cap_value = gen_inv_cap[(n, g)][i]
-    #                 instance.genInvCapParam[n, g, i] = cap_value
-    #             else:
-    #                 print(f"    Period {i}: Not found in data")
-    #     else:
-    #         print(f"  Not found in gen_inv_cap")
-
-    # # Transmission
-    # for (n1, n2) in instance.BidirectionalArc:
-    #     if n1 in transmission_inv_cap:
-    #         for i in instance.PeriodActive:
-    #             if i in transmission_inv_cap[n1]:
-    #                 cap_value = transmission_inv_cap[n1][i]
-    #                 instance.transmisionInvCapParam[n1, n2, i] = cap_value
-    #             else:
-    #                 print(f"    Period {i}: Not found in data")
-    #     elif n2 in transmission_inv_cap:
-    #         for i in instance.PeriodActive:
-    #             if i in transmission_inv_cap[n2]:
-    #                 cap_value = transmission_inv_cap[n2][i]
-    #                 instance.transmisionInvCapParam[n1, n2, i] = cap_value
-    #             else:
-    #                 print(f"    Period {i}: Not found in data")
-    #     else:
-    #         print(f"  Not found in transmission_inv_cap")
-
-    # # Storage (as before)
-    # for (n, b) in instance.StoragesOfNode:
-    #     if (n, b) in stor_pw_inv_cap:
-    #         for i in instance.PeriodActive:
-    #             if i in stor_pw_inv_cap[(n, b)]:
-    #                 cap_value = stor_pw_inv_cap[(n, b)][i]
-    #                 instance.storPWInvCapParam[n, b, i] = cap_value
-    #             else:
-    #                 print(f"    Period {i}: Not found in data")
-    #     else:
-    #         print(f"  Not found in stor_pw_inv_cap")
-
-    #     if (n, b) in stor_en_inv_cap:
-    #         for i in instance.PeriodActive:
-    #             if i in stor_en_inv_cap[(n, b)]:
-    #                 cap_value = stor_en_inv_cap[(n, b)][i]
-    #                 instance.storENInvCapParam[n, b, i] = cap_value
-    #             else:
-    #                 print(f"    Period {i}: Not found in data")
-    #     else:
-    #         print(f"  Not found in stor_en_inv_cap")
     for (n, g) in instance.GeneratorsOfNode:
             if (n, g) in gen_inv_cap:
-                for i in instance.PeriodActive:
+                for i in instance.Periodwhole:
                     if i in gen_inv_cap[(n, g)]:
                         cap_value = gen_inv_cap[(n, g)][i]
                         instance.genInvCapParam[n, g, i] = cap_value
@@ -640,7 +559,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     # Transmission
     for (n1, n2) in instance.BidirectionalArc:
         if (n1, n2) in transmission_inv_cap:
-            for i in instance.PeriodActive:
+            for i in instance.Periodwhole:
                 if i in transmission_inv_cap[(n1, n2)]:
                     cap_value = transmission_inv_cap[(n1, n2)][i]
                     instance.transmisionInvCapParam[n1, n2, i] = cap_value
@@ -650,7 +569,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     # Storage
     for (n, b) in instance.StoragesOfNode:
         if (n, b) in stor_pw_inv_cap:
-            for i in instance.PeriodActive:
+            for i in instance.Periodwhole:
                 if i in stor_pw_inv_cap[(n, b)]:
                     cap_value = stor_pw_inv_cap[(n, b)][i]
                     instance.storPWInvCapParam[n, b, i] = cap_value
@@ -658,17 +577,45 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
             print(f"(n, b) = ({n}, {b}): Not found in stor_pw_inv_cap")
 
         if (n, b) in stor_en_inv_cap:
-            for i in instance.PeriodActive:
+            for i in instance.Periodwhole:
                 if i in stor_en_inv_cap[(n, b)]:
                     cap_value = stor_en_inv_cap[(n, b)][i]
                     instance.storENInvCapParam[n, b, i] = cap_value
         else:
             print(f"(n, b) = ({n}, {b}): Not found in stor_en_inv_cap")
 
+
+    def calculate_gen_installed_cap(instance):
+        for (n, g) in instance.GeneratorsOfNode:
+            for i in instance.Periodwhole:
+                startPeriod = max(1, value(1 + i - instance.genLifetime[g] / instance.LeapYearsInvestment))
+                instance.genInstalledCap[n, g, i] = sum(instance.genInvCapParam[n, g, j]
+                                                    for j in instance.Periodwhole
+                                                    if startPeriod <= j <= i) + instance.genInitCap[n, g, i]
+
+    def calculate_transmission_installed_cap(instance):
+        for (n1, n2) in instance.BidirectionalArc:
+            for i in instance.Periodwhole:
+                startPeriod = max(1, value(1 + i - instance.transmissionLifetime[n1, n2] / instance.LeapYearsInvestment))
+                instance.transmissionInstalledCap[n1, n2, i] = sum(instance.transmisionInvCapParam[n1, n2, j]
+                                                                for j in instance.Periodwhole
+                                                                if startPeriod <= j <= i) + instance.transmissionInitCap[n1, n2, i]
+
+    def calculate_storage_installed_cap(instance):
+        for (n, b) in instance.StoragesOfNode:
+            for i in instance.Periodwhole:
+                startPeriod = max(1, value(1 + i - instance.storageLifetime[b] / instance.LeapYearsInvestment))
+                instance.storPWInstalledCap[n, b, i] = sum(instance.storPWInvCapParam[n, b, j]
+                                                        for j in instance.Periodwhole
+                                                        if startPeriod <= j <= i) + instance.storPWInitCap[n, b, i]
+                instance.storENInstalledCap[n, b, i] = sum(instance.storENInvCapParam[n, b, j]
+                                                        for j in instance.Periodwhole
+                                                        if startPeriod <= j <= i) + instance.storENInitCap[n, b, i]
+
+
     calculate_gen_installed_cap(instance)
     calculate_transmission_installed_cap(instance)
     calculate_storage_installed_cap(instance)
-
 
     if WRITE_LP:
         print("Writing LP-file...")
@@ -773,7 +720,6 @@ def calculate_Q_i(instance, i, w):
                     for (s,h) in instance.HoursOfSeason)
 
     q_i = value(instance.discount_multiplier[i]) * (operational_cost + shed_cost)
-
     return q_i
 
 def save_results(v_i, xi_Q_i, num_scenarios,seed,period):

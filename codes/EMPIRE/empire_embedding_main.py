@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 from reader import generate_tab_files
-from first_stage_empire import run_empire
-from ml_preprocessing import load_data, ML_trainig, ML_embedding, var_mapping, load_pca_data, get_gurobi_inv_cap_vars
+from first_stage_empire import run_first_stage
+from NEUREMPIRE import run_empire
+from ml_preprocessing import load_data, ML_trainig, ML_embedding,selected_var_mapping,var_mapping, get_gurobi_installed_cap_vars
 from scenario_random import generate_random_scenario
 from datetime import datetime
 from yaml import safe_load
@@ -9,7 +10,7 @@ import time
 import pandas as pd
 import csv
 from gurobipy import GRB, quicksum
-import gurobipy
+from gurobipy import Model as GurobiModel
 from gurobi_ml import add_predictor_constr
 import pandas as pd
 import numpy as np
@@ -44,12 +45,11 @@ import numpy as np
 import multiprocessing
 import json
 from gurobi_ml import add_predictor_constr
-
+from gurobi_ml.sklearn import add_decision_tree_regressor_constr,add_linear_regression_constr
+from gurobi_ml.sklearn import add_standard_scaler_constr
 
 
 def main():
-
-
     # Set random seeds for reproducibility
     SEED = 42
     np.random.seed(SEED)
@@ -84,7 +84,6 @@ def main():
     ##Non configurable settings##
     #############################
 
-    second_stage = True
     NoOfRegSeason = 4
     regular_seasons = ["winter", "spring", "summer", "fall"]
     NoOfPeakSeason = 2
@@ -97,9 +96,7 @@ def main():
         north_sea = False
     else:
         north_sea = True
-    
-    specific_period = 2
-   
+      
     #######
     ##RUN##
     #######
@@ -163,7 +160,7 @@ def main():
     generate_tab_files(filepath = workbook_path, tab_file_path = tab_file_path)
 
 
-    instance = run_empire(name = name, 
+    objective_value, expected_second_stage_value = run_empire(name = name, 
             tab_file_path = tab_file_path,
             result_file_path = result_file_path, 
             scenariogeneration = scenariogeneration,
@@ -188,15 +185,41 @@ def main():
             EMISSION_CAP = EMISSION_CAP,
             USE_TEMP_DIR = USE_TEMP_DIR,
             LOADCHANGEMODULE = LOADCHANGEMODULE,
-            specific_period = specific_period)
-    
-    solver = SolverFactory('gurobi_persistent')
-    solver.set_instance(instance) 
+            seed = SEED)
+    print("Objective Value :", objective_value)
+    print("Expected Second Stage Value :", expected_second_stage_value)
 
+    model,data = run_first_stage(name = name, 
+            tab_file_path = tab_file_path,
+            result_file_path = result_file_path, 
+            scenariogeneration = scenariogeneration,
+            scenario_data_path = scenario_data_path,
+            solver = solver,
+            temp_dir = temp_dir, 
+            FirstHoursOfRegSeason = FirstHoursOfRegSeason, 
+            FirstHoursOfPeakSeason = FirstHoursOfPeakSeason, 
+            lengthRegSeason = lengthRegSeason,
+            lengthPeakSeason = lengthPeakSeason,
+            Period = Period, 
+            Operationalhour = Operationalhour,
+            Scenario = Scenario,
+            Season = Season,
+            HoursOfSeason = HoursOfSeason,
+            discountrate = discountrate, 
+            WACC = WACC, 
+            LeapYearsInvestment = LeapYearsInvestment,
+            IAMC_PRINT = IAMC_PRINT, 
+            WRITE_LP = WRITE_LP, 
+            PICKLE_INSTANCE = PICKLE_INSTANCE, 
+            EMISSION_CAP = EMISSION_CAP,
+            USE_TEMP_DIR = USE_TEMP_DIR,
+            LOADCHANGEMODULE = LOADCHANGEMODULE)
+
+    ##################################
+    ######### Model Train ############
     file_path = 'cleaned_unique_combination_data.csv'
     X, y = load_data(file_path)
 
-    # Split data into training and test sets (80-20 split)
     X_train_full, X_test, y_train_full, y_test = train_test_split(
         X, y, test_size=0.2, random_state=SEED
     )
@@ -209,18 +232,24 @@ def main():
         X_train_full, y_train_full, X_test, y_test,
         scaler_X_final, scaler_y_final
     )
+    ######### Model Train ############
+    ##################################
 
-    
-    # Access the Gurobi model
+    solver = SolverFactory('gurobi_persistent')
+    instance = model.create_instance(data)
+    solver.set_instance(instance) 
     gurobi_model = solver._solver_model
-    
+    gurobi_model.update()
+
     # Create a mapping from Pyomo variables to Gurobi variables
-    # pyomo_var_to_gurobi_var = solver._pyomo_var_to_solver_var_map
+    # sorted_indices_var, pyomo_var_to_gurobi_var = var_mapping(instance,solver)
+    pyomo_var_to_gurobi_var = solver._pyomo_var_to_solver_var_map
+    gurobi_model = get_gurobi_installed_cap_vars(instance, gurobi_model,pyomo_var_to_gurobi_var)
     
-    for period in range(1,2):
-        gurobi_inv_cap_vars = get_gurobi_inv_cap_vars(instance, gurobi_model, period)
-        sorted_indices, pyomo_var_to_gurobi_var_ml = var_mapping(instance, solver, period)
-        gurobi_model = ML_embedding(gurobi_model,gurobi_inv_cap_vars, pyomo_var_to_gurobi_var_ml,trained_dt,sorted_indices, instance, period)
+    for period in range(1,9):
+        # gurobi_inv_cap_vars = get_gurobi_inv_cap_vars(instance, gurobi_model, period)
+        sorted_indices, pyomo_var_to_gurobi_var_ml = selected_var_mapping(instance, solver, period)
+        gurobi_model = ML_embedding(instance, gurobi_model, trained_lr,trained_dt, sorted_indices, pyomo_var_to_gurobi_var_ml, period,scaler_X_final, scaler_y_final)
     
     # Set Gurobi parameters
     gurobi_model.Params.NonConvex = 2
@@ -229,25 +258,16 @@ def main():
     # Optimize the Gurobi model
     gurobi_model.optimize()
 
-    if gurobi_model.Status == GRB.OPTIMAL or gurobi_model.Status == GRB.TIME_LIMIT:
-        # Update Pyomo variables with values from Gurobi variables
-        for pyomo_var, gurobi_var in pyomo_var_to_gurobi_var.items():
-            pyomo_var.set_value(gurobi_var.X)
-        
-        # Retrieve the value of 'y_approx'
-        y_approx_value = y_approx.X
+    if gurobi_model.Status == GRB.OPTIMAL:
+        for v in gurobi_model.getVars():
+            if v.VarName.startswith('y') or v.VarName.startswith('x'):
+                print(v.varName, "=", v.x)
 
-        # Display the results
-        print(f"Approximated second-stage cost (y_approx): {y_approx_value}")
-
-        # Now you can access and display the Pyomo variable values as needed
-        # For example:
-        for (n, g) in instance.GeneratorsOfNode:
-            for i in instance.PeriodActive:
-                gen_installed_cap = value(instance.genInstalledCap[n, g, i])
-                print(f"Node {n}, Generator {g}, Period {i}: Installed Capacity = {gen_installed_cap}")
-    else:
-        print("Optimization did not converge to a solution.")
+        # for var in gurobi_model.getVars():
+        #     if var.VarName.startswith('y_approx_'):
+        #         period = int(var.VarName.split('_')[-1])
+        #         value = var.X
+        #         print(f"Period {period}: {value:.4f}")
 
 
 if __name__ == '__main__':

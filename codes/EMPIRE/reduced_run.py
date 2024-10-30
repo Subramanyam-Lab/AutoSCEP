@@ -46,7 +46,7 @@ PICKLE_INSTANCE = UserRunTimeConfig["PICKLE_INSTANCE"]
 #############################
 ##Non configurable settings##
 #############################
-second_stage = True
+second_stage = False
 NoOfRegSeason = 4
 regular_seasons = ["winter", "spring", "summer", "fall"]
 NoOfPeakSeason = 2
@@ -54,6 +54,8 @@ lengthPeakSeason = 7
 LeapYearsInvestment = 5
 time_format = "%d/%m/%Y %H:%M"
 if version in ["europe_v50"]:
+    north_sea = False
+if version in ["reduced"]:
     north_sea = False
 else:
     north_sea = True
@@ -140,41 +142,43 @@ def read_fsd_from_csv(file_path):
         fsd_data = [row for row in csv_reader]
     return fsd_data
 
-fsd_file_path = 'valid_samples_20240730215001.csv'
-FSD = read_fsd_from_csv(fsd_file_path)
-
 if second_stage:
-    expected_second_stage_value = run_second_stage(name = name, 
-        tab_file_path = tab_file_path,
-        result_file_path = result_file_path, 
-        scenariogeneration = scenariogeneration,
-        scenario_data_path = scenario_data_path,
-        solver = solver,
-        temp_dir = temp_dir, 
-        FirstHoursOfRegSeason = FirstHoursOfRegSeason, 
-        FirstHoursOfPeakSeason = FirstHoursOfPeakSeason, 
-        lengthRegSeason = lengthRegSeason,
-        lengthPeakSeason = lengthPeakSeason,
-        Period = Period, 
-        Operationalhour = Operationalhour,
-        Scenario = Scenario,
-        Season = Season,
-        HoursOfSeason = HoursOfSeason,
-        discountrate = discountrate, 
-        WACC = WACC, 
-        LeapYearsInvestment = LeapYearsInvestment,
-        FSD = FSD, 
-        WRITE_LP = WRITE_LP, 
-        PICKLE_INSTANCE = PICKLE_INSTANCE, 
-        EMISSION_CAP = EMISSION_CAP,
-        USE_TEMP_DIR = USE_TEMP_DIR,
-        LOADCHANGEMODULE = LOADCHANGEMODULE)
-    end = time.time()
-    print("SECOND STAGE RUN took [sec]: ", end - start)
-    print("EXPECTED SECOND STAGE",expected_second_stage_value)
+    for i in range(1,9):
+        fsd_file_path = 'FSD/202410301146_616_seed_42_inv_cap.csv'
+        FSD = read_fsd_from_csv(fsd_file_path)
+        expected_second_stage_value = run_second_stage(name = name, 
+            tab_file_path = tab_file_path,
+            result_file_path = result_file_path, 
+            scenariogeneration = scenariogeneration,
+            scenario_data_path = scenario_data_path,
+            solver = solver,
+            temp_dir = temp_dir, 
+            FirstHoursOfRegSeason = FirstHoursOfRegSeason, 
+            FirstHoursOfPeakSeason = FirstHoursOfPeakSeason, 
+            lengthRegSeason = lengthRegSeason,
+            lengthPeakSeason = lengthPeakSeason,
+            Period = Period, 
+            Operationalhour = Operationalhour,
+            Scenario = Scenario,
+            Season = Season,
+            HoursOfSeason = HoursOfSeason,
+            discountrate = discountrate, 
+            WACC = WACC, 
+            LeapYearsInvestment = LeapYearsInvestment,
+            FSD = FSD, 
+            WRITE_LP = WRITE_LP, 
+            PICKLE_INSTANCE = PICKLE_INSTANCE, 
+            EMISSION_CAP = EMISSION_CAP,
+            USE_TEMP_DIR = USE_TEMP_DIR,
+            LOADCHANGEMODULE = LOADCHANGEMODULE,
+            seed = seed,
+            specific_period = i)
+        end = time.time()
+        print("SECOND STAGE RUN took [sec]: ", end - start)
+        print("EXPECTED SECOND STAGE",expected_second_stage_value)
 
 else:
-    expected_second_stage_value = run_empire(name = name, 
+    objective_value, expected_second_stage_value = run_empire(name = name, 
             tab_file_path = tab_file_path,
             result_file_path = result_file_path, 
             scenariogeneration = scenariogeneration,
@@ -203,4 +207,5 @@ else:
     end = time.time()
     print("EMPIRE Implementation took [sec]:")
     print(end - start)
+    print("Objective Value :", objective_value)
     print("Expected Second Stage Value :", expected_second_stage_value)

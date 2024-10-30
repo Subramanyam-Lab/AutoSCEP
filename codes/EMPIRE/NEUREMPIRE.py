@@ -867,11 +867,10 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
 
 def compute_expected_second_stage_value(instance):
     # Calculate the total operational cost over all periods
-    expected_second_stage_value = sum(
-        value(instance.discount_multiplier[I]) * 
-        (value(instance.shedcomponent[I]) + value(instance.operationalcost[I])) 
-        for I in instance.PeriodActive
-    )
+    expected_second_stage_value = 0
+    for i in instance.PeriodActive:
+        second_stage_value = value(instance.discount_multiplier[i]) * (value(instance.shedcomponent[i]) + value(instance.operationalcost[i]))
+        expected_second_stage_value += second_stage_value
     return expected_second_stage_value
 
 
@@ -882,12 +881,6 @@ def get_results(instance, seed):
     stor_pw_inv_cap = instance.storPWInvCap.get_values()
     stor_en_inv_cap = instance.storENInvCap.get_values()
 
-    # First stage cost variables from the instance
-    # gen_inv_cost = {k: value(v) for k, v in instance.genInvCost.items()}
-    # transmision_inv_cost = {k: value(v) for k, v in instance.transmissionInvCost.items()}
-    # stor_pw_inv_cost = {k: value(v) for k, v in instance.storPWInvCost.items()}
-    # stor_en_inv_cost = {k: value(v) for k, v in instance.storENInvCost.items()}
-
     total_fsd_length = len(gen_inv_cap) + len(transmision_inv_cap) + len(stor_pw_inv_cap) + len(stor_en_inv_cap)
 
     # Add a generator type label to each entry
@@ -896,22 +889,12 @@ def get_results(instance, seed):
     stor_pw_inv_cap = {(k[0], k[1], k[2], 'Storage Power'): v for k, v in stor_pw_inv_cap.items()}
     stor_en_inv_cap = {(k[0], k[1], k[2], 'Storage Energy'): v for k, v in stor_en_inv_cap.items()}
 
-    # gen_inv_cost = {(k[0], k[1], 'Generation'): v for k, v in gen_inv_cost.items()}
-    # transmision_inv_cost = {(k[0], k[1], k[2], 'Transmission'): v for k, v in transmision_inv_cost.items()}
-    # stor_pw_inv_cost = {(k[0], k[1], 'Storage Power'): v for k, v in stor_pw_inv_cost.items()}
-    # stor_en_inv_cost = {(k[0], k[1], 'Storage Energy'): v for k, v in stor_en_inv_cost.items()}
-
     # Combine all investment capacities and costs into dictionaries
     inv_cap_data = {**gen_inv_cap, **transmision_inv_cap, **stor_pw_inv_cap, **stor_en_inv_cap}
-    # inv_cost_data = {**gen_inv_cost, **transmision_inv_cost, **stor_pw_inv_cost, **stor_en_inv_cost}
 
     # Convert the capacity data into a DataFrame
     data = [(k[0], k[1], k[2], k[3], v) for k, v in inv_cap_data.items()]
     df = pd.DataFrame(data, columns=['Node', 'Energy_Type', 'Period', 'Type', 'Value'])
-
-    # Convert the cost data into a DataFrame
-    # data_cost = [(k[0], k[1], k[2], v) for k, v in inv_cost_data.items()]
-    # df_cost = pd.DataFrame(data_cost, columns=['Energy_Type', 'Period', 'Type', 'Value'])
 
     # Create output directories if they don't exist
     output_dir = "FSD"
@@ -921,9 +904,6 @@ def get_results(instance, seed):
     output_file_path = os.path.join(output_dir, f"{datetime.now().strftime('%Y%m%d%H%M')}_{total_fsd_length}_seed_{seed}_inv_cap.csv")
     df.to_csv(output_file_path, index=False)
 
-    # output_file_path_cost = os.path.join(output_dir, f"{datetime.now().strftime('%Y%m%d%H%M')}_{total_fsd_length}_seed_{seed}_inv_cost.csv")
-    # df_cost.to_csv(output_file_path_cost, index=False)
-
     print("DataFrames created and saved successfully.")
 
     expected_second_stage_value = compute_expected_second_stage_value(instance)
@@ -932,94 +912,3 @@ def get_results(instance, seed):
 
 
 
-# def get_x_xi_results(instance, num_scenarios, seed):
-#     # First stage decisions (x_i) and local variables (v_i)
-#     x_v_i = {i: {'x_i': {}, 'v_i': {}} for i in instance.PeriodActive}
-#     for i in instance.PeriodActive:
-#         # x_i
-#         x_v_i[i]['x_i']['gen_inv_cap'] = {str((n, g)): get_value(instance.genInvCap[n, g, i])
-#                                           for n, g in instance.GeneratorsOfNode}
-#         x_v_i[i]['x_i']['transmision_inv_cap'] = {str((n1, n2)): get_value(instance.transmisionInvCap[n1, n2, i])
-#                                                   for n1, n2 in instance.BidirectionalArc}
-#         x_v_i[i]['x_i']['stor_pw_inv_cap'] = {str((n, b)): get_value(instance.storPWInvCap[n, b, i])
-#                                               for n, b in instance.StoragesOfNode}
-#         x_v_i[i]['x_i']['stor_en_inv_cap'] = {str((n, b)): get_value(instance.storENInvCap[n, b, i])
-#                                               for n, b in instance.StoragesOfNode}
-        
-#         # v_i
-#         x_v_i[i]['v_i']['genInstalledCap'] = {str((n, g)): get_value(instance.genInstalledCap[n, g, i])
-#                                               for n, g in instance.GeneratorsOfNode}
-#         x_v_i[i]['v_i']['transmissionInstalledCap'] = {str((n1, n2)): get_value(instance.transmissionInstalledCap[n1, n2, i])
-#                                                        for n1, n2 in instance.BidirectionalArc}
-#         x_v_i[i]['v_i']['storPWInstalledCap'] = {str((n, b)): get_value(instance.storPWInstalledCap[n, b, i])
-#                                                  for n, b in instance.StoragesOfNode}
-#         x_v_i[i]['v_i']['storENInstalledCap'] = {str((n, b)): get_value(instance.storENInstalledCap[n, b, i])
-#                                                  for n, b in instance.StoragesOfNode}
-
-#     # Scenario data (ξ_i) and second-stage value (Q_i)
-#     xi_Q_i = {i: {'xi_i': {}, 'Q_i': {}} for i in instance.PeriodActive}
-#     for i in instance.PeriodActive:
-#         # ξ_i
-#         xi_Q_i[i]['xi_i']['sload'] = {str((n, h, w)): get_value(instance.sload[n, h, i, w])
-#                                       for n in instance.Node 
-#                                       for h in instance.Operationalhour 
-#                                       for w in instance.Scenario}
-#         xi_Q_i[i]['xi_i']['maxRegHydroGen'] = {str((n, s, w)): get_value(instance.maxRegHydroGen[n, i, s, w])
-#                                                for n in instance.Node 
-#                                                for s in instance.Season 
-#                                                for w in instance.Scenario}
-#         xi_Q_i[i]['xi_i']['genCapAvail'] = {str((n, g, h, w)): get_value(instance.genCapAvail[n, g, h, w, i])
-#                                             for n, g in instance.GeneratorsOfNode 
-#                                             for h in instance.Operationalhour 
-#                                             for w in instance.Scenario}
-        
-#         # Q_i (second-stage value for each scenario)
-#         xi_Q_i[i]['Q_i'] = {w: calculate_Q_i(instance, i, w) for w in instance.Scenario}
-
-#     # Save results
-#     save_results(x_v_i, xi_Q_i, num_scenarios,seed)
-
-#     return x_v_i, xi_Q_i
-
-# def get_value(param):
-#     return param.value if hasattr(param, 'value') else param
-
-# def calculate_Q_i(instance, i, w):
-#     # Calculate Q_i for a specific period i and scenario w
-#     operational_cost = sum(get_value(instance.seasScale[s]) * get_value(instance.genMargCost[g,i]) * get_value(instance.genOperational[n,g,h,i,w])
-#                            for (n,g) in instance.GeneratorsOfNode 
-#                            for (s,h) in instance.HoursOfSeason)
-    
-#     shed_cost = sum(get_value(instance.seasScale[s]) * get_value(instance.nodeLostLoadCost[n,i]) * get_value(instance.loadShed[n,h,i,w])
-#                     for n in instance.Node 
-#                     for (s,h) in instance.HoursOfSeason)
-    
-#     return operational_cost + shed_cost
-
-# def save_results(x_v_i, xi_Q_i, num_scenarios,seed):
-#     output_dir = f"results_{num_scenarios}_scenarios"
-#     os.makedirs(output_dir, exist_ok=True)
-#     timestamp = datetime.now().strftime('%Y%m%d%H%M')
-
-#     # Save x_v_i
-#     with open(f"{output_dir}/x_v_i_{num_scenarios}_scenarios_{seed}_seed_{timestamp}.json", 'w') as f:
-#         json.dump(x_v_i, f)
-
-#     # Save xi_Q_i
-#     with open(f"{output_dir}/xi_Q_i_{num_scenarios}_scenarios_{seed}_seed_{timestamp}.json", 'w') as f:
-#         json.dump(xi_Q_i, f)
-
-# def compute_scenario_variance(instance):
-#     second_stage_values = []
-#     for w in instance.Scenario:
-#         scenario_value = sum(
-#             value(instance.discount_multiplier[I]) * 
-#             (sum(value(instance.seasScale[s]) * value(instance.nodeLostLoadCost[n,I]) * value(instance.loadShed[n,h,I,w])
-#                  for n in instance.Node for (s,h) in instance.HoursOfSeason) +
-#              sum(value(instance.seasScale[s]) * value(instance.genMargCost[g,I]) * value(instance.genOperational[n,g,h,I,w])
-#                  for (n,g) in instance.GeneratorsOfNode for (s,h) in instance.HoursOfSeason))
-#             for I in instance.PeriodActive
-#         )
-#         second_stage_values.append(scenario_value)
-    
-#     return np.var(second_stage_values)

@@ -19,11 +19,11 @@ __license__ = "MIT"
 __maintainer__ = "Stian Backe"
 __email__ = "stian.backe@ntnu.no"
 
-def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenario_data_path,
+def run_first_stage(name, tab_file_path, result_file_path, scenariogeneration, scenario_data_path,
                solver, temp_dir, FirstHoursOfRegSeason, FirstHoursOfPeakSeason, lengthRegSeason,
                lengthPeakSeason, Period, Operationalhour, Scenario, Season, HoursOfSeason,
                discountrate, WACC, LeapYearsInvestment, IAMC_PRINT, WRITE_LP,
-               PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE, specific_period):
+               PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE):
 
     if USE_TEMP_DIR:
         TempfileManager.tempdir = temp_dir
@@ -37,10 +37,6 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     ########
     ##SETS##
     ########
-
-
-    # def period_filter(model):
-    #     return [specific_period]
 
 
     #Define the sets
@@ -218,7 +214,6 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
 
 
     #Load the parameters
-
 
     data.load(filename=tab_file_path + "/" + 'Generator_CapitalCosts.tab', param=model.genCapitalCost, format="table")
     data.load(filename=tab_file_path + "/" + 'Generator_FixedOMCosts.tab', param=model.genFixedOMCost, format="table")
@@ -599,14 +594,4 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     #################################################################
 
 
-    #######
-    ##RUN##
-    #######
-
-    start = time.time()
-    instance = model.create_instance(data) #, report_timing=True)
-    end = time.time()
-    print(f"Building instance took [sec]: {end - start}")
-
-
-    return instance
+    return model,data

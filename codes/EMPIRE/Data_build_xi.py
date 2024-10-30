@@ -121,8 +121,8 @@ if __name__ == "__main__":
     # loaded_X_pca, loaded_pca_model, loaded_scaler, loaded_results = load_pca_data()
 
     # Process and save data
-    # csv_file_path = 'training_data.csv'
-    # process_and_save_data(file_paths, X_pca, csv_file_path)
+    csv_file_path = 'training_data.csv'
+    process_and_save_data(file_paths, X_pca, csv_file_path)
 
-    # print(f"Data has been processed and saved to {csv_file_path}")
+    print(f"Data has been processed and saved to {csv_file_path}")
 
