@@ -1,0 +1,89 @@
+Starting job with n=200, k_ratio=0.75...
+Using device: cpu
+Processing n=200, k_ratio=0.75...
+num_workers: 48
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Training model for n=200, k_ratio=0.75...
+Epoch 10/1000, Loss: 7459.7579, Validation MAE: 88.1150
+Epoch 20/1000, Loss: 6937.4298, Validation MAE: 59.3200
+Epoch 30/1000, Loss: 6904.4921, Validation MAE: 70.1982
+Epoch 40/1000, Loss: 7023.9306, Validation MAE: 61.3872
+Epoch 50/1000, Loss: 6508.0837, Validation MAE: 61.7756
+Epoch 60/1000, Loss: 6830.7134, Validation MAE: 64.7534
+Epoch 70/1000, Loss: 6554.3854, Validation MAE: 101.9667
+Epoch 80/1000, Loss: 6856.9506, Validation MAE: 59.4710
+Epoch 90/1000, Loss: 6982.3444, Validation MAE: 60.0329
+Epoch 100/1000, Loss: 33088.9783, Validation MAE: 140.4508
+Epoch 110/1000, Loss: 31166.7608, Validation MAE: 146.9187
+Epoch 120/1000, Loss: 31436.9350, Validation MAE: 136.6714
+Epoch 130/1000, Loss: 31384.2157, Validation MAE: 137.6356
+Epoch 140/1000, Loss: 31253.4828, Validation MAE: 136.0324
+Epoch 150/1000, Loss: 30988.8385, Validation MAE: 135.9110
+Epoch 160/1000, Loss: 31085.7881, Validation MAE: 147.9352
+Epoch 170/1000, Loss: 30590.2640, Validation MAE: 137.1493
+Epoch 180/1000, Loss: 30653.2752, Validation MAE: 152.9311
+Epoch 190/1000, Loss: 30840.0904, Validation MAE: 137.5007
+Epoch 200/1000, Loss: 30512.1791, Validation MAE: 134.5454
+Epoch 210/1000, Loss: 30611.2990, Validation MAE: 137.8220
+Epoch 220/1000, Loss: 30640.9232, Validation MAE: 135.8325
+Early stopping due to no improvement in validation MAE!
+Model trained for n=200, k_ratio=0.75.
+================ Diagnostic Run torch.onnx.export version 2.0.1 ================
+verbose: False, log level: Level.ERROR
+======================= 0 NONE 0 NOTE 0 WARNING 0 ERROR ========================
+
+Model saved to models/model_n200_k0.75.onnx
+
+Model Performance Metrics:
+R² Score: 0.8996
+RMSE: 194.8406
+MAE: 155.2711
+Finished processing n=200, k_ratio=0.75. Plot saved.
+Job completed for n=200, k_ratio=0.75.

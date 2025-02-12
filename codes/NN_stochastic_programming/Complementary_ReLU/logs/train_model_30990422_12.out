@@ -1,0 +1,76 @@
+Starting job with n=300, k_ratio=0.75...
+Using device: cpu
+Processing n=300, k_ratio=0.75...
+num_workers: 28
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Set parameter TokenServer to value "license1.2e.hpc.psu.edu"
+Training model for n=300, k_ratio=0.75...
+Epoch 10/1000, Loss: 17209.0139, Validation MAE: 89.7328
+Epoch 20/1000, Loss: 49891.0445, Validation MAE: 174.6689
+Epoch 30/1000, Loss: 49848.7758, Validation MAE: 176.2977
+Epoch 40/1000, Loss: 60724.6974, Validation MAE: 184.4029
+Epoch 50/1000, Loss: 18608.9531, Validation MAE: 107.2934
+Epoch 60/1000, Loss: 17245.1291, Validation MAE: 95.5897
+Epoch 70/1000, Loss: 15949.0239, Validation MAE: 86.0360
+Epoch 80/1000, Loss: 13805.3982, Validation MAE: 96.0896
+Epoch 90/1000, Loss: 13737.6613, Validation MAE: 102.6098
+Epoch 100/1000, Loss: 15034.1401, Validation MAE: 81.3816
+Epoch 110/1000, Loss: 856119.7048, Validation MAE: 790.1878
+Epoch 120/1000, Loss: 133249.1012, Validation MAE: 290.2682
+Epoch 130/1000, Loss: 127724.7524, Validation MAE: 274.9277
+Epoch 140/1000, Loss: 127460.7371, Validation MAE: 290.1884
+Epoch 150/1000, Loss: 122215.5930, Validation MAE: 354.2704
+Epoch 160/1000, Loss: 124093.3513, Validation MAE: 289.9290
+Epoch 170/1000, Loss: 123802.4830, Validation MAE: 275.8210
+Epoch 180/1000, Loss: 121364.1586, Validation MAE: 269.6318
+Epoch 190/1000, Loss: 121443.2058, Validation MAE: 277.8458
+Epoch 200/1000, Loss: 121768.6902, Validation MAE: 271.7132
+Epoch 210/1000, Loss: 119754.7898, Validation MAE: 283.7079
+Epoch 220/1000, Loss: 117310.8375, Validation MAE: 264.6585
+Epoch 230/1000, Loss: 117984.1787, Validation MAE: 261.2905
+Epoch 240/1000, Loss: 117171.9137, Validation MAE: 261.2493
+Epoch 250/1000, Loss: 118464.6001, Validation MAE: 297.7919
+Epoch 260/1000, Loss: 117137.2295, Validation MAE: 295.5905
+Epoch 270/1000, Loss: 118531.1251, Validation MAE: 264.4502
+Epoch 280/1000, Loss: 115816.4971, Validation MAE: 274.2849
+Epoch 290/1000, Loss: 116908.9277, Validation MAE: 271.2787
+Early stopping due to no improvement in validation MAE!
+Model trained for n=300, k_ratio=0.75.
+================ Diagnostic Run torch.onnx.export version 2.0.1 ================
+verbose: False, log level: Level.ERROR
+======================= 0 NONE 0 NOTE 0 WARNING 0 ERROR ========================
+
+Model saved to models/model_n300_k0.75.onnx
+
+Model Performance Metrics:
+R² Score: 0.8472
+RMSE: 359.7999
+MAE: 286.5167
+Finished processing n=300, k_ratio=0.75. Plot saved.
+Job completed for n=300, k_ratio=0.75.
