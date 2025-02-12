@@ -46,7 +46,7 @@ PICKLE_INSTANCE = UserRunTimeConfig["PICKLE_INSTANCE"]
 #############################
 ##Non configurable settings##
 #############################
-second_stage = False
+second_stage = True
 NoOfRegSeason = 4
 regular_seasons = ["winter", "spring", "summer", "fall"]
 NoOfPeakSeason = 2
@@ -110,7 +110,7 @@ print('++++++++')
 print('ID: ' + name)
 print('++++++++')
 
-seed = 42
+seed = 96
 
 if scenariogeneration:
     generate_random_scenario(filepath = scenario_data_path,
@@ -144,7 +144,7 @@ def read_fsd_from_csv(file_path):
 
 if second_stage:
     for i in range(1,9):
-        fsd_file_path = 'FSD/202410301146_616_seed_42_inv_cap.csv'
+        fsd_file_path = 'SeedSamples/reduced/fsd_seed3.csv'
         FSD = read_fsd_from_csv(fsd_file_path)
         expected_second_stage_value = run_second_stage(name = name, 
             tab_file_path = tab_file_path,
@@ -172,9 +172,10 @@ if second_stage:
             USE_TEMP_DIR = USE_TEMP_DIR,
             LOADCHANGEMODULE = LOADCHANGEMODULE,
             seed = seed,
-            specific_period = i)
+            specific_period = i,
+            file_num = 232)
         end = time.time()
-        print("SECOND STAGE RUN took [sec]: ", end - start)
+        # print("SECOND STAGE RUN took [sec]: ", end - start)
         print("EXPECTED SECOND STAGE",expected_second_stage_value)
 
 else:

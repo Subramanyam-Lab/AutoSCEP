@@ -2,7 +2,7 @@ from pyomo.environ import *
 import pandas as pd
 import csv
 
-def create_model(tab_file_path, gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap):
+def create_model(tab_file_path, gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap, north_sea):
     model = AbstractModel()
 
     Period = [i + 1 for i in range(int(8))]
@@ -18,7 +18,8 @@ def create_model(tab_file_path, gen_inv_cap, transmission_inv_cap, stor_pw_inv_c
 
     #Spatial sets
     model.Node = Set(ordered=True) #n
-    model.OffshoreNode = Set(ordered=True, within=model.Node) #n
+    if north_sea:
+        model.OffshoreNode = Set(ordered=True, within=model.Node) #n
     model.DirectionalLink = Set(dimen=2, within=model.Node*model.Node, ordered=True) #a
     model.TransmissionType = Set(ordered=True)
 
@@ -43,7 +44,8 @@ def create_model(tab_file_path, gen_inv_cap, transmission_inv_cap, stor_pw_inv_c
     data.load(filename=tab_file_path + "/" + 'Sets_DependentStorage.tab',format="set", set=model.DependentStorage)
     data.load(filename=tab_file_path + "/" + 'Sets_Technology.tab',format="set", set=model.Technology)
     data.load(filename=tab_file_path + "/" + 'Sets_Node.tab',format="set", set=model.Node)
-    data.load(filename=tab_file_path + "/" + 'Sets_OffshoreNode.tab',format="set", set=model.OffshoreNode)
+    if north_sea:
+        data.load(filename=tab_file_path + "/" + 'Sets_OffshoreNode.tab',format="set", set=model.OffshoreNode)
     data.load(filename=tab_file_path + "/" + 'Sets_Horizon.tab',format="set", set=model.Period)
     data.load(filename=tab_file_path + "/" + 'Sets_DirectionalLines.tab',format="set", set=model.DirectionalLink)
     data.load(filename=tab_file_path + "/" + 'Sets_LineType.tab',format="set", set=model.TransmissionType)
@@ -71,45 +73,6 @@ def create_model(tab_file_path, gen_inv_cap, transmission_inv_cap, stor_pw_inv_c
         return retval
     model.BidirectionalArc = Set(dimen=2, initialize=BidirectionalArc_init, ordered=True) #l
 
-    def inv_cap_allo(model, gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap):
-        # Generator
-        for (n, g) in model.GeneratorsOfNode:
-            if (n, g) in gen_inv_cap:
-                for i in model.PeriodActive:
-                    if i in gen_inv_cap[(n, g)]:
-                        cap_value = gen_inv_cap[(n, g)][i]
-                        model.genInvCap[n, g, i] = cap_value
-            else:
-                print(f"(n, g) = ({n}, {g}): Not found in gen_inv_cap")
-
-        # Transmission
-        for (n1, n2) in model.BidirectionalArc:
-            if (n1, n2) in transmission_inv_cap:
-                for i in model.PeriodActive:
-                    if i in transmission_inv_cap[(n1, n2)]:
-                        cap_value = transmission_inv_cap[(n1, n2)][i]
-                        model.transmisionInvCap[n1, n2, i] = cap_value
-            else:
-                print(f"(n1, n2) = ({n1}, {n2}): Not found in transmission_inv_cap")
-
-        # Storage
-        for (n, b) in model.StoragesOfNode:
-            if (n, b) in stor_pw_inv_cap:
-                for i in model.PeriodActive:
-                    if i in stor_pw_inv_cap[(n, b)]:
-                        cap_value = stor_pw_inv_cap[(n, b)][i]
-                        model.storPWInvCap[n, b, i] = cap_value
-            else:
-                print(f"(n, b) = ({n}, {b}): Not found in stor_pw_inv_cap")
-
-            if (n, b) in stor_en_inv_cap:
-                for i in model.PeriodActive:
-                    if i in stor_en_inv_cap[(n, b)]:
-                        cap_value = stor_en_inv_cap[(n, b)][i]
-                        model.storENInvCap[n, b, i] = cap_value
-            else:
-                print(f"(n, b) = ({n}, {b}): Not found in stor_en_inv_cap")
-        return 0
 
     ##############
     ##PARAMETERS##
@@ -119,10 +82,10 @@ def create_model(tab_file_path, gen_inv_cap, transmission_inv_cap, stor_pw_inv_c
 
 
     # new fsd param
-    model.genInvCap = Param(model.GeneratorsOfNode, model.PeriodActive, domain=NonNegativeReals, initialize=gen_inv_cap, default=0.0, mutable=True)
-    model.transmisionInvCap = Param(model.BidirectionalArc, model.PeriodActive, domain=NonNegativeReals, initialize=transmission_inv_cap, default=0.0, mutable=True)
-    model.storPWInvCap = Param(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals, initialize=stor_pw_inv_cap, default=0.0, mutable=True)
-    model.storENInvCap = Param(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals, initialize=stor_en_inv_cap, default=0.0, mutable=True)
+    model.genInvCap = Var(model.GeneratorsOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.transmisionInvCap = Var(model.BidirectionalArc, model.PeriodActive, domain=NonNegativeReals)
+    model.storPWInvCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
+    model.storENInvCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
     
     # variables
     model.genInstalledCap = Var(model.GeneratorsOfNode, model.PeriodActive, domain=NonNegativeReals)
@@ -381,32 +344,124 @@ def create_model(tab_file_path, gen_inv_cap, transmission_inv_cap, stor_pw_inv_c
     model.installed_storage_energy_cap = Constraint(model.StoragesOfNode, model.PeriodActive, rule=installed_storage_energy_cap_rule)
 
     #################################################################
+    
+    if north_sea:
+        def wind_farm_tranmission_cap_rule(model, n1, n2, i):
+            if n1 in model.OffshoreNode or n2 in model.OffshoreNode:
+                if (n1,n2) in model.BidirectionalArc:
+                    if n1 in model.OffshoreNode:
+                        return model.transmissionInstalledCap[(n1,n2),i] <= sum(model.genInstalledCap[n1,g,i] for g in model.Generator if (n1,g) in model.GeneratorsOfNode)
+                    else:
+                        return model.transmissionInstalledCap[(n1,n2),i] <= sum(model.genInstalledCap[n2,g,i] for g in model.Generator if (n2,g) in model.GeneratorsOfNode)
+                elif (n2,n1) in model.BidirectionalArc:
+                    if n1 in model.OffshoreNode:
+                        return model.transmissionInstalledCap[(n2,n1),i] <= sum(model.genInstalledCap[n1,g,i] for g in model.Generator if (n1,g) in model.GeneratorsOfNode)
+                    else:
+                        return model.transmissionInstalledCap[(n2,n1),i] <= sum(model.genInstalledCap[n2,g,i] for g in model.Generator if (n2,g) in model.GeneratorsOfNode)
+                else:
+                    return Constraint.Skip
+            else:
+                return Constraint.Skip
+        model.wind_farm_transmission_cap = Constraint(model.Node, model.Node, model.PeriodActive, rule=wind_farm_tranmission_cap_rule)
 
-    return model, data
+    #################################################################
+
+    def power_energy_relate_rule(model, n, b, i):
+        if b in model.DependentStorage:
+            return model.storPWInstalledCap[n,b,i] - model.storagePowToEnergy[b]*model.storENInstalledCap[n,b,i] == 0   #
+        else:
+            return Constraint.Skip
+    model.power_energy_relate = Constraint(model.StoragesOfNode, model.PeriodActive, rule=power_energy_relate_rule)
+
+    #################################################################
+
+    instance = model.create_instance(data)
+
+    return instance
+
+# def load_investment_data(fsd_data):
+#     gen_inv_cap = {}
+#     transmission_inv_cap = {}
+#     stor_pw_inv_cap = {}
+#     stor_en_inv_cap = {}
+
+#     for row in fsd_data:
+#         node, energy_type, period, type_, cap_value = row
+#         period = int(period)
+#         cap_value = float(cap_value)
+
+#         index = (node, energy_type, period)
+
+#         if type_ == 'Generation':
+#             gen_inv_cap[index] = cap_value
+#         elif type_ == 'Transmission':
+#             transmission_inv_cap[index] = cap_value
+#         elif type_ == 'Storage Power':
+#             stor_pw_inv_cap[index] = cap_value
+#         elif type_ == 'Storage Energy':
+#             stor_en_inv_cap[index] = cap_value
+
+#     return gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap
+
 
 def load_investment_data(fsd_data):
     gen_inv_cap = {}
     transmission_inv_cap = {}
     stor_pw_inv_cap = {}
     stor_en_inv_cap = {}
-
+    
     for row in fsd_data:
-        node, energy_type, period, type_, cap_value = row
+        country, energy_type, period, type_, cap_value = row
         period = int(period)
         cap_value = float(cap_value)
-
-        index = (node, energy_type, period)
-
+        
         if type_ == 'Generation':
-            gen_inv_cap[index] = cap_value
+            if (country, energy_type) not in gen_inv_cap:
+                gen_inv_cap[(country, energy_type)] = {}
+            gen_inv_cap[(country, energy_type)][period] = cap_value
         elif type_ == 'Transmission':
-            transmission_inv_cap[index] = cap_value
+            if (country, energy_type) not in transmission_inv_cap:
+                transmission_inv_cap[(country, energy_type)] = {}
+            transmission_inv_cap[(country, energy_type)][period] = cap_value
         elif type_ == 'Storage Power':
-            stor_pw_inv_cap[index] = cap_value
+            if (country, energy_type) not in stor_pw_inv_cap:
+                stor_pw_inv_cap[(country, energy_type)] = {}
+            stor_pw_inv_cap[(country, energy_type)][period] = cap_value
         elif type_ == 'Storage Energy':
-            stor_en_inv_cap[index] = cap_value
+            if (country, energy_type) not in stor_en_inv_cap:
+                stor_en_inv_cap[(country, energy_type)] = {}
+            stor_en_inv_cap[(country, energy_type)][period] = cap_value
 
     return gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap
+
+
+def inv_allo(instance,gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap):
+    # Fix variables to FSD values
+    for (n, g), cap_values in gen_inv_cap.items():
+        for i, cap_value in cap_values.items():
+            if (n, g, i) in instance.genInvCap:
+                instance.genInvCap[n, g, i].fix(cap_value)
+
+    # Repeat for other variables
+    # Fix transmission investment capacities
+    for (n1, n2), cap_values in transmission_inv_cap.items():
+        for i, cap_value in cap_values.items():
+            if (n1, n2, i) in instance.transmisionInvCap:
+                instance.transmisionInvCap[n1, n2, i].fix(cap_value)
+
+    # Fix storage power investment capacities
+    for (n, b), cap_values in stor_pw_inv_cap.items():
+        for i, cap_value in cap_values.items():
+            if (n, b, i) in instance.storPWInvCap:
+                instance.storPWInvCap[n, b, i].fix(cap_value)
+
+    # Fix storage energy investment capacities
+    for (n, b), cap_values in stor_en_inv_cap.items():
+        for i, cap_value in cap_values.items():
+            if (n, b, i) in instance.storENInvCap:
+                instance.storENInvCap[n, b, i].fix(cap_value)
+    
+    return instance
 
 
 def check_model_feasibility(instance):
@@ -419,8 +474,8 @@ def check_model_feasibility(instance):
         print("infeasible.")
         return False
     else:
-        print(f"Solver Termination Condition: {results.solver.termination_condition}")
-        print("Couldn't evaluate feasibility")
+        # print(f"Solver Termination Condition: {results.solver.termination_condition}")
+        #print("Couldn't evaluate feasibility")
         return None
 
 

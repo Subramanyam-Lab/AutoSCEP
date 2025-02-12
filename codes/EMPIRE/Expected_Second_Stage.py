@@ -13,19 +13,20 @@ import numpy as np
 import multiprocessing
 from datetime import datetime
 import json
+import shutil
 
 
 def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, scenario_data_path,
                solver, temp_dir, FirstHoursOfRegSeason, FirstHoursOfPeakSeason, lengthRegSeason,
                lengthPeakSeason, Period, Operationalhour, Scenario, Season, HoursOfSeason,
                discountrate, WACC, LeapYearsInvestment, FSD, WRITE_LP,
-               PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE,seed,specific_period):
+               PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE,seed,specific_period,file_num):
 
     if USE_TEMP_DIR:
         TempfileManager.tempdir = temp_dir
 
-    if not os.path.exists(result_file_path):
-        os.makedirs(result_file_path)
+    # if not os.path.exists(result_file_path):
+    #     os.makedirs(result_file_path)
 
     model = AbstractModel()
 
@@ -64,8 +65,8 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     # Temporal sets
     model.Period = Set(ordered=True) #max period
     model.Periodwhole = Set(ordered=True, initialize=Period)
-    model.PeriodActive = Set(initialize=period_filter)
-    # model.PeriodActive = Set(ordered=True, initialize=Period) #i
+    # model.PeriodActive = Set(initialize=period_filter)
+    model.PeriodActive = Set(ordered=True, initialize=Period) #i
     model.Operationalhour = Set(ordered=True, initialize=Operationalhour) #h
     model.Season = Set(ordered=True, initialize=Season) #s
 
@@ -198,7 +199,8 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     model.genFuelCost = Param(model.Generator, model.Period, default=0.0, mutable=True)
     model.genMargCost = Param(model.Generator, model.Period, default=600, mutable=True)
     model.genCO2TypeFactor = Param(model.Generator, default=0.0, mutable=True)
-    model.nodeLostLoadCost = Param(model.Node, model.Period, default=22000.0)
+    # model.nodeLostLoadCost = Param(model.Node, model.Period, default=22000.0)
+    model.nodeLostLoadCost = Param(model.Node, model.Period, default=10.0)
     model.CO2price = Param(model.Period, default=0.0, mutable=True)
     model.CCSCostTSFix = Param(initialize=1149873.72) #NB! Hard-coded
     model.CCSCostTSVariable = Param(model.Period, default=0.0, mutable=True)
@@ -383,7 +385,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
         #Build load profiles for all periods
 
         counter = 0
-        f = open(result_file_path + '/AdjustedNegativeLoad_' + name + '.txt', 'w')
+#       f = open(result_file_path + '/AdjustedNegativeLoad_' + name + '.txt', 'w')
         for n in model.Node:
             for i in model.PeriodActive:
                 noderawdemand = 0
@@ -401,12 +403,12 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
                         if LOADCHANGEMODULE:
                             model.sload[n,h,i,sce] = model.sload[n,h,i,sce] + model.sloadMod[n,h,sce,i]
                         if value(model.sload[n,h,i,sce]) < 0:
-                            f.write('Adjusted electricity load: ' + str(value(model.sload[n,h,i,sce])) + ', 10 MW for hour ' + str(h) + ' and scenario ' + str(sce) + ' in ' + str(n) + "\n")
+#                            f.write('Adjusted electricity load: ' + str(value(model.sload[n,h,i,sce])) + ', 10 MW for hour ' + str(h) + ' and scenario ' + str(sce) + ' in ' + str(n) + "\n")
                             model.sload[n,h,i,sce] = 10
                             counter += 1
 
-        f.write('Hours with too small raw electricity load: ' + str(counter))
-        f.close()
+#        f.write('Hours with too small raw electricity load: ' + str(counter))
+#        f.close()
 
     model.build_sload = BuildAction(rule=prepSload_rule)
 
@@ -617,17 +619,6 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     calculate_transmission_installed_cap(instance)
     calculate_storage_installed_cap(instance)
 
-    if WRITE_LP:
-        print("Writing LP-file...")
-        start = time.time()
-        lpstring = 'LP_' + name + '.lp'
-        if USE_TEMP_DIR:
-            lpstring = temp_dir + '/LP_'+ name + '.lp'
-        instance.write(lpstring, io_options={'symbolic_solver_labels': True})
-        end = time.time()
-        print("Writing LP-file took [sec]:")
-        print(end - start)
-
     print("Solving...")
 
     if solver == "CPLEX":
@@ -651,7 +642,7 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
     if solver == "GLPK":
         opt = SolverFactory("glpk", Verbose=True)
 
-    results = opt.solve(instance, tee=False, logfile=result_file_path + '\logfile_' + name + '.log')#, keepfiles=True, symbolic_solver_labels=True)
+    results = opt.solve(instance, tee=False)#, keepfiles=True, symbolic_solver_labels=True)
     print("Solver Status:", results.solver.status)
     print("Solver Termination Condition:", results.solver.termination_condition)
 
@@ -659,52 +650,75 @@ def run_second_stage(name, tab_file_path, result_file_path, scenariogeneration, 
         print("Warning: Solver did not find an optimal solution!")
     else:
         obj_value = value(instance.Obj)
-        print(f"obj_value: {obj_value}")
+        print(f"obj_value: {obj_value}, seed: {seed}, specific_period: {specific_period}")
         num_scenarios = len(instance.Scenario)
-        get_x_xi_results(instance, num_scenarios, seed)        
+        get_x_xi_results(instance, num_scenarios, seed, specific_period,file_num)           
+
+        if os.path.exists(scenariopath):
+            shutil.rmtree(scenariopath)
 
         return obj_value
 
-def get_x_xi_results(instance, num_scenarios, seed):
-    # First stage state variables (v_i)
-    v_i = {i: {'v_i': {}} for i in instance.PeriodActive}
-    for i in instance.PeriodActive:
-        # v_i
-        v_i[i]['v_i']['genInstalledCap'] = {str((n, g)): get_value(instance.genInstalledCap[n, g, i])
-                                              for n, g in instance.GeneratorsOfNode}
-        v_i[i]['v_i']['transmissionInstalledCap'] = {str((n1, n2)): get_value(instance.transmissionInstalledCap[n1, n2, i])
-                                                       for n1, n2 in instance.BidirectionalArc}
-        v_i[i]['v_i']['storPWInstalledCap'] = {str((n, b)): get_value(instance.storPWInstalledCap[n, b, i])
-                                                 for n, b in instance.StoragesOfNode}
-        v_i[i]['v_i']['storENInstalledCap'] = {str((n, b)): get_value(instance.storENInstalledCap[n, b, i])
-                                                 for n, b in instance.StoragesOfNode}
+def get_x_xi_results(instance, num_scenarios, seed,period,file_num):
+    i = period
+    # First stage control variables (x_i)
+    x_i = {i: {'x_i': {}}}
+
+    x_i[i]['x_i']['genInvCap'] = {str((n, g)): get_value(instance.genInvCapParam[n, g, i])
+                                            for n, g in instance.GeneratorsOfNode}
+    x_i[i]['x_i']['transmisionInvCap'] = {str((n1, n2)): get_value(instance.transmisionInvCapParam[n1, n2, i])
+                                                    for n1, n2 in instance.BidirectionalArc}
+    x_i[i]['x_i']['storPWInvCap'] = {str((n, b)): get_value(instance.storPWInvCapParam[n, b, i])
+                                                for n, b in instance.StoragesOfNode}
+    x_i[i]['x_i']['storENInvCap'] = {str((n, b)): get_value(instance.storENInvCapParam[n, b, i])
+                                                for n, b in instance.StoragesOfNode}
+
+    # First stage state variables (v_i)    
+    # v_i = {i: {'v_i': {}} for i in instance.PeriodActive}
+    v_i = {i: {'v_i': {}}}
+    # for i in instance.PeriodActive:
+        
+    v_i[i]['v_i']['genInstalledCap'] = {str((n, g)): get_value(instance.genInstalledCap[n, g, i])
+                                            for n, g in instance.GeneratorsOfNode}
+    v_i[i]['v_i']['transmissionInstalledCap'] = {str((n1, n2)): get_value(instance.transmissionInstalledCap[n1, n2, i])
+                                                    for n1, n2 in instance.BidirectionalArc}
+    v_i[i]['v_i']['storPWInstalledCap'] = {str((n, b)): get_value(instance.storPWInstalledCap[n, b, i])
+                                                for n, b in instance.StoragesOfNode}
+    v_i[i]['v_i']['storENInstalledCap'] = {str((n, b)): get_value(instance.storENInstalledCap[n, b, i])
+                                                for n, b in instance.StoragesOfNode}
 
     # Scenario data (ξ_i) and second-stage value (Q_i)
-    xi_Q_i = {i: {'xi_i': {}, 'Q_i': {}} for i in instance.PeriodActive}
-    for i in instance.PeriodActive:
-        # ξ_i
-        xi_Q_i[i]['xi_i']['sload'] = {str((n, h, w)): get_value(instance.sload[n, h, i, w])
-                                      for n in instance.Node 
-                                      for h in instance.Operationalhour 
-                                      for w in instance.Scenario}
-        xi_Q_i[i]['xi_i']['maxRegHydroGen'] = {str((n, s, w)): get_value(instance.maxRegHydroGen[n, i, s, w])
-                                               for n in instance.Node 
-                                               for s in instance.Season 
-                                               for w in instance.Scenario}
-        xi_Q_i[i]['xi_i']['genCapAvail'] = {str((n, g, h, w)): get_value(instance.genCapAvail[n, g, h, w, i])
-                                            for n, g in instance.GeneratorsOfNode 
-                                            for h in instance.Operationalhour 
+    # xi_Q_i = {i: {'xi_i': {}, 'Q_i': {}} for i in instance.PeriodActive}
+    xi_Q_i = {i: {'xi_i': {}, 'Q_i': {}} }
+    # for i in instance.PeriodActive:
+    
+    xi_Q_i[i]['xi_i']['sload'] = {str((n, h, w)): get_value(instance.sload[n, h, i, w])
+                                    for n in instance.Node 
+                                    for h in instance.Operationalhour 
+                                    for w in instance.Scenario}
+    xi_Q_i[i]['xi_i']['maxRegHydroGen'] = {str((n, s, w)): get_value(instance.maxRegHydroGen[n, i, s, w])
+                                            for n in instance.Node 
+                                            for s in instance.Season 
                                             for w in instance.Scenario}
-        
-        # Q_i (second-stage value for each scenario)
-        xi_Q_i[i]['Q_i'] = {w: calculate_Q_i(instance, i, w) for w in instance.Scenario}
+    xi_Q_i[i]['xi_i']['genCapAvail'] = {str((n, g, h, w)): get_value(instance.genCapAvail[n, g, h, w, i])
+                                        for n, g in instance.GeneratorsOfNode 
+                                        for h in instance.Operationalhour 
+                                        for w in instance.Scenario}
+    
+    # Q_i (second-stage value for each scenario)
+    # xi_Q_i[i]['Q_i'] = {w: calculate_Q_i(instance, i, w) for w in instance.Scenario}
+    for w in instance.Scenario:
+        operational_cost, shed_cost, scaled_q_i, q_i = calculate_Q_i(instance, i, w) 
+    
+    xi_Q_i[i]['Q_i']['operational_cost'] = {w: operational_cost}
+    xi_Q_i[i]['Q_i']['shed_cost'] = {w: shed_cost}
+    xi_Q_i[i]['Q_i']['scaled_Q_i'] = {w: scaled_q_i}
+    xi_Q_i[i]['Q_i']['raw_Q_i'] = {w: q_i}
 
-    # period = value(instance.PeriodActive[1])
-    period = instance.PeriodActive.at(1) 
     # Save results
-    save_results(v_i, xi_Q_i, num_scenarios,seed,period)
+    save_results(x_i, v_i, xi_Q_i, num_scenarios,seed,period,file_num)
 
-    return v_i, xi_Q_i
+    return x_i, v_i, xi_Q_i
 
 def get_value(param):
     return param.value if hasattr(param, 'value') else param
@@ -719,18 +733,136 @@ def calculate_Q_i(instance, i, w):
                     for n in instance.Node 
                     for (s,h) in instance.HoursOfSeason)
 
-    q_i = value(instance.discount_multiplier[i]) * (operational_cost + shed_cost)
-    return q_i
+    scaled_q_i = value(instance.discount_multiplier[i]) * (operational_cost + shed_cost)
+    q_i = (operational_cost + shed_cost)
+    
+    return operational_cost, shed_cost, scaled_q_i, q_i
 
-def save_results(v_i, xi_Q_i, num_scenarios,seed,period):
-    output_dir = f"results_{num_scenarios}_scenarios"
+def save_results(x_i, v_i, xi_Q_i, num_scenarios,seed,period, file_num):
+    output_dir = f"results_{num_scenarios+4}_scenarios"
     os.makedirs(output_dir, exist_ok=True)
     timestamp = datetime.now().strftime('%Y%m%d%H%M')
 
+    with open(f"{output_dir}/x_{period}_period_{seed}_seed_{file_num}_filenum_{timestamp}.json", 'w') as f:
+        json.dump(x_i, f)
+
     # Save v_i
-    with open(f"{output_dir}/v_{period}_period_{num_scenarios}_scenarios_{seed}_seed_{timestamp}.json", 'w') as f:
+    with open(f"{output_dir}/v_{period}_period_{seed}_seed_{file_num}_filenum_{timestamp}.json", 'w') as f:
         json.dump(v_i, f)
 
     # Save xi_Q_i
-    with open(f"{output_dir}/xi_Q_{period}_period_{num_scenarios}_scenarios_{seed}_seed_{timestamp}.json", 'w') as f:
+    with open(f"{output_dir}/xi_Q_{period}_period_{seed}_seed_{file_num}_filenum_{timestamp}.json", 'w') as f:
         json.dump(xi_Q_i, f)
+
+
+
+######################### Not Period Dependent #########################
+
+# def get_x_results(instance, num_scenarios, seed,file_num):
+#     x = {'x': {}}
+#     x['x']['genInvCap'] = {str((n, g, i)): get_value(instance.genInvCapParam[n, g, i])
+#                                             for n, g in instance.GeneratorsOfNode 
+#                                             for i in instance.PeriodActive}
+#     x['x']['transmissionInvCap'] = {str((n1, n2, i)): get_value(instance.transmisionInvCapParam[n1, n2, i])
+#                                                     for n1, n2 in instance.BidirectionalArc
+#                                                     for i in instance.PeriodActive}
+#     x['x']['storPWInvCap'] = {str((n, b, i)): get_value(instance.storPWInvCapParam[n, b, i])
+#                                                 for n, b in instance.StoragesOfNode
+#                                                 for i in instance.PeriodActive}
+#     x['x']['storENInVCap'] = {str((n, b, i)): get_value(instance.storENInvCapParam[n, b, i])
+#                                                 for n, b in instance.StoragesOfNode
+#                                                 for i in instance.PeriodActive}
+
+#     # Save results
+#     output_dir = f"results_{num_scenarios}_scenarios"
+#     os.makedirs(output_dir, exist_ok=True)
+#     timestamp = datetime.now().strftime('%Y%m%d%H%M')
+
+#     # Save v
+#     with open(f"{output_dir}/x_{num_scenarios}_scenarios_{seed}_seed_{file_num}_filenum_{timestamp}.json", 'w') as f:
+#         json.dump(x, f)
+
+#     return 0
+
+# def get_v_xi_results(instance, num_scenarios, seed,file_num):
+#     v = {'v': {}}
+#     v['v']['genInstalledCap'] = {str((n, g, i)): get_value(instance.genInstalledCap[n, g, i])
+#                                             for n, g in instance.GeneratorsOfNode 
+#                                             for i in instance.PeriodActive}
+#     v['v']['transmissionInstalledCap'] = {str((n1, n2, i)): get_value(instance.transmissionInstalledCap[n1, n2, i])
+#                                                     for n1, n2 in instance.BidirectionalArc
+#                                                     for i in instance.PeriodActive}
+#     v['v']['storPWInstalledCap'] = {str((n, b, i)): get_value(instance.storPWInstalledCap[n, b, i])
+#                                                 for n, b in instance.StoragesOfNode
+#                                                 for i in instance.PeriodActive}
+#     v['v']['storENInstalledCap'] = {str((n, b, i)): get_value(instance.storENInstalledCap[n, b, i])
+#                                                 for n, b in instance.StoragesOfNode
+#                                                 for i in instance.PeriodActive}
+
+
+#     # Scenario data (ξ_i) and second-stage value (Q_i)
+#     xi_Q = {'xi': {}, 'Q': {}}
+    
+#     xi_Q['xi']['sload'] = {str((n, h, w, i)): get_value(instance.sload[n, h, i, w])
+#                                     for n in instance.Node 
+#                                     for h in instance.Operationalhour 
+#                                     for w in instance.Scenario
+#                                     for i in instance.PeriodActive}
+#     xi_Q['xi']['maxRegHydroGen'] = {str((n, s, w, i)): get_value(instance.maxRegHydroGen[n, i, s, w])
+#                                             for n in instance.Node 
+#                                             for s in instance.Season 
+#                                             for w in instance.Scenario
+#                                             for i in instance.PeriodActive}
+#     xi_Q['xi']['genCapAvail'] = {str((n, g, h, w, i)): get_value(instance.genCapAvail[n, g, h, w, i])
+#                                         for n, g in instance.GeneratorsOfNode 
+#                                         for h in instance.Operationalhour 
+#                                         for w in instance.Scenario
+#                                         for i in instance.PeriodActive}
+        
+#     # Q_i (second-stage value for each scenario)
+#     # xi_Q['Q'] = {w: calculate_Q(instance,w) for w in instance.Scenario}
+#     xi_Q['Q'] = {w: value(instance.Obj) for w in instance.Scenario}
+
+#     # Save results
+#     save_results(v, xi_Q, num_scenarios,seed,file_num)
+
+#     return v, xi_Q
+
+# def get_value(param):
+#     return param.value if hasattr(param, 'value') else param
+
+# def calculate_Q(instance, w):
+#     # Calculate Q_i for a specific period i and scenario w
+#     q = 0
+#     def operational(i):
+#         operational_cost = sum(get_value(instance.operationalDiscountrate)*get_value(instance.seasScale[s]) * get_value(instance.genMargCost[g,i]) * get_value(instance.genOperational[n,g,h,i,w])
+#                             for (n,g) in instance.GeneratorsOfNode 
+#                             for (s,h) in instance.HoursOfSeason)
+#         return operational_cost
+    
+#     def shed(i):
+#         shed_cost = sum(get_value(instance.operationalDiscountrate)*get_value(instance.seasScale[s]) * get_value(instance.nodeLostLoadCost[n,i]) * get_value(instance.loadShed[n,h,i,w])
+#                         for n in instance.Node 
+#                         for (s,h) in instance.HoursOfSeason)
+#         return shed_cost
+    
+#     for i in instance.PeriodActive:
+#         q += value(instance.discount_multiplier[i]) * (operational(i) + shed(i))
+    
+#     return q
+
+# def save_results(v, xi_Q, num_scenarios,seed,file_num):
+#     output_dir = f"results_{num_scenarios}_scenarios"
+#     os.makedirs(output_dir, exist_ok=True)
+#     timestamp = datetime.now().strftime('%Y%m%d%H%M')
+
+#     # Save v
+#     with open(f"{output_dir}/v_{num_scenarios}_scenarios_{seed}_seed_{file_num}_filenum_{timestamp}.json", 'w') as f:
+#         json.dump(v, f)
+
+#     # Save xi_Q
+#     with open(f"{output_dir}/xi_Q_{num_scenarios}_scenarios_{seed}_seed_{file_num}_filenum_{timestamp}.json", 'w') as f:
+#         json.dump(xi_Q, f)
+
+
+

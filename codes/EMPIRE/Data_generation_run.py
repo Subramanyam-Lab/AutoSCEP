@@ -15,6 +15,15 @@ import time
 import logging
 import argparse
 import random
+import numpy as np
+import os
+import re
+import glob
+import ast
+from multiprocessing import Pool
+from concurrent.futures import ProcessPoolExecutor
+
+
 
 def read_fsd_from_csv(file_path):
     with open(file_path, 'r') as csvfile:
@@ -24,7 +33,8 @@ def read_fsd_from_csv(file_path):
     return fsd_data
 
 
-def run_experiment(seed,specific_period,fsd_file_path):
+def run_experiment(seed,specific_period,file_num, fsd_file_path):
+# def run_experiment(seed,file_num,fsd_file_path):
     UserRunTimeConfig = safe_load(open("config_reducedrun.yaml"))
 
     # Extract all the configuration variables as in your original code
@@ -75,7 +85,8 @@ def run_experiment(seed,specific_period,fsd_file_path):
         name += f"_filter{n_cluster}"
     if moment_matching:
         name += f"_moment{n_tree_compare}"
-    name += f"_seed{seed}_period{specific_period}{timestamp}"
+    name += f"_seed{seed}_period{specific_period}_filenum{file_num}_{timestamp}"
+    # name += f"_seed{seed}_filenum{file_num}_{timestamp}"
 
     workbook_path = 'Data handler/' + version
     tab_file_path = 'Data handler/' + version + '/Tab_Files_' + name
@@ -83,7 +94,7 @@ def run_experiment(seed,specific_period,fsd_file_path):
     result_file_path = 'Results/' + name
 
     os.makedirs(tab_file_path, exist_ok=True)
-    os.makedirs(result_file_path, exist_ok=True)
+    # os.makedirs(result_file_path, exist_ok=True)
 
     FirstHoursOfRegSeason = [lengthRegSeason*i + 1 for i in range(NoOfRegSeason)]
     FirstHoursOfPeakSeason = [lengthRegSeason*NoOfRegSeason + lengthPeakSeason*i + 1 for i in range(NoOfPeakSeason)]
@@ -123,6 +134,7 @@ def run_experiment(seed,specific_period,fsd_file_path):
         
 
     print(f'Running scenario with SEED={seed} and PERIOD={specific_period}')
+    # print(f'Running scenario with SEED={seed}')
 
     if scenariogeneration:
         generate_random_scenario(
@@ -175,32 +187,110 @@ def run_experiment(seed,specific_period,fsd_file_path):
         USE_TEMP_DIR = USE_TEMP_DIR,
         LOADCHANGEMODULE = LOADCHANGEMODULE,
         seed=seed,
-        specific_period = specific_period)
+        specific_period = specific_period,
+        file_num = file_num)
+
+
+def extract_file_info(filename):
+    """Extracts the file number from the filename."""
+    pattern = r'DataSamples_zero_prob/sample_(\d+)'
+    match = re.search(pattern, filename)
+    if match:
+        filenum = int(match.group(1))  # Extract the numeric part as an integer
+        return filenum
+    return None
+
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--period', type=int, required=True, help='Specific period')
+    import argparse
+    
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description='Run experiment with specific parameters')
+    parser.add_argument('--file_num', type=int, help='File number to process')
+    parser.add_argument('--period', type=int, help='Period to process')
+    parser.add_argument('--seed', type=int, help='Random seed')
+    
     args = parser.parse_args()
-
-    specific_period = args.period
-
-    for i in range(30):
-        fsd_file_path = f"FSDsamples/sampled_data_{i+1}.csv"
-
-        N = 10   # Number of seeds to generate
-        M = 10   # maximum number of parallel processes
-
-        # Generate N random seeds
-        seeds = [random.randint(1, 1000000) for _ in range(N)]
-
-        print(f"Running for PERIOD={specific_period} with seeds: {seeds} about {i+1}-th fsd file")
-
-        # Limit the number of processes if needed
-        num_processes = min(N, M)  # Adjust '10' to the desired maximum number of parallel processes
-
-        # Use multiprocessing to run experiments in parallel
-        with multiprocessing.Pool(processes=num_processes) as pool:
-            pool.starmap(run_experiment, [(seed, specific_period,fsd_file_path) for seed in seeds])
+    
+    # Construct file path
+    file_path = f"DataSamples_EMPIRE/sample_{args.file_num}.csv"
+    
+    # Log the parameters for debugging
+    print(f"Running with parameters: File={args.file_num}, Period={args.period}, Seed={args.seed}")
+    
+    try:
+        # Run the experiment with provided parameters
+        run_experiment(
+            seed=args.seed,
+            specific_period=args.period,
+            file_num=args.file_num,
+            fsd_file_path=file_path
+        )
+        print(f"Successfully completed experiment: File={args.file_num}, Period={args.period}")
+        
+    except Exception as e:
+        print(f"Error running experiment: {str(e)}")
+        raise  # Re-raise the exception to ensure the job fails properly
 
 if __name__ == "__main__":
     main()
+
+
+# def main():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument('--num', type=int, required=True, help='File num')
+#     args = parser.parse_args()
+
+#     i = args.num
+#     fsd_file_path = f"DataSamples/sample_{i+1}.csv"
+    
+#     seed = np.random.randint(1,10000)
+    
+#     print(f"Running for seed: {seed} and for period: {j} about {i+1}-th fsd file")
+#     run_experiment(seed, j ,i+1,fsd_file_path)
+
+
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('--period', type=int, required=True, help='Specific period')
+    # args = parser.parse_args()
+
+    # specific_period = args.period
+
+    # for i in range(30):
+    #     fsd_file_path = f"FSDsamples/sampled_data_{i+1}.csv"
+
+    #     N = 10   # Number of seeds to generate
+    #     M = 10   # maximum number of parallel processes
+
+    #     # Generate N random seeds
+    #     seeds = [random.randint(1, 1000) for _ in range(N)]
+
+    #     print(f"Running for PERIOD={specific_period} with seeds: {seeds} about {i+1}-th fsd file")
+
+    #     # Limit the number of processes if needed
+    #     num_processes = min(N, M)  # Adjust '10' to the desired maximum number of parallel processes
+
+    #     # Use multiprocessing to run experiments in parallel
+    #     with multiprocessing.Pool(processes=num_processes) as pool:
+    #         pool.starmap(run_experiment, [(seed, specific_period,fsd_file_path) for seed in seeds])
+
+
+
+# def main():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument('--num', type=int, required=True, help='File num')
+#     args = parser.parse_args()
+
+#     i = args.num
+
+#     fsd_file_path = f"DataSamples/sample_{i+1}.csv"
+    
+#     # Generate N random seeds
+#     seed = np.random.randint(1,100)
+
+#     print(f"Running for seed: {seed} about {i+1}-th fsd file")
+#     run_experiment(seed, i+1 ,fsd_file_path)
+
+# if __name__ == "__main__":
+#     main()
+

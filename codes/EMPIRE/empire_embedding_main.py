@@ -2,7 +2,7 @@
 from reader import generate_tab_files
 from first_stage_empire import run_first_stage
 from NEUREMPIRE import run_empire
-from ml_preprocessing import load_data, ML_trainig, ML_embedding,selected_var_mapping,var_mapping, get_gurobi_installed_cap_vars
+from ml_preprocessing import load_data, ML_training, ML_embedding,selected_var_mapping, preprocessing_data,input_var_mapping
 from scenario_random import generate_random_scenario
 from datetime import datetime
 from yaml import safe_load
@@ -19,6 +19,7 @@ from sklearn.model_selection import KFold, train_test_split
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.neural_network import MLPRegressor
 import ast
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 import torch
@@ -45,16 +46,24 @@ import numpy as np
 import multiprocessing
 import json
 from gurobi_ml import add_predictor_constr
-from gurobi_ml.sklearn import add_decision_tree_regressor_constr,add_linear_regression_constr
+from gurobi_ml.sklearn import add_decision_tree_regressor_constr,add_linear_regression_constr,add_mlp_regressor_constr
 from gurobi_ml.sklearn import add_standard_scaler_constr
+import argparse
+import csv
+import os
+from pathlib import Path
+from Embed_Model_validation import run_validation
 
 
-def main():
-    # Set random seeds for reproducibility
-    SEED = 42
-    np.random.seed(SEED)
-    torch.manual_seed(SEED)
+def read_fsd_from_csv(file_path):
+    with open(file_path, 'r') as csvfile:
+        csv_reader = csv.reader(csvfile)
+        next(csv_reader)  
+        fsd_data = [row for row in csv_reader]
+    return fsd_data
 
+def main(SEED):
+    
     UserRunTimeConfig = safe_load(open("config_reducedrun.yaml"))
 
     USE_TEMP_DIR = UserRunTimeConfig["USE_TEMP_DIR"]
@@ -96,7 +105,10 @@ def main():
         north_sea = False
     else:
         north_sea = True
-      
+
+
+    SEED_range = [SEED+i for i in range(NoOfScenarios)] 
+    print(f'Seed Sets {SEED_range}') 
     #######
     ##RUN##
     #######
@@ -115,7 +127,7 @@ def main():
         name = name + "_moment" + str(n_tree_compare)
     name = name + str(datetime.now().strftime("_%Y%m%d%H%M"))
     workbook_path = 'Data handler/' + version
-    tab_file_path = 'Data handler/' + version + '/Tab_Files_' + name
+    tab_file_path = 'Data handler/' + version + '/Tab_Files_' + name + f'_{SEED}'
     scenario_data_path = 'Data handler/' + version + '/ScenarioData'
     result_file_path = 'Results/' + name
     FirstHoursOfRegSeason = [lengthRegSeason*i + 1 for i in range(NoOfRegSeason)]
@@ -155,7 +167,8 @@ def main():
                                 n_tree_compare = n_tree_compare,
                                 fix_sample = fix_sample,
                                 north_sea = False,
-                                LOADCHANGEMODULE = LOADCHANGEMODULE)
+                                LOADCHANGEMODULE = LOADCHANGEMODULE,
+                                seed = SEED_range)
 
     generate_tab_files(filepath = workbook_path, tab_file_path = tab_file_path)
 
@@ -217,20 +230,14 @@ def main():
 
     ##################################
     ######### Model Train ############
-    file_path = 'cleaned_unique_combination_data.csv'
-    X, y = load_data(file_path)
-
-    X_train_full, X_test, y_train_full, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=SEED
-    )
+    file_path = 'training_data5.csv'
+    v_i,xi_i,y = load_data(file_path)
+    X_train, y_train, X_test, y_test = preprocessing_data(v_i,xi_i,y)
 
     print('\nTraining Model')
     # Initialize scalers for final evaluation
-    scaler_X_final = StandardScaler()
-    scaler_y_final = StandardScaler()
-    trained_lr, trained_dt = ML_trainig(
-        X_train_full, y_train_full, X_test, y_test,
-        scaler_X_final, scaler_y_final
+    trained_lr, trained_dt, trained_mlp = ML_training(
+        X_train, y_train, X_test, y_test
     )
     ######### Model Train ############
     ##################################
@@ -242,33 +249,218 @@ def main():
     gurobi_model.update()
 
     # Create a mapping from Pyomo variables to Gurobi variables
-    # sorted_indices_var, pyomo_var_to_gurobi_var = var_mapping(instance,solver)
     pyomo_var_to_gurobi_var = solver._pyomo_var_to_solver_var_map
-    gurobi_model = get_gurobi_installed_cap_vars(instance, gurobi_model,pyomo_var_to_gurobi_var)
+    # gurobi_model = get_gurobi_installed_cap_vars(instance, gurobi_model,pyomo_var_to_gurobi_var)
     
-    for period in range(1,9):
-        # gurobi_inv_cap_vars = get_gurobi_inv_cap_vars(instance, gurobi_model, period)
-        sorted_indices, pyomo_var_to_gurobi_var_ml = selected_var_mapping(instance, solver, period)
-        gurobi_model = ML_embedding(instance, gurobi_model, trained_lr,trained_dt, sorted_indices, pyomo_var_to_gurobi_var_ml, period,scaler_X_final, scaler_y_final)
-    
+    for seed in SEED_range:
+            # gurobi_inv_cap_vars = get_gurobi_inv_cap_vars(instance, gurobi_model, period)
+        # indices, pyomo_var_to_gurobi_var_ml = selected_var_mapping(instance, solver)
+        # gurobi_model = ML_embedding(instance, gurobi_model, trained_lr,trained_dt, trained_mlp, indices, 
+        #             pyomo_var_to_gurobi_var_ml, seed,SEED_range)
+        indices, pyomo_var_to_gurobi_var_ml = input_var_mapping(instance, solver)
+        gurobi_model = ML_embedding(instance, gurobi_model, trained_lr,trained_dt, trained_mlp,indices,
+                    pyomo_var_to_gurobi_var_ml, seed,SEED_range)
+                    
     # Set Gurobi parameters
     gurobi_model.Params.NonConvex = 2
-    gurobi_model.Params.TimeLimit = 100
+    gurobi_model.Params.NumericFocus = 3
+    gurobi_model.Params.TimeLimit = 300
 
     # Optimize the Gurobi model
     gurobi_model.optimize()
 
+
     if gurobi_model.Status == GRB.OPTIMAL:
+        objective_value_embed = gurobi_model.objVal
+        ratio = abs(objective_value-objective_value_embed) / objective_value
+        print("Gap (%) :", ratio*100)
+
+        results_df = save_results_to_csv(gurobi_model, solver, f"MLsols/ML_Embed_solution_{SEED_range}.csv")
+
+        fsd_file_path = f"MLsols/ML_Embed_solution_{SEED_range}.csv"
+        # fsd_file_path = f"FSD/202411042138_616_seed_58_inv_cap.csv"
+        FSD = read_fsd_from_csv(fsd_file_path)
+
+        objective_value_embedding_sol, expected_second_stage_value_embedding_sol = run_validation(name = name, 
+            tab_file_path = tab_file_path,
+            result_file_path = result_file_path, 
+            scenariogeneration = scenariogeneration,
+            scenario_data_path = scenario_data_path,
+            solver = "Gurobi",
+            temp_dir = temp_dir, 
+            FirstHoursOfRegSeason = FirstHoursOfRegSeason, 
+            FirstHoursOfPeakSeason = FirstHoursOfPeakSeason, 
+            lengthRegSeason = lengthRegSeason,
+            lengthPeakSeason = lengthPeakSeason,
+            Period = Period, 
+            Operationalhour = Operationalhour,
+            Scenario = Scenario,
+            Season = Season,
+            HoursOfSeason = HoursOfSeason,
+            discountrate = discountrate, 
+            WACC = WACC, 
+            LeapYearsInvestment = LeapYearsInvestment,
+            IAMC_PRINT = IAMC_PRINT, 
+            FSD = FSD,
+            WRITE_LP = WRITE_LP, 
+            PICKLE_INSTANCE = PICKLE_INSTANCE, 
+            EMISSION_CAP = EMISSION_CAP,
+            USE_TEMP_DIR = USE_TEMP_DIR,
+            LOADCHANGEMODULE = LOADCHANGEMODULE,
+            seed = SEED)
+
+        ratio_sol = (abs(objective_value_embedding_sol-objective_value)/objective_value)*100
+        print("objective_value_embedding_sol: ",objective_value_embedding_sol)
+        print("expected_second_stage_value_embedding_sol: ",expected_second_stage_value_embedding_sol)
+        print("ratio_sol (%):",ratio_sol)
+        print_pyomo_to_gurobi_mapping(solver)
         for v in gurobi_model.getVars():
             if v.VarName.startswith('y') or v.VarName.startswith('x'):
-                print(v.varName, "=", v.x)
+            # if v.VarName.startswith('y'):
+                print(v.VarName, "=", v.x)
 
-        # for var in gurobi_model.getVars():
-        #     if var.VarName.startswith('y_approx_'):
-        #         period = int(var.VarName.split('_')[-1])
-        #         value = var.X
-        #         print(f"Period {period}: {value:.4f}")
+
+        return ratio 
+
+def read_fsd_from_csv(file_path):
+    with open(file_path, 'r') as csvfile:
+        csv_reader = csv.reader(csvfile)
+        next(csv_reader)  
+        fsd_data = [row for row in csv_reader]
+    return fsd_data
+
+
+
+# Ensure this code is placed after you have set up and solved your model
+
+# Mapping Pyomo variables to Gurobi variables
+def print_pyomo_to_gurobi_mapping(solver):
+    print("\nMapping of Pyomo Variables to Gurobi Variables:")
+    pyomo_var_to_gurobi_var = solver._pyomo_var_to_solver_var_map  # Existing mapping
+
+    for pyomo_var, gurobi_var in pyomo_var_to_gurobi_var.items():
+        print(f"Pyomo Variable: {pyomo_var.name}, Index: {pyomo_var.index()}, Corresponding Gurobi Variable: {gurobi_var.VarName}")
+
+
+
+def save_results_to_csv(gurobi_model, solver, output_filename):
+
+
+    output_path = Path(output_filename)
+    output_dir = output_path.parent
+    
+    if not output_dir.exists():
+        try:
+            output_dir.mkdir(parents=True, exist_ok=True)
+            print(f"Created directory: {output_dir}")
+        except Exception as e:
+            print(f"Error creating directory: {e}")
+            return None
+
+
+
+    # Create empty lists to store the data
+    results_data = []
+    
+    # Get the mapping between Pyomo and Gurobi variables
+    pyomo_var_to_gurobi_var = solver._pyomo_var_to_solver_var_map
+    
+    # Iterate through the mapping to extract results
+    for pyomo_var, gurobi_var in pyomo_var_to_gurobi_var.items():
+        # Get the index from Pyomo variable
+        index = pyomo_var.index()
+        value = gurobi_var.x
+        
+        # Determine the type and create appropriate entry based on variable name
+        var_name = pyomo_var.name
+        
+        if 'genInvCap' in var_name:
+            # Generation type
+            node, energy_type, period = index
+            entry_type = 'Generation'
+            results_data.append({
+                'Node': node,
+                'Energy_Type': energy_type,
+                'Period': period,
+                'Type': entry_type,
+                'Value': value
+            })
+            
+        elif 'storPWInvCap' in var_name:
+            # Storage Power type
+            node, storage_type, period = index
+            entry_type = 'Storage Power'
+            results_data.append({
+                'Node': node,
+                'Energy_Type': storage_type,
+                'Period': period,
+                'Type': entry_type,
+                'Value': value
+            })
+            
+        elif 'storENInvCap' in var_name:
+            # Storage Energy type
+            node, storage_type, period = index
+            entry_type = 'Storage Energy'
+            results_data.append({
+                'Node': node,
+                'Energy_Type': storage_type,
+                'Period': period,
+                'Type': entry_type,
+                'Value': value
+            })
+            
+        elif 'transmisionInvCap' in var_name:
+            # Transmission type
+            node_from, node_to, period = index
+            entry_type = 'Transmission'
+            results_data.append({
+                'Node': node_from,
+                'Energy_Type': node_to,  # Using Energy_Type column for the destination node
+                'Period': period,
+                'Type': entry_type,
+                'Value': value
+            })
+    
+    # Convert to DataFrame
+    df = pd.DataFrame(results_data)
+    
+    # Sort the DataFrame to match input format
+    df = df.sort_values(['Node', 'Energy_Type', 'Period', 'Type'])
+    
+    # Save to CSV
+    df.to_csv(output_filename, index=False)
+    
+    print(f"Results have been saved to {output_filename}")
+    
+    # Return DataFrame for potential further analysis
+    return df
+
+
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--seed', type=int, required=True, help='Specific seed')
+    args = parser.parse_args()
+    specific_seed = args.seed
+    ratio = main(specific_seed)
+
+    # ##### SAVE RESULTS #########
+    # csv_file_path = 'results.csv'
+
+    # with open(csv_file_path, 'r', newline='') as csvfile:
+    #     reader = csv.DictReader(csvfile)
+    #     exst_data = list(reader)
+
+    # new_row = {
+    #     'seed': json.dumps(specific_seed),
+    #     'Gap (%)': json.dumps(ratio)
+    # }
+    # exst_data.append(new_row)
+
+    # fieldnames = ['seed', 'Gap (%)']
+    # with open(csv_file_path, 'w', newline='') as csvfile:
+    #     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    #     writer.writeheader()
+    #     writer.writerows(exst_data)    

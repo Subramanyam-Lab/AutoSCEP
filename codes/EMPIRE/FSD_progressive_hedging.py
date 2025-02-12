@@ -42,20 +42,23 @@ def N_star(df_investments: pd.DataFrame, t: str, epsilon: float) -> Dict[str, Li
 
 def F_star(N_star: List[str], df_investments: pd.DataFrame, t: str, delta: float) -> Dict[str, List[str]]:
     # Filter investments for the given type and nodes
-    df_filtered = df_investments[(df_investments['Type'] == t) & (df_investments['Node'].isin(N_star))]
-    
-    # Calculate energy type percentages within the Type
-    type_energy_totals = df_filtered.groupby('Energy_Type')['Value'].sum()
-    type_energy_percentages = (type_energy_totals / type_energy_totals.sum()) * 100
-    type_energy_percentages = type_energy_percentages.sort_values(ascending=False)
-    
-    # Compute minimal units
-    minimal_units = compute_minimal(type_energy_percentages, delta)
-    return {t: minimal_units}
+    results_dict = {}
+    for n in N_star:
+        # df_filtered = df_investments[(df_investments['Type'] == t) & (df_investments['Node'].isin(n))]
+        df_filtered = df_investments[(df_investments['Type'] == t) & (df_investments['Node'] == n)]
+        # Calculate energy type percentages within the Type
+        type_energy_totals = df_filtered.groupby('Energy_Type')['Value'].sum()
+        type_energy_percentages = (type_energy_totals / type_energy_totals.sum()) * 100
+        type_energy_percentages = type_energy_percentages.sort_values(ascending=False)
+        
+        # Compute minimal units
+        minimal_units = compute_minimal(type_energy_percentages, delta)
+        results_dict[n] = {minimal_units}
+    return results_dict
 
 def main():
     dir_seed = 'SeedSamples/reduced'
-    epsilon = 80
+    epsilon = 100
     delta = 80
     results_dict = {}
 
@@ -71,7 +74,7 @@ def main():
         for t in investment_types:
             N_star_sets = N_star(df_investments, t, epsilon)
             F_star_sets = F_star(N_star_sets[t], df_investments, t, delta)
-            results_dict[t] = (N_star_sets, F_star_sets)
+            results_dict[t] = (F_star_sets)
 
         print("Analysis completed successfully.")
         print("Results:", results_dict)

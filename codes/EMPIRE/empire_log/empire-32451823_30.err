@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/REDUCED_NEUREMPIRE.py", line 1176, in <module>
+    objective_value, expected_second_stage_value = run_empire(name = name, 
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/REDUCED_NEUREMPIRE.py", line 838, in run_empire
+    raise 3
+TypeError: exceptions must derive from BaseException

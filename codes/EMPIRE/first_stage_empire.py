@@ -23,7 +23,7 @@ def run_first_stage(name, tab_file_path, result_file_path, scenariogeneration, s
                solver, temp_dir, FirstHoursOfRegSeason, FirstHoursOfPeakSeason, lengthRegSeason,
                lengthPeakSeason, Period, Operationalhour, Scenario, Season, HoursOfSeason,
                discountrate, WACC, LeapYearsInvestment, IAMC_PRINT, WRITE_LP,
-               PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE):
+               PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE, north_sea):
 
     if USE_TEMP_DIR:
         TempfileManager.tempdir = temp_dir
@@ -56,7 +56,8 @@ def run_first_stage(name, tab_file_path, result_file_path, scenariogeneration, s
 
     #Spatial sets
     model.Node = Set(ordered=True) #n
-    model.OffshoreNode = Set(ordered=True, within=model.Node) #n
+    if north_sea:
+        model.OffshoreNode = Set(ordered=True, within=model.Node) #n
     model.DirectionalLink = Set(dimen=2, within=model.Node*model.Node, ordered=True) #a
     model.TransmissionType = Set(ordered=True)
 
@@ -87,7 +88,8 @@ def run_first_stage(name, tab_file_path, result_file_path, scenariogeneration, s
     data.load(filename=tab_file_path + "/" + 'Sets_DependentStorage.tab',format="set", set=model.DependentStorage)
     data.load(filename=tab_file_path + "/" + 'Sets_Technology.tab',format="set", set=model.Technology)
     data.load(filename=tab_file_path + "/" + 'Sets_Node.tab',format="set", set=model.Node)
-    data.load(filename=tab_file_path + "/" + 'Sets_OffshoreNode.tab',format="set", set=model.OffshoreNode)
+    if north_sea:
+        data.load(filename=tab_file_path + "/" + 'Sets_OffshoreNode.tab',format="set", set=model.OffshoreNode)
     data.load(filename=tab_file_path + "/" + 'Sets_Horizon.tab',format="set", set=model.Period)
     data.load(filename=tab_file_path + "/" + 'Sets_DirectionalLines.tab',format="set", set=model.DirectionalLink)
     data.load(filename=tab_file_path + "/" + 'Sets_LineType.tab',format="set", set=model.TransmissionType)
@@ -205,6 +207,11 @@ def run_first_stage(name, tab_file_path, result_file_path, scenariogeneration, s
     model.maxHydroNode = Param(model.Node, default=0.0, mutable=True)
     model.storOperationalInit = Param(model.Storage, default=0.0, mutable=True) #Percentage of installed energy capacity initially
 
+    # Average Param
+    # model.exp_sload_period = Param(model.Period,initialize={1: 1071796190.1278343/200, 2: 1517678760.659416/200, 3: 1822451155.5526054/200, 4: 2166640929.2344236/200, 5: 2361334947.7145195/200, 6: 2554045523.6287494/200, 7: 2553816932.0288777/200, 8: 2554476842.1193504/200}, mutable=True)
+    model.exp_sload_period = Param(model.Period, initialize = {1: 90563264.82758054/50, 2: 127630593.30657187/50, 3: 153478843.68774256/50, 4: 182238144.9893694/50, 5: 197923959.3654833/50, 6: 214884927.86408475/50, 7: 215515834.41538328/50, 8: 215308526.07789642/50},mutable=True)
+    model.avg_cap_avail = Param(model.GeneratorsOfNode, model.Period, default=0.0, mutable=True)
+
     if EMISSION_CAP:
         model.CO2cap = Param(model.Period, default=5000.0, mutable=True)
 
@@ -260,6 +267,9 @@ def run_first_stage(name, tab_file_path, result_file_path, scenariogeneration, s
     data.load(filename=tab_file_path + "/" + 'Node_NodeLostLoadCost.tab', param=model.nodeLostLoadCost, format="table")
     data.load(filename=tab_file_path + "/" + 'Node_ElectricAnnualDemand.tab', param=model.sloadAnnualDemand, format="table")
     data.load(filename=tab_file_path + "/" + 'Node_HydroGenMaxAnnualProduction.tab', param=model.maxHydroNode, format="table")
+    # new
+    data.load(filename='Data handler/sampling/reduced/Average_Cap_Avail.tab', param=model.avg_cap_avail, format="table")
+
 
     if scenariogeneration:
         scenariopath = tab_file_path
@@ -434,7 +444,6 @@ def run_first_stage(name, tab_file_path, result_file_path, scenariogeneration, s
 
     model.build_genCapAvail = BuildAction(rule=prepGenCapAvail_rule)
 
-
     #############
     ##VARIABLES##
     #############
@@ -563,24 +572,24 @@ def run_first_stage(name, tab_file_path, result_file_path, scenariogeneration, s
     model.installed_storage_energy_cap = Constraint(model.StoragesOfNode, model.PeriodActive, rule=installed_storage_energy_cap_rule)
 
     #################################################################
-
-    def wind_farm_tranmission_cap_rule(model, n1, n2, i):
-        if n1 in model.OffshoreNode or n2 in model.OffshoreNode:
-            if (n1,n2) in model.BidirectionalArc:
-                if n1 in model.OffshoreNode:
-                    return model.transmissionInstalledCap[(n1,n2),i] <= sum(model.genInstalledCap[n1,g,i] for g in model.Generator if (n1,g) in model.GeneratorsOfNode)
+    if north_sea:
+        def wind_farm_tranmission_cap_rule(model, n1, n2, i):
+            if n1 in model.OffshoreNode or n2 in model.OffshoreNode:
+                if (n1,n2) in model.BidirectionalArc:
+                    if n1 in model.OffshoreNode:
+                        return model.transmissionInstalledCap[(n1,n2),i] <= sum(model.genInstalledCap[n1,g,i] for g in model.Generator if (n1,g) in model.GeneratorsOfNode)
+                    else:
+                        return model.transmissionInstalledCap[(n1,n2),i] <= sum(model.genInstalledCap[n2,g,i] for g in model.Generator if (n2,g) in model.GeneratorsOfNode)
+                elif (n2,n1) in model.BidirectionalArc:
+                    if n1 in model.OffshoreNode:
+                        return model.transmissionInstalledCap[(n2,n1),i] <= sum(model.genInstalledCap[n1,g,i] for g in model.Generator if (n1,g) in model.GeneratorsOfNode)
+                    else:
+                        return model.transmissionInstalledCap[(n2,n1),i] <= sum(model.genInstalledCap[n2,g,i] for g in model.Generator if (n2,g) in model.GeneratorsOfNode)
                 else:
-                    return model.transmissionInstalledCap[(n1,n2),i] <= sum(model.genInstalledCap[n2,g,i] for g in model.Generator if (n2,g) in model.GeneratorsOfNode)
-            elif (n2,n1) in model.BidirectionalArc:
-                if n1 in model.OffshoreNode:
-                    return model.transmissionInstalledCap[(n2,n1),i] <= sum(model.genInstalledCap[n1,g,i] for g in model.Generator if (n1,g) in model.GeneratorsOfNode)
-                else:
-                    return model.transmissionInstalledCap[(n2,n1),i] <= sum(model.genInstalledCap[n2,g,i] for g in model.Generator if (n2,g) in model.GeneratorsOfNode)
+                    return Constraint.Skip
             else:
                 return Constraint.Skip
-        else:
-            return Constraint.Skip
-    model.wind_farm_transmission_cap = Constraint(model.Node, model.Node, model.PeriodActive, rule=wind_farm_tranmission_cap_rule)
+        model.wind_farm_transmission_cap = Constraint(model.Node, model.Node, model.PeriodActive, rule=wind_farm_tranmission_cap_rule)
 
     #################################################################
 
@@ -593,5 +602,18 @@ def run_first_stage(name, tab_file_path, result_file_path, scenariogeneration, s
 
     #################################################################
 
+    # def capacity_vs_avg_sload_rule(model, i):
+    #     total_sum = 0
+    #     for n in model.Node:
+    #         gen_capacity = sum(
+    #             model.genInstalledCap[n, g, i] * model.avg_cap_avail[n, g, i] for g in model.Generator if (n, g) in model.GeneratorsOfNode
+    #         )
+    #         storage_power_capacity = sum(
+    #             model.storPWInstalledCap[n, b, i] * model.storageDischargeEff[b] for b in model.Storage if (n, b) in model.StoragesOfNode
+    #         )
+
+    #         total_sum += (gen_capacity + storage_power_capacity) 
+    #     return model.exp_sload_period[i]-total_sum <= 0 
+    # model.capacity_vs_avg_sload = Constraint(model.PeriodActive,rule=capacity_vs_avg_sload_rule)
 
     return model,data

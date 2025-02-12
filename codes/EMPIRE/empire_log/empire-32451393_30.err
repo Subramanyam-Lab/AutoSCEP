@@ -1,0 +1,4 @@
+  File "/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/REDUCED_NEUREMPIRE.py", line 249
+    model.exp_sload_period = Param(model.Period, initialize = , mutable = True)
+                                                              ^
+SyntaxError: invalid syntax
