@@ -1,2 +1,0 @@
-/var/spool/slurm/d/job30835070/slurm_script: line 36: 2933797 Killed                  /storage/home/tzk5446/.conda/envs/project1/bin/python main2.py --n_values $N --k_ratios $K_RATIO --instances_per_combination $INSTANCES_PER_COMBINATION --num_samples_per_instance $NUM_SAMPLES_PER_INSTANCE
-slurmstepd: error: Detected 1 oom_kill event in StepId=30835070.batch. Some of the step tasks have been OOM Killed.
