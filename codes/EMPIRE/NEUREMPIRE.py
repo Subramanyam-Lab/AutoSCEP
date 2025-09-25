@@ -1,21 +1,12 @@
 from __future__ import division
 from pyomo.environ import *
 from pyomo.common.tempfiles import TempfileManager
-import csv
 import sys
-import cloudpickle
 import time
-from datetime import datetime
 import os
-from omlt import OmltBlock, OffsetScaling
-from omlt.neuralnet import FullSpaceNNFormulation
-from omlt.io import load_keras_sequential
-import joblib
-import tensorflow as tf
 import pandas as pd
 import numpy as np
 import multiprocessing
-import json
 
 
 
@@ -190,7 +181,8 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     model.genFuelCost = Param(model.Generator, model.Period, default=0.0, mutable=True)
     model.genMargCost = Param(model.Generator, model.Period, default=600, mutable=True)
     model.genCO2TypeFactor = Param(model.Generator, default=0.0, mutable=True)
-    model.nodeLostLoadCost = Param(model.Node, model.Period, default=22000.0)
+    # model.nodeLostLoadCost = Param(model.Node, model.Period, default=22000.0)
+    model.nodeLostLoadCost = Param(model.Node, model.Period, default=1e+10, mutable=False)
     model.CO2price = Param(model.Period, default=0.0, mutable=True)
     model.CCSCostTSFix = Param(initialize=1149873.72) #NB! Hard-coded
     model.CCSCostTSVariable = Param(model.Period, default=0.0, mutable=True)
@@ -244,11 +236,6 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     model.maxHydroNode = Param(model.Node, default=0.0, mutable=True)
     model.storOperationalInit = Param(model.Storage, default=0.0, mutable=True) #Percentage of installed energy capacity initially
     
-    # Average Param
-    # model.exp_sload_period = Param(model.Period,initialize={1: 138590926.79066876/50, 2: 191670060.0995282/50, 3: 229847820.6469514/50, 4: 273483017.57611674/50, 5: 292940949.58044374/50, 6: 320043506.04112387/50, 7: 324962117.3483998/50, 8: 324101282.4880593/50}, mutable=True)
-    model.exp_sload_period = Param(model.Period, initialize = {1: 90563264.82758054/50, 2: 127630593.30657187/50, 3: 153478843.68774256/50, 4: 182238144.9893694/50, 5: 197923959.3654833/50, 6: 214884927.86408475/50, 7: 215515834.41538328/50, 8: 215308526.07789642/50},mutable=True)
-    model.avg_cap_avail = Param(model.GeneratorsOfNode, model.Period, default=0.0, mutable=True)
-
     if EMISSION_CAP:
         model.CO2cap = Param(model.Period, default=5000.0, mutable=True)
     
@@ -302,11 +289,9 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     data.load(filename=tab_file_path + "/" + 'Storage_PowerMaxBuiltCapacity.tab', param=model.storPWMaxBuiltCap, format="table")
     data.load(filename=tab_file_path + "/" + 'Storage_PowerMaxInstalledCapacity.tab', param=model.storPWMaxInstalledCapRaw, format="table")
     data.load(filename=tab_file_path + "/" + 'Storage_Lifetime.tab', param=model.storageLifetime, format="table")
-    # new
-    data.load(filename='Data handler/sampling/reduced/Average_Cap_Avail.tab', param=model.avg_cap_avail, format="table")
-
+    
     #Temporarily 
-    data.load(filename=tab_file_path + "/" + 'Node_NodeLostLoadCost.tab', param=model.nodeLostLoadCost, format="table")
+    # data.load(filename=tab_file_path + "/" + 'Node_NodeLostLoadCost.tab', param=model.nodeLostLoadCost, format="table")
     data.load(filename=tab_file_path + "/" + 'Node_ElectricAnnualDemand.tab', param=model.sloadAnnualDemand, format="table") 
     data.load(filename=tab_file_path + "/" + 'Node_HydroGenMaxAnnualProduction.tab', param=model.maxHydroNode, format="table") 
     
@@ -330,6 +315,22 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
         data.load(filename=scenariopath + "/" + 'LoadchangeModule/Stochastic_ElectricLoadMod.tab', param=model.sloadMod, format="table")
 
     print("Constructing parameter values...")
+
+
+
+    def adjust_season_scale_rule(model):
+        # Regular seasons are defined as:
+        regular_seasons = ["winter", "spring", "summer", "fall"]
+        # Calculate the common value for regular seasons:
+        regular_scale = float((8760 - 48) / (4 * model.lengthRegSeason))
+        for s in model.Season:
+            if s in regular_seasons:
+                model.seasScale[s] = regular_scale
+            else:
+                # For peak seasons (assumed to be not in regular_seasons)
+                model.seasScale[s] = 1.0
+    model.adjust_season_scale = BuildAction(rule=adjust_season_scale_rule)
+
 
 
     # It means that the probability of scenarios is equally same regardless of scenario, and the expected second stage value is just average of second stage value. 
@@ -494,7 +495,7 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
             for i in model.PeriodActive:
                 noderawdemand = 0
                 for (s,h) in model.HoursOfSeason:
-                    if value(h) < value(FirstHoursOfRegSeason[-1] + model.lengthRegSeason):
+                    # if value(h) < value(FirstHoursOfRegSeason[-1] + model.lengthRegSeason):
                         for sce in model.Scenario:
                                 noderawdemand += value(model.sceProbab[sce]*model.seasScale[s]*model.sloadRaw[n,h,sce,i])
                 if value(model.sloadAnnualDemand[n,i]) < 1:
@@ -695,6 +696,12 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
 
     #################################################################
 
+    def version1_rule(model, h, i):
+            gen_avail_capacity = sum(model.sceProbab[w]*sum(model.genInstalledCap[n, g, i] * model.genCapAvail[n,g,h,w,i] for (n, g) in model.GeneratorsOfNode) for w in model.Scenario)
+            average_sload = sum(model.sceProbab[w]*sum(model.sload[n,h,i,w] for n in model.Node) for w in model.Scenario)
+            return average_sload-gen_avail_capacity <= 0 
+    model.version1 = Constraint(model.Operationalhour, model.PeriodActive,rule=version1_rule)
+
     #### Second Stage Constraints ####
 
     def FlowBalance_rule(model, n, h, i, w):
@@ -789,19 +796,10 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
 
     #################################################################
 
-    # def capacity_vs_avg_sload_rule(model, i):
-    #     total_sum = 0
-    #     for n in model.Node:
-    #         gen_capacity = sum(
-    #             model.genInstalledCap[n, g, i] * model.avg_cap_avail[n, g, i] for g in model.Generator if (n, g) in model.GeneratorsOfNode
-    #         )
-    #         storage_power_capacity = sum(
-    #             model.storPWInstalledCap[n, b, i] * model.storageDischargeEff[b] for b in model.Storage if (n, b) in model.StoragesOfNode
-    #         )
 
-    #         total_sum += (gen_capacity + storage_power_capacity) 
-    #     return model.exp_sload_period[i]-total_sum <= 0 
-    # model.capacity_vs_avg_sload = Constraint(model.PeriodActive,rule=capacity_vs_avg_sload_rule)
+    def soft_loadshed_rule(model, n, h, i, w):
+        return model.loadShed[n, h, i, w] <= 0
+    model.SoftLoadShed = Constraint(model.Node, model.Operationalhour, model.PeriodActive, model.Scenario, rule=soft_loadshed_rule)
 
     
     print("Objective and constraints read...")
@@ -815,64 +813,6 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     start = time.time()
     instance = model.create_instance(data) #, report_timing=True)
     instance.dual = Suffix(direction=Suffix.IMPORT) #Make sure the dual value is collected into solver results (if solver supplies dual information)
-
-
-    # def calculate_avg_sload_period(instance):
-    #     avg_sload = {}
-    #     for i in instance.PeriodActive:
-    #         total_load = sum(
-    #             value(instance.sceProbab[w]) *
-    #             sum(
-    #                 value(instance.sload[n, h, i, w])
-    #                 for n in instance.Node
-    #                 for h in instance.Operationalhour
-    #             )
-    #             for w in instance.Scenario
-    #         )
-    #         avg_sload[i] = total_load
-    #     return avg_sload
-
-    # aaa = calculate_avg_sload_period(instance)
-    # print(aaa)
-
-    # raise 3
-
-
-    # # cap_avail 데이터를 DataFrame으로 변환
-
-    # def calculate_cap_avail(instance):
-    #     cap_avail = {}
-    #     for i in instance.PeriodActive:
-    #         for (n, g) in instance.GeneratorsOfNode:
-    #             weighted_sum = 0
-    #             total_weight = 0
-    #             for w in instance.Scenario:
-    #                 scenario_prob = value(instance.sceProbab[w])
-    #                 hour_sum = sum(value(instance.genCapAvail[n, g, h, w, i]) for h in instance.Operationalhour)
-    #                 weighted_sum += scenario_prob * hour_sum
-    #                 total_weight += scenario_prob * len(instance.Operationalhour)
-    #             cap_avail[n, g, i] = weighted_sum / total_weight if total_weight > 0 else 0
-    #             if cap_avail[n, g, i] > 1:
-    #                 print(f"WARNING: cap_avail[{n}, {g}, {i}] = {cap_avail[n, g, i]}")
-    #     return cap_avail
-
-    # cap_avail_dict = calculate_cap_avail(instance)
-    # print(cap_avail_dict)
-    # data = []
-    # for (country, generator, period), cap_avail in cap_avail_dict.items():
-    #     data.append([country, generator, period, cap_avail])
-
-    # df = pd.DataFrame(data, columns=["Unnamed:_1", "Unnamed:_2", "Unnamed:_3", "Unnamed:_4"])
-    # header = ["Unnamed:_1", "Unnamed:_2", "Unnamed:_3", "Unnamed:_4"]
-    # tab_file_path = "Data handler/sampling/reduced/Average_Cap_Avail.tab"
-
-    # with open(tab_file_path, "w") as f:
-    #     f.write("\t".join(header) + "\n")  # 첫 번째 줄에 헤더 작성
-    #     df.to_csv(f, sep="\t", index=False, header=False)  # 데이터 저장
-
-    # print(f"파일이 저장되었습니다: {tab_file_path}")
-
-    # raise 3
     
     end = time.time()
     print(f"Building instance took [sec]: {end - start}")
@@ -932,8 +872,6 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
         opt = SolverFactory('gurobi', Verbose=True)
         opt.options["Crossover"]=0
         opt.options["Method"]=2
-        opt.options['threads'] = 2
-        opt.options['BarConvTol'] = 1e-4
     if solver == "GLPK":
         opt = SolverFactory("glpk", Verbose=True)
     
@@ -947,11 +885,10 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     get_results(instance, seed)
     get_results_v(instance, seed)
     expected_second_stage_value, total_ll_amt = compute_expected_second_stage_value(instance)
-    second_stage_variance = compute_scenario_second_stage_values(instance)
     objective_value = value(instance.Obj)
     print(f"total_ll_amt: {total_ll_amt}")
 
-    return objective_value, expected_second_stage_value, second_stage_variance
+    return objective_value, expected_second_stage_value
 
 
 def compute_expected_second_stage_value(instance):

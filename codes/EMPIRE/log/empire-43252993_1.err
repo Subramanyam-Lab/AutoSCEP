@@ -1,0 +1,493 @@
+2025-09-07 23:37:54,248 - INFO - 1. 처리할 작업 목록 탐색: 'training_data_distributed' 디렉토리에서 'file_*' 폴더를 찾습니다.
+2025-09-07 23:37:54,542 - INFO - 총 10000개의 file_num을 처리합니다.
+2025-09-07 23:37:54,552 - INFO - 기준 헤더를 설정했습니다: ['file_num', 'period', 'v_i', 'c_i', 'E_Q_i', 'avg_features', 'N_i', 'lengthRegSeason', 'execution_time', 'status', 'used_seeds']
+2025-09-07 23:37:54,552 - INFO - 2. file_num 기준으로 데이터를 순차적으로 처리합니다.
+2025-09-07 23:37:57,515 - INFO - 진행 상황: 100 / 10000 (file_num: 100)
+2025-09-07 23:38:00,740 - INFO - 진행 상황: 200 / 10000 (file_num: 200)
+2025-09-07 23:38:03,575 - INFO - 진행 상황: 300 / 10000 (file_num: 300)
+2025-09-07 23:38:06,499 - INFO - 진행 상황: 400 / 10000 (file_num: 400)
+2025-09-07 23:38:09,335 - INFO - 진행 상황: 500 / 10000 (file_num: 500)
+2025-09-07 23:38:12,199 - INFO - 진행 상황: 600 / 10000 (file_num: 600)
+2025-09-07 23:38:15,083 - INFO - 진행 상황: 700 / 10000 (file_num: 700)
+2025-09-07 23:38:17,941 - INFO - 진행 상황: 800 / 10000 (file_num: 800)
+2025-09-07 23:38:20,845 - INFO - 진행 상황: 900 / 10000 (file_num: 900)
+2025-09-07 23:38:23,687 - INFO - 진행 상황: 1000 / 10000 (file_num: 1000)
+2025-09-07 23:38:26,522 - INFO - 진행 상황: 1100 / 10000 (file_num: 1100)
+2025-09-07 23:38:29,407 - INFO - 진행 상황: 1200 / 10000 (file_num: 1200)
+2025-09-07 23:38:32,257 - INFO - 진행 상황: 1300 / 10000 (file_num: 1300)
+2025-09-07 23:38:35,258 - INFO - 진행 상황: 1400 / 10000 (file_num: 1400)
+2025-09-07 23:38:38,195 - INFO - 진행 상황: 1500 / 10000 (file_num: 1500)
+2025-09-07 23:38:40,970 - INFO - 진행 상황: 1600 / 10000 (file_num: 1600)
+2025-09-07 23:38:43,676 - INFO - 진행 상황: 1700 / 10000 (file_num: 1700)
+2025-09-07 23:38:46,440 - INFO - 진행 상황: 1800 / 10000 (file_num: 1800)
+2025-09-07 23:38:49,188 - INFO - 진행 상황: 1900 / 10000 (file_num: 1900)
+2025-09-07 23:38:51,910 - INFO - 진행 상황: 2000 / 10000 (file_num: 2000)
+2025-09-07 23:38:54,646 - INFO - 진행 상황: 2100 / 10000 (file_num: 2100)
+2025-09-07 23:38:57,381 - INFO - 진행 상황: 2200 / 10000 (file_num: 2200)
+2025-09-07 23:39:00,170 - INFO - 진행 상황: 2300 / 10000 (file_num: 2300)
+2025-09-07 23:39:02,878 - INFO - 진행 상황: 2400 / 10000 (file_num: 2400)
+2025-09-07 23:39:05,669 - INFO - 진행 상황: 2500 / 10000 (file_num: 2500)
+2025-09-07 23:39:08,419 - INFO - 진행 상황: 2600 / 10000 (file_num: 2600)
+2025-09-07 23:39:11,239 - INFO - 진행 상황: 2700 / 10000 (file_num: 2700)
+2025-09-07 23:39:14,018 - INFO - 진행 상황: 2800 / 10000 (file_num: 2800)
+2025-09-07 23:39:16,795 - INFO - 진행 상황: 2900 / 10000 (file_num: 2900)
+2025-09-07 23:39:19,575 - INFO - 진행 상황: 3000 / 10000 (file_num: 3000)
+2025-09-07 23:39:22,328 - INFO - 진행 상황: 3100 / 10000 (file_num: 3100)
+2025-09-07 23:39:25,055 - INFO - 진행 상황: 3200 / 10000 (file_num: 3200)
+2025-09-07 23:39:27,860 - INFO - 진행 상황: 3300 / 10000 (file_num: 3300)
+2025-09-07 23:39:30,619 - INFO - 진행 상황: 3400 / 10000 (file_num: 3400)
+2025-09-07 23:39:33,406 - INFO - 진행 상황: 3500 / 10000 (file_num: 3500)
+2025-09-07 23:39:36,208 - INFO - 진행 상황: 3600 / 10000 (file_num: 3600)
+2025-09-07 23:39:39,082 - INFO - 진행 상황: 3700 / 10000 (file_num: 3700)
+2025-09-07 23:39:41,907 - INFO - 진행 상황: 3800 / 10000 (file_num: 3800)
+2025-09-07 23:39:44,642 - INFO - 진행 상황: 3900 / 10000 (file_num: 3900)
+2025-09-07 23:39:47,408 - INFO - 진행 상황: 4000 / 10000 (file_num: 4000)
+2025-09-07 23:39:50,418 - INFO - 진행 상황: 4100 / 10000 (file_num: 4100)
+2025-09-07 23:39:53,398 - INFO - 진행 상황: 4200 / 10000 (file_num: 4200)
+2025-09-07 23:39:56,209 - INFO - 진행 상황: 4300 / 10000 (file_num: 4300)
+2025-09-07 23:39:58,984 - INFO - 진행 상황: 4400 / 10000 (file_num: 4400)
+2025-09-07 23:40:01,738 - INFO - 진행 상황: 4500 / 10000 (file_num: 4500)
+2025-09-07 23:40:04,521 - INFO - 진행 상황: 4600 / 10000 (file_num: 4600)
+2025-09-07 23:40:07,287 - INFO - 진행 상황: 4700 / 10000 (file_num: 4700)
+2025-09-07 23:40:10,126 - INFO - 진행 상황: 4800 / 10000 (file_num: 4800)
+2025-09-07 23:40:13,306 - INFO - 진행 상황: 4900 / 10000 (file_num: 4900)
+2025-09-07 23:40:16,075 - INFO - 진행 상황: 5000 / 10000 (file_num: 5000)
+2025-09-07 23:40:16,135 - WARNING - Header not found in training_data_distributed/file_5002/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,138 - WARNING - Header not found in training_data_distributed/file_5002/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,141 - WARNING - Header not found in training_data_distributed/file_5002/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,143 - WARNING - Header not found in training_data_distributed/file_5002/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,146 - WARNING - Header not found in training_data_distributed/file_5002/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,148 - WARNING - Header not found in training_data_distributed/file_5002/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,151 - WARNING - Header not found in training_data_distributed/file_5002/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,153 - WARNING - Header not found in training_data_distributed/file_5002/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,163 - WARNING - Header not found in training_data_distributed/file_5003/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,167 - WARNING - Header not found in training_data_distributed/file_5003/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,169 - WARNING - Header not found in training_data_distributed/file_5003/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,172 - WARNING - Header not found in training_data_distributed/file_5003/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,174 - WARNING - Header not found in training_data_distributed/file_5003/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,176 - WARNING - Header not found in training_data_distributed/file_5003/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,179 - WARNING - Header not found in training_data_distributed/file_5003/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,182 - WARNING - Header not found in training_data_distributed/file_5003/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,193 - WARNING - Header not found in training_data_distributed/file_5004/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,195 - WARNING - Header not found in training_data_distributed/file_5004/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,198 - WARNING - Header not found in training_data_distributed/file_5004/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,201 - WARNING - Header not found in training_data_distributed/file_5004/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,203 - WARNING - Header not found in training_data_distributed/file_5004/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,205 - WARNING - Header not found in training_data_distributed/file_5004/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,213 - WARNING - Header not found in training_data_distributed/file_5004/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,216 - WARNING - Header not found in training_data_distributed/file_5004/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,226 - WARNING - Header not found in training_data_distributed/file_5005/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,229 - WARNING - Header not found in training_data_distributed/file_5005/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,231 - WARNING - Header not found in training_data_distributed/file_5005/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,234 - WARNING - Header not found in training_data_distributed/file_5005/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,236 - WARNING - Header not found in training_data_distributed/file_5005/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,239 - WARNING - Header not found in training_data_distributed/file_5005/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,242 - WARNING - Header not found in training_data_distributed/file_5005/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,244 - WARNING - Header not found in training_data_distributed/file_5005/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,255 - WARNING - Header not found in training_data_distributed/file_5006/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,259 - WARNING - Header not found in training_data_distributed/file_5006/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,261 - WARNING - Header not found in training_data_distributed/file_5006/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,264 - WARNING - Header not found in training_data_distributed/file_5006/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,266 - WARNING - Header not found in training_data_distributed/file_5006/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,270 - WARNING - Header not found in training_data_distributed/file_5006/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,272 - WARNING - Header not found in training_data_distributed/file_5006/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,275 - WARNING - Header not found in training_data_distributed/file_5006/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,285 - WARNING - Header not found in training_data_distributed/file_5007/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,288 - WARNING - Header not found in training_data_distributed/file_5007/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,290 - WARNING - Header not found in training_data_distributed/file_5007/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,293 - WARNING - Header not found in training_data_distributed/file_5007/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,295 - WARNING - Header not found in training_data_distributed/file_5007/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,298 - WARNING - Header not found in training_data_distributed/file_5007/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,301 - WARNING - Header not found in training_data_distributed/file_5007/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,305 - WARNING - Header not found in training_data_distributed/file_5007/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,316 - WARNING - Header not found in training_data_distributed/file_5008/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,319 - WARNING - Header not found in training_data_distributed/file_5008/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,321 - WARNING - Header not found in training_data_distributed/file_5008/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,329 - WARNING - Header not found in training_data_distributed/file_5008/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,332 - WARNING - Header not found in training_data_distributed/file_5008/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,334 - WARNING - Header not found in training_data_distributed/file_5008/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,338 - WARNING - Header not found in training_data_distributed/file_5008/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,341 - WARNING - Header not found in training_data_distributed/file_5008/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,365 - WARNING - Header not found in training_data_distributed/file_5009/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,367 - WARNING - Header not found in training_data_distributed/file_5009/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,370 - WARNING - Header not found in training_data_distributed/file_5009/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,373 - WARNING - Header not found in training_data_distributed/file_5009/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,375 - WARNING - Header not found in training_data_distributed/file_5009/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,378 - WARNING - Header not found in training_data_distributed/file_5009/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,380 - WARNING - Header not found in training_data_distributed/file_5009/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,383 - WARNING - Header not found in training_data_distributed/file_5009/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,394 - WARNING - Header not found in training_data_distributed/file_5010/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,397 - WARNING - Header not found in training_data_distributed/file_5010/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,399 - WARNING - Header not found in training_data_distributed/file_5010/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,402 - WARNING - Header not found in training_data_distributed/file_5010/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,404 - WARNING - Header not found in training_data_distributed/file_5010/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,407 - WARNING - Header not found in training_data_distributed/file_5010/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,409 - WARNING - Header not found in training_data_distributed/file_5010/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,411 - WARNING - Header not found in training_data_distributed/file_5010/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,422 - WARNING - Header not found in training_data_distributed/file_5011/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,425 - WARNING - Header not found in training_data_distributed/file_5011/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,427 - WARNING - Header not found in training_data_distributed/file_5011/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,430 - WARNING - Header not found in training_data_distributed/file_5011/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,432 - WARNING - Header not found in training_data_distributed/file_5011/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,436 - WARNING - Header not found in training_data_distributed/file_5011/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,438 - WARNING - Header not found in training_data_distributed/file_5011/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,440 - WARNING - Header not found in training_data_distributed/file_5011/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,453 - WARNING - Header not found in training_data_distributed/file_5012/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,456 - WARNING - Header not found in training_data_distributed/file_5012/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,459 - WARNING - Header not found in training_data_distributed/file_5012/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,461 - WARNING - Header not found in training_data_distributed/file_5012/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,463 - WARNING - Header not found in training_data_distributed/file_5012/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,466 - WARNING - Header not found in training_data_distributed/file_5012/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,468 - WARNING - Header not found in training_data_distributed/file_5012/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,471 - WARNING - Header not found in training_data_distributed/file_5012/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,481 - WARNING - Header not found in training_data_distributed/file_5013/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,484 - WARNING - Header not found in training_data_distributed/file_5013/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,488 - WARNING - Header not found in training_data_distributed/file_5013/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,491 - WARNING - Header not found in training_data_distributed/file_5013/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,494 - WARNING - Header not found in training_data_distributed/file_5013/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,496 - WARNING - Header not found in training_data_distributed/file_5013/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,499 - WARNING - Header not found in training_data_distributed/file_5013/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,503 - WARNING - Header not found in training_data_distributed/file_5013/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,514 - WARNING - Header not found in training_data_distributed/file_5014/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,517 - WARNING - Header not found in training_data_distributed/file_5014/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,519 - WARNING - Header not found in training_data_distributed/file_5014/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,522 - WARNING - Header not found in training_data_distributed/file_5014/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,525 - WARNING - Header not found in training_data_distributed/file_5014/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,527 - WARNING - Header not found in training_data_distributed/file_5014/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,530 - WARNING - Header not found in training_data_distributed/file_5014/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,532 - WARNING - Header not found in training_data_distributed/file_5014/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,542 - WARNING - Header not found in training_data_distributed/file_5015/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,544 - WARNING - Header not found in training_data_distributed/file_5015/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,547 - WARNING - Header not found in training_data_distributed/file_5015/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,550 - WARNING - Header not found in training_data_distributed/file_5015/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,552 - WARNING - Header not found in training_data_distributed/file_5015/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,555 - WARNING - Header not found in training_data_distributed/file_5015/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,558 - WARNING - Header not found in training_data_distributed/file_5015/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,560 - WARNING - Header not found in training_data_distributed/file_5015/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,572 - WARNING - Header not found in training_data_distributed/file_5016/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,574 - WARNING - Header not found in training_data_distributed/file_5016/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,577 - WARNING - Header not found in training_data_distributed/file_5016/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,579 - WARNING - Header not found in training_data_distributed/file_5016/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,582 - WARNING - Header not found in training_data_distributed/file_5016/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,585 - WARNING - Header not found in training_data_distributed/file_5016/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,587 - WARNING - Header not found in training_data_distributed/file_5016/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,590 - WARNING - Header not found in training_data_distributed/file_5016/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,600 - WARNING - Header not found in training_data_distributed/file_5017/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,603 - WARNING - Header not found in training_data_distributed/file_5017/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,606 - WARNING - Header not found in training_data_distributed/file_5017/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,609 - WARNING - Header not found in training_data_distributed/file_5017/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,611 - WARNING - Header not found in training_data_distributed/file_5017/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,615 - WARNING - Header not found in training_data_distributed/file_5017/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,618 - WARNING - Header not found in training_data_distributed/file_5017/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,621 - WARNING - Header not found in training_data_distributed/file_5017/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,633 - WARNING - Header not found in training_data_distributed/file_5018/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,636 - WARNING - Header not found in training_data_distributed/file_5018/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,640 - WARNING - Header not found in training_data_distributed/file_5018/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,643 - WARNING - Header not found in training_data_distributed/file_5018/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,645 - WARNING - Header not found in training_data_distributed/file_5018/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,648 - WARNING - Header not found in training_data_distributed/file_5018/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,651 - WARNING - Header not found in training_data_distributed/file_5018/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,653 - WARNING - Header not found in training_data_distributed/file_5018/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,665 - WARNING - Header not found in training_data_distributed/file_5019/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,667 - WARNING - Header not found in training_data_distributed/file_5019/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,672 - WARNING - Header not found in training_data_distributed/file_5019/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,677 - WARNING - Header not found in training_data_distributed/file_5019/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,680 - WARNING - Header not found in training_data_distributed/file_5019/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,682 - WARNING - Header not found in training_data_distributed/file_5019/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,685 - WARNING - Header not found in training_data_distributed/file_5019/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,696 - WARNING - Header not found in training_data_distributed/file_5020/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,699 - WARNING - Header not found in training_data_distributed/file_5020/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,702 - WARNING - Header not found in training_data_distributed/file_5020/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,705 - WARNING - Header not found in training_data_distributed/file_5020/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,707 - WARNING - Header not found in training_data_distributed/file_5020/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,710 - WARNING - Header not found in training_data_distributed/file_5020/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,712 - WARNING - Header not found in training_data_distributed/file_5020/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,725 - WARNING - Header not found in training_data_distributed/file_5021/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,727 - WARNING - Header not found in training_data_distributed/file_5021/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,730 - WARNING - Header not found in training_data_distributed/file_5021/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,732 - WARNING - Header not found in training_data_distributed/file_5021/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,735 - WARNING - Header not found in training_data_distributed/file_5021/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,738 - WARNING - Header not found in training_data_distributed/file_5021/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,740 - WARNING - Header not found in training_data_distributed/file_5021/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,743 - WARNING - Header not found in training_data_distributed/file_5021/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,753 - WARNING - Header not found in training_data_distributed/file_5022/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,755 - WARNING - Header not found in training_data_distributed/file_5022/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,758 - WARNING - Header not found in training_data_distributed/file_5022/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,761 - WARNING - Header not found in training_data_distributed/file_5022/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,763 - WARNING - Header not found in training_data_distributed/file_5022/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,766 - WARNING - Header not found in training_data_distributed/file_5022/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,769 - WARNING - Header not found in training_data_distributed/file_5022/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,772 - WARNING - Header not found in training_data_distributed/file_5022/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,784 - WARNING - Header not found in training_data_distributed/file_5023/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,787 - WARNING - Header not found in training_data_distributed/file_5023/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,790 - WARNING - Header not found in training_data_distributed/file_5023/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,793 - WARNING - Header not found in training_data_distributed/file_5023/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,795 - WARNING - Header not found in training_data_distributed/file_5023/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,800 - WARNING - Header not found in training_data_distributed/file_5023/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,803 - WARNING - Header not found in training_data_distributed/file_5023/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,813 - WARNING - Header not found in training_data_distributed/file_5024/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,816 - WARNING - Header not found in training_data_distributed/file_5024/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,818 - WARNING - Header not found in training_data_distributed/file_5024/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,822 - WARNING - Header not found in training_data_distributed/file_5024/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,824 - WARNING - Header not found in training_data_distributed/file_5024/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,827 - WARNING - Header not found in training_data_distributed/file_5024/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,830 - WARNING - Header not found in training_data_distributed/file_5024/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,832 - WARNING - Header not found in training_data_distributed/file_5024/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,842 - WARNING - Header not found in training_data_distributed/file_5025/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,845 - WARNING - Header not found in training_data_distributed/file_5025/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,851 - WARNING - Header not found in training_data_distributed/file_5025/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,854 - WARNING - Header not found in training_data_distributed/file_5025/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,856 - WARNING - Header not found in training_data_distributed/file_5025/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,859 - WARNING - Header not found in training_data_distributed/file_5025/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,861 - WARNING - Header not found in training_data_distributed/file_5025/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,872 - WARNING - Header not found in training_data_distributed/file_5026/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,874 - WARNING - Header not found in training_data_distributed/file_5026/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,877 - WARNING - Header not found in training_data_distributed/file_5026/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,880 - WARNING - Header not found in training_data_distributed/file_5026/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,883 - WARNING - Header not found in training_data_distributed/file_5026/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,886 - WARNING - Header not found in training_data_distributed/file_5026/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,889 - WARNING - Header not found in training_data_distributed/file_5026/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,891 - WARNING - Header not found in training_data_distributed/file_5026/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,902 - WARNING - Header not found in training_data_distributed/file_5027/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,904 - WARNING - Header not found in training_data_distributed/file_5027/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,907 - WARNING - Header not found in training_data_distributed/file_5027/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,910 - WARNING - Header not found in training_data_distributed/file_5027/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,912 - WARNING - Header not found in training_data_distributed/file_5027/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,915 - WARNING - Header not found in training_data_distributed/file_5027/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,917 - WARNING - Header not found in training_data_distributed/file_5027/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,936 - WARNING - Header not found in training_data_distributed/file_5028/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,939 - WARNING - Header not found in training_data_distributed/file_5028/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,943 - WARNING - Header not found in training_data_distributed/file_5028/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,946 - WARNING - Header not found in training_data_distributed/file_5028/period_6.csv. Applying standard header.
+2025-09-07 23:40:16,948 - WARNING - Header not found in training_data_distributed/file_5028/period_7.csv. Applying standard header.
+2025-09-07 23:40:16,952 - WARNING - Header not found in training_data_distributed/file_5028/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,962 - WARNING - Header not found in training_data_distributed/file_5029/period_1.csv. Applying standard header.
+2025-09-07 23:40:16,966 - WARNING - Header not found in training_data_distributed/file_5029/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,968 - WARNING - Header not found in training_data_distributed/file_5029/period_3.csv. Applying standard header.
+2025-09-07 23:40:16,971 - WARNING - Header not found in training_data_distributed/file_5029/period_4.csv. Applying standard header.
+2025-09-07 23:40:16,974 - WARNING - Header not found in training_data_distributed/file_5029/period_5.csv. Applying standard header.
+2025-09-07 23:40:16,982 - WARNING - Header not found in training_data_distributed/file_5029/period_8.csv. Applying standard header.
+2025-09-07 23:40:16,995 - WARNING - Header not found in training_data_distributed/file_5030/period_2.csv. Applying standard header.
+2025-09-07 23:40:16,997 - WARNING - Header not found in training_data_distributed/file_5030/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,000 - WARNING - Header not found in training_data_distributed/file_5030/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,002 - WARNING - Header not found in training_data_distributed/file_5030/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,005 - WARNING - Header not found in training_data_distributed/file_5030/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,008 - WARNING - Header not found in training_data_distributed/file_5030/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,010 - WARNING - Header not found in training_data_distributed/file_5030/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,021 - WARNING - Header not found in training_data_distributed/file_5031/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,024 - WARNING - Header not found in training_data_distributed/file_5031/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,028 - WARNING - Header not found in training_data_distributed/file_5031/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,031 - WARNING - Header not found in training_data_distributed/file_5031/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,034 - WARNING - Header not found in training_data_distributed/file_5031/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,036 - WARNING - Header not found in training_data_distributed/file_5031/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,038 - WARNING - Header not found in training_data_distributed/file_5031/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,041 - WARNING - Header not found in training_data_distributed/file_5031/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,051 - WARNING - Header not found in training_data_distributed/file_5032/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,054 - WARNING - Header not found in training_data_distributed/file_5032/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,062 - WARNING - Header not found in training_data_distributed/file_5032/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,065 - WARNING - Header not found in training_data_distributed/file_5032/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,070 - WARNING - Header not found in training_data_distributed/file_5032/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,081 - WARNING - Header not found in training_data_distributed/file_5033/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,084 - WARNING - Header not found in training_data_distributed/file_5033/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,086 - WARNING - Header not found in training_data_distributed/file_5033/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,089 - WARNING - Header not found in training_data_distributed/file_5033/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,091 - WARNING - Header not found in training_data_distributed/file_5033/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,095 - WARNING - Header not found in training_data_distributed/file_5033/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,097 - WARNING - Header not found in training_data_distributed/file_5033/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,099 - WARNING - Header not found in training_data_distributed/file_5033/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,115 - WARNING - Header not found in training_data_distributed/file_5034/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,120 - WARNING - Header not found in training_data_distributed/file_5034/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,123 - WARNING - Header not found in training_data_distributed/file_5034/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,125 - WARNING - Header not found in training_data_distributed/file_5034/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,128 - WARNING - Header not found in training_data_distributed/file_5034/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,138 - WARNING - Header not found in training_data_distributed/file_5035/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,141 - WARNING - Header not found in training_data_distributed/file_5035/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,143 - WARNING - Header not found in training_data_distributed/file_5035/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,146 - WARNING - Header not found in training_data_distributed/file_5035/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,149 - WARNING - Header not found in training_data_distributed/file_5035/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,151 - WARNING - Header not found in training_data_distributed/file_5035/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,157 - WARNING - Header not found in training_data_distributed/file_5035/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,167 - WARNING - Header not found in training_data_distributed/file_5036/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,170 - WARNING - Header not found in training_data_distributed/file_5036/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,173 - WARNING - Header not found in training_data_distributed/file_5036/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,175 - WARNING - Header not found in training_data_distributed/file_5036/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,178 - WARNING - Header not found in training_data_distributed/file_5036/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,185 - WARNING - Header not found in training_data_distributed/file_5036/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,196 - WARNING - Header not found in training_data_distributed/file_5037/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,201 - WARNING - Header not found in training_data_distributed/file_5037/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,205 - WARNING - Header not found in training_data_distributed/file_5037/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,207 - WARNING - Header not found in training_data_distributed/file_5037/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,210 - WARNING - Header not found in training_data_distributed/file_5037/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,213 - WARNING - Header not found in training_data_distributed/file_5037/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,216 - WARNING - Header not found in training_data_distributed/file_5037/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,227 - WARNING - Header not found in training_data_distributed/file_5038/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,229 - WARNING - Header not found in training_data_distributed/file_5038/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,232 - WARNING - Header not found in training_data_distributed/file_5038/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,240 - WARNING - Header not found in training_data_distributed/file_5038/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,245 - WARNING - Header not found in training_data_distributed/file_5038/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,255 - WARNING - Header not found in training_data_distributed/file_5039/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,258 - WARNING - Header not found in training_data_distributed/file_5039/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,260 - WARNING - Header not found in training_data_distributed/file_5039/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,263 - WARNING - Header not found in training_data_distributed/file_5039/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,266 - WARNING - Header not found in training_data_distributed/file_5039/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,268 - WARNING - Header not found in training_data_distributed/file_5039/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,271 - WARNING - Header not found in training_data_distributed/file_5039/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,284 - WARNING - Header not found in training_data_distributed/file_5040/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,289 - WARNING - Header not found in training_data_distributed/file_5040/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,291 - WARNING - Header not found in training_data_distributed/file_5040/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,294 - WARNING - Header not found in training_data_distributed/file_5040/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,297 - WARNING - Header not found in training_data_distributed/file_5040/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,299 - WARNING - Header not found in training_data_distributed/file_5040/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,302 - WARNING - Header not found in training_data_distributed/file_5040/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,317 - WARNING - Header not found in training_data_distributed/file_5041/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,320 - WARNING - Header not found in training_data_distributed/file_5041/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,326 - WARNING - Header not found in training_data_distributed/file_5041/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,328 - WARNING - Header not found in training_data_distributed/file_5041/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,331 - WARNING - Header not found in training_data_distributed/file_5041/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,341 - WARNING - Header not found in training_data_distributed/file_5042/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,344 - WARNING - Header not found in training_data_distributed/file_5042/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,347 - WARNING - Header not found in training_data_distributed/file_5042/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,349 - WARNING - Header not found in training_data_distributed/file_5042/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,352 - WARNING - Header not found in training_data_distributed/file_5042/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,354 - WARNING - Header not found in training_data_distributed/file_5042/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,370 - WARNING - Header not found in training_data_distributed/file_5043/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,375 - WARNING - Header not found in training_data_distributed/file_5043/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,377 - WARNING - Header not found in training_data_distributed/file_5043/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,381 - WARNING - Header not found in training_data_distributed/file_5043/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,384 - WARNING - Header not found in training_data_distributed/file_5043/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,386 - WARNING - Header not found in training_data_distributed/file_5043/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,389 - WARNING - Header not found in training_data_distributed/file_5043/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,399 - WARNING - Header not found in training_data_distributed/file_5044/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,402 - WARNING - Header not found in training_data_distributed/file_5044/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,408 - WARNING - Header not found in training_data_distributed/file_5044/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,413 - WARNING - Header not found in training_data_distributed/file_5044/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,416 - WARNING - Header not found in training_data_distributed/file_5044/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,428 - WARNING - Header not found in training_data_distributed/file_5045/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,430 - WARNING - Header not found in training_data_distributed/file_5045/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,433 - WARNING - Header not found in training_data_distributed/file_5045/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,441 - WARNING - Header not found in training_data_distributed/file_5045/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,443 - WARNING - Header not found in training_data_distributed/file_5045/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,456 - WARNING - Header not found in training_data_distributed/file_5046/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,459 - WARNING - Header not found in training_data_distributed/file_5046/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,461 - WARNING - Header not found in training_data_distributed/file_5046/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,464 - WARNING - Header not found in training_data_distributed/file_5046/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,466 - WARNING - Header not found in training_data_distributed/file_5046/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,469 - WARNING - Header not found in training_data_distributed/file_5046/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,471 - WARNING - Header not found in training_data_distributed/file_5046/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,474 - WARNING - Header not found in training_data_distributed/file_5046/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,491 - WARNING - Header not found in training_data_distributed/file_5047/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,496 - WARNING - Header not found in training_data_distributed/file_5047/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,499 - WARNING - Header not found in training_data_distributed/file_5047/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,501 - WARNING - Header not found in training_data_distributed/file_5047/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,511 - WARNING - Header not found in training_data_distributed/file_5048/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,513 - WARNING - Header not found in training_data_distributed/file_5048/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,516 - WARNING - Header not found in training_data_distributed/file_5048/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,519 - WARNING - Header not found in training_data_distributed/file_5048/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,522 - WARNING - Header not found in training_data_distributed/file_5048/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,528 - WARNING - Header not found in training_data_distributed/file_5048/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,540 - WARNING - Header not found in training_data_distributed/file_5049/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,542 - WARNING - Header not found in training_data_distributed/file_5049/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,547 - WARNING - Header not found in training_data_distributed/file_5049/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,550 - WARNING - Header not found in training_data_distributed/file_5049/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,567 - WARNING - Header not found in training_data_distributed/file_5050/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,570 - WARNING - Header not found in training_data_distributed/file_5050/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,575 - WARNING - Header not found in training_data_distributed/file_5050/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,578 - WARNING - Header not found in training_data_distributed/file_5050/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,581 - WARNING - Header not found in training_data_distributed/file_5050/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,583 - WARNING - Header not found in training_data_distributed/file_5050/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,586 - WARNING - Header not found in training_data_distributed/file_5050/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,598 - WARNING - Header not found in training_data_distributed/file_5051/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,601 - WARNING - Header not found in training_data_distributed/file_5051/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,603 - WARNING - Header not found in training_data_distributed/file_5051/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,618 - WARNING - Header not found in training_data_distributed/file_5051/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,633 - WARNING - Header not found in training_data_distributed/file_5052/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,636 - WARNING - Header not found in training_data_distributed/file_5052/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,640 - WARNING - Header not found in training_data_distributed/file_5052/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,643 - WARNING - Header not found in training_data_distributed/file_5052/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,645 - WARNING - Header not found in training_data_distributed/file_5052/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,648 - WARNING - Header not found in training_data_distributed/file_5052/period_7.csv. Applying standard header.
+2025-09-07 23:40:17,651 - WARNING - Header not found in training_data_distributed/file_5052/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,663 - WARNING - Header not found in training_data_distributed/file_5053/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,671 - WARNING - Header not found in training_data_distributed/file_5053/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,678 - WARNING - Header not found in training_data_distributed/file_5053/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,697 - WARNING - Header not found in training_data_distributed/file_5054/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,699 - WARNING - Header not found in training_data_distributed/file_5054/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,717 - WARNING - Header not found in training_data_distributed/file_5055/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,719 - WARNING - Header not found in training_data_distributed/file_5055/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,722 - WARNING - Header not found in training_data_distributed/file_5055/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,753 - WARNING - Header not found in training_data_distributed/file_5056/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,755 - WARNING - Header not found in training_data_distributed/file_5056/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,760 - WARNING - Header not found in training_data_distributed/file_5056/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,771 - WARNING - Header not found in training_data_distributed/file_5057/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,774 - WARNING - Header not found in training_data_distributed/file_5057/period_2.csv. Applying standard header.
+2025-09-07 23:40:17,810 - WARNING - Header not found in training_data_distributed/file_5058/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,841 - WARNING - Header not found in training_data_distributed/file_5059/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,843 - WARNING - Header not found in training_data_distributed/file_5059/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,846 - WARNING - Header not found in training_data_distributed/file_5059/period_6.csv. Applying standard header.
+2025-09-07 23:40:17,880 - WARNING - Header not found in training_data_distributed/file_5060/period_8.csv. Applying standard header.
+2025-09-07 23:40:17,949 - WARNING - Header not found in training_data_distributed/file_5061/period_1.csv. Applying standard header.
+2025-09-07 23:40:17,954 - WARNING - Header not found in training_data_distributed/file_5061/period_3.csv. Applying standard header.
+2025-09-07 23:40:17,956 - WARNING - Header not found in training_data_distributed/file_5061/period_4.csv. Applying standard header.
+2025-09-07 23:40:17,959 - WARNING - Header not found in training_data_distributed/file_5061/period_5.csv. Applying standard header.
+2025-09-07 23:40:17,990 - WARNING - Header not found in training_data_distributed/file_5062/period_6.csv. Applying standard header.
+2025-09-07 23:40:18,022 - WARNING - Header not found in training_data_distributed/file_5063/period_7.csv. Applying standard header.
+2025-09-07 23:40:18,025 - WARNING - Header not found in training_data_distributed/file_5063/period_8.csv. Applying standard header.
+2025-09-07 23:40:18,070 - WARNING - Header not found in training_data_distributed/file_5065/period_3.csv. Applying standard header.
+2025-09-07 23:40:18,072 - WARNING - Header not found in training_data_distributed/file_5065/period_4.csv. Applying standard header.
+2025-09-07 23:40:18,123 - WARNING - Header not found in training_data_distributed/file_5067/period_1.csv. Applying standard header.
+2025-09-07 23:40:18,156 - WARNING - Header not found in training_data_distributed/file_5068/period_3.csv. Applying standard header.
+2025-09-07 23:40:19,070 - INFO - 진행 상황: 5100 / 10000 (file_num: 5100)
+2025-09-07 23:40:21,963 - INFO - 진행 상황: 5200 / 10000 (file_num: 5200)
+2025-09-07 23:40:24,813 - INFO - 진행 상황: 5300 / 10000 (file_num: 5300)
+2025-09-07 23:40:27,757 - INFO - 진행 상황: 5400 / 10000 (file_num: 5400)
+2025-09-07 23:40:30,631 - INFO - 진행 상황: 5500 / 10000 (file_num: 5500)
+2025-09-07 23:40:33,574 - INFO - 진행 상황: 5600 / 10000 (file_num: 5600)
+2025-09-07 23:40:36,851 - INFO - 진행 상황: 5700 / 10000 (file_num: 5700)
+2025-09-07 23:40:39,813 - INFO - 진행 상황: 5800 / 10000 (file_num: 5800)
+2025-09-07 23:40:42,772 - INFO - 진행 상황: 5900 / 10000 (file_num: 5900)
+2025-09-07 23:40:45,624 - INFO - 진행 상황: 6000 / 10000 (file_num: 6000)
+2025-09-07 23:40:48,518 - INFO - 진행 상황: 6100 / 10000 (file_num: 6100)
+2025-09-07 23:40:51,523 - INFO - 진행 상황: 6200 / 10000 (file_num: 6200)
+2025-09-07 23:40:54,934 - INFO - 진행 상황: 6300 / 10000 (file_num: 6300)
+2025-09-07 23:40:58,000 - INFO - 진행 상황: 6400 / 10000 (file_num: 6400)
+2025-09-07 23:41:01,043 - INFO - 진행 상황: 6500 / 10000 (file_num: 6500)
+2025-09-07 23:41:03,943 - INFO - 진행 상황: 6600 / 10000 (file_num: 6600)
+2025-09-07 23:41:06,917 - INFO - 진행 상황: 6700 / 10000 (file_num: 6700)
+2025-09-07 23:41:09,835 - INFO - 진행 상황: 6800 / 10000 (file_num: 6800)
+2025-09-07 23:41:12,673 - INFO - 진행 상황: 6900 / 10000 (file_num: 6900)
+2025-09-07 23:41:15,633 - INFO - 진행 상황: 7000 / 10000 (file_num: 7000)
+2025-09-07 23:41:18,494 - INFO - 진행 상황: 7100 / 10000 (file_num: 7100)
+2025-09-07 23:41:21,356 - INFO - 진행 상황: 7200 / 10000 (file_num: 7200)
+2025-09-07 23:41:24,305 - INFO - 진행 상황: 7300 / 10000 (file_num: 7300)
+2025-09-07 23:41:27,196 - INFO - 진행 상황: 7400 / 10000 (file_num: 7400)
+2025-09-07 23:41:30,136 - INFO - 진행 상황: 7500 / 10000 (file_num: 7500)
+2025-09-07 23:41:33,696 - INFO - 진행 상황: 7600 / 10000 (file_num: 7600)
+2025-09-07 23:41:36,955 - INFO - 진행 상황: 7700 / 10000 (file_num: 7700)
+2025-09-07 23:41:40,031 - INFO - 진행 상황: 7800 / 10000 (file_num: 7800)
+2025-09-07 23:41:42,965 - INFO - 진행 상황: 7900 / 10000 (file_num: 7900)
+2025-09-07 23:41:45,837 - INFO - 진행 상황: 8000 / 10000 (file_num: 8000)
+2025-09-07 23:41:48,705 - INFO - 진행 상황: 8100 / 10000 (file_num: 8100)
+2025-09-07 23:41:51,652 - INFO - 진행 상황: 8200 / 10000 (file_num: 8200)
+2025-09-07 23:41:54,590 - INFO - 진행 상황: 8300 / 10000 (file_num: 8300)
+2025-09-07 23:41:57,473 - INFO - 진행 상황: 8400 / 10000 (file_num: 8400)
+2025-09-07 23:42:00,513 - INFO - 진행 상황: 8500 / 10000 (file_num: 8500)
+2025-09-07 23:42:03,632 - INFO - 진행 상황: 8600 / 10000 (file_num: 8600)
+2025-09-07 23:42:06,784 - INFO - 진행 상황: 8700 / 10000 (file_num: 8700)
+2025-09-07 23:42:09,755 - INFO - 진행 상황: 8800 / 10000 (file_num: 8800)
+2025-09-07 23:42:12,610 - INFO - 진행 상황: 8900 / 10000 (file_num: 8900)
+2025-09-07 23:42:15,735 - INFO - 진행 상황: 9000 / 10000 (file_num: 9000)
+2025-09-07 23:42:18,764 - INFO - 진행 상황: 9100 / 10000 (file_num: 9100)
+2025-09-07 23:42:21,856 - INFO - 진행 상황: 9200 / 10000 (file_num: 9200)
+2025-09-07 23:42:24,857 - INFO - 진행 상황: 9300 / 10000 (file_num: 9300)
+2025-09-07 23:42:27,857 - INFO - 진행 상황: 9400 / 10000 (file_num: 9400)
+2025-09-07 23:42:30,764 - INFO - 진행 상황: 9500 / 10000 (file_num: 9500)
+2025-09-07 23:42:33,926 - INFO - 진행 상황: 9600 / 10000 (file_num: 9600)
+2025-09-07 23:42:37,001 - INFO - 진행 상황: 9700 / 10000 (file_num: 9700)
+2025-09-07 23:42:40,024 - INFO - 진행 상황: 9800 / 10000 (file_num: 9800)
+2025-09-07 23:42:42,884 - INFO - 진행 상황: 9900 / 10000 (file_num: 9900)
+2025-09-07 23:42:45,897 - INFO - 진행 상황: 10000 / 10000 (file_num: 10000)
+2025-09-07 23:42:45,925 - INFO - 데이터 재구성이 완료되었습니다.
+2025-09-07 23:42:45,925 - INFO - 3. 최종 데이터프레임을 생성합니다.
+2025-09-07 23:42:51,528 - INFO - ✅ 최종 데이터셋이 'aggregated_dataset.csv'에 성공적으로 저장되었습니다. (총 10000개 샘플)
+2025-09-07 23:42:51,528 - INFO - 최종 데이터셋 형태: (10000, 619)
+2025-09-07 23:42:51,528 - INFO - 최종 데이터셋 컬럼 미리보기: ['file_num', 'v_0', 'v_1', 'v_2', 'v_3']...['v_613', 'v_614', 'v_615', 'E_Q', 'C']

@@ -3,10 +3,10 @@
 
 USE_TEMP_DIR : True #
 temp_dir : './'
-version : 'europe_v51'
-Horizon : 2030 # end point year, 2060 (original)
+version : 'europe_v50_mod'
+Horizon : 2060 # end point year, 2060 (original)
 NoOfScenarios : 1
-lengthRegSeason : 168
+lengthRegSeason : 4
 discountrate : 0.05
 WACC : 0.05
 solver : "Gurobi" # "Gurobi"  # #"CPLEX"

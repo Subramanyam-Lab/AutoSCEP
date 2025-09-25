@@ -16,8 +16,9 @@ from scenario_random import generate_random_scenario
 from reader import generate_tab_files
 from yaml import safe_load
 import argparse
+import shutil
 
-
+activate_rule = "version1"
 
 __author__ = "Stian Backe"
 __license__ = "MIT"
@@ -28,16 +29,19 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
                solver, temp_dir, FirstHoursOfRegSeason, FirstHoursOfPeakSeason, lengthRegSeason,
                lengthPeakSeason, Period, Operationalhour, Scenario, Season, HoursOfSeason,
                discountrate, WACC, LeapYearsInvestment, IAMC_PRINT, WRITE_LP,
-               PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE, seed,north_sea):
+               PICKLE_INSTANCE, EMISSION_CAP, USE_TEMP_DIR, LOADCHANGEMODULE, seed,north_sea,version):
 
     if USE_TEMP_DIR:
         TempfileManager.tempdir = temp_dir
 
-    if not os.path.exists(result_file_path):
-        os.makedirs(result_file_path)
+    # if not os.path.exists(result_file_path):
+    #     os.makedirs(result_file_path)
 
     model = AbstractModel()
 
+    scenariopath = tab_file_path
+    tab_file_path = f'Data handler/base/{version}'
+    
     ###########
     ##SOLVERS##
     ###########
@@ -190,7 +194,8 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     model.genFuelCost = Param(model.Generator, model.Period, default=0.0, mutable=True)
     model.genMargCost = Param(model.Generator, model.Period, default=600, mutable=True)
     model.genCO2TypeFactor = Param(model.Generator, default=0.0, mutable=True)
-    model.nodeLostLoadCost = Param(model.Node, model.Period, default=22000.0)
+    # model.nodeLostLoadCost = Param(model.Node, model.Period, default=22000.0)
+    model.nodeLostLoadCost = Param(model.Node, model.Period, default=1e+8, mutable=False)
     model.CO2price = Param(model.Period, default=0.0, mutable=True)
     model.CCSCostTSFix = Param(initialize=1149873.72) #NB! Hard-coded
     model.CCSCostTSVariable = Param(model.Period, default=0.0, mutable=True)
@@ -244,11 +249,6 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     model.maxHydroNode = Param(model.Node, default=0.0, mutable=True)
     model.storOperationalInit = Param(model.Storage, default=0.0, mutable=True) #Percentage of installed energy capacity initially
     
-    # Average Param
-    # model.exp_sload_period = Param(model.Period ,initialize = {1: 283377469.79874474/len(Operationalhour), 2: 377612274.66721797/len(Operationalhour), 3: 459080826.96287024/len(Operationalhour), 4: 548983764.8127564/len(Operationalhour), 5: 606941146.4809588/len(Operationalhour), 6: 659321664.0729808/len(Operationalhour), 7: 659251509.8788861/len(Operationalhour), 8: 660975044.8717318/len(Operationalhour)}, mutable=True)
-    # model.exp_sload_period = Param(model.Period ,initialize = {1: 275348866.4451096/len(Operationalhour), 2: 284007692.87176955/len(Operationalhour), 3: 290337542.4180831/len(Operationalhour), 4: 302459189.3926306/len(Operationalhour)}, mutable=True)
-    model.exp_sload_period = Param(model.Period, initialize = {1: 382828.97340161866, 2: 394545.50362998934, 3: 402731.77608857834, 4: 421851.0020638172, 5: 454849.01055738726, 6: 482422.2155097133, 7: 493975.80815944297, 8: 529431.6062802626}, mutable = True)
-    model.avg_cap_avail = Param(model.GeneratorsOfNode, model.Period, default=0.0, mutable=True)
 
     if EMISSION_CAP:
         model.CO2cap = Param(model.Period, default=5000.0, mutable=True)
@@ -270,8 +270,9 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     data.load(filename=tab_file_path + "/" + 'Generator_Efficiency.tab', param=model.genEfficiency, format="table")
     data.load(filename=tab_file_path + "/" + 'Generator_RefInitialCap.tab', param=model.genRefInitCap, format="table")
     data.load(filename=tab_file_path + "/" + 'Generator_ScaleFactorInitialCap.tab', param=model.genScaleInitCap, format="table")
-    data.load(filename=tab_file_path + "/" + 'Generator_InitialCapacity.tab', param=model.genInitCap, format="table") #node_generator_intial_capacity.xlsx
-    data.load(filename=tab_file_path + "/" + 'Generator_MaxBuiltCapacity.tab', param=model.genMaxBuiltCap, format="table")#?
+    if version in ["europe_v51","europe_reduced_v51", "europe_v50", "reduced"]:
+        data.load(filename=tab_file_path + "/" + 'Generator_MaxBuiltCapacity.tab', param=model.genMaxBuiltCap, format="table")#?
+        data.load(filename=tab_file_path + "/" + 'Generator_InitialCapacity.tab', param=model.genInitCap, format="table") #node_generator_intial_capacity.xlsx
     data.load(filename=tab_file_path + "/" + 'Generator_MaxInstalledCapacity.tab', param=model.genMaxInstalledCapRaw, format="table")#maximum_capacity_constraint_040317_high
     data.load(filename=tab_file_path + "/" + 'Generator_CO2Content.tab', param=model.genCO2TypeFactor, format="table")
     data.load(filename=tab_file_path + "/" + 'Generator_RampRate.tab', param=model.genRampUpCap, format="table")
@@ -304,17 +305,17 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     data.load(filename=tab_file_path + "/" + 'Storage_PowerMaxInstalledCapacity.tab', param=model.storPWMaxInstalledCapRaw, format="table")
     data.load(filename=tab_file_path + "/" + 'Storage_Lifetime.tab', param=model.storageLifetime, format="table")
     # new
-    data.load(filename=f'Data handler/europe_reduced_v50/Average_Cap_Avail_{len(Period)}.tab', param=model.avg_cap_avail, format="table")
+    # data.load(filename=f'Data handler/europe_reduced_v50/Average_Cap_Avail_{len(Period)}.tab', param=model.avg_cap_avail, format="table")
 
     #Temporarily 
-    data.load(filename=tab_file_path + "/" + 'Node_NodeLostLoadCost.tab', param=model.nodeLostLoadCost, format="table")
+    # data.load(filename=tab_file_path + "/" + 'Node_NodeLostLoadCost.tab', param=model.nodeLostLoadCost, format="table")
     data.load(filename=tab_file_path + "/" + 'Node_ElectricAnnualDemand.tab', param=model.sloadAnnualDemand, format="table") 
     data.load(filename=tab_file_path + "/" + 'Node_HydroGenMaxAnnualProduction.tab', param=model.maxHydroNode, format="table") 
     
-    if scenariogeneration:
-        scenariopath = tab_file_path
-    else:
-        scenariopath = scenario_data_path
+    # if scenariogeneration:
+    #     scenariopath = tab_file_path
+    # else:
+    #     scenariopath = scenario_data_path
 
     data.load(filename=scenariopath + "/" + 'Stochastic_HydroGenMaxSeasonalProduction.tab', param=model.maxRegHydroGenRaw, format="table")
     data.load(filename=scenariopath + "/" + 'Stochastic_StochasticAvailability.tab', param=model.genCapAvailStochRaw, format="table") 
@@ -331,6 +332,22 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
         data.load(filename=scenariopath + "/" + 'LoadchangeModule/Stochastic_ElectricLoadMod.tab', param=model.sloadMod, format="table")
 
     print("Constructing parameter values...")
+
+
+
+    def adjust_season_scale_rule(model):
+        # Regular seasons are defined as:
+        regular_seasons = ["winter", "spring", "summer", "fall"]
+        # Calculate the common value for regular seasons:
+        regular_scale = float((8760 - 48) / (4 * model.lengthRegSeason))
+        for s in model.Season:
+            if s in regular_seasons:
+                model.seasScale[s] = regular_scale
+            else:
+                # For peak seasons (assumed to be not in regular_seasons)
+                model.seasScale[s] = 1.0
+    model.adjust_season_scale = BuildAction(rule=adjust_season_scale_rule)
+
 
 
     # It means that the probability of scenarios is equally same regardless of scenario, and the expected second stage value is just average of second stage value. 
@@ -491,18 +508,18 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
         #Build load profiles for all periods
 
         counter = 0
-        f = open(result_file_path + '/AdjustedNegativeLoad_' + name + '.txt', 'w')
+        # f = open(result_file_path + '/AdjustedNegativeLoad_' + name + '.txt', 'w')
         for n in model.Node:
             for i in model.PeriodActive:
                 noderawdemand = 0
                 for (s,h) in model.HoursOfSeason:
-                    if value(h) < value(FirstHoursOfRegSeason[-1] + model.lengthRegSeason):
+                    # if value(h) < value(FirstHoursOfRegSeason[-1] + model.lengthRegSeason):
                         for sce in model.Scenario:
                                 noderawdemand += value(model.sceProbab[sce]*model.seasScale[s]*model.sloadRaw[n,h,sce,i])
                 if value(model.sloadAnnualDemand[n,i]) < 1:
                     hourlyscale = 0
                 else:
-                    hourlyscale = value(model.sloadAnnualDemand[n,i]) / (len(Operationalhour)*noderawdemand)
+                    hourlyscale = value(model.sloadAnnualDemand[n,i]) / noderawdemand
                 for h in model.Operationalhour:
                     for sce in model.Scenario:
                         model.sload[n, h, i, sce] = (model.sloadRaw[n,h,sce,i]*hourlyscale)
@@ -513,8 +530,8 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
                             model.sload[n,h,i,sce] = 10
                             counter += 1
 
-        f.write('Hours with too small raw electricity load: ' + str(counter))
-        f.close()
+        # f.write('Hours with too small raw electricity load: ' + str(counter))
+        # f.close()
 
     model.build_sload = BuildAction(rule=prepSload_rule)
 
@@ -574,8 +591,7 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
             sum(model.genInvCost[g,i]* model.genInvCap[n,g,i] for (n,g) in model.GeneratorsOfNode ) + \
             sum(model.transmissionInvCost[n1,n2,i]*model.transmisionInvCap[n1,n2,i] for (n1,n2) in model.BidirectionalArc ) + \
             sum((model.storPWInvCost[b,i]*model.storPWInvCap[n,b,i]+model.storENInvCost[b,i]*model.storENInvCap[n,b,i]) for (n,b) in model.StoragesOfNode ) + \
-            model.shedcomponent[i] + model.operationalcost[i]
-        ) for i in model.PeriodActive)
+            model.shedcomponent[i] + model.operationalcost[i]) for i in model.PeriodActive)
     model.Obj = Objective(rule=Obj_rule, sense=minimize)
 
     ###############
@@ -667,24 +683,24 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     model.installed_storage_energy_cap = Constraint(model.StoragesOfNode, model.PeriodActive, rule=installed_storage_energy_cap_rule)
 
     #################################################################
-    if north_sea:
-        def wind_farm_tranmission_cap_rule(model, n1, n2, i):
-            if n1 in model.OffshoreNode or n2 in model.OffshoreNode:
-                if (n1,n2) in model.BidirectionalArc:
-                    if n1 in model.OffshoreNode:
-                        return model.transmissionInstalledCap[(n1,n2),i] <= sum(model.genInstalledCap[n1,g,i] for g in model.Generator if (n1,g) in model.GeneratorsOfNode)
-                    else:
-                        return model.transmissionInstalledCap[(n1,n2),i] <= sum(model.genInstalledCap[n2,g,i] for g in model.Generator if (n2,g) in model.GeneratorsOfNode)
-                elif (n2,n1) in model.BidirectionalArc:
-                    if n1 in model.OffshoreNode:
-                        return model.transmissionInstalledCap[(n2,n1),i] <= sum(model.genInstalledCap[n1,g,i] for g in model.Generator if (n1,g) in model.GeneratorsOfNode)
-                    else:
-                        return model.transmissionInstalledCap[(n2,n1),i] <= sum(model.genInstalledCap[n2,g,i] for g in model.Generator if (n2,g) in model.GeneratorsOfNode)
-                else:
-                    return Constraint.Skip
-            else:
-                return Constraint.Skip
-        model.wind_farm_transmission_cap = Constraint(model.Node, model.Node, model.PeriodActive, rule=wind_farm_tranmission_cap_rule)
+    # if north_sea:
+    #     def wind_farm_tranmission_cap_rule(model, n1, n2, i):
+    #         if n1 in model.OffshoreNode or n2 in model.OffshoreNode:
+    #             if (n1,n2) in model.BidirectionalArc:
+    #                 if n1 in model.OffshoreNode:
+    #                     return model.transmissionInstalledCap[(n1,n2),i] <= sum(model.genInstalledCap[n1,g,i] for g in model.Generator if (n1,g) in model.GeneratorsOfNode)
+    #                 else:
+    #                     return model.transmissionInstalledCap[(n1,n2),i] <= sum(model.genInstalledCap[n2,g,i] for g in model.Generator if (n2,g) in model.GeneratorsOfNode)
+    #             elif (n2,n1) in model.BidirectionalArc:
+    #                 if n1 in model.OffshoreNode:
+    #                     return model.transmissionInstalledCap[(n2,n1),i] <= sum(model.genInstalledCap[n1,g,i] for g in model.Generator if (n1,g) in model.GeneratorsOfNode)
+    #                 else:
+    #                     return model.transmissionInstalledCap[(n2,n1),i] <= sum(model.genInstalledCap[n2,g,i] for g in model.Generator if (n2,g) in model.GeneratorsOfNode)
+    #             else:
+    #                 return Constraint.Skip
+    #         else:
+    #             return Constraint.Skip
+    #     model.wind_farm_transmission_cap = Constraint(model.Node, model.Node, model.PeriodActive, rule=wind_farm_tranmission_cap_rule)
 
     #################################################################
 
@@ -696,6 +712,49 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     model.power_energy_relate = Constraint(model.StoragesOfNode, model.PeriodActive, rule=power_energy_relate_rule)
 
     #################################################################
+
+    if activate_rule == "version1": 
+        def version1_rule(model, h, i):
+            gen_avail_capacity = sum(model.sceProbab[w]*sum(model.genInstalledCap[n, g, i] * model.genCapAvail[n,g,h,w,i] for (n, g) in model.GeneratorsOfNode) for w in model.Scenario)
+            average_sload = sum(model.sceProbab[w]*sum(model.sload[n,h,i,w] for n in model.Node) for w in model.Scenario)
+            return average_sload-gen_avail_capacity <= 0 
+        model.version1 = Constraint(model.Operationalhour, model.PeriodActive,rule=version1_rule)
+
+    if activate_rule == "version2":
+        def version2_rule(model, s, i):
+            num_hours = len([h for (season, h) in model.HoursOfSeason if season == s])
+            gen_avail_capacity = sum(model.sceProbab[w]*sum(sum(model.genInstalledCap[n, g, i] * model.genCapAvail[n,g,h,w,i] for (n, g) in model.GeneratorsOfNode) for h in model.Operationalhour if (s,h) in model.HoursOfSeason) for w in model.Scenario)
+            average_gen_avail_capacity = gen_avail_capacity / num_hours
+            average_sload = sum(model.sceProbab[w]*sum(sum(model.sload[n,h,i,w] for n in model.Node)for h in model.Operationalhour if (s,h) in model.HoursOfSeason)for w in model.Scenario)
+            hourly_average_sload = average_sload / num_hours
+            return hourly_average_sload - average_gen_avail_capacity <= 0 
+        model.version2 = Constraint(model.Season, model.PeriodActive,rule=version2_rule)
+
+    if activate_rule == "version3":
+        model.peakLoad = Var(model.Season, model.Scenario, model.PeriodActive, domain=NonNegativeReals)
+        # Define peak load for each season, scenario, and period:
+        def peak_load_definition_rule(model, s, w, i, h):
+            if (s, h) not in model.HoursOfSeason:
+                return Constraint.Skip
+            return model.peakLoad[s, w, i] >= sum(model.sload[n, h, i, w] for n in model.Node)
+
+        model.peakLoadDefinition = Constraint(
+            model.Season, model.Scenario, model.PeriodActive, model.Operationalhour, 
+            rule=peak_load_definition_rule
+        )
+
+        # Use the peak load variable in a constraint comparing capacity and peak demand:
+        def version3_rule(model, s, i):
+            average_peak_sload = sum(model.sceProbab[w] * model.peakLoad[s, w, i] for w in model.Scenario)
+            relevant_hours = [h for (season, h) in model.HoursOfSeason if season == s]
+            gen_avail_capacity = sum(
+                model.sceProbab[w] *
+                sum(model.genInstalledCap[n, g, i] * model.genCapAvail[n, g, h, w, i] for (n, g) in model.GeneratorsOfNode)for w in model.Scenario for h in relevant_hours
+            )
+            average_gen_avail_capacity = gen_avail_capacity / len(relevant_hours)
+            return average_peak_sload - average_gen_avail_capacity <= 0
+
+        model.version3 = Constraint(model.Season, model.PeriodActive, rule=version3_rule)
 
     #### Second Stage Constraints ####
 
@@ -791,19 +850,9 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
 
     #################################################################
 
-    # def capacity_vs_avg_sload_rule(model, i):
-    #     gen_capacity = sum(
-    #         model.genInstalledCap[n, g, i] * model.avg_cap_avail[n, g, i] for (n, g) in model.GeneratorsOfNode
-    #     )
-    #     return model.exp_sload_period[i]-gen_capacity <= 0 
-    # model.capacity_vs_avg_sload = Constraint(model.PeriodActive,rule=capacity_vs_avg_sload_rule)
-
-
-    def soft_loadshed_rule(model, n, h, i, w):
-        # Allow at most a very small fraction (epsilon) of the load to be unmet
-        epsilon = 1e-8 # epsilon * model.sload[n, h, i, w]
-        return model.loadShed[n, h, i, w] <= 0
-    model.SoftLoadShed = Constraint(model.Node, model.Operationalhour, model.PeriodActive, model.Scenario, rule=soft_loadshed_rule)
+    # def soft_loadshed_rule(model, n, h, i, w):
+    #     return model.loadShed[n, h, i, w] <= 0
+    # model.SoftLoadShed = Constraint(model.Node, model.Operationalhour, model.PeriodActive, model.Scenario, rule=soft_loadshed_rule)
 
     print("Objective and constraints read...")
 
@@ -818,54 +867,40 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     instance.dual = Suffix(direction=Suffix.IMPORT) #Make sure the dual value is collected into solver results (if solver supplies dual information)
 
 
+
+    
+    
+    # print("Computed genMargCost values:")
+    # for g in instance.Generator:
+    #     for i in instance.PeriodActive:
+    #         print(f"genMargCost[{g}, {i}] = {value(instance.genMargCost[g,i])}, genInvCost[{g}, {i}] = {value(instance.genInvCost[g,i])}")
+            
+    # print("Computed genMargCost values:")
+    # for g in instance.Generator:
+    #     for i in instance.PeriodActive:
+    #         print(f"genInvCost[{g}, {i}] = {value(instance.genInvCost[g,i])}")
+
     # def calculate_avg_sload_period(instance):
     #     avg_sload = {}
-    #     for i in instance.PeriodActive:
-    #         total_load = sum(
-    #             value(instance.sceProbab[w]) *
-    #             sum(
-    #                 value(instance.sload[n, h, i, w])
-    #                 for n in instance.Node
-    #                 for h in instance.Operationalhour
-    #             )
-    #             for w in instance.Scenario
-    #         )
-    #         avg_sload[i] = total_load
+    #     for n in instance.Node:
+    #         for i in instance.PeriodActive:
+    #             for h in instance.Operationalhour:            
+    #                 total_load = sum(
+    #                     value(instance.sceProbab[w]) * value(instance.sload[n, h, i, w])
+    #                     for w in instance.Scenario
+    #                 )
+    #                 avg_sload[n,i,h] = total_load
     #     return avg_sload
 
-    # aaa = calculate_avg_sload_period(instance)
-    # print(aaa)
+    # avg_sload = calculate_avg_sload_period(instance)
 
-    # raise 3
-
-
-    # # cap_avail 데이터를 DataFrame으로 변환
-
-    # def calculate_cap_avail(instance):
-    #     cap_avail = {}
-    #     for i in instance.PeriodActive:
-    #         for (n, g) in instance.GeneratorsOfNode:
-    #             weighted_sum = 0
-    #             total_weight = 0
-    #             for w in instance.Scenario:
-    #                 scenario_prob = value(instance.sceProbab[w])
-    #                 hour_sum = sum(value(instance.genCapAvail[n, g, h, w, i]) for h in instance.Operationalhour)
-    #                 weighted_sum += scenario_prob * hour_sum
-    #                 total_weight += scenario_prob * len(instance.Operationalhour)
-    #             cap_avail[n, g, i] = weighted_sum / total_weight if total_weight > 0 else 0
-    #             if cap_avail[n, g, i] > 1:
-    #                 print(f"WARNING: cap_avail[{n}, {g}, {i}] = {cap_avail[n, g, i]}")
-    #     return cap_avail
-
-    # cap_avail_dict = calculate_cap_avail(instance)
-    
     # data = []
-    # for (country, generator, period), cap_avail in cap_avail_dict.items():
-    #     data.append([country, generator, period, cap_avail])
+    # for (node, period, hour), sload in avg_sload.items():
+    #     data.append([node, period, hour, sload])
 
     # df = pd.DataFrame(data, columns=["Unnamed:_1", "Unnamed:_2", "Unnamed:_3", "Unnamed:_4"])
     # header = ["Unnamed:_1", "Unnamed:_2", "Unnamed:_3", "Unnamed:_4"]
-    # tab_file_path = f"Data handler/europe_reduced_v50/Average_Cap_Avail_{len(Period)}.tab"
+    # tab_file_path = f"Data handler/{version}/Average_sload_{str(lengthRegSeason)}_2.tab"
 
     # with open(tab_file_path, "w") as f:
     #     f.write("\t".join(header) + "\n")  # 첫 번째 줄에 헤더 작성
@@ -875,11 +910,88 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
 
     # raise 3
 
+
+    # def calculate_cap_avail(instance):
+    #     cap_avail = {}
+    #     for i in instance.PeriodActive:
+    #         for h in instance.Operationalhour:
+    #             for (n,g) in instance.GeneratorsOfNode:
+    #                 avg_avail = sum(value(instance.sceProbab[w]) * value(instance.genCapAvail[n, g, h, w, i]) for w in instance.Scenario)
+    #                 cap_avail[n,g,h,i] = avg_avail
+    #                 if cap_avail[n, g, h, i] > 1:
+    #                     print(f"WARNING: cap_avail[{n}, {g}, {h}, {i}] = {cap_avail[n, g, h, i]}")
+    #                     cap_avail[n, g, h, i] = 1.0
+    #     return cap_avail
+
+    # cap_avail_dict = calculate_cap_avail(instance)
+    
+    # data = []
+    # for (country, generator, hour, period), cap_avail in cap_avail_dict.items():
+    #     data.append([country, generator, hour, period, cap_avail])
+
+    # df = pd.DataFrame(data, columns=["Unnamed:_1", "Unnamed:_2", "Unnamed:_3", "Unnamed:_4","Unnamed:_5"])
+    # header = ["Unnamed:_1", "Unnamed:_2", "Unnamed:_3", "Unnamed:_4", "Unnamed:_5"]
+    # tab_file_path = f"Data handler/{version}/Average_Cap_Avail_{str(lengthRegSeason)}.tab"
+
+    # with open(tab_file_path, "w") as f:
+    #     f.write("\t".join(header) + "\n")  # 첫 번째 줄에 헤더 작성
+    #     df.to_csv(f, sep="\t", index=False, header=False)  # 데이터 저장
+
+    # print(f"파일이 저장되었습니다: {tab_file_path}")
+
+    # raise 3
+
+
+    # def create_sload_by_season_and_scenario_csv(instance, filename="sload_values_by_season_and_scenario_whole.csv"):
+    #     with open(filename, "w", newline="") as csvfile:
+    #         writer = csv.writer(csvfile)
+    #         writer.writerow(["Season", "Hour", "Scenario", "Average_sload"])
+            
+    #         # Iterate over all (season, hour) pairs from the model's HoursOfSeason set.
+    #         for (season, hour) in instance.HoursOfSeason:
+    #             for w in instance.Scenario:
+    #                 total = 0.0
+    #                 count = 0
+    #                 for i in instance.PeriodActive:
+    #                     for n in instance.Node:
+    #                         total += value(instance.sload[n, hour, i, w])
+    #                         count += 1
+    #                 avg_sload = total / count if count > 0 else 0.0
+    #                 writer.writerow([season, hour, w, avg_sload])
+    #     print(f"CSV file '{filename}' created successfully.")
+
+    # create_sload_by_season_and_scenario_csv(instance)
+    # raise 3
+
+
+
+    # def create_sload_by_season_and_scenario_and_period_csv(instance, filename="sload_values_by_season_and_scenario_and_period.csv"):
+    #     with open(filename, "w", newline="") as csvfile:
+    #         writer = csv.writer(csvfile)
+    #         writer.writerow(["Period", "Scenario", "Season", "Hour", "Total_sload"])
+            
+    #         # Iterate over all (season, hour) pairs from the model's HoursOfSeason set.
+    #         for i in instance.PeriodActive:
+    #             for w in instance.Scenario:
+    #                 for (season, hour) in instance.HoursOfSeason:
+    #                     total_sload = 0.0
+    #                     for n in instance.Node:
+    #                         total_sload += value(instance.sload[n, hour, i, w])
+    #                     writer.writerow([i, w, season, hour, total_sload])
+    #     print(f"CSV file '{filename}' created successfully.")
+
+    # create_sload_by_season_and_scenario_and_period_csv(instance)
+
+    # raise 4
+
+
+
     
     end = time.time()
     print(f"Building instance took [sec]: {end - start}")
     
 
+    
     print("----------------------Problem Statistics---------------------")
     print("Nodes: "+ str(len(instance.Node)))
     print("Lines: "+str(len(instance.BidirectionalArc)))
@@ -905,16 +1017,14 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     print("--------------------------------------------------------------")
     
 
-    if WRITE_LP:
-        print("Writing LP-file...")
-        start = time.time()
-        lpstring = 'LP_' + name + '.lp'
-        if USE_TEMP_DIR:
-            lpstring = temp_dir + '/LP_'+ name + '.lp'
-        instance.write(lpstring, io_options={'symbolic_solver_labels': True})
-        end = time.time()
-        print("Writing LP-file took [sec]:")
-        print(end - start)
+    # Count variables
+    variable_count = sum(1 for _ in instance.component_data_objects(Var))
+    print("Number of Variables:", variable_count)
+
+    # Count constraints
+    constraint_count = sum(1 for _ in instance.component_data_objects(Constraint))
+    print("Number of Constraints:", constraint_count)
+    
 
     print("Solving...")
 
@@ -934,8 +1044,7 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
         opt = SolverFactory('gurobi', Verbose=True)
         opt.options["Crossover"]=0
         opt.options["Method"]=2
-        opt.options['threads'] = 2
-        opt.options['BarConvTol'] = 1e-4
+        # opt.options['BarConvTol'] = 1e-4
     if solver == "GLPK":
         opt = SolverFactory("glpk", Verbose=True)
     
@@ -946,12 +1055,13 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     # print(bounds_dict)
     # num_scenarios = len(instance.Scenario)
     instance.solutions.load_from(results)
-    get_results(instance, seed)
-    get_results_v(instance, seed)
-    expected_second_stage_value, total_ll_amt = compute_expected_second_stage_value(instance)
     objective_value = value(instance.Obj)
+    NoSce = len(Scenario)
+    get_results(instance, seed,NoSce,lengthRegSeason)
+    get_results_v(instance, seed,NoSce,lengthRegSeason)
+    expected_second_stage_value, total_ll_amt = compute_expected_second_stage_value(instance)
     print(f"total_ll_amt: {total_ll_amt}")
-
+    
     return objective_value, expected_second_stage_value
 
 
@@ -960,15 +1070,34 @@ def compute_expected_second_stage_value(instance):
     expected_second_stage_value = 0
     total_ll_amt = 0
     for i in instance.PeriodActive:
-        second_stage_value = value(instance.discount_multiplier[i]) * (value(instance.shedcomponent[i]) + value(instance.operationalcost[i]))
+        second_stage_value = value(instance.discount_multiplier[i]) * (
+            value(instance.shedcomponent[i]) + value(instance.operationalcost[i])
+        )
         expected_second_stage_value += second_stage_value
-        shed_amt = sum(value(instance.sceProbab[w])*value(instance.loadShed[n,h,i,w]) for n in instance.Node for (s,h) in instance.HoursOfSeason for w in instance.Scenario)
-        total_ll_amt += (shed_amt)
+
+        # Iterate over nodes, season-hour pairs, and scenarios
+        for n in instance.Node:
+            for (s, h) in instance.HoursOfSeason:
+                for w in instance.Scenario:
+                    ls_val = value(instance.loadShed[n, h, i, w])
+                    # Print if load shed is greater than or equal to zero
+                    # (Change the condition to > 0 if you only want strictly positive values.)
+                    if ls_val > 1:
+                        print(f"Period {i}, Season: {s}, Hour: {h}, Scenario: {w}, LoadShed: {ls_val}")
+
+        shed_amt = sum(
+            value(instance.sceProbab[w]) * value(instance.loadShed[n, h, i, w])
+            for n in instance.Node
+            for (s, h) in instance.HoursOfSeason
+            for w in instance.Scenario
+        )
+        total_ll_amt += shed_amt
+
     return expected_second_stage_value, total_ll_amt
 
 
 
-def get_results(instance, seed):
+def get_results(instance, seed, NoSce,lengthRegSeason):
     # Retrieve relevant data from the instance
     gen_inv_cap = instance.genInvCap.get_values()
     transmision_inv_cap = instance.transmisionInvCap.get_values()
@@ -991,18 +1120,18 @@ def get_results(instance, seed):
     df = pd.DataFrame(data, columns=['Node', 'Energy_Type', 'Period', 'Type', 'Value'])
 
     # Create output directories if they don't exist
-    output_dir = "FSD"
+    output_dir = "ORIFSD"
     os.makedirs(output_dir, exist_ok=True)
 
     # Save capacity and cost data to CSV
     # output_file_path = os.path.join(output_dir, f"{datetime.now().strftime('%Y%m%d%H%M')}_{total_fsd_length}_seed_{seed}_inv_cap.csv")
-    output_file_path = os.path.join(output_dir, f"{total_fsd_length}_seed_{seed}_inv_cap.csv")
+    output_file_path = os.path.join(output_dir, f"{NoSce}_seed_{seed}_len_{lengthRegSeason}_inv_cap.csv")
     df.to_csv(output_file_path, index=False)
 
     print("DataFrames created and saved successfully.")
 
 
-def get_results_v(instance, seed):
+def get_results_v(instance, seed,NoSce,lengthRegSeason):
     # Retrieve relevant data from the instance
     gen_installed_cap = instance.genInstalledCap.get_values()
     transmision_installed_cap = instance.transmissionInstalledCap.get_values()
@@ -1025,22 +1154,133 @@ def get_results_v(instance, seed):
     df = pd.DataFrame(data, columns=['Node', 'Energy_Type', 'Period', 'Type', 'Value'])
 
     # Create output directories if they don't exist
-    output_dir = "FSD"
+    output_dir = "ORIFSD"
     os.makedirs(output_dir, exist_ok=True)
 
     # Save capacity and cost data to CSV
     # output_file_path = os.path.join(output_dir, f"{datetime.now().strftime('%Y%m%d%H%M')}_{total_fsd_length}_seed_{seed}_inv_cap.csv")
-    output_file_path = os.path.join(output_dir, f"{total_fsd_length}_seed_{seed}_installed_cap.csv")
+    output_file_path = os.path.join(output_dir, f"{NoSce}_seed_{seed}_len_{lengthRegSeason}_installed_cap.csv")
     df.to_csv(output_file_path, index=False)
 
     print("DataFrames created and saved successfully.")
 
 
+
+
+
+def analyze_load_shedding(instance, load_shed_threshold=1.0, output_file=None):
+    records = []
+
+    # Loop over all period/scenario/hour/node combinations.
+    for i in instance.PeriodActive:
+        for w in instance.Scenario:
+            for (s, h) in instance.HoursOfSeason:
+                for n in instance.Node:
+                    ls_val = value(instance.loadShed[n, h, i, w])
+                    # Focus on entries where load shedding is significant
+                    if ls_val > load_shed_threshold:
+                        # Basic info
+                        record = {
+                            'Period': i,
+                            'Scenario': w,
+                            'Season': s,
+                            'Hour': h,
+                            'Node': n,
+                            'LoadShed': ls_val,
+                            'Load': value(instance.sload[n, h, i, w]),
+                        }
+
+                        # Sum of available generation capacity at node n
+                        # = sum over g: installed capacity * capacity-availability factor
+                        # for the hour h and scenario w
+                        sum_avail_cap = 0.0
+                        sum_dispatched = 0.0
+                        for g in instance.Generator:
+                            if (n, g) in instance.GeneratorsOfNode:
+                                installed_cap = value(instance.genInstalledCap[n, g, i])
+                                avail_factor = value(instance.genCapAvail[n, g, h, w, i])
+                                sum_avail_cap += installed_cap * avail_factor
+
+                                # Actual dispatch
+                                sum_dispatched += value(instance.genOperational[n, g, h, i, w])
+
+                        record['TotalGenCap_Available'] = sum_avail_cap
+                        record['TotalGen_Dispatched'] = sum_dispatched
+
+
+                        total_gen_max_installed = 0.0
+                        for t in instance.Technology: 
+                            for g in instance.Generator: 
+                                if (n,g) in instance.GeneratorsOfNode and (t,g) in instance.GeneratorsOfTechnology:
+                                    total_gen_max_installed += value(instance.genMaxInstalledCap[n, t, i])
+                            record['TotalGen_MaxInstalledCap'] = total_gen_max_installed
+
+
+                        # Sum of stored energy in each storage at node n
+                        # plus charge/discharge rates
+                        stor_prev_level = 0.0
+                        stor_level = 0.0
+                        stor_charge = 0.0
+                        stor_discharge = 0.0
+                        if hasattr(instance, 'StoragesOfNode'):
+                            for b in instance.Storage:
+                                if (n, b) in instance.StoragesOfNode:
+                                    stor_prev_level += value(instance.storOperational[n, b, (h-1), i, w])
+                                    stor_level += value(instance.storOperational[n, b, h, i, w])
+                                    stor_charge += value(instance.storCharge[n, b, h, i, w])
+                                    stor_discharge += value(instance.storDischarge[n, b, h, i, w])
+
+                        record['StoragePrevLevel'] = stor_prev_level
+                        record['StorageLevel'] = stor_level
+                        record['StorageCharge'] = stor_charge
+                        record['StorageDischarge'] = stor_discharge
+
+                        # Incoming flow from other nodes
+                        # Summation of lineEfficiency[m,n]*transmisionOperational[m,n,h,i,w]
+                        # where m is any node that has (m,n) in model.DirectionalLink
+                        # or uses NodesLinked[n] if you have that set defined
+                        incoming_flow = 0.0
+                        if hasattr(instance, 'NodesLinked'):
+                            # For each node 'm' s.t. (m,n) is a directional link
+                            for m in instance.NodesLinked[n]:
+                                # Some models store lineEfficiency with key (m,n), so check carefully
+                                eff = value(instance.lineEfficiency[(m, n)])
+                                flow = value(instance.transmisionOperational[(m, n), h, i, w])
+                                incoming_flow += eff * flow
+                        else:
+                            # Alternative approach if not using NodesLinked
+                            # You'd iterate over instance.DirectionalLink to find pairs (m,n)
+                            # that match the target node n
+                            for (m, nd) in instance.DirectionalLink:
+                                if nd == n:
+                                    eff = value(instance.lineEfficiency[(m, nd)])
+                                    flow = value(instance.transmisionOperational[(m, nd, h, i, w)])
+                                    incoming_flow += eff * flow
+
+                        record['IncomingFlow'] = incoming_flow
+
+                        # Append final record
+                        records.append(record)
+
+    # Build a DataFrame
+    df = pd.DataFrame(records)
+
+    # Optionally save to CSV
+    if output_file:
+        df.to_csv(output_file, index=False)
+
+    return df
+
+
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--seed', type=int, required=True, help='Specific seed')
+    parser.add_argument('--lenreg', type=int, required=True, help='Len Reg')
     args = parser.parse_args()
     SEED = args.seed
+    lengthRegSeason = args.lenreg
 
     UserRunTimeConfig = safe_load(open("config_reducedrun.yaml"))
 
@@ -1049,7 +1289,7 @@ if __name__ == '__main__':
     version = UserRunTimeConfig["version"]
     Horizon = UserRunTimeConfig["Horizon"]
     NoOfScenarios = UserRunTimeConfig["NoOfScenarios"]
-    lengthRegSeason = UserRunTimeConfig["lengthRegSeason"]
+    # lengthRegSeason = UserRunTimeConfig["lengthRegSeason"]
     discountrate = UserRunTimeConfig["discountrate"]
     WACC = UserRunTimeConfig["WACC"]
     solver = UserRunTimeConfig["solver"]
@@ -1066,7 +1306,6 @@ if __name__ == '__main__':
     WRITE_LP = UserRunTimeConfig["WRITE_LP"]
     PICKLE_INSTANCE = UserRunTimeConfig["PICKLE_INSTANCE"] 
 
-
     #############################
     ##Non configurable settings##
     #############################
@@ -1074,12 +1313,10 @@ if __name__ == '__main__':
     NoOfRegSeason = 4
     regular_seasons = ["winter", "spring", "summer", "fall"]
     NoOfPeakSeason = 2
-    lengthPeakSeason = 7
+    lengthPeakSeason = 24
     LeapYearsInvestment = 5
     time_format = "%d/%m/%Y %H:%M"
-    if version in ["europe_v51"]:
-        north_sea = True
-    elif version in ["europe_reduced_v51"]:
+    if version in ["europe_v51","europe_reduced_v51"]:
         north_sea = True
     else:
         north_sea = False
@@ -1087,7 +1324,6 @@ if __name__ == '__main__':
     #######
     ##RUN##
     #######
-
 
     name = version + '_reg' + str(lengthRegSeason) + \
         '_peak' + str(lengthPeakSeason) + \
@@ -1102,7 +1338,7 @@ if __name__ == '__main__':
         name = name + "_moment" + str(n_tree_compare)
     name = name + str(datetime.now().strftime("_%Y%m%d%H%M"))
     workbook_path = 'Data handler/' + version
-    tab_file_path = 'Data handler/' + version + '/Tab_Files_' + name + f'_{SEED}'
+    tab_file_path = 'Data handler/' + version + '/Tab_Files_' + name + f'_{lengthRegSeason}' + f'_{SEED}'
     scenario_data_path = 'Data handler/' + version + '/ScenarioData'
     result_file_path = 'Results/' + name
     FirstHoursOfRegSeason = [lengthRegSeason*i + 1 for i in range(NoOfRegSeason)]
@@ -1123,7 +1359,7 @@ if __name__ == '__main__':
                                                     lengthPeakSeason+1))]
     HoursOfSeason = HoursOfRegSeason + HoursOfPeakSeason
 
-    if version == 'europe_v51' or 'europe_reduced_v51':
+    if version in ["europe_v51","europe_reduced_v51"]:
         dict_countries = {"AT": "Austria", "BA": "BosniaH", "BE": "Belgium",
                       "BG": "Bulgaria", "CH": "Switzerland", "CZ": "CzechR",
                       "DE": "Germany", "DK": "Denmark", "EE": "Estonia",
@@ -1139,6 +1375,8 @@ if __name__ == '__main__':
                       "NF": "Norfolk", "EA": "EastAnglia", "BS": "Borssele",
                       "HK": "HollandseeKust", "HB": "HelgolanderBucht", "NS": "Nordsoen",
                       "UN": "UtsiraNord", "SN1": "SorligeNordsjoI", "SN2": "SorligeNordsjoII"}
+    elif version in ["reduced"]:
+        dict_countries = {"DE": "Germany", "DK": "Denmark", "FR": "France"}
     else :
         dict_countries = {"AT": "Austria", "BA": "BosniaH", "BE": "Belgium",
                         "BG": "Bulgaria", "CH": "Switzerland", "CZ": "CzechR",
@@ -1175,6 +1413,7 @@ if __name__ == '__main__':
 
     generate_tab_files(filepath = workbook_path, tab_file_path = tab_file_path)
 
+    # tab_file_path = f'Data handler/scenarios_PH/{NoOfScenarios}/{SEED}' # 다시해야함
 
     objective_value, expected_second_stage_value = run_empire(name = name, 
             tab_file_path = tab_file_path,
@@ -1202,7 +1441,8 @@ if __name__ == '__main__':
             USE_TEMP_DIR = USE_TEMP_DIR,
             LOADCHANGEMODULE = LOADCHANGEMODULE,
             seed = SEED,
-            north_sea = north_sea)
+            north_sea = north_sea,
+            version = version)
     end_time = time.time()
     print("Objective Value :", objective_value)
     print("Expected Second Stage Value :", expected_second_stage_value)

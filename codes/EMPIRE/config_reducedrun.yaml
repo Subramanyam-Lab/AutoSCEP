@@ -1,12 +1,12 @@
 # This is an example OpenEMPIRE configuration file. 
 # To be used with the execution script OpenEMPIRE/run.py
 
-USE_TEMP_DIR : True #
+USE_TEMP_DIR : False #
 temp_dir : './'
-version : 'europe_v50'
-Horizon : 2060 
+version : 'reduced'
+Horizon : 2060
 NoOfScenarios : 1
-lengthRegSeason : 24
+lengthRegSeason : 48
 discountrate : 0.05
 WACC : 0.05
 solver : "Gurobi" # "Gurobi"  # #"CPLEX"

@@ -22,6 +22,40 @@ __license__ = "MIT"
 __maintainer__ = "Stian Backe"
 __email__ = "stian.backe@ntnu.no"
 
+
+
+def load_investment_data(fsd_data):
+    gen_inv_cap = {}
+    transmission_inv_cap = {}
+    stor_pw_inv_cap = {}
+    stor_en_inv_cap = {}
+    
+    for row in fsd_data:
+        country, energy_type, period, type_, cap_value = row
+        period = int(period)
+        cap_value = float(cap_value)
+        
+        if type_ == 'Generation':
+            if (country, energy_type) not in gen_inv_cap:
+                gen_inv_cap[(country, energy_type)] = {}
+            gen_inv_cap[(country, energy_type)][period] = cap_value
+        elif type_ == 'Transmission':
+            if (country, energy_type) not in transmission_inv_cap:
+                transmission_inv_cap[(country, energy_type)] = {}
+            transmission_inv_cap[(country, energy_type)][period] = cap_value
+        elif type_ == 'Storage Power':
+            if (country, energy_type) not in stor_pw_inv_cap:
+                stor_pw_inv_cap[(country, energy_type)] = {}
+            stor_pw_inv_cap[(country, energy_type)][period] = cap_value
+        elif type_ == 'Storage Energy':
+            if (country, energy_type) not in stor_en_inv_cap:
+                stor_en_inv_cap[(country, energy_type)] = {}
+            stor_en_inv_cap[(country, energy_type)][period] = cap_value
+
+    return gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap
+
+
+
 def empire_validation(name, tab_file_path, result_file_path, scenariogeneration, scenario_data_path,
                solver, temp_dir, FirstHoursOfRegSeason, FirstHoursOfPeakSeason, lengthRegSeason,
                lengthPeakSeason, Period, Operationalhour, Scenario, Season, HoursOfSeason,
@@ -35,6 +69,9 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
         os.makedirs(result_file_path)
 
     model = AbstractModel()
+
+    scenariopath = f"Data handler/scenarios_PH/{len(Scenario)}/{seed}"
+    tab_file_path = f"Data handler/base/reduced"
 
     ###########
     ##SOLVERS##
@@ -189,7 +226,7 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
     model.genMargCost = Param(model.Generator, model.Period, default=600, mutable=True)
     model.genCO2TypeFactor = Param(model.Generator, default=0.0, mutable=True)
     # model.nodeLostLoadCost = Param(model.Node, model.Period, initialize=10.0, within=NonNegativeReals)
-    model.nodeLostLoadCost = Param(model.Node, model.Period, default=22000.0)
+    model.nodeLostLoadCost = Param(model.Node, model.Period, default=1e+10, mutable=False)
     model.CO2price = Param(model.Period, default=0.0, mutable=True)
     model.CCSCostTSFix = Param(initialize=1149873.72) #NB! Hard-coded
     model.CCSCostTSVariable = Param(model.Period, default=0.0, mutable=True)
@@ -297,14 +334,14 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
     data.load(filename=tab_file_path + "/" + 'Storage_PowerMaxInstalledCapacity.tab', param=model.storPWMaxInstalledCapRaw, format="table")
     data.load(filename=tab_file_path + "/" + 'Storage_Lifetime.tab', param=model.storageLifetime, format="table")
 
-    data.load(filename=tab_file_path + "/" + 'Node_NodeLostLoadCost.tab', param=model.nodeLostLoadCost, format="table")
+    # data.load(filename=tab_file_path + "/" + 'Node_NodeLostLoadCost.tab', param=model.nodeLostLoadCost, format="table")
     data.load(filename=tab_file_path + "/" + 'Node_ElectricAnnualDemand.tab', param=model.sloadAnnualDemand, format="table") 
     data.load(filename=tab_file_path + "/" + 'Node_HydroGenMaxAnnualProduction.tab', param=model.maxHydroNode, format="table") 
     
-    if scenariogeneration:
-        scenariopath = tab_file_path
-    else:
-        scenariopath = scenario_data_path
+    # if scenariogeneration:
+    #     scenariopath = tab_file_path
+    # else:
+    #     scenariopath = scenario_data_path
 
     data.load(filename=scenariopath + "/" + 'Stochastic_HydroGenMaxSeasonalProduction.tab', param=model.maxRegHydroGenRaw, format="table")
     data.load(filename=scenariopath + "/" + 'Stochastic_StochasticAvailability.tab', param=model.genCapAvailStochRaw, format="table") 
@@ -321,6 +358,20 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
         data.load(filename=scenariopath + "/" + 'LoadchangeModule/Stochastic_ElectricLoadMod.tab', param=model.sloadMod, format="table")
 
     print("Constructing parameter values...")
+
+
+    def adjust_season_scale_rule(model):
+        # Regular seasons are defined as:
+        regular_seasons = ["winter", "spring", "summer", "fall"]
+        # Calculate the common value for regular seasons:
+        regular_scale = float((8760 - 48) / (4 * model.lengthRegSeason))
+        for s in model.Season:
+            if s in regular_seasons:
+                model.seasScale[s] = regular_scale
+            else:
+                # For peak seasons (assumed to be not in regular_seasons)
+                model.seasScale[s] = 1.0
+    model.adjust_season_scale = BuildAction(rule=adjust_season_scale_rule)
 
 
     # It means that the probability of scenarios is equally same regardless of scenario, and the expected second stage value is just average of second stage value. 
@@ -485,7 +536,7 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
             for i in model.PeriodActive:
                 noderawdemand = 0
                 for (s,h) in model.HoursOfSeason:
-                    if value(h) < value(FirstHoursOfRegSeason[-1] + model.lengthRegSeason):
+                    # if value(h) < value(FirstHoursOfRegSeason[-1] + model.lengthRegSeason):
                         for sce in model.Scenario:
                                 noderawdemand += value(model.sceProbab[sce]*model.seasScale[s]*model.sloadRaw[n,h,sce,i])
                 if value(model.sloadAnnualDemand[n,i]) < 1:
@@ -516,29 +567,15 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
 
     print("Declaring variables...")
 
-    # # First Stage Decisions (x)
-    model.genInvCap = Var(model.GeneratorsOfNode, model.PeriodActive, domain=NonNegativeReals)
-    model.transmisionInvCap = Var(model.BidirectionalArc, model.PeriodActive, domain=NonNegativeReals)
-    model.storPWInvCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
-    model.storENInvCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
-
-    # First Stage Decisions (v)
-    model.genInstalledCap = Var(model.GeneratorsOfNode, model.PeriodActive, domain=NonNegativeReals)
-    model.transmissionInstalledCap = Var(model.BidirectionalArc, model.PeriodActive, domain=NonNegativeReals)
-    model.storPWInstalledCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
-    model.storENInstalledCap = Var(model.StoragesOfNode, model.PeriodActive, domain=NonNegativeReals)
-
-
     # Define new parameters for FSD data
-    # model.genInvCap = Param(model.GeneratorsOfNode, model.PeriodActive, default=0.0, mutable=True)
-    # model.transmisionInvCap = Param(model.BidirectionalArc, model.PeriodActive, default=0.0, mutable=True)
-    # model.storPWInvCap = Param(model.StoragesOfNode, model.PeriodActive, default=0.0, mutable=True)
-    # model.storENInvCap = Param(model.StoragesOfNode, model.PeriodActive, default=0.0, mutable=True)
-    # model.genInstalledCap = Param(model.GeneratorsOfNode, model.PeriodActive, default=0.0, mutable=True)
-    # model.transmissionInstalledCap = Param(model.BidirectionalArc, model.PeriodActive, default=0.0, mutable=True)
-    # model.storPWInstalledCap = Param(model.StoragesOfNode, model.PeriodActive, default=0.0, mutable=True)
-    # model.storENInstalledCap = Param(model.StoragesOfNode, model.PeriodActive, default=0.0, mutable=True)
-
+    model.genInvCapParam = Param(model.GeneratorsOfNode, model.Period, default=0.0, mutable=True)
+    model.transmisionInvCapParam = Param(model.BidirectionalArc, model.Period, default=0.0, mutable=True)
+    model.storPWInvCapParam = Param(model.StoragesOfNode, model.Period, default=0.0, mutable=True)
+    model.storENInvCapParam = Param(model.StoragesOfNode, model.Period, default=0.0, mutable=True)
+    model.genInstalledCap = Param(model.GeneratorsOfNode, model.Period, default=0.0, mutable=True)
+    model.transmissionInstalledCap = Param(model.BidirectionalArc, model.Period, default=0.0, mutable=True)
+    model.storPWInstalledCap = Param(model.StoragesOfNode, model.Period, default=0.0, mutable=True)
+    model.storENInstalledCap = Param(model.StoragesOfNode, model.Period, default=0.0, mutable=True)
 
 
     # Second Stage Decisions (y,w)
@@ -547,7 +584,7 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
     model.transmisionOperational = Var(model.DirectionalLink, model.Operationalhour, model.PeriodActive, model.Scenario, domain=NonNegativeReals) #flow
     model.storCharge = Var(model.StoragesOfNode, model.Operationalhour, model.PeriodActive, model.Scenario, domain=NonNegativeReals)
     model.storDischarge = Var(model.StoragesOfNode, model.Operationalhour, model.PeriodActive, model.Scenario, domain=NonNegativeReals)
-    model.loadShed = Var(model.Node, model.Operationalhour, model.PeriodActive, model.Scenario, domain=NonNegativeReals)
+    model.loadShed = Var(model.Node, model.Operationalhour, model.PeriodActive, model.Scenario, domain=NonNegativeReals, initialize=0)
     
     ###############
     ##EXPRESSIONS##
@@ -573,9 +610,9 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
     #############
 
     def Obj_rule(model):
-        first_stage_value = sum(model.discount_multiplier[i]*(sum(model.genInvCost[g,i]* model.genInvCap[n,g,i] for (n,g) in model.GeneratorsOfNode ) + \
-            sum(model.transmissionInvCost[n1,n2,i]*model.transmisionInvCap[n1,n2,i] for (n1,n2) in model.BidirectionalArc ) + \
-            sum((model.storPWInvCost[b,i]*model.storPWInvCap[n,b,i]+model.storENInvCost[b,i]*model.storENInvCap[n,b,i]) for (n,b) in model.StoragesOfNode ) 
+        first_stage_value = sum(model.discount_multiplier[i]*(sum(model.genInvCost[g,i]* model.genInvCapParam[n,g,i] for (n,g) in model.GeneratorsOfNode ) + \
+            sum(model.transmissionInvCost[n1,n2,i]*model.transmisionInvCapParam[n1,n2,i] for (n1,n2) in model.BidirectionalArc ) + \
+            sum((model.storPWInvCost[b,i]*model.storPWInvCapParam[n,b,i]+model.storENInvCost[b,i]*model.storENInvCapParam[n,b,i]) for (n,b) in model.StoragesOfNode ) 
             ) for i in model.PeriodActive)
         expected_second_stage_value = sum(model.discount_multiplier[i]*(model.shedcomponent[i] + model.operationalcost[i]) for i in model.PeriodActive)
         return first_stage_value + expected_second_stage_value
@@ -587,41 +624,41 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
 
     #### First Stage Constraints ####
 
-    def lifetime_rule_gen(model, n, g, i):
-        startPeriod=1
-        if value(1+i-(model.genLifetime[g]/model.LeapYearsInvestment))>startPeriod:
-            startPeriod=value(1+i-model.genLifetime[g]/model.LeapYearsInvestment)
-        return sum(model.genInvCap[n,g,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.genInstalledCap[n,g,i] + model.genInitCap[n,g,i]== 0   #
-    model.installedCapDefinitionGen = Constraint(model.GeneratorsOfNode, model.PeriodActive, rule=lifetime_rule_gen)
+    # def lifetime_rule_gen(model, n, g, i):
+    #     startPeriod=1
+    #     if value(1+i-(model.genLifetime[g]/model.LeapYearsInvestment))>startPeriod:
+    #         startPeriod=value(1+i-model.genLifetime[g]/model.LeapYearsInvestment)
+    #     return sum(model.genInvCap[n,g,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.genInstalledCap[n,g,i] + model.genInitCap[n,g,i]== 0   #
+    # model.installedCapDefinitionGen = Constraint(model.GeneratorsOfNode, model.PeriodActive, rule=lifetime_rule_gen)
 
-    #################################################################
+    # #################################################################
 
-    def lifetime_rule_storEN(model, n, b, i):
-        startPeriod=1
-        if value(1+i-model.storageLifetime[b]*(1/model.LeapYearsInvestment))>startPeriod:
-            startPeriod=value(1+i-model.storageLifetime[b]/model.LeapYearsInvestment)
-        return sum(model.storENInvCap[n,b,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.storENInstalledCap[n,b,i] + model.storENInitCap[n,b,i]== 0   #
-    model.installedCapDefinitionStorEN = Constraint(model.StoragesOfNode, model.PeriodActive, rule=lifetime_rule_storEN)
+    # def lifetime_rule_storEN(model, n, b, i):
+    #     startPeriod=1
+    #     if value(1+i-model.storageLifetime[b]*(1/model.LeapYearsInvestment))>startPeriod:
+    #         startPeriod=value(1+i-model.storageLifetime[b]/model.LeapYearsInvestment)
+    #     return sum(model.storENInvCap[n,b,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.storENInstalledCap[n,b,i] + model.storENInitCap[n,b,i]== 0   #
+    # model.installedCapDefinitionStorEN = Constraint(model.StoragesOfNode, model.PeriodActive, rule=lifetime_rule_storEN)
 
-    #################################################################
+    # #################################################################
 
-    def lifetime_rule_storPOW(model, n, b, i):
-        startPeriod=1
-        if value(1+i-model.storageLifetime[b]*(1/model.LeapYearsInvestment))>startPeriod:
-            startPeriod=value(1+i-model.storageLifetime[b]/model.LeapYearsInvestment)
-        return sum(model.storPWInvCap[n,b,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.storPWInstalledCap[n,b,i] + model.storPWInitCap[n,b,i]== 0   #
-    model.installedCapDefinitionStorPOW = Constraint(model.StoragesOfNode, model.PeriodActive, rule=lifetime_rule_storPOW)
+    # def lifetime_rule_storPOW(model, n, b, i):
+    #     startPeriod=1
+    #     if value(1+i-model.storageLifetime[b]*(1/model.LeapYearsInvestment))>startPeriod:
+    #         startPeriod=value(1+i-model.storageLifetime[b]/model.LeapYearsInvestment)
+    #     return sum(model.storPWInvCap[n,b,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.storPWInstalledCap[n,b,i] + model.storPWInitCap[n,b,i]== 0   #
+    # model.installedCapDefinitionStorPOW = Constraint(model.StoragesOfNode, model.PeriodActive, rule=lifetime_rule_storPOW)
 
-    #################################################################
+    # #################################################################
 
-    def lifetime_rule_trans(model, n1, n2, i):
-        startPeriod=1
-        if value(1+i-model.transmissionLifetime[n1,n2]*(1/model.LeapYearsInvestment))>startPeriod:
-            startPeriod=value(1+i-model.transmissionLifetime[n1,n2]/model.LeapYearsInvestment)
-        return sum(model.transmisionInvCap[n1,n2,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.transmissionInstalledCap[n1,n2,i] + model.transmissionInitCap[n1,n2,i] == 0   #
-    model.installedCapDefinitionTrans = Constraint(model.BidirectionalArc, model.PeriodActive, rule=lifetime_rule_trans)
+    # def lifetime_rule_trans(model, n1, n2, i):
+    #     startPeriod=1
+    #     if value(1+i-model.transmissionLifetime[n1,n2]*(1/model.LeapYearsInvestment))>startPeriod:
+    #         startPeriod=value(1+i-model.transmissionLifetime[n1,n2]/model.LeapYearsInvestment)
+    #     return sum(model.transmisionInvCap[n1,n2,j]  for j in model.PeriodActive if j>=startPeriod and j<=i )- model.transmissionInstalledCap[n1,n2,i] + model.transmissionInitCap[n1,n2,i] == 0   #
+    # model.installedCapDefinitionTrans = Constraint(model.BidirectionalArc, model.PeriodActive, rule=lifetime_rule_trans)
 
-    #################################################################
+    # #################################################################
 
     # def investment_gen_cap_rule(model, t, n, i):
     #     return sum(model.genInvCap[n,g,i] for g in model.Generator if (n,g) in model.GeneratorsOfNode and (t,g) in model.GeneratorsOfTechnology) - model.genMaxBuiltCap[n,t,i] <= 0
@@ -699,7 +736,16 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
     #         return Constraint.Skip
     # model.power_energy_relate = Constraint(model.StoragesOfNode, model.PeriodActive, rule=power_energy_relate_rule)
 
-    #################################################################
+    # ################################################################
+    
+    # def version1_rule(model, h, i):
+    #     gen_avail_capacity = sum(model.sceProbab[w]*sum(model.genInstalledCap[n, g, i] * model.genCapAvail[n,g,h,w,i] for (n, g) in model.GeneratorsOfNode) for w in model.Scenario)
+    #     average_sload = sum(model.sceProbab[w]*sum(model.sload[n,h,i,w] for n in model.Node) for w in model.Scenario)
+    #     return average_sload-gen_avail_capacity <= 0 
+    # model.version1 = Constraint(model.Operationalhour, model.PeriodActive,rule=version1_rule)
+
+    # ################################################################
+
 
     #### Second Stage Constraints ####
 
@@ -795,6 +841,10 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
 
     #################################################################
 
+    # def soft_loadshed_rule(model, n, h, i, w):
+    #     return model.loadShed[n, h, i, w] <= 0
+    # model.SoftLoadShed = Constraint(model.Node, model.Operationalhour, model.PeriodActive, model.Scenario, rule=soft_loadshed_rule)
+
 
     print("Objective and constraints read...")
 
@@ -813,65 +863,69 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
 
 
 
-    def load_investment_data(fsd_data):
-        gen_inv_cap = {}
-        transmission_inv_cap = {}
-        stor_pw_inv_cap = {}
-        stor_en_inv_cap = {}
-        
-        for row in fsd_data:
-            country, energy_type, period, type_, cap_value = row
-            period = int(period)
-            cap_value = float(cap_value)
-            
-            if type_ == 'Generation':
-                if (country, energy_type) not in gen_inv_cap:
-                    gen_inv_cap[(country, energy_type)] = {}
-                gen_inv_cap[(country, energy_type)][period] = cap_value
-            elif type_ == 'Transmission':
-                if (country, energy_type) not in transmission_inv_cap:
-                    transmission_inv_cap[(country, energy_type)] = {}
-                transmission_inv_cap[(country, energy_type)][period] = cap_value
-            elif type_ == 'Storage Power':
-                if (country, energy_type) not in stor_pw_inv_cap:
-                    stor_pw_inv_cap[(country, energy_type)] = {}
-                stor_pw_inv_cap[(country, energy_type)][period] = cap_value
-            elif type_ == 'Storage Energy':
-                if (country, energy_type) not in stor_en_inv_cap:
-                    stor_en_inv_cap[(country, energy_type)] = {}
-                stor_en_inv_cap[(country, energy_type)][period] = cap_value
-
-        return gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap
-
-
-
-    # Load FSD data
     gen_inv_cap, transmission_inv_cap, stor_pw_inv_cap, stor_en_inv_cap = load_investment_data(FSD)
-    
-    # Fix variables to FSD values
-    for (n, g), cap_values in gen_inv_cap.items():
-        for i, cap_value in cap_values.items():
-            if (n, g, i) in instance.genInvCap:
-                instance.genInvCap[n, g, i].fix(cap_value)
 
-    # Repeat for other variables
-    # Fix transmission investment capacities
-    for (n1, n2), cap_values in transmission_inv_cap.items():
-        for i, cap_value in cap_values.items():
-            if (n1, n2, i) in instance.transmisionInvCap:
-                instance.transmisionInvCap[n1, n2, i].fix(cap_value)
+    for (n, g) in instance.GeneratorsOfNode:
+        if (n, g) in gen_inv_cap:
+            for i in instance.Period:
+                if i in gen_inv_cap[(n, g)]:
+                    cap_value = gen_inv_cap[(n, g)][i]
+                    instance.genInvCapParam[n, g, i] = cap_value
+        else:
+            print(f"(n, g) = ({n}, {g}): Not found in gen_inv_cap")
 
-    # Fix storage power investment capacities
-    for (n, b), cap_values in stor_pw_inv_cap.items():
-        for i, cap_value in cap_values.items():
-            if (n, b, i) in instance.storPWInvCap:
-                instance.storPWInvCap[n, b, i].fix(cap_value)
+    # Transmission
+    for (n1, n2) in instance.BidirectionalArc:
+        if (n1, n2) in transmission_inv_cap:
+            for i in instance.Period:
+                if i in transmission_inv_cap[(n1, n2)]:
+                    cap_value = transmission_inv_cap[(n1, n2)][i]
+                    instance.transmisionInvCapParam[n1, n2, i] = cap_value
+        else:
+            print(f"(n1, n2) = ({n1}, {n2}): Not found in transmission_inv_cap")
 
-    # Fix storage energy investment capacities
-    for (n, b), cap_values in stor_en_inv_cap.items():
-        for i, cap_value in cap_values.items():
-            if (n, b, i) in instance.storENInvCap:
-                instance.storENInvCap[n, b, i].fix(cap_value)
+    # Storage
+    for (n, b) in instance.StoragesOfNode:
+        if (n, b) in stor_pw_inv_cap:
+            for i in instance.Period:
+                if i in stor_pw_inv_cap[(n, b)]:
+                    cap_value = stor_pw_inv_cap[(n, b)][i]
+                    instance.storPWInvCapParam[n, b, i] = cap_value
+        else:
+            print(f"(n, b) = ({n}, {b}): Not found in stor_pw_inv_cap")
+
+        if (n, b) in stor_en_inv_cap:
+            for i in instance.Period:
+                if i in stor_en_inv_cap[(n, b)]:
+                    cap_value = stor_en_inv_cap[(n, b)][i]
+                    instance.storENInvCapParam[n, b, i] = cap_value
+        else:
+            print(f"(n, b) = ({n}, {b}): Not found in stor_en_inv_cap")
+
+
+    for (n, g) in instance.GeneratorsOfNode:
+        for i in instance.Period:
+            startPeriod = max(1, value(1 + i - instance.genLifetime[g] / instance.LeapYearsInvestment))
+            instance.genInstalledCap[n, g, i] = sum(instance.genInvCapParam[n, g, j]
+                                                for j in instance.Period
+                                                if startPeriod <= j <= i) + instance.genInitCap[n, g, i]
+
+    for (n1, n2) in instance.BidirectionalArc:
+        for i in instance.Period:
+            startPeriod = max(1, value(1 + i - instance.transmissionLifetime[n1, n2] / instance.LeapYearsInvestment))
+            instance.transmissionInstalledCap[n1, n2, i] = sum(instance.transmisionInvCapParam[n1, n2, j]
+                                                            for j in instance.Period
+                                                            if startPeriod <= j <= i) + instance.transmissionInitCap[n1, n2, i]
+
+    for (n, b) in instance.StoragesOfNode:
+        for i in instance.Period:
+            startPeriod = max(1, value(1 + i - instance.storageLifetime[b] / instance.LeapYearsInvestment))
+            instance.storPWInstalledCap[n, b, i] = sum(instance.storPWInvCapParam[n, b, j]
+                                                    for j in instance.Period
+                                                    if startPeriod <= j <= i) + instance.storPWInitCap[n, b, i]
+            instance.storENInstalledCap[n, b, i] = sum(instance.storENInvCapParam[n, b, j]
+                                                    for j in instance.Period
+                                                    if startPeriod <= j <= i) + instance.storENInitCap[n, b, i]
 
     print("----------------------Problem Statistics---------------------")
     print("Nodes: "+ str(len(instance.Node)))
@@ -927,8 +981,6 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
         opt = SolverFactory('gurobi', Verbose=True)
         opt.options["Crossover"]=0
         opt.options["Method"]=2
-        opt.options['threads'] = 2
-        opt.options['BarConvTol'] = 1e-4
         opt.options['NumericFocus'] = 3
     if solver == "GLPK":
         opt = SolverFactory("glpk", Verbose=True)
@@ -945,9 +997,12 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
         for i in instance.PeriodActive:
             Q_i[i] = [calculate_Q_i(instance, i, w) for w in instance.Scenario]
             v_i[i] = get_v_i_results(instance, i)
-
+        print(v_i)
         objective_value = value(instance.Obj)
-        expected_second_stage_value = compute_expected_second_stage_value(instance)
+        expected_second_stage_value, total_ll_amt = compute_expected_second_stage_value(instance)
+        # df_shed = analyze_load_shedding(instance, load_shed_threshold=1.0, output_file="load_shedding_analysis.csv")
+        # print(df_shed)
+        print(f"total_ll_amt: {total_ll_amt}")
         return objective_value, expected_second_stage_value, v_i, Q_i
     else:
         print("Model is infeasible or solver did not find an optimal solution.")
@@ -957,10 +1012,137 @@ def empire_validation(name, tab_file_path, result_file_path, scenariogeneration,
 def compute_expected_second_stage_value(instance):
     # Calculate the total operational cost over all periods
     expected_second_stage_value = 0
+    total_ll_amt = 0
     for i in instance.PeriodActive:
-        second_stage_value = value(instance.discount_multiplier[i]) * (value(instance.shedcomponent[i]) + value(instance.operationalcost[i]))
+        second_stage_value = value(instance.discount_multiplier[i]) * (
+            value(instance.shedcomponent[i]) + value(instance.operationalcost[i])
+        )
         expected_second_stage_value += second_stage_value
-    return expected_second_stage_value
+
+        # Iterate over nodes, season-hour pairs, and scenarios
+        for n in instance.Node:
+            for (s, h) in instance.HoursOfSeason:
+                for w in instance.Scenario:
+                    ls_val = value(instance.loadShed[n, h, i, w])
+                    # Print if load shed is greater than or equal to zero
+                    # (Change the condition to > 0 if you only want strictly positive values.)
+                    if ls_val > 1:
+                        print(f"Period {i}, Season: {s}, Hour: {h}, Scenario: {w}, LoadShed: {ls_val}")
+
+        shed_amt = sum(
+            value(instance.sceProbab[w]) * value(instance.loadShed[n, h, i, w])
+            for n in instance.Node
+            for (s, h) in instance.HoursOfSeason
+            for w in instance.Scenario
+        )
+        total_ll_amt += shed_amt
+
+    return expected_second_stage_value, total_ll_amt
+
+
+def analyze_load_shedding(instance, load_shed_threshold=1.0, output_file=None):
+    records = []
+
+    # Loop over all period/scenario/hour/node combinations.
+    for i in instance.PeriodActive:
+        for w in instance.Scenario:
+            for (s, h) in instance.HoursOfSeason:
+                for n in instance.Node:
+                    ls_val = value(instance.loadShed[n, h, i, w])
+                    # Focus on entries where load shedding is significant
+                    if ls_val > load_shed_threshold:
+                        # Basic info
+                        record = {
+                            'Period': i,
+                            'Scenario': w,
+                            'Season': s,
+                            'Hour': h,
+                            'Node': n,
+                            'LoadShed': ls_val,
+                            'Load': value(instance.sload[n, h, i, w]),
+                        }
+
+                        # Sum of available generation capacity at node n
+                        # = sum over g: installed capacity * capacity-availability factor
+                        # for the hour h and scenario w
+                        sum_avail_cap = 0.0
+                        sum_dispatched = 0.0
+                        for g in instance.Generator:
+                            if (n, g) in instance.GeneratorsOfNode:
+                                installed_cap = value(instance.genInstalledCap[n, g, i])
+                                avail_factor = value(instance.genCapAvail[n, g, h, w, i])
+                                sum_avail_cap += installed_cap * avail_factor
+
+                                # Actual dispatch
+                                sum_dispatched += value(instance.genOperational[n, g, h, i, w])
+
+                        record['TotalGenCap_Available'] = sum_avail_cap
+                        record['TotalGen_Dispatched'] = sum_dispatched
+
+
+                        total_gen_max_installed = 0.0
+                        for t in instance.Technology: 
+                            for g in instance.Generator: 
+                                if (n,g) in instance.GeneratorsOfNode and (t,g) in instance.GeneratorsOfTechnology:
+                                    total_gen_max_installed += value(instance.genMaxInstalledCap[n, t, i])
+                            record['TotalGen_MaxInstalledCap'] = total_gen_max_installed
+
+
+                        # Sum of stored energy in each storage at node n
+                        # plus charge/discharge rates
+                        stor_prev_level = 0.0
+                        stor_level = 0.0
+                        stor_charge = 0.0
+                        stor_discharge = 0.0
+                        if hasattr(instance, 'StoragesOfNode'):
+                            for b in instance.Storage:
+                                if (n, b) in instance.StoragesOfNode:
+                                    if h ==1:
+                                        stor_prev_level += value(instance.storOperationalInit[b])*value(instance.storENInstalledCap[n,b,i]) + value(instance.storageChargeEff[b])*value(instance.storCharge[n,b,h,i,w])-value(instance.storDischarge[n,b,h,i,w])-value(instance.storOperational[n,b,h,i,w]) 
+                                    stor_level += value(instance.storOperational[n, b, h, i, w])
+                                    stor_charge += value(instance.storCharge[n, b, h, i, w])
+                                    stor_discharge += value(instance.storDischarge[n, b, h, i, w])
+
+                        record['StoragePrevLevel'] = stor_prev_level
+                        record['StorageLevel'] = stor_level
+                        record['StorageCharge'] = stor_charge
+                        record['StorageDischarge'] = stor_discharge
+
+                        # Incoming flow from other nodes
+                        # Summation of lineEfficiency[m,n]*transmisionOperational[m,n,h,i,w]
+                        # where m is any node that has (m,n) in model.DirectionalLink
+                        # or uses NodesLinked[n] if you have that set defined
+                        incoming_flow = 0.0
+                        if hasattr(instance, 'NodesLinked'):
+                            # For each node 'm' s.t. (m,n) is a directional link
+                            for m in instance.NodesLinked[n]:
+                                # Some models store lineEfficiency with key (m,n), so check carefully
+                                eff = value(instance.lineEfficiency[(m, n)])
+                                flow = value(instance.transmisionOperational[(m, n), h, i, w])
+                                incoming_flow += eff * flow
+                        else:
+                            # Alternative approach if not using NodesLinked
+                            # You'd iterate over instance.DirectionalLink to find pairs (m,n)
+                            # that match the target node n
+                            for (m, nd) in instance.DirectionalLink:
+                                if nd == n:
+                                    eff = value(instance.lineEfficiency[(m, nd)])
+                                    flow = value(instance.transmisionOperational[(m, nd, h, i, w)])
+                                    incoming_flow += eff * flow
+
+                        record['IncomingFlow'] = incoming_flow
+
+                        # Append final record
+                        records.append(record)
+
+    # Build a DataFrame
+    df = pd.DataFrame(records)
+
+    # Optionally save to CSV
+    if output_file:
+        df.to_csv(output_file, index=False)
+
+    return df
 
 
 

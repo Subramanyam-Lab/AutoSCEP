@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/Data_preprocessing.py", line 235, in <module>
+    merged_data = merge_data_by_file_num(output_file, merged_file)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/Data_preprocessing.py", line 75, in merge_data_by_file_num
+    merged_df = merged_df[E_Q_threshold_low < merged_df['E_Q'] < E_Q_threshold_up]
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/storage/home/tzk5446/.conda/envs/neurmhsp/lib/python3.11/site-packages/pandas/core/generic.py", line 1519, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a Series is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().

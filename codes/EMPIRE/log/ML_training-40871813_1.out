@@ -1,0 +1,9 @@
+데이터 분할: 600개의 훈련 샘플, 151개의 테스트 샘플.
+
+선형 회귀(LR) 모델 훈련 중...
+모델 성능 평가 중...
+
+--- 선형 회귀(LR) 모델 성능 ---
+Test Set R-squared: 0.5411
+Test Set MAPE: 5.15%
+Plot saved as actual_vs_predicted_LR.png

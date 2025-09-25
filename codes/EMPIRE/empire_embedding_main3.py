@@ -70,13 +70,6 @@ from first_stage_empire import run_first_stage
 from NEUREMPIRE import run_empire
 from scenario_random import generate_random_scenario
 from Embed_Model_validation import empire_validation
-# from model_training import (
-#     load_data,
-#     preprocessing_data,
-#     ML_training,
-#     save_models,
-#     load_models
-# )
 
 
 def read_fsd_from_csv(file_path):
@@ -107,10 +100,10 @@ def load_and_convert_model(model_path):
 ##############################
 
 
-def ML_embedding(instance, solver, gurobi_model, regression_model_E_Q, regression_model_LL_AMT):
+def ML_embedding(instance, solver, gurobi_model, regression_model):
 
     # Load scalers
-    scaler_v = joblib.load(f'scaler_pca/scaler2.joblib')
+    scaler_v = joblib.load(f'scaler_pca2/scaler.joblib')
     mean_v_input = scaler_v.mean_
     scale_v_input = scaler_v.scale_
 
@@ -149,55 +142,27 @@ def ML_embedding(instance, solver, gurobi_model, regression_model_E_Q, regressio
     gurobi_model.update()
 
     # Create a variable for y_approx
-    # y_approx = gurobi_model.addVar(lb=-GRB.INFINITY, name=f'y_approx')
-    y_approx_E_Q = gurobi_model.addVar(lb=-GRB.INFINITY, name=f'y_approx_E_Q')
-    y_approx_LL_AMT = gurobi_model.addVar(lb=-GRB.INFINITY, name=f'y_approx_LL_AMT')
+    y_approx = gurobi_model.addVar(lb=-GRB.INFINITY, name=f'y_approx')
 
-    pred_constr_E_Q = add_predictor_constr(gurobi_model, regression_model_E_Q, scaled_v_vars, y_approx_E_Q)
+    pred_constr = add_predictor_constr(gurobi_model, regression_model, scaled_v_vars, y_approx)
     gurobi_model.update()
 
-    pred_constr_LL_AMT = add_predictor_constr(gurobi_model, regression_model_LL_AMT, scaled_v_vars, y_approx_LL_AMT)
-    gurobi_model.update()
-    
     # Load global scalers
-    scaler_y_E_Q = joblib.load('scaler_pca/scaler_E_Q_ELSE.joblib')
+    scaler_y = joblib.load('scaler_pca2/scaler_y.joblib')
     
-    mean_output = scaler_y_E_Q.mean_
-    scale_output = scaler_y_E_Q.scale_
-    scaled_y_E_Q = y_approx_E_Q * scale_output + mean_output
-
-    # min_output = scaler_y_E_Q.data_min_
-    # max_output = scaler_y_E_Q.data_max_
-    # scaled_y_E_Q = y_approx_E_Q * (max_output - min_output) + min_output
-
-    scaler_y_LL_AMT = joblib.load('scaler_pca/scaler_LL_AMT.joblib')
-    
-    mean_output = scaler_y_LL_AMT.mean_
-    scale_output = scaler_y_LL_AMT.scale_
-    scaled_y_LL_AMT = y_approx_LL_AMT * scale_output + mean_output
-
-    # min_output = scaler_y_LL_AMT.data_min_
-    # max_output = scaler_y_LL_AMT.data_max_
-    # scaled_y_LL_AMT = y_approx_LL_AMT * (max_output - min_output) + min_output
-
-
-    VOLL = 22000 
-    
-    # min_output = scaler_y.data_min_
-    # max_output = scaler_y.data_max_
-    # print(f"min_output : {min_output}, max_output : {max_output}")
-
-    # scaled_y_approx = y_approx * (max_output - min_output) + min_output
+    mean_output = scaler_y.mean_
+    scale_output = scaler_y.scale_
+    scaled_y = y_approx * scale_output + mean_output
 
     gurobi_model.update()
 
     # Update the objective
     existing_obj = gurobi_model.getObjective()
-    combined_obj = existing_obj + scaled_y_E_Q + VOLL*scaled_y_LL_AMT
+    combined_obj = existing_obj + scaled_y
     gurobi_model.setObjective(combined_obj, grb.GRB.MINIMIZE)
     gurobi_model.update()
 
-    return gurobi_model,pred_constr_E_Q, pred_constr_LL_AMT
+    return gurobi_model,pred_constr
 
 
 
@@ -348,7 +313,7 @@ def main(SEED):
     generate_tab_files(filepath = workbook_path, tab_file_path = tab_file_path)
 
 
-    objective_value, expected_second_stage_value, second_stage_variance = run_empire(name = name, 
+    objective_value, expected_second_stage_value = run_empire(name = name, 
             tab_file_path = tab_file_path,
             result_file_path = result_file_path, 
             scenariogeneration = scenariogeneration,
@@ -378,7 +343,6 @@ def main(SEED):
     end_time = time.time()
     print("Objective Value :", objective_value)
     print("Expected Second Stage Value :", expected_second_stage_value)
-    print("Second Stage Variance : ", second_stage_variance)
     print("Total Solving Time :", end_time - start_time)
 
     
@@ -414,11 +378,9 @@ def main(SEED):
     instance = model.create_instance(data)
 
     # model load 
-    model_path = "scaler_pca/pytorch_regression_E_Q_ELSE.onnx"
-    trained_model_E_Q = load_and_convert_model(model_path)
+    model_path = "scaler_pca2/pytorch_regression.onnx"
+    trained_model = load_and_convert_model(model_path)
 
-    model_path = "scaler_pca/pytorch_regression_LL_AMT.onnx"
-    trained_model_LL_AMT = load_and_convert_model(model_path)
 
     # pyomo model load 
     solver = SolverFactory('gurobi_persistent')
@@ -427,7 +389,7 @@ def main(SEED):
     gurobi_model.update()
     
     # Modify ML_embedding to return xi_values
-    embedded_model,pred_constr_E_Q,pred_constr_LL_AMT  = ML_embedding(instance, solver, gurobi_model, trained_model_E_Q,trained_model_LL_AMT)
+    embedded_model,pred_constr = ML_embedding(instance, solver, gurobi_model, trained_model)
 
     # Set Gurobi parameters
     embedded_model.setParam('MIPFocus', 1)
@@ -443,12 +405,7 @@ def main(SEED):
 
     print(
     "Maximum error in approximating the regression {:.6}".format(
-        np.max(pred_constr_E_Q.get_error())
-    ))
-
-    print(
-    "Maximum error in approximating the regression {:.6}".format(
-        np.max(pred_constr_LL_AMT.get_error())
+        np.max(pred_constr.get_error())
     ))
 
     end_time = time.time()
@@ -485,7 +442,7 @@ def main(SEED):
         fsd_file_path = f"MLsols/ML_Embed_solution_{SEED}_sce{NoOfScenarios}.csv"
         FSD = read_fsd_from_csv(fsd_file_path)
         
-        objective_value_embedding_sol, expected_second_stage_value_embedding_sol, v_i, Q_i = empire_validation(
+        objective_value_ML, expected_second_stage_value_ML, v_i, Q_i = empire_validation(
                 name = name, 
                 tab_file_path = tab_file_path,
                 result_file_path = result_file_path, 
@@ -515,10 +472,49 @@ def main(SEED):
                 seed = SEED,
                 north_sea = north_sea)
 
-        print("objective_value_embedding_sol: ", objective_value_embedding_sol)
-        print("expected_second_stage_value_embedding_sol: ", expected_second_stage_value_embedding_sol)
-        ratio_sol = abs(objective_value - objective_value_embedding_sol) / objective_value * 100
-        print("Gap (%) :", ratio_sol)
+        print("objective_value_ML: ", objective_value_ML)
+        print("expected_second_stage_value_ML: ", expected_second_stage_value_ML)
+        ratio_sol = abs(objective_value - objective_value_ML) / objective_value * 100
+        print("SOG_ML Gap (%) :", ratio_sol)
+
+        # process for progressive hedging / Run validation to get actual second-stage cost
+        fsd_file_path = f"PH_FSD/5_consensus_inv_cap.csv"
+        FSD = read_fsd_from_csv(fsd_file_path)
+        
+        objective_value_PH, expected_second_stage_value_PH, v_i, Q_i = empire_validation(
+                name = name, 
+                tab_file_path = tab_file_path,
+                result_file_path = result_file_path, 
+                scenariogeneration = scenariogeneration,
+                scenario_data_path = scenario_data_path,
+                solver = "Gurobi",
+                temp_dir = temp_dir, 
+                FirstHoursOfRegSeason = FirstHoursOfRegSeason, 
+                FirstHoursOfPeakSeason = FirstHoursOfPeakSeason, 
+                lengthRegSeason = lengthRegSeason,
+                lengthPeakSeason = lengthPeakSeason,
+                Period = Period, 
+                Operationalhour = Operationalhour,
+                Scenario = Scenario,
+                Season = Season,
+                HoursOfSeason = HoursOfSeason,
+                discountrate = discountrate, 
+                WACC = WACC, 
+                LeapYearsInvestment = LeapYearsInvestment,
+                IAMC_PRINT = IAMC_PRINT, 
+                FSD = FSD,
+                WRITE_LP = WRITE_LP, 
+                PICKLE_INSTANCE = PICKLE_INSTANCE, 
+                EMISSION_CAP = EMISSION_CAP,
+                USE_TEMP_DIR = USE_TEMP_DIR,
+                LOADCHANGEMODULE = LOADCHANGEMODULE,
+                seed = SEED,
+                north_sea = north_sea)
+
+        print("objective_value_PH: ", objective_value_PH)
+        print("expected_second_stage_value_PH: ", expected_second_stage_value_PH)
+        ratio_sol = abs(objective_value - objective_value_PH) / objective_value * 100
+        print("PH Gap (%) :", ratio_sol)
 
 
 # Mapping Pyomo variables to Gurobi variables

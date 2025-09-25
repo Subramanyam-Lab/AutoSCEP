@@ -1,0 +1,10 @@
+05/09/2025 21:13 - INFO - The created samples will be stored at DataSamples_EMPIRE6 directory
+05/09/2025 21:13 - INFO - Now creating instance
+05/09/2025 21:13 - INFO - Now instance created
+Traceback (most recent call last):
+  File "/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/FSD_sampling_simple2.py", line 988, in <module>
+    sampling(instance,start_sample_num,base_dir,max_attempts)
+  File "/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/FSD_sampling_simple2.py", line 733, in sampling
+    os.makedirs(base_dir)
+  File "<frozen os>", line 225, in makedirs
+FileExistsError: [Errno 17] File exists: 'DataSamples_EMPIRE6'

@@ -340,7 +340,7 @@ def generate_random_scenario(filepath, tab_file_path, scenarios, seasons,
     # Set random seed at the beginning of the function
     if seed is not None:
         np.random.seed(seed)
-        print(f"seed was set to {seed}")
+        # print(f"seed was set to {seed}")
 
     # Generate dataframes to print as stochastic-files
     genAvail = pd.DataFrame()
@@ -368,6 +368,20 @@ def generate_random_scenario(filepath, tab_file_path, scenarios, seasons,
     hydroror_data = make_datetime(hydroror_data, time_format)
     hydroseasonal_data = make_datetime(hydroseasonal_data, time_format)
     electricload_data = make_datetime(electricload_data, time_format)
+
+    ############ new ###############    
+    selected_countries = list(dict_countries.keys())
+    
+    time_cols = ['time', 'year', 'month', 'hour', 'dayofweek']
+    cols_to_keep = time_cols + selected_countries
+    
+    solar_data = solar_data[[col for col in cols_to_keep if col in solar_data.columns]]
+    windonshore_data = windonshore_data[[col for col in cols_to_keep if col in windonshore_data.columns]]
+    windoffshore_data = windoffshore_data[[col for col in cols_to_keep if col in windoffshore_data.columns]]
+    hydroror_data = hydroror_data[[col for col in cols_to_keep if col in hydroror_data.columns]]
+    hydroseasonal_data = hydroseasonal_data[[col for col in cols_to_keep if col in hydroseasonal_data.columns]]
+    electricload_data = electricload_data[[col for col in cols_to_keep if col in electricload_data.columns]]
+    ############ new ###############
 
     if LOADCHANGEMODULE:
         elecLoadMod_data = make_datetime(elecLoadMod_data, "%Y-%m-%d %H:%M")
@@ -574,7 +588,8 @@ def generate_random_scenario(filepath, tab_file_path, scenarios, seasons,
                 
                 # Get peak sample year (2015-2019)
                     
-                sample_year = np.random.choice(list(range(2015,2020)))
+                # sample_year = np.random.choice(list(range(2015,2020)))
+                sample_year = np.random.choice(solar_data["time"].dt.year.unique())
                 
                 if fix_sample:
                     sample_year = sampling_key.loc[(i,scenario,'peak'),'Year']
@@ -771,9 +786,9 @@ def generate_random_scenario(filepath, tab_file_path, scenarios, seasons,
     if fix_sample:
         sampling_key = sampling_key.reset_index(level=['Period','Scenario','Season'])
         
-    sampling_key.to_csv(
-        tab_file_path + "/sampling_key" + '.csv',
-        header=True, index=None, mode='w')        
+    # sampling_key.to_csv(
+    #     tab_file_path + "/sampling_key" + '.csv',
+    #     header=True, index=None, mode='w')        
 
     genAvail.to_csv(
         tab_file_path + "/Stochastic_StochasticAvailability" + '.tab',
