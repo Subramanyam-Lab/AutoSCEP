@@ -113,26 +113,23 @@ def evaluate_and_plot_regressors(nn_model, lr_model, test_loader, dataset, devic
 
 def main(args):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    output_dir = 'ML_models_adaptive'
+    output_dir = 'models/adaptive'
     os.makedirs(output_dir, exist_ok=True)
     logging.info(f"All results will be saved in '{output_dir}' directory")
+    np.random.seed(args.seed)
     
-    seed = 1
-    numsam = 1000
-    np.random.seed(seed)
-    
-    data_file = f"aggregated_dataset_adaptive_{numsam}_{seed}.csv"
+    data_file = f"aggregated_dataset_adaptive_{args.num_samples}_{args.seed}.csv"
     full_df = pd.read_csv(data_file)
     
     results_log = []
     
     sampled_df = full_df.copy()
     dataset = RegressionDataset(sampled_df, args.cost_threshold)
-    file_prefix = os.path.join(output_dir, f"s{numsam}_run{seed}")
+    file_prefix = os.path.join(output_dir, f"s{args.num_samples}_run{args.seed}")
     
     indices = list(range(len(dataset)))
-    train_indices, test_indices = train_test_split(indices, test_size=0.15, random_state=seed)
-    train_indices, val_indices = train_test_split(train_indices, test_size=0.176, random_state=seed)
+    train_indices, test_indices = train_test_split(indices, test_size=0.15, random_state=args.seed)
+    train_indices, val_indices = train_test_split(train_indices, test_size=0.176, random_state=args.seed)
     
     dataset.setup_scalers(train_indices, file_prefix)
     train_loader = DataLoader(Subset(dataset, train_indices), batch_size=args.batch_size, shuffle=True)
@@ -196,11 +193,11 @@ def main(args):
     nn_r2, nn_mape, lr_r2, lr_mape = evaluate_and_plot_regressors(final_nn_model, final_lr_model, test_loader, dataset, device, file_prefix)
 
     results_log.append({
-        'numsam': numsam, 'seed': seed, 'model_type': 'NN', 'training_time_sec': nn_training_time,
+        'numsam': args.num_samples, 'seed': args.seed, 'model_type': 'NN', 'training_time_sec': nn_training_time,
         'r2_score': nn_r2, 'mape_percent': nn_mape
     })
     results_log.append({
-        'numsam': numsam, 'seed': seed, 'model_type': 'LR', 'training_time_sec': lr_training_time,
+        'numsam': args.num_samples, 'seed': args.seed, 'model_type': 'LR', 'training_time_sec': lr_training_time,
         'r2_score': lr_r2, 'mape_percent': lr_mape
     })
     
@@ -212,7 +209,7 @@ def main(args):
     logging.info(f"NN Regressor ONNX model saved in '{onnx_path}'")
     
     log_df = pd.DataFrame(results_log)
-    log_csv_path = os.path.join(output_dir, f'training_summary_adaptive_{numsam}_{seed}_log.csv')
+    log_csv_path = os.path.join(output_dir, f'training_summary_adaptive_{args.num_samples}_{args.seed}_log.csv')
     log_df.to_csv(log_csv_path, index=False)
     logging.info(f"\nAll runs completed. Final results saved in '{log_csv_path}'")
     print("\n--- Final summary ---")
@@ -220,8 +217,10 @@ def main(args):
     print("----------------")
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Hybrid Approach Regressor Training Pipeline")
-    parser.add_argument('--cost_threshold', type=float, default=1.5e12, help="cost threshold to separate safe and unsafe data")
+    parser = argparse.ArgumentParser()    
+    parser.add_argument('--num_samples', type=int, required=True, help='num_samples')
+    parser.add_argument('--seed', type=int, required=True, help='seed') 
+    parser.add_argument('--cost_threshold', type=float, default=1.5e12, help="cost threshold for preprocessing")
     parser.add_argument('--epochs', type=int, default=500)
     parser.add_argument('--batch_size', type=int, default=64)
     parser.add_argument('--learning_rate', type=float, default=5e-5)

@@ -5,6 +5,7 @@ import time
 import warnings
 warnings.filterwarnings('ignore')  # To suppress any warnings for cleaner output
 import pandas as pd
+import argparse
 from pyomo.environ import *
 from ml_embedding import embed_empire_embedding
 
@@ -183,28 +184,31 @@ def save_results_v(instance, NoSce, model_type, Seed, output_dir):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()    
+    parser.add_argument('--num_samples', type=int, required=True, help='num_samples')
+    parser.add_argument('--seed', type=int, required=True, help='seed') 
+    args = parser.parse_args()
+    
     ModelType = ["MLP", "LR"]
-    NoOfScenarios_list = [1000] 
-    Seeds_list = [1] 
+    num_samples = args.num_samples
+    seed = args.seed
     runtime_csv_file = "embedding_log.csv"
 
     for model_type in ModelType:
-        for num_scenarios in NoOfScenarios_list:
-            for seed in Seeds_list:
-                print(f"Running {model_type} with {num_scenarios} scenarios with {seed} seed")
-                runtime, first_stage_cost_subtracted = main(model_type, num_scenarios, seed)
+        print(f"Running {model_type} with {num_samples} samples with {seed} seed")
+        runtime, first_stage_cost_subtracted = main(model_type, num_samples, seed)
 
-                log_data = {
-                    'ModelType': model_type,
-                    'NoOfScenarios': num_scenarios,
-                    'NoOfRuns': seed,
-                    'Runtime(seconds)': runtime
-                }
-                
-                df_log = pd.DataFrame([log_data])
-                file_exists = os.path.exists(runtime_csv_file)
-                df_log.to_csv(runtime_csv_file, mode='a', header=not file_exists, index=False, encoding='utf-8-sig')
-                
-                print(f"Runtime of {runtime:.2f} seconds logged to '{runtime_csv_file}'\n")
+        log_data = {
+            'ModelType': model_type,
+            'NoOfSamples': num_samples,
+            'NoOfRuns': seed,
+            'Runtime(seconds)': runtime
+        }
+        
+        df_log = pd.DataFrame([log_data])
+        file_exists = os.path.exists(runtime_csv_file)
+        df_log.to_csv(runtime_csv_file, mode='a', header=not file_exists, index=False, encoding='utf-8-sig')
+        
+        print(f"Runtime of {runtime:.2f} seconds logged to '{runtime_csv_file}'\n")
 
     print(f"All runs completed. Runtimes are saved in '{runtime_csv_file}'.")

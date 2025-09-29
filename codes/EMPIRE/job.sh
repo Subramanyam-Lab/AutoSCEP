@@ -78,4 +78,18 @@ echo "====================================="
 python data_preprocessing.py --numsam "$NUMSAM" --seed "$SEED"
 echo "Data preprocessing finished."
 
+echo "====================================="
+echo "STEP 5: ML models training"
+echo "====================================="
+
+sbatch --export=NUMSAM,SEED --wait ml_train.sh
+
+
+echo "====================================="
+echo "STEP 6: ML Embedding and Solving"
+echo "====================================="
+
+sbatch --export=NUMSAM,SEED --wait embedding.sh
+
+
 echo "Script finished."

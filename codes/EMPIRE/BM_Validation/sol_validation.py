@@ -110,12 +110,11 @@ def main(solution_numbers,numsce,seednum,model,scenario_set_num):
                                                 peak_seasons.index(s)*lengthPeakSeason+ \
                                                     lengthPeakSeason+1))]
     HoursOfSeason = HoursOfRegSeason + HoursOfPeakSeason
-    dict_countries = {"DE": "Germany", "DK": "Denmark", "FR": "France"}
     
-    # fsd_file_path = f"sol_sets/100_seed_5_inv_cap.csv" # near-optimal
+    fsd_file_path = f"sol_sets/100_seed_5_inv_cap.csv" # near-optimal
     # fsd_file_path = f"sol_sets/ef_solution_{numsce}_{solution_numbers}.csv" # EF-validation
     # fsd_file_path = f"sol_sets/ph_solution_{numsce}_{solution_numbers}_{soltime}.csv" # PH-validation
-    fsd_file_path = f"MLEMBEDSOLS_fixed/ML_Embed_solution_{model}_{numsce}_{solution_numbers}.csv"
+    # fsd_file_path = f"models/adaptive/ML_Embed_solution_{model}_{numsce}_{solution_numbers}.csv"
     FSD = read_fsd_from_csv(fsd_file_path)
     
     logging.info(f"{solution_numbers} seed start!")

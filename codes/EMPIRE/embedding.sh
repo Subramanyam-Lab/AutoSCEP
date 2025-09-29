@@ -14,5 +14,7 @@ source ~/.bashrc
 source activate myenv
 module load gurobi/10.0.3
 
-python embedding_main.py
+echo "Starting ML Embedding and Solving with NUMSAM=${NUMSAM}, SEED=${SEED}"
+
+python embedding_main.py --num_samples $NUMSAM --seed $SEED
 

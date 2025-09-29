@@ -13,5 +13,6 @@
 source ~/.bashrc
 source activate myenv
 
-python ml_train.py
+echo "Starting ML training with NUMSAM=${NUMSAM}, SEED=${SEED}"
 
+python ml_train.py --num_samples $NUMSAM --seed $SEED
