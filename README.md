@@ -2,14 +2,14 @@
 
 ## Abstract
 
-This repository supports codes for a paper "Machine Learning-Enabled Large-Scale Transmission Capacity Expansion Planning"
+This repository accompanies the paper "Machine Learning-Enabled Large-Scale Transmission Capacity Expansion Planning" and contains the official implementation of the models and experiments.
 
 ## Repository Structure
 
 ```
 ├── Data handler/           # Dataset files for EMPIRE model
-├── models/                 # Model architectures and implementations
-├── BM_Validation/            # Baselines and Solution Validation
+├── models/                 # Trained Model
+├── BM_Validation/           # Baselines and Solution Validation
 ├── requirements.txt        # Python dependencies
 └── README.md              # This file
 ```
@@ -23,7 +23,6 @@ This repository supports codes for a paper "Machine Learning-Enabled Large-Scale
 git clone https://github.com/Subramanyam-Lab/NeurMHSP.git
 cd NeurMHSP
 cd codes
-cd EMPIRE
 ```
 
 2. Create a virtual environment:
@@ -40,15 +39,12 @@ pip install -r requirements.txt
 
 
 ## Usage
+All code is optimized for use on a High-Performance Computing (HPC) cluster. Due to the large size of the EMPIRE model and its dataset, significant computational resources are required. Therefore, running this code on a local laptop or desktop is not recommended.
 
+The dataset generation process is fully automated. Before starting, you must specify the number of samples to generate for the training dataset. Please follow the procedures below:
 
-All codes are optimized for using in High Performance Computing (HPC). Since the EMPIRE model and its dataset is extremely large and required huge computatioal resources. Do not recommned running this code on local laptop and desktop.
-
-
-Dataset generation process are fully connected. Before you starting your job, you must choose the numbe of samples in dataset for training machine learning models. You must following the below procedures:
-
-1. Open `job.sh` and change ``TOTAL_FILES`` to numbers what you want.
-2. Run 
+1. Open `job.sh`, set the ``TOTAL_FILES`` variable to the number of samples you want.
+2. Submit the job by running the following command in your terminal:
 
 ```bash
 sbatch job.sh
@@ -56,43 +52,43 @@ sbatch job.sh
 
 ### Solution Validation
 
-For the validation, go to the `BM_Validation` directory
+For the validation, go to the `Experiments` directory
 
 ```bash
-# Evaluation command
-python evaluate.py \
-    --model_path results/best_model.pth \
-    --test_data data/test.csv
+cd Experiments
 ```
 
-### Reproducing Paper Results
-
-To reproduce the main results from the paper:
+Run validation script.
 
 ```bash
-# Run all experiments from the paper
-bash scripts/run_all_experiments.sh
+sbatch sol_valid_ML.sh
 ```
 
-Individual experiments:
+
+### Baselines 
+
+The baseline models are implemented using the [``mpi-sppy``](https://mpi-sppy.readthedocs.io/en/latest/) library. which is also optimized for HPC environments. If you wish to use this library, please follow the instructions provided in the official documentation.
+
+Once your environment is configured, you can run the baseline models as follows:
+
+#### Extensive Form (EF)
+
+Submit the job using this script:
+
 ```bash
-# Experiment 1: [Description]
-python experiment1.py --config experiments/exp1_config.yaml
+sbatch main_ef.sh
+```
+#### Benders Decomposition (BD) & Progressive Hedging (PH)
 
-# Experiment 2: [Description]
-python experiment2.py --config experiments/exp2_config.yaml
+Submit the job using this script:
+
+```bash
+sbatch main_bm.sh
 ```
 
-## Code Structure
++ **Note**: The BD and PH implementations use multiple nodes for parallel computing. Therefore, you **must ensure** that the number of nodes requested in the Slurm script (`--nodes`) matches the number of scenarios you are running.
 
-### Key Files
 
-- `main.py`: Main entry point for experiments
-- `models/model.py`: Implementation of the proposed model
-- `train.py`: Training script
-- `evaluate.py`: Evaluation script
-- `utils/data_loader.py`: Data loading utilities
-- `utils/metrics.py`: Evaluation metrics
 
 
 ## Contact
