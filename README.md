@@ -110,13 +110,6 @@ sbatch main_bm.sh
 + **Note**: The BD and PH implementations use multiple nodes for parallel computing. Therefore, you **must ensure** that the number of nodes requested in the Slurm script (`--nodes`) matches the number of scenarios you are running.
 
 
-## Contact
-
-- [Taehyeon Kwon] - [tzk5446@psu.edu]
-- Project Link: [NeurMHSP](https://github.com/Subramanyam-Lab/NeurMHSP.git)
-
-## Acknowledgments
-
 
 ## Changelog
 
