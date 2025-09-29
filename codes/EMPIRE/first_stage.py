@@ -241,12 +241,6 @@ def run_first_stage(version, tab_file_path, result_file_path, temp_dir, FirstHou
     data.load(filename=tab_file_path + "/" + 'Node_HydroGenMaxAnnualProduction.tab', param=model.maxHydroNode, format="table")
     data.load(filename=tab_file_path + "/" + 'General_seasonScale.tab', param=model.seasScale, format="table")
 
-    
-    model.exp_sload = Param(model.Node, model.Period, model.Operationalhour, default=0.0, mutable = True)
-    model.avg_cap_avail = Param(model.GeneratorsOfNode, model.Operationalhour, model.Period, default=0.0, mutable=True)
-    data.load(filename=f'Data handler/base/reduced/Average_sload.tab', param=model.exp_sload, format="table")
-    data.load(filename=f'Data handler/base/reduced/Average_cap_avail.tab', param=model.avg_cap_avail, format="table")
-    
     if EMISSION_CAP:
         data.load(filename=tab_file_path + "/" + 'General_CO2Cap.tab', param=model.CO2cap, format="table")
     else:
@@ -499,65 +493,8 @@ def run_first_stage(version, tab_file_path, result_file_path, temp_dir, FirstHou
         else:
             return Constraint.Skip
     model.power_energy_relate = Constraint(model.StoragesOfNode, model.PeriodActive, rule=power_energy_relate_rule)
-    
-    #################### NEW CONSTRAINTS #############################################
-    
-    def version1_rule(model, n, h, i):
-        gen_avail_capacity = sum(model.genInstalledCap[n, g, i] * model.avg_cap_avail[n,g,h,i] for g in model.Generator if (n, g) in model.GeneratorsOfNode)
-        return model.exp_sload[n,i,h]*1.3-gen_avail_capacity <= 0 
-    model.version1 = Constraint(model.Node, model.Operationalhour, model.PeriodActive,rule=version1_rule)
-
-    alpha_dict = {1: 0.5, 2: 0.55, 3: 0.6, 4: 0.65, 5: 0.78, 6: 0.78, 7: 0.80, 8: 0.90}
-    model.alpha = Param(model.PeriodActive, initialize=alpha_dict)
-
-    low_cost_tech = ['Solar', 'Windonshore', 'Windoffshore', 'Hydroregulated', 'Hydrorun-of-the-river', 'Geo', 'Wave', 'Nuclear', 'Bio', 'LigniteCCSadv', 'CoalCCSadv', 'GasCCSadv']
-    def low_cost_init(model):
-        return [(n,g) for (n,g) in model.GeneratorsOfNode if g in low_cost_tech]
-    model.GeneratorsOfLowCost = Set(within=model.GeneratorsOfNode, initialize=low_cost_init)
-
-    def low_cost_share_rule(model, n, i):
-        total_cap = sum(model.genInstalledCap[n, g, i] 
-                        for (n_tmp, g) in model.GeneratorsOfNode if n_tmp == n)
-        low_cost_cap = sum(model.genInstalledCap[n, g, i] 
-                        for (n_tmp, g) in model.GeneratorsOfLowCost if n_tmp == n)
-        return (model.alpha[i] * total_cap - low_cost_cap <= 0)
-
-    model.low_cost_share_constraint = Constraint(model.Node, model.PeriodActive, rule=low_cost_share_rule)
-
-    model.beta = Param(initialize=0.35)
-    def dynamic_storage_rule(model, n, i):
-        low_cost_capacity_built = sum(model.genInstalledCap[n, g, i]
-                                    for (n_tmp, g) in model.GeneratorsOfLowCost
-                                    if n_tmp == n)
-
-        storage_power_built = sum(model.storPWInstalledCap[n, b, i]
-                                for (n2, b) in model.StoragesOfNode
-                                if n2 == n and b in model.DependentStorage)
-
-        return (model.beta * low_cost_capacity_built - storage_power_built) <= 0
-
-    model.dynamic_storage_constraint = Constraint(model.Node, model.PeriodActive, rule=dynamic_storage_rule)
-
-
-    model.max_avg_marginal_cost = Param(initialize=50.0, mutable=True)
-    def avg_marginal_cost_rule(model, n, i):
-        
-        total_capacity = sum(model.genInstalledCap[n, g, i]  for g in model.Generator if (n, g) in model.GeneratorsOfNode)
-        
-        weighted_marginal_cost_sum = sum(model.genInstalledCap[n, g, i] * model.genMargCost[g, i]
-                                        for g in model.Generator if (n, g) in model.GeneratorsOfNode)
-        return weighted_marginal_cost_sum <= model.max_avg_marginal_cost * total_capacity
-
-    model.avg_marginal_cost_constraint = Constraint(model.Node, model.PeriodActive, rule=avg_marginal_cost_rule)
-
 
     #########################################################################################
-
-
-
-    # # variable for embedding
-    # n_features = 616
-    # model.v_scaled = Var(RangeSet(1, n_features), domain=Reals)
 
     instance = model.create_instance(data)
     instance.dual = Suffix(direction=Suffix.IMPORT) 

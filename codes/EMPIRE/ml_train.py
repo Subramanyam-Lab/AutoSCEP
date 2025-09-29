@@ -128,7 +128,7 @@ def main(args):
     
     sampled_df = full_df.copy()
     dataset = RegressionDataset(sampled_df, args.cost_threshold)
-    file_prefix = os.path.join(output_dir, f"s{numsam}_seed{seed}")
+    file_prefix = os.path.join(output_dir, f"s{numsam}_run{seed}")
     
     indices = list(range(len(dataset)))
     train_indices, test_indices = train_test_split(indices, test_size=0.15, random_state=seed)
