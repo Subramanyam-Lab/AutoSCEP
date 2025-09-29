@@ -603,7 +603,7 @@ if __name__ == '__main__':
     logging.info(f"Sampling process finished in {duration:.2f} seconds.")
     
     
-    csv_filename = 'dataset_generation_log.csv'
+    csv_filename = 'dataset_generation_log_adaptive.csv'
     file_exists = os.path.exists(csv_filename)
     
     with open(csv_filename, mode='a', newline='') as csvfile:
