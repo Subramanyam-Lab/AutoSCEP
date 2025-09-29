@@ -875,82 +875,13 @@ def run_empire(name, tab_file_path, result_file_path, scenariogeneration, scenar
     if solver == "GLPK":
         opt = SolverFactory("glpk", Verbose=True)
     
-    # for (n,i) in instance.nodeLostLoadCost:
-    #     instance.nodeLostLoadCost[n,i] = 1e6
     results = opt.solve(instance, tee=True)# , logfile=result_file_path + '\logfile_' + name + '.log' , keepfiles=True, symbolic_solver_labels=True)
-    # bounds_dict = get_inv_cap_bounds(instance)
-    # print(bounds_dict)
-    # num_scenarios = len(instance.Scenario)
     instance.solutions.load_from(results)
     get_results(instance, seed)
     get_results_v(instance, seed)
-    expected_second_stage_value, total_ll_amt = compute_expected_second_stage_value(instance)
     objective_value = value(instance.Obj)
-    print(f"total_ll_amt: {total_ll_amt}")
 
-    return objective_value, expected_second_stage_value
-
-
-def compute_expected_second_stage_value(instance):
-    # Calculate the total operational cost over all periods
-    expected_second_stage_value = 0
-    total_ll_amt = 0
-    for i in instance.PeriodActive:
-        second_stage_value = value(instance.discount_multiplier[i]) * (value(instance.shedcomponent[i]) + value(instance.operationalcost[i]))
-        expected_second_stage_value += second_stage_value
-        shed_amt = sum(value(instance.operationalDiscountrate)*value(instance.seasScale[s])*value(instance.sceProbab[w])*value(instance.loadShed[n,h,i,w]) for n in instance.Node for w in instance.Scenario for (s,h) in instance.HoursOfSeason)
-        total_ll_amt += value(instance.discount_multiplier[i]) * (shed_amt)
-    return expected_second_stage_value, total_ll_amt
-
-
-
-def compute_scenario_second_stage_values(instance):
-    scenario_values = {}
-    
-    for w in instance.Scenario:
-        second_stage_value = 0
-
-        for i in instance.PeriodActive:
-            # shedcomponent의 시나리오별 값 계산
-            shedcomponent_value = sum(
-                value(instance.operationalDiscountrate *
-                      instance.seasScale[s] *
-                      instance.sceProbab[w] *
-                      instance.nodeLostLoadCost[n, i] *
-                      instance.loadShed[n, h, i, w])
-                for n in instance.Node
-                for (s, h) in instance.HoursOfSeason
-            )
-
-            # operationalcost의 시나리오별 값 계산
-            operational_cost = sum(
-                value(instance.operationalDiscountrate *
-                      instance.seasScale[s] *
-                      instance.sceProbab[w] *
-                      instance.genMargCost[g, i] *
-                      instance.genOperational[n, g, h, i, w])
-                for (n, g) in instance.GeneratorsOfNode
-                for (s, h) in instance.HoursOfSeason
-            )
-
-            # 시나리오별 second stage 값을 합산
-            second_stage_value += value(instance.discount_multiplier[i]) * (shedcomponent_value + operational_cost)
-
-        # 각 시나리오의 값을 저장
-        scenario_values[w] = second_stage_value
-
-
-    values = list(scenario_values.values())
-
-    # 평균 계산
-    mean_value = sum(values) / len(values)
-    
-    # 분산 계산
-    variance = sum((x - mean_value) ** 2 for x in values) / len(values)
-
-    return variance
-
-
+    return objective_value
 
 
 def get_results(instance, seed):
@@ -1019,55 +950,3 @@ def get_results_v(instance, seed):
     df.to_csv(output_file_path, index=False)
 
     print("DataFrames created and saved successfully.")
-
-
-
-def get_inv_cap_bounds(instance):
-    bounds_dict = {}
-
-    # Generator Investment Capacity Bounds
-    gen_inv_cap_bounds = {}
-    for (n, g, i) in instance.genInvCap:
-        lb = 0
-        # Find the technology t corresponding to generator g
-        t_list = [t for (t, g1) in instance.GeneratorsOfTechnology if g1 == g]
-        if not t_list:
-            ub = None  # No upper bound
-        else:
-            t = t_list[0]
-            # Maximum built capacity in period i
-            max_built_cap = value(instance.genMaxBuiltCap[n, t, i])
-            # Upper bound is the minimum of max_additional_cap and max_built_cap
-            ub = max(0, max_built_cap)
-        gen_inv_cap_bounds[(n, g, i)] = (lb, ub)
-
-    # Transmission Investment Capacity Bounds
-    transmision_inv_cap_bounds = {}
-    for (n1, n2, i) in instance.transmisionInvCap:
-        lb = 0
-        max_built_cap = value(instance.transmissionMaxBuiltCap[n1, n2, i])
-        ub = max(0, max_built_cap)
-        transmision_inv_cap_bounds[(n1, n2, i)] = (lb, ub)
-
-    # Storage Power Investment Capacity Bounds
-    stor_pw_inv_cap_bounds = {}
-    for (n, b, i) in instance.storPWInvCap:
-        lb = 0
-        max_built_cap = value(instance.storPWMaxBuiltCap[n, b, i])
-        ub = max(0, max_built_cap)
-        stor_pw_inv_cap_bounds[(n, b, i)] = (lb, ub)
-
-    # Storage Energy Investment Capacity Bounds
-    stor_en_inv_cap_bounds = {}
-    for (n, b, i) in instance.storENInvCap:
-        lb = 0
-        max_built_cap = value(instance.storENMaxBuiltCap[n, b, i])
-        ub = max(0,max_built_cap)
-        stor_en_inv_cap_bounds[(n, b, i)] = (lb, ub)
-
-    bounds_dict['genInvCap'] = gen_inv_cap_bounds
-    bounds_dict['transmisionInvCap'] = transmision_inv_cap_bounds
-    bounds_dict['storPWInvCap'] = stor_pw_inv_cap_bounds
-    bounds_dict['storENInvCap'] = stor_en_inv_cap_bounds
-
-    return bounds_dict

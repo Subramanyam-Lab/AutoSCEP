@@ -1,0 +1,10 @@
+name: neurmhsp
+channels:
+  - defaults
+dependencies:
+  - pip
+  - pyomo
+  - glpk
+  - matplotlib
+  - onnx
+prefix: /storage/home/tzk5446/.conda/envs/neurmhsp

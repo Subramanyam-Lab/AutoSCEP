@@ -1,3 +1,0 @@
-2025-09-07 21:28:52,660 - INFO - 1. 데이터 로딩 시작: 'training_data_distributed' 디렉토리에서 데이터를 찾습니다.
-/var/spool/slurm/d/job43247026/slurm_script: line 37: 3660798 Killed                  /storage/home/tzk5446/.conda/envs/neurmhsp/bin/python post_process_data.py
-slurmstepd: error: Detected 1 oom_kill event in StepId=43247026.batch. Some of the step tasks have been OOM Killed.

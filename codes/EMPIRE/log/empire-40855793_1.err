@@ -1,8 +1,0 @@
-Traceback (most recent call last):
-  File "/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/Data_preprocessing.py", line 236, in <module>
-    merged_data = merge_data_by_file_num(output_file, merged_file)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/storage/work/tzk5446/NeurMHSP/codes/EMPIRE/Data_preprocessing.py", line 79, in merge_data_by_file_num
-    print(f"E_Q 임계값({E_Q_threshold}) 필터링: {original_count}개 중 {filtered_count}개 데이터 유지.")
-                        ^^^^^^^^^^^^^
-NameError: name 'E_Q_threshold' is not defined. Did you mean: 'E_Q_threshold_up'?

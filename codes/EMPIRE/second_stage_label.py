@@ -46,7 +46,6 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
 
     # Temporal sets
     model.Period = Set(ordered=True) #max period
-    #model.PeriodActive = Set(ordered=True, initialize=Period) #i
     model.PeriodActive = Set(initialize=period_filter)
     model.Operationalhour = Set(ordered=True, initialize=Operationalhour) #h
     model.Season = Set(ordered=True, initialize=Season) #s
@@ -248,11 +247,9 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
     data.load(filename=tab_file_path + "/" + 'Storage_InitialPowerCapacity.tab', param=model.storPWInitCap, format="table")
     data.load(filename=tab_file_path + "/" + 'Storage_Lifetime.tab', param=model.storageLifetime, format="table")
 
-    # data.load(filename=tab_file_path + "/" + 'Node_NodeLostLoadCost.tab', param=model.nodeLostLoadCost, format="table")
     data.load(filename=tab_file_path + "/" + 'Node_ElectricAnnualDemand.tab', param=model.sloadAnnualDemand, format="table") 
     data.load(filename=tab_file_path + "/" + 'Node_HydroGenMaxAnnualProduction.tab', param=model.maxHydroNode, format="table") 
     
-    # It should be passed by inputs of this function
     data.load(filename=scenariopath + "/" + 'Stochastic_HydroGenMaxSeasonalProduction.tab', param=model.maxRegHydroGenRaw, format="table")
     data.load(filename=scenariopath + "/" + 'Stochastic_StochasticAvailability.tab', param=model.genCapAvailStochRaw, format="table") 
     data.load(filename=scenariopath + "/" + 'Stochastic_ElectricLoadRaw.tab', param=model.sloadRaw, format="table") 
@@ -267,9 +264,6 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
 
     if LOADCHANGEMODULE:
         data.load(filename=scenariopath + "/" + 'LoadchangeModule/Stochastic_ElectricLoadMod.tab', param=model.sloadMod, format="table")
-
-#    print("Constructing parameter values...")
-
 
 
     def adjust_season_scale_rule(model):
@@ -287,15 +281,12 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
 
 
     def prepSceProbab_rule(model):
-        #Build an equiprobable probability distribution for scenarios
         for sce in model.Scenario:
             model.sceProbab[sce] = value(1/len(model.Scenario))
 
     model.build_SceProbab = BuildAction(rule=prepSceProbab_rule)
 
     def prepOperationalCostGen_rule(model):
-        #Build generator short term marginal costs
-
         for g in model.Generator:
             for i in model.PeriodActive:
                 if ('CCS',g) in model.GeneratorsOfTechnology:
@@ -313,10 +304,6 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
 
     # This function consists the costs per period for each generator, storage, transmission
     def prepInvCost_rule(model):
-        #Build investment cost for generators, storages and transmission. Annual cost is calculated for the lifetime of the generator and discounted for a year.
-        #Then cost is discounted for the investment period (or the remaining lifetime). CCS generators has additional fixed costs depending on emissions. 
-
-        #Generator 
         for g in model.Generator:
             for i in model.PeriodActive:
                 costperyear=(model.WACC/(1-((1+model.WACC)**(-model.genLifetime[g]))))*model.genCapitalCost[g,i]+model.genFixedOMCost[g,i]
@@ -348,8 +335,7 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
 
 
     def prepInitialCapacityNodeGen_rule(model):
-        #Build initial capacity for generator type in node
-
+        
         for (n,g) in model.GeneratorsOfNode:
             for i in model.PeriodActive:
                 if value(model.genInitCap[n,g,i]) == 0:
@@ -358,15 +344,13 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
     model.build_InitialCapacityNodeGen = BuildAction(rule=prepInitialCapacityNodeGen_rule)
 
     def prepOperationalDiscountrate_rule(model):
-        #Build operational discount rate
-
+        
         model.operationalDiscountrate = sum((1+model.discountrate)**(-j) for j in list(range(0,value(model.LeapYearsInvestment))))
 
     model.build_operationalDiscountrate = BuildAction(rule=prepOperationalDiscountrate_rule)     
 
     def prepRegHydro_rule(model):
-        #Build hydrolimits for all periods
-
+        
         for n in model.Node:
             for s in model.Season:
                 for i in model.PeriodActive:
@@ -376,8 +360,7 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
     model.build_maxRegHydroGen = BuildAction(rule=prepRegHydro_rule)
 
     def prepGenCapAvail_rule(model):
-        #Build generator availability for all periods
-
+        
         for (n,g) in model.GeneratorsOfNode:
             for h in model.Operationalhour:
                 for s in model.Scenario:
@@ -390,10 +373,8 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
     model.build_genCapAvail = BuildAction(rule=prepGenCapAvail_rule)
 
     def prepSload_rule(model):
-        #Build load profiles for all periods
-
+    
         counter = 0
-#       f = open(result_file_path + '/AdjustedNegativeLoad_' + name + '.txt', 'w')
         for n in model.Node:
             for i in model.PeriodActive:
                 noderawdemand = 0
@@ -411,12 +392,9 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
                         if LOADCHANGEMODULE:
                             model.sload[n,h,i,sce] = model.sload[n,h,i,sce] + model.sloadMod[n,h,sce,i]
                         if value(model.sload[n,h,i,sce]) < 0:
-#                            f.write('Adjusted electricity load: ' + str(value(model.sload[n,h,i,sce])) + ', 10 MW for hour ' + str(h) + ' and scenario ' + str(sce) + ' in ' + str(n) + "\n")
                             model.sload[n,h,i,sce] = 10
                             counter += 1
 
-#        f.write('Hours with too small raw electricity load: ' + str(counter))
-#        f.close()
     
     model.build_sload = BuildAction(rule=prepSload_rule)
     
@@ -452,16 +430,10 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
     ##OBJECTIVE##
     #############
 
-    # def Obj_rule(model):
-    #     i = list(model.PeriodActive)[0]  # specific period
-    #     return model.discount_multiplier[i]*(model.shedcomponent[i] + model.operationalcost[i])
-    # model.Obj = Objective(rule=Obj_rule, sense=minimize)
-
     def Obj_rule(model):
         return sum(model.discount_multiplier[i]*(model.shedcomponent[i] + model.operationalcost[i]) for i in model.PeriodActive)
     model.Obj = Objective(rule=Obj_rule, sense=minimize)
 
-    # model.operationalDiscountrate*
     ###############
     ##CONSTRAINTS##
     ###############
@@ -631,7 +603,6 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
     opt = SolverFactory('gurobi', Verbose=True)
     opt.options["Crossover"]=0
     opt.options["Method"]=1
-    # opt.options['threads'] = multiprocessing.cpu_count()
     opt.options['threads'] = 1
     opt.options['BarConvTol'] = 1e-4
     opt.options['MIPGap'] = 0.01
@@ -640,14 +611,12 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
     first_stage_val = calculate_f_x(instance)
     first_stage_value = sum(first_stage_val)
 
+    obj_value = value(instance.Obj)
+    obj_value = value(instance.Obj)
+
     v_dict = results_saving(instance)
-
-    obj_value = value(instance.Obj)
-    obj_value = value(instance.Obj)
-
-    feature_vector = create_feature_vector_from_scenario(instance)
     
-    return first_stage_value, obj_value, v_dict, feature_vector
+    return first_stage_value, obj_value, v_dict
 
 
 
@@ -706,28 +675,6 @@ def results_saving(instance):
 
 
 
-def proportional_lost_load(instance):
-    total_count = 0
-    exceed_count = 0
-    for i in instance.PeriodActive:
-        for w in instance.Scenario:
-            # Sum loadShed values for each node and each (season, hour) pair
-            loadshed_sum = sum(
-                value(instance.loadShed[n, h, i, w])
-                for n in instance.Node
-                for (s, h) in instance.HoursOfSeason
-            )
-            total_count += 1
-            if loadshed_sum > 1:
-                exceed_count += 1
-
-    # Calculate the ratio
-    ratio = exceed_count / total_count if total_count > 0 else 0
-    
-    print(f"lost load proportional: {ratio}, {exceed_count}, {total_count}")
-
-
-
 def calculate_f_x(instance):
     first_stage_val_lst = []
     for i in instance.PeriodActive:
@@ -749,72 +696,3 @@ def calculate_f_x(instance):
         first_stage_val_lst.append(first_stage_value)
 
     return first_stage_val_lst
-
-def create_feature_vector_from_scenario(instance):
-    """
-    Pyomo instance 객체와 특정 기간(specific_period)을 받아
-    해당 기간의 시나리오 특징 벡터를 생성합니다.
-    """
-    try:
-        # 1. Instance로부터 데이터 추출
-        load_data = []
-        # PeriodActive는 현재 실행 중인 specific_period만 담고 있음
-        active_period = next(iter(instance.PeriodActive))
-
-        # sload 파라미터에서 현재 기간(active_period)의 데이터만 추출
-        for (n, h, i, w), val in instance.sload.items():
-            if i == active_period:
-                load_data.append({
-                    'Node': n,
-                    'Hour': h,
-                    'Scenario': w,
-                    'ElectricLoad_in_MW': value(val)
-                })
-        
-        availability_data = []
-        # genCapAvail 파라미터에서 현재 기간(active_period)의 데이터만 추출
-        for (n, g, h, w, i), val in instance.genCapAvail.items():
-            if i == active_period:
-                availability_data.append({
-                    'Node': n,
-                    'Generator': g,
-                    'Hour': h,
-                    'Scenario': w,
-                    'Availability': value(val)
-                })
-
-        if not load_data or not availability_data:
-            logging.warning(f"Period {active_period}에 대한 시나리오 데이터가 없습니다. 빈 특징 벡터를 반환합니다.")
-            # 특징 벡터 차원을 일관되게 유지하기 위해 0으로 채운 벡터 반환
-            SCENARIO_FEATURE_DIM = 100 # 임시 값, 실제 차원에 맞게 수정 필요
-            return [0.0] * SCENARIO_FEATURE_DIM
-
-        # 2. Pandas DataFrame으로 변환
-        df_load = pd.DataFrame(load_data)
-        df_avail = pd.DataFrame(availability_data)
-
-        # 3. 특징 공학 (Feature Engineering)
-        all_features = []
-        
-        # 부하 특징 추출 (Node별로 시간 및 시나리오에 대한 통계)
-        # Period는 단일 값이므로 groupby에서 제외
-        load_features = df_load.groupby(['Node'])['ElectricLoad_in_MW'].agg(
-            ['mean', 'std', 'max']
-        ).fillna(0)
-        all_features.append(load_features.values.flatten())
-
-        # 가용량 특징 추출 (Node와 Generator별로 시간 및 시나리오에 대한 통계)
-        avail_features = df_avail.groupby(['Node', 'Generator'])['Availability'].agg(
-            ['mean', 'std', 'min']
-        ).fillna(0)
-        all_features.append(avail_features.values.flatten())
-
-        feature_vector = np.concatenate(all_features)
-        
-        return feature_vector.tolist()
-
-    except Exception as e:
-        logging.error(f"Instance 기반 특징 벡터 생성 중 오류 발생: {e}", exc_info=True)
-        # 특징 벡터 차원을 일관되게 유지하기 위한 처리
-        SCENARIO_FEATURE_DIM = 100 # 임시 값, 실제 차원에 맞게 수정 필요
-        return [0.0] * SCENARIO_FEATURE_DIM
