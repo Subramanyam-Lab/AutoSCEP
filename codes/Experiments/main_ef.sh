@@ -2,14 +2,14 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --mem=64G
+#SBATCH --mem=100G
 #SBATCH --time=24:00:00
 #SBATCH --job-name=neurumhsp
 #SBATCH --output=logs/ef_%a.out
 #SBATCH --error=logs/ef_%a.err
-#SBATCH --account=azs7266_sc
+#SBATCH --account=azs7266_p_gpu
 #SBATCH --partition=sla-prio
-#SBATCH --array=1-10
+#SBATCH --array=1
 
 source ~/.bashrc
 
@@ -23,8 +23,8 @@ module load openmpi/4.1.1-pmi2
 export MPICH_ASYNC_PROGRESS=1
 echo "Running on nodes: $SLURM_NODELIST (Array Task: $SLURM_ARRAY_TASK_ID)"
 
-seeds=(11 12 13 14 15 16 17 18 19 20)
-numsces=(5 10 20)
+seeds=(11) #  12 13 14 15 16 17 18 19 20
+numsces=(5) #  10 20
 
 idx=$(( SLURM_ARRAY_TASK_ID - 1 ))
 

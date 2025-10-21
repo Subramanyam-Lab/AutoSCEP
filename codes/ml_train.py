@@ -118,14 +118,14 @@ def main(args):
     logging.info(f"All results will be saved in '{output_dir}' directory")
     np.random.seed(args.seed)
     
-    data_file = f"aggregated_dataset_adaptive_{args.num_samples}_{args.seed}.csv"
+    data_file = f"aggregated_full_dataset_adaptive_{args.num_samples}_{args.seed}.csv"
     full_df = pd.read_csv(data_file)
     
     results_log = []
     
     sampled_df = full_df.copy()
     dataset = RegressionDataset(sampled_df, args.cost_threshold)
-    file_prefix = os.path.join(output_dir, f"s{args.num_samples}_run{args.seed}")
+    file_prefix = os.path.join(output_dir, f"full_s{args.num_samples}_run{args.seed}")
     
     indices = list(range(len(dataset)))
     train_indices, test_indices = train_test_split(indices, test_size=0.15, random_state=args.seed)

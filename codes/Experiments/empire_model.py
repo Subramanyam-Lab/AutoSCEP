@@ -3,7 +3,6 @@ from yaml import safe_load
 
 
 def run_empire(scenariopath):
-    # UserRunTimeConfig = safe_load(open("config_reducedrun.yaml"))
     UserRunTimeConfig = safe_load(open("config_run.yaml"))
     
 
@@ -23,10 +22,7 @@ def run_empire(scenariopath):
     NoOfPeakSeason = 2
     lengthPeakSeason = 24
     LeapYearsInvestment = 5
-    if version in ["europe_v51","europe_reduced_v51"]:
-        north_sea = True
-    else:
-        north_sea = False
+    north_sea = False
 
 
     FirstHoursOfRegSeason = [lengthRegSeason*i + 1 for i in range(NoOfRegSeason)]
@@ -276,18 +272,9 @@ def run_empire(scenariopath):
     data.load(filename=tab_file_path + "/" + 'Storage_PowerMaxBuiltCapacity.tab', param=model.storPWMaxBuiltCap, format="table")
     data.load(filename=tab_file_path + "/" + 'Storage_PowerMaxInstalledCapacity.tab', param=model.storPWMaxInstalledCapRaw, format="table")
     data.load(filename=tab_file_path + "/" + 'Storage_Lifetime.tab', param=model.storageLifetime, format="table")
-    # new
-    # data.load(filename=f'Data handler/europe_reduced_v50/Average_Cap_Avail_{len(Period)}.tab', param=model.avg_cap_avail, format="table")
-
-    #Temporarily 
-    # data.load(filename=tab_file_path + "/" + 'Node_NodeLostLoadCost.tab', param=model.nodeLostLoadCost, format="table")
     data.load(filename=tab_file_path + "/" + 'Node_ElectricAnnualDemand.tab', param=model.sloadAnnualDemand, format="table") 
     data.load(filename=tab_file_path + "/" + 'Node_HydroGenMaxAnnualProduction.tab', param=model.maxHydroNode, format="table") 
     
-    # if scenariogeneration:
-    #     scenariopath = tab_file_path
-    # else:
-    #     scenariopath = scenario_data_path
 
     data.load(filename=scenariopath + "/" + 'Stochastic_HydroGenMaxSeasonalProduction.tab', param=model.maxRegHydroGenRaw, format="table")
     data.load(filename=scenariopath + "/" + 'Stochastic_StochasticAvailability.tab', param=model.genCapAvailStochRaw, format="table") 
@@ -647,18 +634,6 @@ def run_empire(scenariopath):
     model.power_energy_relate = pyo.Constraint(model.StoragesOfNode, model.PeriodActive, rule=power_energy_relate_rule)
 
     #################################################################
-
-    # if activate_rule == "version1": 
-    #     def version1_rule(model, h, i):
-    #         gen_avail_capacity = sum(model.genInstalledCap[n, g, i] * model.genCapAvail[n,g,h,w,i] for (n, g) in model.GeneratorsOfNode for w in model.ScenarioActive)
-    #         average_sload = sum(model.sload[n,h,i,w] for n in model.Node for w in model.ScenarioActive)
-    #         return average_sload-gen_avail_capacity <= 0 
-    #     model.version1 = Constraint(model.Operationalhour, model.PeriodActive,rule=version1_rule)
-
-
-    # def demand_supply_rule(model, h, i, w):
-    #     return sum(model.sload[n,h,i,w] for n in model.Node) - sum(model.genInstalledCap[n,g,i] * model.genCapAvail[n,g,h,w,i]for (n,g) in model.GeneratorsOfNode) <= 0
-    # model.demand_supply = Constraint(model.Operationalhour,model.PeriodActive, model.ScenarioActive, rule=demand_supply_rule)
 
     #### Second Stage Constraints ####
 

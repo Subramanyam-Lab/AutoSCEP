@@ -5,12 +5,6 @@ import time
 import pandas as pd
 import numpy as np
 from datetime import datetime
-import logging
-import multiprocessing
-import os
-
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursOfPeakSeason, lengthRegSeason,
@@ -600,14 +594,15 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
             instance.storENInstalledCap[n, b, i] = sum(instance.storENInvCapParam[n, b, j] for j in instance.Period if j >= startPeriod and j<=i) + instance.storENInitCap[n, b, i]
 
 
-    opt = SolverFactory('gurobi', Verbose=True)
+
+    opt = SolverFactory('gurobi', verbose=False)
     opt.options["Crossover"]=0
     opt.options["Method"]=1
     opt.options['threads'] = 1
     opt.options['BarConvTol'] = 1e-4
     opt.options['MIPGap'] = 0.01
 
-    results = opt.solve(instance, tee=False) 
+    results = opt.solve(instance, tee=False, keepfiles=False) 
     first_stage_val = calculate_f_x(instance)
     first_stage_value = sum(first_stage_val)
 

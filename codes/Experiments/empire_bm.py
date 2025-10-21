@@ -112,7 +112,7 @@ def save_investment_solution(solution_dict, method_name, seed, num_sce,time_limi
         output_dir = 'sol_sets'
         os.makedirs(output_dir, exist_ok=True)
         
-        output_path = os.path.join(output_dir, f'{method_name}_solution_{num_sce}_{seed}_{time_limit}.csv')
+        output_path = os.path.join(output_dir, f'full_{method_name}_solution_{num_sce}_{seed}_{time_limit}.csv')
         df.to_csv(output_path, index=False)
         print(f"\nSolution saved to {output_path}")
 
@@ -140,7 +140,7 @@ def Progressive_Hedging(options, scenario_names, seed, num_sce, time_limit):
         print(f"Best Outer (Upper) Bound: {best_outer_bound:.4f}")
 
         # Log runtime and bounds to a CSV file with file locking
-        log_file = "runtime_ph_log.csv"
+        log_file = "runtime_full_ph_log.csv"
         need_header = not os.path.exists(log_file)
         
         try:
@@ -256,8 +256,8 @@ if __name__ == '__main__':
             "verbose": False,
             "display_progress": True,
             "display_timing": False,
-            "iter0_solver_options": {"Method":2, "threads": 8, "MIPGap": 1e-2},
-            "iterk_solver_options": {"Method":2, "threads": 8, "MIPGap": 1e-2},   
+            "iter0_solver_options": {"Method": 1, "threads": 4, "MIPGap": 1e-2},
+            "iterk_solver_options": {"Method": 1, "threads": 4, "MIPGap": 1e-2},   
         }
 
 

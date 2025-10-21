@@ -1,8 +1,8 @@
 #!/bin/bash
-TOTAL_FILES=5000 
+TOTAL_FILES=500 
 TOTAL_PERIODS=8 # fixed
 TASK_FILE="tasks.txt"
-LOG_FILE="dataset_generation_log_adaptive.csv"
+LOG_FILE="dataset_generation_full_log_adaptive.csv"
 NUMSAM=$TOTAL_FILES
 SEED=${SEED:-1}
 export NUMSAM SEED

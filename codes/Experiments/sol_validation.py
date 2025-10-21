@@ -30,16 +30,15 @@ def read_fsd_from_csv(file_path):
     return fsd_data
 
 def main(solution_numbers,numsce,seednum,model,scenario_set_num):
-    UserRunTimeConfig = safe_load(open("config_reducedrun.yaml"))
+    UserRunTimeConfig = safe_load(open("config_run.yaml"))
 
     USE_TEMP_DIR = UserRunTimeConfig["USE_TEMP_DIR"]
     temp_dir = UserRunTimeConfig["temp_dir"]
     version = UserRunTimeConfig["version"]
     Horizon = UserRunTimeConfig["Horizon"]
     NoOfScenarios = UserRunTimeConfig["NoOfScenarios"]
-    NoOfScenarios = 10
-    # lengthRegSeason = UserRunTimeConfig["lengthRegSeason"]
-    lengthRegSeason = 72
+    NoOfScenarios = 1
+    lengthRegSeason = 96
     discountrate = UserRunTimeConfig["discountrate"]
     WACC = UserRunTimeConfig["WACC"]
     solver = UserRunTimeConfig["solver"]
@@ -67,14 +66,8 @@ def main(solution_numbers,numsce,seednum,model,scenario_set_num):
     lengthPeakSeason = 24
     LeapYearsInvestment = 5
     time_format = "%d/%m/%Y %H:%M"
-    if version in ["europe_v50"]:
-        north_sea = False
-    elif version in ["reduced"]:
-        north_sea = False
-    else:
-        north_sea = True
-
-
+    north_sea = False
+    
     #######
     ##RUN##
     #######
@@ -111,39 +104,17 @@ def main(solution_numbers,numsce,seednum,model,scenario_set_num):
                                                     lengthPeakSeason+1))]
     HoursOfSeason = HoursOfRegSeason + HoursOfPeakSeason
     
-    fsd_file_path = f"sol_sets/100_seed_5_inv_cap.csv" # near-optimal
+    # fsd_file_path = f"sol_sets/100_seed_5_inv_cap.csv" # near-optimal
     # fsd_file_path = f"sol_sets/ef_solution_{numsce}_{solution_numbers}.csv" # EF-validation
-    # fsd_file_path = f"sol_sets/ph_solution_{numsce}_{solution_numbers}_{soltime}.csv" # PH-validation
-    # fsd_file_path = f"models/adaptive/ML_Embed_solution_{model}_{numsce}_{solution_numbers}.csv" # ML-validation
+    fsd_file_path = f"sol_sets/full_ph_solution_{numsce}_{solution_numbers}_{soltime}.csv" # PH-validation
+    # fsd_file_path = f"sol_sets/ML_solutions/full_ML_Embed_solution_{model}_{numsce}_{solution_numbers}.csv" # ML-validation
+    # fsd_file_path = f"sol_sets/full_ef_avg.csv" # near-optimal
     FSD = read_fsd_from_csv(fsd_file_path)
     
     logging.info(f"{solution_numbers} seed start!")
     sol_num = seednum + 1000
     output_dir = f"Data handler/scenarios_output/{sol_num}"
-    scenario_folder = os.path.join(output_dir, f"scenario_set_{scenario_set_num}")
-    
-    # os.makedirs(scenario_folder, exist_ok=True)
-    
-    # generate_random_scenario(
-    #     filepath=scenario_data_path,
-    #     tab_file_path=scenario_folder,
-    #     scenarios=NoOfScenarios,
-    #     seasons=regular_seasons,
-    #     Periods=len(Period),
-    #     regularSeasonHours=lengthRegSeason,
-    #     peakSeasonHours=lengthPeakSeason,
-    #     dict_countries=dict_countries,
-    #     time_format=time_format,
-    #     filter_make=filter_make,
-    #     filter_use=filter_use,
-    #     n_cluster=n_cluster,
-    #     moment_matching=moment_matching,
-    #     n_tree_compare=n_tree_compare,
-    #     fix_sample=fix_sample,
-    #     north_sea=north_sea,
-    #     LOADCHANGEMODULE=LOADCHANGEMODULE,
-    #     seed=sol_num
-    # )
+    scenario_folder = output_dir
     
     
     total_obj = run_second_stage(
@@ -171,9 +142,9 @@ def main(solution_numbers,numsce,seednum,model,scenario_set_num):
         version=version
     )
     
-    logging.info(f"objective_value_ML: {total_obj}")
+    logging.info(f"objective_value: {total_obj}")
     
-    csv_path = Path(f"validation_fixed_log.csv")
+    csv_path = Path(f"validation_full_log.csv")
     lock = FileLock(str(csv_path) + ".lock")
 
     row = [
@@ -201,7 +172,6 @@ def main(solution_numbers,numsce,seednum,model,scenario_set_num):
             writer.writerow(row)
     logging.info(f"Saved results to {csv_path}")
 
-    return result
     
 
 if __name__ == '__main__':
@@ -211,7 +181,7 @@ if __name__ == '__main__':
     parser.add_argument('--seednum', type=int, required=True, help='Seed Number')
     parser.add_argument('--method', type=str, required=True, help='Method used (e.g., MLP, LR)')
     parser.add_argument('--setnum', type=int, required=True, help='Scenario set number')
-    # parser.add_argument('--soltime', type=int, required=True, help='Solution time')
+    parser.add_argument('--soltime', type=int, required=True, help='Solution time')
     
     args = parser.parse_args()
 
@@ -220,6 +190,6 @@ if __name__ == '__main__':
     seednum = args.seednum
     model_name = args.method
     setnum = args.setnum
-    # soltime = args.soltime
+    soltime = args.soltime
     
-    result = main(solution_numbers, numsce, seednum, model_name, setnum)
+    main(solution_numbers, numsce, seednum, model_name, setnum)

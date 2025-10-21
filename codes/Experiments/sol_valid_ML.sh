@@ -4,11 +4,11 @@
 #SBATCH --mem=16GB
 #SBATCH --time=12:00:00
 #SBATCH --job-name=neurumhsp
-#SBATCH --output=log_valid/mlvalidation/mlembed_validation_fixed-%A_%a.out
-#SBATCH --error=log_valid/mlvalidation/mlembed_validation_fixed-%A_%a.err
-#SBATCH --account=azs7266_p_gpu
+#SBATCH --output=log_valid/ml/mlembed_validation_fixed-%A_%a.out
+#SBATCH --error=log_valid/ml/mlembed_validation_fixed-%A_%a.err
+#SBATCH --account=azs7266_sc
 #SBATCH --partition=sla-prio
-#SBATCH --array=1-4000%40
+#SBATCH --array=1-20000
 
 source ~/.bashrc
 conda activate neurmhsp
@@ -16,9 +16,9 @@ module load gurobi/10.0.3
 
 methods=("MLP" "LR")
 solnums=(1 2 3 4 5 6 7 8 9 10)
-numsces=(1000 5000)
-seeds=(11 12 13 14 15 16 17 18 19 20)
-setnums=(1 2 3 4 5 6 7 8 9 10)
+numsces=(500) # 1000 5000
+seeds=({1..1000})
+setnums=(1)
 
 num_methods=${#methods[@]}
 num_solnums=${#solnums[@]}
@@ -48,4 +48,5 @@ python sol_validation.py \
     --solution_number "$solution_number" \
     --numsce          "$numsce" \
     --seednum         "$seednum" \
-    --setnum          "$setnum" 
+    --setnum          "$setnum" \
+    --soltime         1

@@ -5,8 +5,8 @@
 #SBATCH --cpus-per-task=8  
 #SBATCH --time=12:00:00
 #SBATCH --job-name=neurumhsp
-#SBATCH --output=log/sampling-%j.out
-#SBATCH --error=log/sampling-%j.err
+#SBATCH --output=log/full_sampling-%j.out
+#SBATCH --error=log/full_sampling-%j.err
 #SBATCH --account=azs7266_sc
 #SBATCH --partition=sla-prio
 #SBATCH --array=1

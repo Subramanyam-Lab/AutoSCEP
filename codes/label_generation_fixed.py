@@ -278,7 +278,7 @@ def main():
     numsam = args.numsam
 
     fixed_lengthRegSeason = 48  
-    fixed_num_scenarios = 20 
+    fixed_num_scenarios = 30 
     
     logging.info(f"====== Starting Job for (file_num={file_num}, period={period}) with {num_cpus} CPUs ======")
     

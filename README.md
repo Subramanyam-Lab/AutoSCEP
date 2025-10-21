@@ -1,4 +1,4 @@
-# NeurMHSP
+# AutoSCEP
 
 ## Abstract
 
@@ -9,7 +9,7 @@ This repository accompanies the paper "Machine Learning-Enabled Large-Scale Tran
 ```
 ├── Data handler/           # Dataset files for EMPIRE model
 ├── models/                 # Trained Model
-├── BM_Validation/           # Baselines and Solution Validation
+├── Experiments/           # Baselines and Solution Validation
 ├── requirements.txt        # Python dependencies
 └── README.md              # This file
 ```

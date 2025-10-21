@@ -41,7 +41,7 @@ def main(model_type, NoOfScenarios, Seed):
     lengthPeakSeason = 24
     LeapYearsInvestment = 5
     time_format = "%d/%m/%Y %H:%M"
-    north_sea = True
+    north_sea = False
 
 
     #######
@@ -129,7 +129,7 @@ def main(model_type, NoOfScenarios, Seed):
     print(f"First stage cost: {first_stage_cost_subtracted}")
     print(f"Expected second stage cost: {second_stage_cost}")
 
-    output_dir = "BM_Validation/MLEMBEDSOLS_adaptive"
+    output_dir = "Experiments/MLEMBEDSOLS_adaptive"
     
     save_results_x(instance, NoOfScenarios, model_type, Seed, output_dir)
     save_results_v(instance, NoOfScenarios, model_type, Seed, output_dir)
@@ -154,7 +154,7 @@ def save_results_x(instance, NoSce, model_type, Seed, output_dir):
     df = pd.DataFrame(data, columns=['Node', 'Energy_Type', 'Period', 'Type', 'Value'])
     os.makedirs(output_dir, exist_ok=True)
 
-    output_file_path = os.path.join(output_dir, f"ML_Embed_solution_{model_type}_{NoSce}_{Seed}.csv")
+    output_file_path = os.path.join(output_dir, f"full_ML_Embed_solution_{model_type}_{NoSce}_{Seed}.csv")
     df.to_csv(output_file_path, index=False)
 
     print("DataFrames created and saved successfully.")
@@ -176,7 +176,7 @@ def save_results_v(instance, NoSce, model_type, Seed, output_dir):
     df = pd.DataFrame(data, columns=['Node', 'Energy_Type', 'Period', 'Type', 'Value'])
 
     os.makedirs(output_dir, exist_ok=True)
-    output_file_path = os.path.join(output_dir, f"ML_Embed_installed_solution_{model_type}_{NoSce}_{Seed}.csv")
+    output_file_path = os.path.join(output_dir, f"full_ML_Embed_installed_solution_{model_type}_{NoSce}_{Seed}.csv")
     df.to_csv(output_file_path, index=False)
 
 
@@ -192,7 +192,7 @@ if __name__ == '__main__':
     ModelType = ["MLP", "LR"]
     num_samples = args.num_samples
     seed = args.seed
-    runtime_csv_file = "embedding_log.csv"
+    runtime_csv_file = "full_embedding_log.csv"
 
     for model_type in ModelType:
         print(f"Running {model_type} with {num_samples} samples with {seed} seed")

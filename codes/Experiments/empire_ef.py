@@ -30,7 +30,7 @@ def scenario_creator(scenario_name,seed,num_sce):
 
 def EF(all_scenario_names,SEED,num_sce):
     from mpisppy.opt.ef import ExtensiveForm
-    options = {"solver": "gurobi","solver_options": {"threads":32,"MIPGap": 0.01}}
+    options = {"solver": "gurobi","solver_options": {"threads":8,"MIPGap": 0.01}}
     ef_kwargs = {"seed": SEED, "num_sce": num_sce}
     ef = ExtensiveForm(options, all_scenario_names, scenario_creator, scenario_creator_kwargs=ef_kwargs)
     start_time = time.time()

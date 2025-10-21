@@ -1,19 +1,19 @@
 #!/bin/bash
 #SBATCH --nodes=1                          
 #SBATCH --ntasks=5                         
-#SBATCH --cpus-per-task=8                  
-#SBATCH --mem=64G
-#SBATCH --time=3:00:00
+#SBATCH --cpus-per-task=4                  
+#SBATCH --mem=100G
+#SBATCH --time=8:00:00
 #SBATCH --account=azs7266_sc
 #SBATCH --partition=sla-prio
-#SBATCH --job-name=bd_empire
-#SBATCH --output=logs/ph_%a.out  
-#SBATCH --error=logs/ph_%a.err   
-#SBATCH --array=0-9
+#SBATCH --job-name=ph_empire
+#SBATCH --output=logs/full_ph_%a_%j.out  
+#SBATCH --error=logs/full_ph_%a_%j.err   
+#SBATCH --array=2-9
 
 METHOD="PH"
 SEEDS=(11 12 13 14 15 16 17 18 19 20)
-TIMES=(60 300 600 1800 3600)
+TIMES=(21600) # 60 300 600 1800 3600
 
 NUM_SEEDS=${#SEEDS[@]}
 
@@ -25,7 +25,7 @@ TIME=${TIMES[$TIME_INDEX]}
 
 
 source ~/.bashrc
-conda activate myenv
+conda activate neurmhsp
 module purge
 module load gurobi/10.0.3
 module load gcc/13.2.0

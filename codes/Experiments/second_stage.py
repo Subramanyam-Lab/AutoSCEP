@@ -153,7 +153,7 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
     model.genFuelCost = Param(model.Generator, model.Period, default=0.0, mutable=True)
     model.genMargCost = Param(model.Generator, model.Period, default=600, mutable=True)
     model.genCO2TypeFactor = Param(model.Generator, default=0.0, mutable=True)
-    model.nodeLostLoadCost = Param(model.Node, model.Period, default=2200, mutable=False)
+    model.nodeLostLoadCost = Param(model.Node, model.Period, default=22000, mutable=False)
     model.CO2price = Param(model.Period, default=0.0, mutable=True)
     model.CCSCostTSFix = Param(initialize=1149873.72) #NB! Hard-coded
     model.CCSCostTSVariable = Param(model.Period, default=0.0, mutable=True)
@@ -305,7 +305,7 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
                 else:
                     costperenergyunit=(3.6/model.genEfficiency[g,i])*(model.genFuelCost[g,i]+model.genCO2TypeFactor[g]*model.CO2price[i])+ \
                     model.genVariableOMCost[g]
-                model.genMargCost[g,i]=costperenergyunit*0.81 # 0.81
+                model.genMargCost[g,i]=costperenergyunit
 
     model.build_OperationalCostGen = BuildAction(rule=prepOperationalCostGen_rule)
 
@@ -452,16 +452,11 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
     ##OBJECTIVE##
     #############
 
-    # def Obj_rule(model):
-    #     i = list(model.PeriodActive)[0]  # specific period
-    #     return model.discount_multiplier[i]*(model.shedcomponent[i] + model.operationalcost[i])
-    # model.Obj = Objective(rule=Obj_rule, sense=minimize)
 
     def Obj_rule(model):
         return sum(model.discount_multiplier[i]*(model.shedcomponent[i] + model.operationalcost[i]) for i in model.PeriodActive)
     model.Obj = Objective(rule=Obj_rule, sense=minimize)
 
-    # model.operationalDiscountrate*
     ###############
     ##CONSTRAINTS##
     ###############
@@ -630,9 +625,7 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
 
     opt = SolverFactory('gurobi', Verbose=True)
     opt.options["Crossover"]=0
-    # opt.options["Method"]=2
     opt.options['MIPGap'] = 0.01
-    opt.options['threads'] = 1
     
 
     results = opt.solve(instance, tee=False) 
@@ -642,6 +635,7 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
     obj_value = value(instance.Obj)
     
     total_obj = first_stage_value+ obj_value
+    print(f"first_stage_value:{first_stage_value}")
     return total_obj
 
 
@@ -680,31 +674,6 @@ def load_investment_data(fsd_data):
 def get_value(param):
     return param.value if hasattr(param, 'value') else param
 
-
-def proportional_lost_load(instance):
-    total_count = 0
-    exceed_count = 0
-    for i in instance.PeriodActive:
-        for w in instance.Scenario:
-            # Sum loadShed values for each node and each (season, hour) pair
-            loadshed_sum = sum(
-                value(instance.loadShed[n, h, i, w])
-                for n in instance.Node
-                for (s, h) in instance.HoursOfSeason
-            )
-            total_count += 1
-            if loadshed_sum > 1:
-                exceed_count += 1
-
-    # Calculate the ratio
-    ratio = exceed_count / total_count if total_count > 0 else 0
-    
-    logging.info(f"lost load proportional: {ratio}, {total_count}, {exceed_count}")
-
-    return ratio, total_count, exceed_count
-
-
-
 def calculate_f_x(instance):
     first_stage_val_lst = []
     for i in instance.PeriodActive:
@@ -727,38 +696,4 @@ def calculate_f_x(instance):
 
     return first_stage_val_lst
 
-
-
-import numpy as np
-from pyomo.environ import value
-
-def compute_second_stage_stats(instance):
-    Q_per_scenario = {}
-    for w in instance.Scenario:
-        q_vals = []
-        for i in instance.PeriodActive:
-            # operational cost
-            op_cost = sum(
-                value(instance.discount_multiplier[i])
-                * value(instance.seasScale[s])
-                * value(instance.genMargCost[g, i])
-                * value(instance.genOperational[n, g, h, i, w])
-                for (n, g) in instance.GeneratorsOfNode
-                for (s, h) in instance.HoursOfSeason
-            )
-            # shed cost
-            shed_cost = sum(
-                value(instance.discount_multiplier[i])
-                * value(instance.seasScale[s])
-                * value(instance.nodeLostLoadCost[n, i])
-                * value(instance.loadShed[n, h, i, w])
-                for n in instance.Node
-                for (s, h) in instance.HoursOfSeason
-            )
-            q_vals.append(op_cost + shed_cost)
-        Q_per_scenario[w] = sum(q_vals)
-    q_array = np.array(list(Q_per_scenario.values()), dtype=float)
-    mean_q = np.mean(q_array)
-    std_q = np.std(q_array, ddof=0)
-    return Q_per_scenario, mean_q, std_q
 

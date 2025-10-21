@@ -3,10 +3,10 @@
 
 USE_TEMP_DIR : True #
 temp_dir : './'
-version : 'reduced' # "reduced" or "full"
+version : 'full' # "reduced" or "full"
 Horizon : 2060 
 NoOfScenarios : 1
-lengthRegSeason : 48 # full: 72 
+lengthRegSeason : 12 # full: 72 
 discountrate : 0.05
 WACC : 0.05
 solver : "Gurobi" # "Gurobi"  # #"CPLEX"

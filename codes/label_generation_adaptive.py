@@ -90,11 +90,8 @@ def scenario_folder_generation(lengthRegSeason, seed):
                         "ES": "Spain", "FI": "Finland", "FR": "France",
                         "GB": "GreatBrit.", "GR": "Greece", "HR": "Croatia",
                         "HU": "Hungary", "IE": "Ireland", "IT": "Italy",
-                        "LT": "Lithuania", "LU": "Luxemb.", "LV": "Latvia",
-                        "MK": "Macedonia", "NL": "Netherlands", "NO": "Norway",
-                        "PL": "Poland", "PT": "Portugal", "RO": "Romania",
-                        "RS": "Serbia", "SE": "Sweden", "SI": "Slovenia",
-                        "SK": "Slovakia"}
+                        "LT": "Lithuania", "LU": "Luxemb."}
+
 
     scenario_data_path = f"Data handler/{version}/ScenarioData"
     tab_file_path = f"Data handler/{version}/Tab_Files/scenario_{seed}"
@@ -239,7 +236,6 @@ def label_generation(file_num, specific_period, lengthRegSeason, FSD, num_worker
     results, first_obj, v_dict = batch_estimator(file_num, specific_period, initial_num_sce, lengthRegSeason, FSD, initial_seeds, num_workers)
     
     h_is_fixed = False
-    MAX_L= 72
 
     while True:
         N = len(results)
@@ -259,10 +255,6 @@ def label_generation(file_num, specific_period, lengthRegSeason, FSD, num_worker
 
         if not h_is_fixed and rel_half > threshold_h:
             lengthRegSeason += h_increment
-            
-            if lengthRegSeason > MAX_L:
-                logging.warning(f"Next lengthRegSeason ({lengthRegSeason}) will exceed MAX_L ({MAX_L}). Terminating.")
-                break
             
             logging.info(f"Relative variation is too high (CV={rel_half:.4f}). Increasing fidelity to lengthRegSeason={lengthRegSeason}.")
             used_seeds = initial_seeds
@@ -333,7 +325,7 @@ def main():
     try:
         result_data = label_generation(file_num, period, initial_lengthRegSeason, FSD, num_cpus)
         
-        output_dir = f"training_data_adaptive_{numsam}_{seed}/file_{file_num}"
+        output_dir = f"training_full_data_adaptive_{numsam}_{seed}/file_{file_num}"
         os.makedirs(output_dir, exist_ok=True)
         output_path = os.path.join(output_dir, f"period_{period}.csv")
 
