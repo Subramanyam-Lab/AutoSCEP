@@ -1,10 +1,10 @@
 # AutoSCEP
 
-## Abstract
+### Abstract
 
 This repository accompanies the paper "Machine Learning-Enabled Large-Scale Transmission Capacity Expansion Planning" and contains the official implementation of the models and experiments.
 
-## Repository Structure
+### Repository Structure
 
 ```
 ├── Data handler/           # Dataset files for EMPIRE model
@@ -14,9 +14,9 @@ This repository accompanies the paper "Machine Learning-Enabled Large-Scale Tran
 └── README.md              # This file
 ```
 
-## Installation
+### Installation
 
-### Setup
+#### Setup
 
 1. Clone the repository:
 ```bash
@@ -38,15 +38,15 @@ pip install -r requirements.txt
 ```
 
 
-## Usage
+### Usage
 
-### Important Note on Environment
+#### Important Note on Environment
 
 All code is optimized for use on a **High-Performance Computing (HPC)** cluster. Due to the large size of the EMPIRE model and its dataset, significant computational resources are required. Therefore, running this code on a local laptop or desktop is **not recommended**.
 
 ---
 
-### Automated End-to-End Workflow
+#### Automated End-to-End Workflow
 
 The entire workflow, from initial data generation to solving the final problem, is **fully automated**. Submitting a single job script will automatically execute the following sequence:
 
@@ -60,7 +60,7 @@ To run this complete pipeline, you only need to specify the desired number of sa
 
 ---
 
-### How to Run
+#### How to Run
 
 1.  Open `job.sh` and set the `TOTAL_FILES` variable to the number of samples you want.
 2.  Submit the job by running the following command in your terminal:
@@ -70,11 +70,11 @@ sbatch job.sh
 ```
 
 
-## Solution Validation & Baselines
+### Solution Validation & Baselines
 
 This section outlines how to validate the solution from the machine learning model and how to run the baseline optimization models for comparison.
 
-### Solution Validation
+#### Solution Validation
 
 To validate the feasibility and cost of the solution obtained from the ML-driven approach, follow these steps:
 
@@ -86,20 +86,20 @@ cd Experiments
 sbatch sol_valid_ML.sh
 ```
 
-### Baselines 
+#### Baselines 
 
 The baseline models are implemented using the [``mpi-sppy``](https://mpi-sppy.readthedocs.io/en/latest/) library. which is also optimized for HPC environments. If you wish to use this library, please follow the instructions provided in the official documentation.
 
 Once your environment is configured, you can run the baseline models as follows:
 
-#### Extensive Form (EF)
+##### Extensive Form (EF)
 
 Submit the job using this script:
 
 ```bash
 sbatch main_ef.sh
 ```
-#### Benders Decomposition (BD) & Progressive Hedging (PH)
+##### Benders Decomposition (BD) & Progressive Hedging (PH)
 
 Submit the job using this script:
 
@@ -111,9 +111,9 @@ sbatch main_bm.sh
 
 
 
-## Changelog
+### Changelog
 
-### v1.0.0 (Initial Release)
+#### v1.0.0 (Initial Release)
 - Initial code release
 - Reproducible experiments
 - Complete documentation
