@@ -21,6 +21,7 @@ module load gcc/13.2.0
 module load openmpi/4.1.1-pmi2
 
 export MPICH_ASYNC_PROGRESS=1
+export PYTHONPATH="${PYTHONPATH}:$(dirname $0)/../src"
 echo "Running on nodes: $SLURM_NODELIST (Array Task: $SLURM_ARRAY_TASK_ID)"
 
 seeds=(11) #  12 13 14 15 16 17 18 19 20

@@ -182,15 +182,15 @@ def embed_empire_embedding(version, tab_file_path, result_file_path, temp_dir, F
     file_prefix = f"full_s{NoOfScenarios}"
 
     n_features = 3848 # 616
-    scaler_v = joblib.load(f'models/adaptive/{version}/{file_prefix}_run{Seed}_v_scaler.gz')
+    scaler_v = joblib.load(f'../models/adaptive/{version}/{file_prefix}_run{Seed}_v_scaler.gz')
     data_mean = scaler_v.mean_
     data_std = scaler_v.scale_
 
     first_stage_instance.add_component("v_scaled", Var(RangeSet(1, n_features), domain=Reals))
     base_instance = order_capacity_indices(first_stage_instance, n_features, data_mean, data_std, version)
 
-    scaler_y = joblib.load(f'models/adaptive/{version}/{file_prefix}_run{Seed}_y_scaler.gz')
-    onnx_path = f'models/adaptive/{version}/{file_prefix}_run{Seed}_nn_regressor.onnx'
+    scaler_y = joblib.load(f'../models/adaptive/{version}/{file_prefix}_run{Seed}_y_scaler.gz')
+    onnx_path = f'../models/adaptive/{version}/{file_prefix}_run{Seed}_nn_regressor.onnx'
 
     output_var_name = 'second_stage_value'
     
@@ -198,7 +198,7 @@ def embed_empire_embedding(version, tab_file_path, result_file_path, temp_dir, F
         embedded_instance = embed_omlt_neural_network(instance=base_instance,onnx_path=onnx_path,n_features=n_features,y_scaler=scaler_y)
 
     elif model_type == "LR":
-        embedded_instance = integrate_linear_regression_with_pyomo_model(f'models/adaptive/{version}/{file_prefix}_run{Seed}_lr.joblib', base_instance, output_var_name, scaler_y) # LR
+        embedded_instance = integrate_linear_regression_with_pyomo_model(f'../models/adaptive/{version}/{file_prefix}_run{Seed}_lr.joblib', base_instance, output_var_name, scaler_y) # LR
 
 
 

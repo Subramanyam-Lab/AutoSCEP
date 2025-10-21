@@ -11,7 +11,7 @@ def run_first_stage(version, tab_file_path, result_file_path, temp_dir, FirstHou
 
     model = AbstractModel()
 
-    tab_file_path = f'Data handler/base/{version}'
+    tab_file_path = f'../Data handler/base/{version}'
     
     ########
     ##SETS##

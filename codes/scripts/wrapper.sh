@@ -1,5 +1,5 @@
 #!/bin/bash
-
+export PYTHONPATH="${PYTHONPATH}:$(dirname $0)/../src"
 for seed_value in {1..10} #1..10
 do
   echo "=========================================="

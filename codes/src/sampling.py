@@ -527,10 +527,7 @@ if __name__ == '__main__':
     lengthPeakSeason = 24 # reduced 7
     LeapYearsInvestment = 5
     time_format = "%d/%m/%Y %H:%M"
-    if version in ["europe_v51","europe_reduced_v51"]:
-        north_sea = True
-    else:
-        north_sea = False
+    north_sea = False
 
 
     SEED = 42
@@ -548,10 +545,10 @@ if __name__ == '__main__':
     if moment_matching:
         name = name + "_moment" + str(n_tree_compare)
     name = name + str(datetime.now().strftime("_%Y%m%d%H%M"))
-    workbook_path = 'Data handler/' + version
-    tab_file_path = 'Data handler/' + version + '/Tab_Files_' + name + f'_{SEED}'
-    scenario_data_path = 'Data handler/' + version + '/ScenarioData'
-    result_file_path = 'Results/' + name
+    workbook_path = '../Data handler/' + version
+    tab_file_path = '../Data handler/' + version + '/Tab_Files_' + name + f'_{SEED}'
+    scenario_data_path = '../Data handler/' + version + '/ScenarioData'
+    result_file_path = '../Results/' + name
     FirstHoursOfRegSeason = [lengthRegSeason*i + 1 for i in range(NoOfRegSeason)]
     FirstHoursOfPeakSeason = [lengthRegSeason*NoOfRegSeason + lengthPeakSeason*i + 1 for i in range(NoOfPeakSeason)]
     Period = [i + 1 for i in range(int((Horizon-2020)/LeapYearsInvestment))]

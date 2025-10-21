@@ -6,6 +6,7 @@ LOG_FILE="dataset_generation_full_log_adaptive.csv"
 NUMSAM=$TOTAL_FILES
 SEED=${SEED:-1}
 export NUMSAM SEED
+export PYTHONPATH="${PYTHONPATH}:$(dirname $0)/../src"
 
 echo "====================================="
 echo "STEP 1: Starting Sampling Process"
@@ -75,7 +76,7 @@ echo "STEP 4: Starting Data Preprocessing"
 echo "====================================="
 
 
-python data_preprocessing.py --numsam "$NUMSAM" --seed "$SEED"
+python ../src/data_preprocessing.py --numsam "$NUMSAM" --seed "$SEED"
 echo "Data preprocessing finished."
 
 echo "====================================="

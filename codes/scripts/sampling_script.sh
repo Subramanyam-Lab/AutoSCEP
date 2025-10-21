@@ -17,7 +17,8 @@ source activate myenv
 module load gurobi/10.0.3
 
 echo "Starting sampling with NUMSAM=${NUMSAM}, SEED=${SEED}"
+export PYTHONPATH="${PYTHONPATH}:$(dirname $0)/../src"
 
-python sampling.py --num_samples $NUMSAM --seed $SEED
+python ../src/sampling.py --num_samples $NUMSAM --seed $SEED
 
 echo "Sampling finished."

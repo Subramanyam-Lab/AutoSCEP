@@ -13,6 +13,7 @@
 source ~/.bashrc
 conda activate neurmhsp
 module load gurobi/10.0.3
+export PYTHONPATH="${PYTHONPATH}:$(dirname $0)/../src"
 
 readonly METHOD="PH"
 readonly SOL_TIME=21600

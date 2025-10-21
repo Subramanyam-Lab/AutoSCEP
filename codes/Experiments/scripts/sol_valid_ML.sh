@@ -13,6 +13,7 @@
 source ~/.bashrc
 conda activate neurmhsp
 module load gurobi/10.0.3
+export PYTHONPATH="${PYTHONPATH}:$(dirname $0)/../src"
 
 methods=("MLP" "LR")
 solnums=(1 2 3 4 5 6 7 8 9 10)

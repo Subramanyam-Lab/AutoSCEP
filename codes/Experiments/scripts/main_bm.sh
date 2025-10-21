@@ -11,6 +11,8 @@
 #SBATCH --error=logs/full_ph_%a_%j.err   
 #SBATCH --array=2-9
 
+export PYTHONPATH="${PYTHONPATH}:$(dirname $0)/../src"
+
 METHOD="PH"
 SEEDS=(11 12 13 14 15 16 17 18 19 20)
 TIMES=(21600) # 60 300 600 1800 3600

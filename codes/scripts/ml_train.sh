@@ -12,7 +12,7 @@
 
 source ~/.bashrc
 source activate myenv
-
+export PYTHONPATH="${PYTHONPATH}:$(dirname $0)/../src"
 echo "Starting ML training with NUMSAM=${NUMSAM}, SEED=${SEED}"
 
-python ml_train.py --num_samples $NUMSAM --seed $SEED
+python ../src/ml_train.py --num_samples $NUMSAM --seed $SEED
