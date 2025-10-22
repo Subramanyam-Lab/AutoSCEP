@@ -17,7 +17,7 @@
 ---
 
 ## Abstract
-This repository accompanies the paper "Machine Learning-Enabled Large-Scale Transmission Capacity Expansion Planning" and contains the official implementation of the models and experiments.
+This repository accompanies the paper "Machine Learning-Enabled Large-Scale Capacity Expansion Planning under Uncertainty" and contains the official implementation of the models and experiments.
 
 ---
 
