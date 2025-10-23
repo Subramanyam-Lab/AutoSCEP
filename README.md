@@ -184,20 +184,6 @@ This project builds upon the [EMPIRE](https://github.com/ElsevierSoftwareX/SOFTX
 - [EMPIRE Documentation](https://github.com/ElsevierSoftwareX/SOFTX_2020_62/blob/master/EMPIRE_software_documentation.pdf)
 - [EMPIRE Paper](https://www.sciencedirect.com/science/article/pii/S2352711021001424)
 
-If you use this code, please also cite the original EMPIRE work:
-
-```
-@article{backe2022empire,
-  title={EMPIRE: An open-source model based on multi-horizon programming for energy transition analyses},
-  author={Backe, Stian and Skar, Christian and Del Granado, Pedro Crespo and Turgut, Ozgu and Tomasgard, Asgeir},
-  journal={SoftwareX},
-  volume={17},
-  pages={100877},
-  year={2022},
-  publisher={Elsevier}
-}
-```
-
 
 ## Changelog
 
