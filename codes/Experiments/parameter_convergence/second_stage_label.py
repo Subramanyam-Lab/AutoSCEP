@@ -29,7 +29,7 @@ def run_second_stage(tab_file_path, temp_dir, FirstHoursOfRegSeason, FirstHoursO
     
     # scenariopath = tab_file_path    
     scenariopath = tab_file_path
-    tab_file_path = f"Data handler/base/{version}"
+    tab_file_path = f"../Data handler/base/{version}"
 
     def period_filter(model):
         return [specific_period]

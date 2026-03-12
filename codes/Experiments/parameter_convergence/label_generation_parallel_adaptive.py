@@ -102,8 +102,8 @@ def scenario_folder_generation(lengthRegSeason, seed):
                         "HU": "Hungary", "IE": "Ireland", "IT": "Italy",
                         "LT": "Lithuania", "LU": "Luxemb."}
 
-    scenario_data_path = f"Data handler/{version}/ScenarioData"
-    tab_file_path = f"Data handler/{version}/Tab_Files/scenario_{seed}"
+    scenario_data_path = f"../Data handler/{version}/ScenarioData"
+    tab_file_path = f"../Data handler/{version}/Tab_Files_parameters/scenario_{seed}"
     scenario_folder = os.path.join(tab_file_path, f"len_{lengthRegSeason}")
     os.makedirs(scenario_folder, exist_ok=True)
 

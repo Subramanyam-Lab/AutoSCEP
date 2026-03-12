@@ -250,7 +250,7 @@ def save_aggregated_data(fixed_results, adaptive_results):
     
     if fixed_results:
         fixed_results['summary'].to_csv(
-            os.path.join(output_dir, 'fixed_summary.csv'),
+            os.path.join(output_dir, 'fixed_summary_revision.csv'),
             index=False
         )
         logging.info("Saved: fixed_summary.csv")
@@ -264,7 +264,7 @@ def save_aggregated_data(fixed_results, adaptive_results):
     
     if adaptive_results:
         adaptive_results['summary_df'].to_csv(
-            os.path.join(output_dir, 'adaptive_summary.csv'),
+            os.path.join(output_dir, 'adaptive_summary_revision.csv'),
             index=False
         )
         logging.info("Saved: adaptive_summary.csv")

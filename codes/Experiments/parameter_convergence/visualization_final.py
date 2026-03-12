@@ -1,9 +1,12 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import math
 import seaborn as sns
 import matplotlib as mpl
 from matplotlib.gridspec import GridSpec
+from matplotlib.colors import Normalize
+from matplotlib.cm import ScalarMappable
 
 mpl.rcParams['axes.facecolor'] = '#fafafa'
 mpl.rcParams['figure.facecolor'] = 'white'
@@ -13,16 +16,13 @@ mpl.rcParams['axes.edgecolor'] = '0.6'
 mpl.rcParams['legend.framealpha'] = 0.95
 mpl.rcParams['legend.edgecolor'] = '0.6'
 
-
 mpl.rcParams['text.usetex'] = True
 mpl.rcParams['font.family'] = 'serif'
 mpl.rcParams['font.serif'] = 'Computer Modern'
 mpl.rcParams['font.weight'] = 'heavy'
     
 palette = sns.color_palette("colorblind")
-fixed_method_color = palette[0]
-our_method_color = palette[1]
-savings_fill_color = 'gray'
+
 
 def load_data():
     try:
@@ -31,135 +31,155 @@ def load_data():
         return fixed_summary, adaptive_summary
     except FileNotFoundError as e:
         print(f"error: {e}")
-        fixed_summary = pd.DataFrame({
-            'L': np.repeat(np.arange(10, 51, 10), 4),
-            'N': np.tile(np.arange(10, 41, 10), 5),
-            'mean_E_Q': np.random.rand(20) * 1e6,
-            'avg_exec_time': np.random.rand(20) * 100 + 50
-        })
-        adaptive_summary = pd.DataFrame({
-            'avg_L': [35.5], # random number 
-            'avg_N': [15.2], # random number 
-            'total_E_Q': [np.random.rand() * 1e6],
-            'avg_exec_time': [42.5]
-        })
-        return fixed_summary, adaptive_summary
+        return None, None
+
+
+def floor_dec(x, decimals=2):
+    factor = 10 ** decimals
+    return math.floor(x * factor + 1e-9) / factor
 
 
 def create_gap_heatmap(ax, fixed_summary, adaptive_summary):
-    pivot_eq = fixed_summary.pivot(
-        index='L', 
-        columns='N', 
-        values='mean_E_Q'
+    ref_row = fixed_summary.loc[
+        (fixed_summary['L'] == fixed_summary['L'].max()) &
+        (fixed_summary['N'] == fixed_summary['N'].max())
+    ]
+    ref_cost = ref_row['mean_E_Q'].values[0]
+
+    fixed_summary = fixed_summary.copy()
+    fixed_summary['rel_error'] = (
+        (fixed_summary['mean_E_Q'] - ref_cost) / ref_cost * 100
+    ).abs()
+
+    pivot_rel = fixed_summary.pivot(
+        index='L', columns='N', values='rel_error'
     ).sort_index(ascending=False)
-    
-    cmap = 'RdYlGn_r'
-    
-    scale_factor = 1e12  
-    pivot_eq_scaled = pivot_eq / scale_factor
-    annot_data = pivot_eq_scaled.applymap(lambda x: f'{x:.2f}')
-    
+
+    try:
+        annot_data = pivot_rel.applymap(lambda x: f'{floor_dec(x, 2):.2f}')
+    except AttributeError:
+        annot_data = pivot_rel.map(lambda x: f'{floor_dec(x, 2):.2f}')
+
     sns.heatmap(
-        pivot_eq, 
-        annot=annot_data,
-        fmt='',
-        cmap=cmap, 
-        linewidths=2.0, 
-        linecolor='white',
-        cbar=False,
-        annot_kws={'size': 22, 'weight': 'bold'},
-        ax=ax
+        pivot_rel, annot=annot_data, fmt='',
+        cmap='RdYlGn_r', linewidths=2.0, linecolor='white',
+        cbar=False, annot_kws={'size': 22, 'weight': 'bold'}, ax=ax
     )
-    
-    ax.set_title(r'Estimated Expected Production Cost $\widehat{\mathcal{Q}}$', fontsize=24, fontweight='bold', pad=20)
-    avg_L = adaptive_summary['avg_L'].mean()
-    avg_N = adaptive_summary['avg_N'].mean()
-    
-    L_values = sorted(list(pivot_eq.index), reverse=True)
-    N_values = sorted(list(pivot_eq.columns))
-    
+
+    ax.set_title(
+        r'Relative Error in $\widehat{\mathcal{Q}}$ (\%)',
+        fontsize=24, fontweight='bold', pad=20
+    )
+
+    avg_L = math.floor(adaptive_summary['avg_L'].mean())
+    avg_N = math.floor(adaptive_summary['avg_N'].mean())
+
+    L_values = sorted(list(pivot_rel.index), reverse=True)
+    N_values = sorted(list(pivot_rel.columns))
+
     y_continuous = np.interp(avg_L, L_values[::-1], range(len(L_values))[::-1])
     x_continuous = np.interp(avg_N, N_values, range(len(N_values)))
-    
+
+    adaptive_cost = adaptive_summary['total_E_Q'].mean()
+    adaptive_rel_error = abs((adaptive_cost - ref_cost) / ref_cost * 100)
+
     ax.scatter(
         x_continuous + 0.5, y_continuous + 0.5,
-        marker='*', s=1000, c='darkorange',
-        linewidths=3,
-        label=f'Adaptive ($|\mathcal{{H}}|$={avg_L:.0f}, S={avg_N:.0f})',
+        marker='*', s=1000, c='darkorange', linewidths=3,
+        label=(f'Adaptive ($|\\mathcal{{H}}|$={avg_L}, S={avg_N},'
+               f' {adaptive_rel_error:.2f}\\%)'),
         zorder=8
     )
-    
+
     ax.set_xlabel(r'Number of Scenarios (S)', fontsize=24, fontweight='bold')
     ax.set_ylabel(r'Operational Horizon ($|\mathcal{H}|$)', fontsize=24, fontweight='bold')
     ax.tick_params(axis='both', which='major', labelsize=24)
-    ax.legend(loc='upper right', fontsize=24)
+    ax.legend(loc='upper right', fontsize=18)
 
-def plot_time_vs_h(ax, fixed_df, adaptive_df):
-    S_fixed = 10
-    fixed_S10 = fixed_df[fixed_df['N'] == S_fixed].sort_values('L')
-    adaptive_avg_time = 58.9817
-    
-    ax.plot(fixed_S10['L'], fixed_S10['avg_exec_time'], 
-             marker='o', linewidth=2.5, markersize=8, 
-             label='Fixed Parameters', color=fixed_method_color)
 
-    ax.axhline(y=adaptive_avg_time, color=our_method_color, linestyle='--',
-                linewidth=2.5, label='Adaptive Parameter Selection')
+def plot_time_bar_colored(ax, fixed_df, adaptive_df):
+    ref_row = fixed_df.loc[
+        (fixed_df['L'] == fixed_df['L'].max()) &
+        (fixed_df['N'] == fixed_df['N'].max())
+    ]
+    ref_cost = ref_row['mean_E_Q'].values[0]
 
-    ax.fill_between(fixed_S10['L'], fixed_S10['avg_exec_time'], adaptive_avg_time,
-                      alpha=0.2, color=savings_fill_color, label='Computational Savings')
+    selected_configs = [
+        (5, 12), (10, 24), (10, 36), (20, 36), (30, 48),
+    ]
 
-    ax.set_xlabel(r'Operational Horizon ($|\mathcal{H}|$)', fontsize=24, fontweight='bold')
-    ax.set_ylabel('Time per Label (seconds)', fontsize=24, fontweight='bold')
-    ax.set_title(f'$S = {S_fixed}$ (fixed)', fontsize=24, fontweight='bold')
-    ax.legend(loc='best', fontsize=24)
-    ax.grid(True, which='both', linestyle='--', linewidth=0.5)
-    ax.tick_params(axis='both', which='major', labelsize=24)
+    labels, times, errors = [], [], []
 
-def plot_time_vs_s(ax, fixed_df, adaptive_df):
-    H_fixed = 36
-    available_H = fixed_df['L'].unique()
-    H_fixed = min(available_H, key=lambda x:abs(x-H_fixed))
-    
-    fixed_H_filtered = fixed_df[fixed_df['L'] == H_fixed].sort_values('N')
+    for (S, H) in selected_configs:
+        row = fixed_df[(fixed_df['N'] == S) & (fixed_df['L'] == H)]
+        if len(row) > 0:
+            labels.append(f'($S$={S}, $|\\mathcal{{H}}|$={H})')
+            times.append(row['avg_exec_time'].values[0])
+            cost = row['mean_E_Q'].values[0]
+            errors.append(abs((cost - ref_cost) / ref_cost * 100))
+
     adaptive_avg_time = adaptive_df['avg_exec_time'].mean()
-    
-    ax.plot(fixed_H_filtered['N'], fixed_H_filtered['avg_exec_time'], 
-             marker='s', linewidth=2.5, markersize=8, 
-             label='Fixed Parameters', color=fixed_method_color)
+    adaptive_avg_L = math.floor(adaptive_df['avg_L'].mean())
+    adaptive_avg_N = math.floor(adaptive_df['avg_N'].mean())
+    adaptive_cost = adaptive_df['total_E_Q'].mean()
+    adaptive_error = abs((adaptive_cost - ref_cost) / ref_cost * 100)
 
-    ax.axhline(y=adaptive_avg_time, color=our_method_color, linestyle='--',
-                linewidth=2.5, label='Adaptive Parameter Selection')
+    labels.append(f'Adaptive\n($S$={adaptive_avg_N}, $|\\mathcal{{H}}|$={adaptive_avg_L})')
+    times.append(adaptive_avg_time)
+    errors.append(adaptive_error)
 
-    ax.fill_between(fixed_H_filtered['N'], fixed_H_filtered['avg_exec_time'], adaptive_avg_time,
-                      alpha=0.2, color=savings_fill_color, label='Computational Savings')
+    x_pos = np.arange(len(labels))
 
-    ax.set_xlabel(r'Number of Scenarios ($S$)', fontsize=24, fontweight='bold')
+    cmap = plt.cm.RdYlGn_r
+    norm = Normalize(vmin=0, vmax=max(errors) * 1.1)
+    bar_colors = [cmap(norm(e)) for e in errors]
+
+    bars = ax.bar(x_pos, times, color=bar_colors, width=0.6,
+                  edgecolor='0.3', linewidth=1.0)
+
+    bars[-1].set_edgecolor('darkorange')
+    bars[-1].set_linewidth(3.0)
+
+    for bar, t in zip(bars, times):
+        cx = bar.get_x() + bar.get_width() / 2
+        ax.text(cx, bar.get_height() + 3, f'{t:.0f}s',
+                ha='center', va='bottom', fontsize=20, fontweight='bold')
+
+    sm = ScalarMappable(cmap=cmap, norm=norm)
+    sm.set_array([])
+    cbar = plt.colorbar(sm, ax=ax, pad=0.02, aspect=30, shrink=0.8)
+    cbar.set_label(r'Relative Error (\%)', fontsize=20, fontweight='bold')
+    cbar.ax.tick_params(labelsize=16)
+
+    max_fixed_time = max(times[:-1])
+    ax.axhline(y=max_fixed_time, color='gray', linestyle=':', linewidth=1.0, alpha=0.5)
+
+    ax.set_xticks(x_pos)
+    ax.set_xticklabels(labels, fontsize=15, rotation=15)
     ax.set_ylabel('Time per Label (seconds)', fontsize=24, fontweight='bold')
-    ax.set_title(f'$|\mathcal{{H}}| = {H_fixed}$ (fixed)', fontsize=24, fontweight='bold')
-    ax.legend(loc='best', fontsize=24)
-    ax.grid(True, which='both', linestyle='--', linewidth=0.5)
-    ax.tick_params(axis='both', which='major', labelsize=24)
-    ax.set_xlim(left=0, right=fixed_H_filtered['N'].max() + 5)
+    ax.set_title('Wall-Clock Time Comparison', fontsize=24, fontweight='bold', pad=16)
+    ax.tick_params(axis='y', which='major', labelsize=22)
+    ax.grid(True, axis='y', linestyle='--', linewidth=0.5)
+    ax.set_xlim(-0.5, len(labels) - 0.5)
 
 
 def main():
     fixed_summary, adaptive_summary = load_data()
-    
-    fig = plt.figure(figsize=(27, 9.5))
-    gs = GridSpec(2, 2, figure=fig, width_ratios=[1, 1.6])
+    if fixed_summary is None:
+        print("No data found. Exiting.")
+        return
 
-    ax_heatmap = fig.add_subplot(gs[:, 0])  
-    ax_time_h = fig.add_subplot(gs[0, 1])   
-    ax_time_s = fig.add_subplot(gs[1, 1])   
-    
+    fig = plt.figure(figsize=(28, 9.5))
+    gs = GridSpec(1, 2, figure=fig, width_ratios=[1, 1.1], wspace=0.18)
+
+    ax_heatmap = fig.add_subplot(gs[0, 0])
+    ax_bar = fig.add_subplot(gs[0, 1])
+
     create_gap_heatmap(ax_heatmap, fixed_summary, adaptive_summary)
-    plot_time_vs_h(ax_time_h, fixed_summary, adaptive_summary)
-    plot_time_vs_s(ax_time_s, fixed_summary, adaptive_summary)
-    
-    plt.tight_layout(rect=[0, 0, 1, 0.96]) 
+    plot_time_bar_colored(ax_bar, fixed_summary, adaptive_summary)
+
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
     plt.savefig('combined_plot.png', dpi=300, bbox_inches='tight')
-    
-    
+
 if __name__ == "__main__":
     main()

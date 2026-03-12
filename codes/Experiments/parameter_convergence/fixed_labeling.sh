@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=5
 #SBATCH --time=1:00:00
 #SBATCH --mem=8G
-#SBATCH --account=azs7266_p_gpu
+#SBATCH --account=azs7266_sc
 #SBATCH --partition=sla-prio
 
 mkdir -p sampling_convergence_controlled
