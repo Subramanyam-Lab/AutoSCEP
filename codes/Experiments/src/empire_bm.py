@@ -163,7 +163,7 @@ def Progressive_Hedging(options, scenario_names, seed, num_sce, time_limit):
 
 ############### Benders Decomposition ##################
 
-def BendersDecomposition(options, scenario_names, seed, num_sce):
+def BendersDecomposition(options, scenario_names, seed, num_sce, time_limit):
 
     print("!!Solving with Benders Decomposition!!")
     start_time = time.time()
@@ -192,8 +192,8 @@ def BendersDecomposition(options, scenario_names, seed, num_sce):
                 if fcntl:
                     fcntl.flock(lf, fcntl.LOCK_EX)
                 if need_header:
-                    lf.write("seed,num_of_sce,runtime,lower_bound,upper_bound\n")
-                lf.write(f"{seed},{num_sce},{elapsed:.6f},{best_bound},{best_incumbent}\n")
+                    lf.write("seed,num_of_sce,runtime,lower_bound\n")
+                lf.write(f"{seed},{num_sce},{time_limit:.6f},{best_bound},{best_incumbent}\n")
                 if fcntl:
                     fcntl.flock(lf, fcntl.LOCK_UN)
         except IOError as e:
@@ -278,13 +278,14 @@ if __name__ == '__main__':
             "store_subproblems": True,
             "valid_eta_lb": {name: 0.0 for name in scenario_names},  
             "max_iter": 1000,
+            "time_limit": time_limit,
             "rel_gap": 0.01,
             "abs_gap": 0.0,
             "max_stalled_iters": 20,
             "verbose": True,
             "display_progress": True,
         }
-        BendersDecomposition(options_BD, scenario_names,SEED,num_sce)
+        BendersDecomposition(options_BD, scenario_names,SEED,num_sce, time_limit)
     
     else:
         print(f"Error: Unknown method '{method}'. Please choose 'PH' or 'BD'.")
