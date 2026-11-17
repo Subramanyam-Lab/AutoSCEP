@@ -12,6 +12,8 @@
 - [Solution Validation & Baselines](#solution-validation--baselines)
   - [Solution Validation](#solution-validation)
   - [Baselines](#baselines)
+- [Citation](#citation)
+- [Acknowledgements](#acknowledgements)
 - [Changelog](#changelog)
 
 ---
@@ -91,8 +93,8 @@ Python source code and modules:
 ### Setup
 1. Clone the repository:
 ```bash
-git clone https://github.com/Subramanyam-Lab/NeurMHSP.git
-cd NeurMHSP
+git clone https://github.com/Subramanyam-Lab/AutoSCEP.git
+cd AutoSCEP
 cd codes
 ```
 
@@ -171,6 +173,24 @@ sbatch main_bm.sh
 ```
 
 **Note**: The BD and PH implementations use multiple nodes for parallel computing. Therefore, you **must ensure** that the number of nodes requested in the Slurm script (`--nodes`) matches the number of scenarios you are running.
+
+---
+
+## Citation
+
+If you use AutoSCEP in your research, please cite the following paper:
+
+```bibtex
+@article{kwon2027machine,
+  title     = {Machine learning-enabled large-scale capacity expansion planning under uncertainty},
+  author    = {Kwon, Taehyeon and Subramanyam, Anirudh},
+  journal   = {Electric Power Systems Research},
+  volume    = {263},
+  pages     = {113791},
+  year      = {2027},
+  publisher = {Elsevier}
+}
+```
 
 ---
 
